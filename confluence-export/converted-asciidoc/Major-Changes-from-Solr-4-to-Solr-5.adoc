@@ -1,0 +1,91 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+
+Major Changes from Solr 4 to Solr 5
+-----------------------------------
+
+There are some major changes in Solr 5 to consider before starting to migrate your configurations and indexes. There are many hundreds of changes, so a thorough review of the link:Upgrading-Solr.html[Upgrading Solr] section as well as the http://lucene.apache.org/solr/5_3_0/changes/Changes.html[CHANGES.txt] file in your Solr instance will help you plan your migration to Solr 5. This section attempts to highlight some of the major changes you should be aware of.
+
+Topics discussed in this section:
+
+* link:#MajorChangesfromSolr4toSolr5-HighlightsofNewFeaturesinSolr5[Highlights of New Features in Solr 5]
+* link:#MajorChangesfromSolr4toSolr5-SolrisNowaStandaloneServer[Solr is Now a Standalone Server]
+* link:#MajorChangesfromSolr4toSolr5-IndexFormat[Index Format]
+* link:#MajorChangesfromSolr4toSolr5-solr.xmlFormat[solr.xml Format]
+* link:#MajorChangesfromSolr4toSolr5-CollectionsAPI[Collections API]
+* link:#MajorChangesfromSolr4toSolr5-SolrJchanges[SolrJ changes]
+
+[[MajorChangesfromSolr4toSolr5-HighlightsofNewFeaturesinSolr5]]
+Highlights of New Features in Solr 5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Some of the major improvements in Solr 5 include:
+
+*Ease Of Use*
+
+* Improved link:Solr-Start-Script-Reference.html[`bin/solr`] and new link:Post-Tool.html[`bin/post`] scripts
+* New, and restructured, example link:Config-Sets.html[Config Sets] available by default
+* SolrJ now has first class support for the link:Collections-API.html[Collections API]
+* Implicit registration of `/replication`, `/get`, and `/admin/*` request handlers
+
+*Operational Support*
+
+* Scripts to support link:Taking-Solr-to-Production.html[installing and running Solr as a service on Linux]
+* link:Configuring-Logging.html[Logging improvements]:
+** Transaction log replay status is now logged
+** Optional logging of slow requests.
+* Config API that supports paramsets for easily configuring Solr parameters for request handlers and editing common `solrconfig.xml` options.
+* New link:Blob-Store-API.html[Blob Store API] with support for uploading and distributing plugin jars.
+
+*SolrCloud & Distributed Requests*
+
+* Splitting of clusterstate to per-collection enables scalability improvement in link:SolrCloud.html[SolrCloud]
+* link:Distributed-Requests.html[Distributed IDF Support]
+* Option to configure max bandwidth usage by `ReplicationHandler`
+
+*New Search Functionality*
+
+* `pivot.facet` results can now include link:Faceting.html#Faceting-CombiningStatsComponentWithPivots[nested `stats.field` results constrained by those pivots]
+* `stats.field` can be used to generate statistics over the results of arbitrary numeric functions
+* A new `DateRangeField` has been added for indexing date ranges, especially multi-valued ones
+* link:Spatial-Search.html[Spatial] fields that used to require `units=degrees` now take `distanceUnits=degrees/kilometers` miles instead
+* link:Other-Parsers.html#OtherParsers-MoreLikeThisQueryParser[`MoreLikeThis` query parser] allows requesting for documents similar to an existing document
+* link:Common-Query-Parameters.html#CommonQueryParameters-ThetimeAllowedParameter[`timeAllowed`] is now used to prematurely terminate requests during query expansion and SolrClient request retry
+
+[[MajorChangesfromSolr4toSolr5-SolrisNowaStandaloneServer]]
+Solr is Now a Standalone Server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Beginning with Solr 5.0, Solr is no longer distributed as a "war" (Web Application Archive) suitable for deployment in any Servlet Container. Solr is now distributed as a stand alone java server application, including start and stop scripts for use on Unix and MS-Windows platforms, as well as an link:Taking-Solr-to-Production.html[installation script for setting up a "production" installation of Solr] on *nix platforms managed via `/etc/init.d`.
+
+The link:Upgrading-a-Solr-4.x-Cluster-to-Solr-5.0.html[Upgrading a Solr 4.x Cluster to Solr 5.0] section of this guide provides detailed steps for existing users to upgrade their clusters regardless of what servlet container they were using with Solr 4.
+
+Note:Internally, Solr is still implemented via Servlet APIs and is powered by Jetty -- but this is simply an implementation detail. Deployment as a "webapp" to other Servlet Containers (or other instances of Jetty) is not supported, and may not work in future 5.x versions of Solr when additional changes are likely to be made to Solr internally to leverage custom networking stack features.
+
+[[MajorChangesfromSolr4toSolr5-IndexFormat]]
+Index Format
+~~~~~~~~~~~~
+
+Solr 5 has no support for reading Lucene/Solr 3.x and earlier indexes. Be sure to run the Lucene `IndexUpgrader` included with Solr 4.10 if you might still have old 3x formatted segments in your index. Alternatively: fully optimize your index with Solr 4.10 to make sure it consists only of one up-to-date index segment.
+
+[[MajorChangesfromSolr4toSolr5-solr.xmlFormat]]
+solr.xml Format
+~~~~~~~~~~~~~~~
+
+Solr 4.4 introduced a link:Format-of-solr.xml.html[new format for the `solr.xml`] file, eliminating the need for each `<core>` to be explicitly listed. Instead a process known as "Core Discovery" was introduced relying on `core.properties` files in each SolrCore instance directory.
+
+Solr 5.0 has eliminated all support for the older `solr.xml` format, and moved entirely to core discovery. See the link:Moving-to-the-New-solr.xml-Format.html[Moving to the New solr.xml Format] section for more details.
+
+[[MajorChangesfromSolr4toSolr5-CollectionsAPI]]
+Collections API
+~~~~~~~~~~~~~~~
+
+Solr 5.0 only supports creating and removing SolrCloud collections through the link:Collections-API.html[Collections API], unlike previous versions. While not using the collections API may still work in 5.0, it is unsupported, not recommended, and the behavior will change in a 5.x release.
+
+[[MajorChangesfromSolr4toSolr5-SolrJchanges]]
+SolrJ changes
+~~~~~~~~~~~~~
+
+Many SolrJ methods that were marked deprecated in Solr 4.10 have been removed. Please consult the https://lucene.apache.org/solr/4_10_3/solr-solrj/[Solr 4.10 javadocs for the SolrJ package] for information regarding the new supported methods.
+
+In addition, the `SolrServer` family of classes are now deprecated, and developers are encouraged to instead use the http://lucene.apache.org/solr/5_3_0/solr-solrj/org/apache/solr/client/solrj/SolrClient.html[`SolrClient`] family of classes.

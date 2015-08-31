@@ -1,0 +1,118 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:Searching.html[Searching]
+
+Collapse and Expand Results
+---------------------------
+
+The Collapsing query parser and the Expand component combine to form an approach to grouping documents for field collapsing in search results. The Collapsing query parser groups documents (collapsing the result set) according to your parameters, while the Expand component provides access to documents in the collapsed group for use in results display or other processing by a client application.
+
+Note:
+
+In order to use these features with SolrCloud, the documents must be located on the same shard. To ensure document co-location, you can define the `router.name` parameter as `compositeId` when creating the collection. For more information on this option, see the section link:Shards-and-Indexing-Data-in-SolrCloud.html#ShardsandIndexingDatainSolrCloud-DocumentRouting[Document Routing].
+
+[[CollapseandExpandResults-CollapsingQueryParser]]
+Collapsing Query Parser
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The `CollapsingQParser` is really a _post filter_ that provides more performant field collapsing than Solr's standard approach when the number of distinct groups in the result set is high. This parser collapses the result set to a single document per group before it forwards the result set to the rest of the search components. So all downstream components (faceting, highlighting, etc...) will work with the collapsed result set.
+
+The CollapsingQParser accepts the following local parameters:
+
+[width="100%",cols="34%,33%,33%",options="header",]
+|============================================================================================================================================================================================================================================================================================================================================================================================================
+|Parameter |Description |Default
+|field |The field that is being collapsed on. The field must be a single valued String, Int or Float |none
+|min | max a|
+Selects the group heads by the min or max value of a numeric field or function query.
+
+If not specified group heads will be selected based on the highest scoring documents in the result set.
+
+ |none
+|nullPolicy a|
+There are three null policies:
+
+* **ignore**: removes documents with a null value in the collapse field. This is the default.
+* **expand**: treats each document with a null value in the collapse field as a separate group.
+* **collapse**: collapses all documents with a null value into a single group using either highest score, or minimum/maximum.
+
+ |ignore
+|hint |Currently there is only one hint available "top_fc", which stands for top level FieldCache. The top_fc hint is only available when collapsing on String fields. top_fc provides the best query time speed but takes the longest to warm on startup or following a commit. top_fc also will result in having the collapsed field cached in memory twice if the it's used for faceting or sorting. |none
+|size |Sets the initial size of the collapse data structures when collapsing on a **numeric field only**. The data structures used for collapsing grow dynamically when collapsing on numeric fields. Setting the size above the number of results expected in the result set will eliminate the resizing cost. |100,000
+|============================================================================================================================================================================================================================================================================================================================================================================================================
+
+*Sample Syntax:*
+
+Collapse based on the highest scoring document:
+
+-------------------------------
+fq={!collapse field=field_name}
+-------------------------------
+
+Collapse based on the minimum value of a numeric field:
+
+-----------------------------------------------
+fq={!collapse field=field_name min=field_name} 
+-----------------------------------------------
+
+Collapse based on the maximum value of a numeric field:
+
+-----------------------------------------------
+fq={!collapse field=field_name max=field_name} 
+-----------------------------------------------
+
+Collapse based on the min/max value of a function. The *cscore()* function can be used with the CollapsingQParserPlugin to return the score of the current document being collapsed.
+
+-----------------------------------------------------------
+fq={!collapse field=field_name max=sum(cscore(),field(A))} 
+-----------------------------------------------------------
+
+Collapse with a null policy:
+
+------------------------------------------------------
+fq={!collapse field=field_name nullPolicy=nullPolicy} 
+------------------------------------------------------
+
+Collapse with a hint:
+
+--------------------------------------------
+fq={!collapse field=field_name hint=top_fc} 
+--------------------------------------------
+
+The CollapsingQParserPlugin fully supports the QueryElevationComponent.
+
+[[CollapseandExpandResults-ExpandComponent]]
+Expand Component
+~~~~~~~~~~~~~~~~
+
+The ExpandComponent can be used to expand the groups that were collapsed by the http://heliosearch.org/the-collapsingqparserplugin-solrs-new-high-performance-field-collapsing-postfilter/[CollapsingQParserPlugin].
+
+Example usage with the CollapsingQParserPlugin:
+
+-------------------------------
+q=foo&fq={!collapse field=ISBN}
+-------------------------------
+
+In the query above, the CollapsingQParserPlugin will collapse the search results on the _ISBN_ field. The main search results will contain the highest ranking document from each book.
+
+The ExpandComponent can now be used to expand the results so you can see the documents grouped by ISBN. For example:
+
+-------------------------------------------
+q=foo&fq={!collapse field=ISBN}&expand=true
+-------------------------------------------
+
+The “expand=true” parameter turns on the ExpandComponent. The ExpandComponent adds a new section to the search output labeled “expanded”.
+
+Inside the expanded section there is a _map_ with each group head pointing to the expanded documents that are within the group. As applications iterate the main collapsed result set, they can access the _expanded_ map to retrieve the expanded groups.
+
+The ExpandComponent has the following parameters:
+
+[cols=",,",options="header",]
+|==========================================================================================================
+|Parameter |Description |Default
+|expand.sort |Orders the documents within the expanded groups |score desc
+|expand.rows |The number of rows to display in each group |5
+|expand.q |Overrides the main q parameter, determines which documents to include in the main group. |main q
+|expand.fq |Overrides main fq's, determines which documents to include in the main group. |main fq's
+|==========================================================================================================
+

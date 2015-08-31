@@ -1,0 +1,57 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:The-Well-Configured-Solr-Instance.html[The Well-Configured Solr Instance]
+4.  link:Configuring-solrconfig.xml.html[Configuring solrconfig.xml]
+
+Managed Schema Definition in SolrConfig
+---------------------------------------
+
+The link:Schema-API.html[Schema API] enables link:32604263.html[schema] modifications through a REST interface. (Read-only access to all schema elements is also supported.)
+
+There are challenges with allowing programmatic access to a configuration file that is also open to manual edits: system-generated and manual edits may overlap and the system-generated edits may remove comments or other customizations that are critical for the organization to understand why fields, field types, etc., are defined the way they are. You may want to version the file with source control, or limit manual edits altogether.
+
+The `schemaFactory` option in `solrconfig.xml` controls whether the Schema should be defined as a "managed index schema": schema modification is only possible through the link:Schema-API.html[Schema API].
+
+By default, if no `schemaFactory` is specified, then the default behavior is to use the `"ClassicIndexSchemaFactory"` as in this example from the` sample_techproducts_configs` link:Config-Sets.html[config set]:
+
+----------------------------------------------------
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
+----------------------------------------------------
+
+The `ClassicIndexSchemaFactory` requires the use of a `schema.xml` file, which can be edited manually and is only loaded only when the collection is loaded. This setting disallows Schema API methods that modify the schema.
+
+In the `data_driven_schema_configs` config set however, we see a usage of the `ManagedIndexSchemaFactory`:
+
+----------------------------------------------------------------------------------
+ <!-- To disable dynamic schema REST APIs, use the following for <schemaFactory>:
+  
+      <schemaFactory class="ClassicIndexSchemaFactory"/>
+      When ManagedIndexSchemaFactory is specified instead, Solr will load the
+      schema from he resource named in 'managedSchemaResourceName', rather than
+      from schema.xml. Note that the managed schema resource CANNOT be named
+      schema.xml. If the managed schema does not exist, Solr will create it after
+      reading schema.xml, then rename 'schema.xml' to 'schema.xml.bak'.
+       
+      Do NOT hand edit the managed schema - external modifications will be ignored
+      and overwritten as a result of schema modification REST API calls. When
+      ManagedIndexSchemaFactory is specified with mutable = true, schema
+      modification REST API calls will be allowed; otherwise, error responses will
+      be sent back for these requests.
+ -->
+  <schemaFactory class="ManagedIndexSchemaFactory">
+    <bool name="mutable">true</bool>
+    <str name="managedSchemaResourceName">managed-schema</str>
+  </schemaFactory>
+----------------------------------------------------------------------------------
+
+Here you can see configuration for the managed schema. In order for schema modifications to be possible via the link:Schema-API.html[Schema API], the `ManagedIndexSchemaFactory` will need to be used. The parameter `mutable` must also be set to **true**. The `managedSchemaResourceName`, which defaults to "managed-schema", may also be defined, and can be anything other than "`schema.xml`".
+
+With the above configuration, you can use the link:Schema-API.html[Schema API] to modify the schema as much as you want, and then later change the value of `mutable` to *false* if you wish to "lock" the schema in place and prevent future changes.
+
+If you have an existing Solr collection you wish to convert to use a managed schema, you can simplify modify the `solrconfig.xml` to specify the use of the `ManagedIndexSchemaFactory`. Once Solr is restarted and it detects that a `schema.xml` file exists, but the `managedSchemaResourceName` file does not exist, the existing `schema.xml` file will be renamed to `schema.xml.bak` and the contents are written to a file with the name defined as the `managedSchemaResourceName`. If you look at the resulting file, you'll see this at the top of the page:
+
+--------------------------------------------------------------------
+<!-- Solr managed schema - automatically generated - DO NOT EDIT -->
+--------------------------------------------------------------------
+
+You are now free to use the link:Schema-API.html[Schema API] as much as you want to make changes, and remove the `schema.xml.bak`.

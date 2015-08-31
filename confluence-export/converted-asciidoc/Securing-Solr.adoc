@@ -1,0 +1,17 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:Managing-Solr.html[Managing Solr]
+
+Securing Solr
+-------------
+
+When planning how to secure Solr, you should consider which of the available features or approaches are right for you.
+
+* Authentication or authorization of users using:
+** link:Kerberos-Authentication-Plugin.html[Kerberos Authentication Plugin]
+** link:Basic-Authentication-Plugin.html[Basic Authentication Plugin]
+** link:Rule-Based-Authorization-Plugin.html[Rule-Based Authorization Plugin]
+** link:Authentication-and-Authorization-Plugins.html[Custom authentication or authorization plugin]
+* link:Enabling-SSL.html[Enabling SSL]
+* If using SolrCloud, link:ZooKeeper-Access-Control.html[ZooKeeper Access Control]
+

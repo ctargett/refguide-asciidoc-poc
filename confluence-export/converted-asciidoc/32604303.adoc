@@ -1,0 +1,89 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:SolrCloud.html[SolrCloud]
+4.  link:How-SolrCloud-Works.html[How SolrCloud Works]
+
+32604303
+--------
+
+[[Nodes,Cores,ClustersandLeaders-NodesandCores]]
+Nodes and Cores
+~~~~~~~~~~~~~~~
+
+In SolrCloud, a _node_ is Java Virtual Machine instance running Solr, commonly called a server. Each Solr core can also be considered a node. Any node can contain both an instance of Solr and various kinds of data.
+
+A Solr _core_ is basically an index of the text and fields found in documents. A single Solr instance can contain multiple "cores", which are separate from each other based on local criteria. It might be that they are going to provide different search interfaces to users (customers in the US and customers in Canada, for example), or they have security concerns (some users cannot have access to some documents), or the documents are really different and just won't mix well in the same index (a shoe database and a dvd database).
+
+When you start a new core in SolrCloud mode, it registers itself with ZooKeeper. This involves creating an Ephemeral node that will go away if the Solr instance goes down, as well as registering information about the core and how to contact it (such as the base Solr URL, core name, etc). Smart clients and nodes in the cluster can use this information to determine who they need to talk to in order to fulfill a request.
+
+New Solr cores may also be created and associated with a collection via http://wiki.apache.org/solr/CoreAdmin[CoreAdmin]. Additional cloud-related parameters are discussed in the link:Parameter-Reference.html[Parameter Reference] page. Terms used for the CREATE action are:
+
+* **collection**: the name of the collection to which this core belongs. Default is the name of the core.
+* **shard**: the shard id this core represents. (Optional: normally you want to be auto assigned a shard id.)
+* **collection.<param>=<value>**: causes a property of `<param>=<value>` to be set if a new collection is being created. For example, use `collection.configName=<configname>` to point to the config for a new collection.
+
+For example:
+
+---------------------------------------------------------------------
+curl  'http://localhost:8983/solr/admin/cores?
+     action=CREATE&name=mycore&collection=my_collection&shard=shard2'
+---------------------------------------------------------------------
+
+[[Nodes,Cores,ClustersandLeaders-Clusters]]
+Clusters
+~~~~~~~~
+
+A cluster is set of Solr nodes managed by ZooKeeper as a single unit. When you have a cluster, you can always make requests to the cluster and if the request is acknowledged, you can be sure that it will be managed as a unit and be durable, i.e., you won't lose data. Updates can be seen right after they are made and the cluster can be expanded or contracted.
+
+[[Nodes,Cores,ClustersandLeaders-CreatingaCluster]]
+Creating a Cluster
+^^^^^^^^^^^^^^^^^^
+
+A cluster is created as soon as you have more than one Solr instance registered with ZooKeeper. The section link:Getting-Started-with-SolrCloud.html[Getting Started with SolrCloud] reviews how to set up a simple cluster.
+
+[[Nodes,Cores,ClustersandLeaders-ResizingaCluster]]
+Resizing a Cluster
+^^^^^^^^^^^^^^^^^^
+
+Clusters contain a settable number of shards. You set the number of shards for a new cluster by passing a system property, `numShards`, when you start up Solr. The `numShards` parameter must be passed on the first startup of any Solr node, and is used to auto-assign which shard each instance should be part of. Once you have started up more Solr nodes than `numShards`, the nodes will create replicas for each shard, distributing them evenly across the node, as long as they all belong to the same collection.
+
+To add more cores to your collection, simply start the new core. You can do this at any time and the new core will sync its data with the current replicas in the shard before becoming active.
+
+You can also avoid `numShards` and manually assign a core a shard ID if you choose.
+
+The number of shards determines how the data in your index is broken up, so you cannot change the number of shards of the index after initially setting up the cluster.
+
+However, you do have the option of breaking your index into multiple shards to start with, even if you are only using a single machine. You can then expand to multiple machines later. To do that, follow these steps:
+
+1.  Set up your collection by hosting multiple cores on a single physical machine (or group of machines). Each of these shards will be a leader for that shard.
+2.  When you're ready, you can migrate shards onto new machines by starting up a new replica for a given shard on each new machine.
+3.  Remove the shard from the original machine. ZooKeeper will promote the replica to the leader for that shard.
+
+[[Nodes,Cores,ClustersandLeaders-LeadersandReplicas]]
+Leaders and Replicas
+~~~~~~~~~~~~~~~~~~~~
+
+The concept of a _leader_ is similar to that of _master_ when thinking of traditional Solr replication. The leader is responsible for making sure the _replicas_ are up to date with the same information stored in the leader.
+
+However, with SolrCloud, you don't simply have one master and one or more "slaves", instead you likely have distributed your search and index traffic to multiple machines. If you have bootstrapped Solr with `numShards=2`, for example, your indexes are split across both shards. In this case, both shards are considered leaders. If you start more Solr nodes after the initial two, these will be automatically assigned as replicas for the leaders.
+
+Replicas are assigned to shards in the order they are started the first time they join the cluster. This is done in a round-robin manner, unless the new node is manually assigned to a shard with the `shardId` parameter during startup. This parameter is used as a system property, as in `-DshardId=1`, the value of which is the ID number of the shard the new node should be attached to.
+
+On subsequent restarts, each node joins the same shard that it was assigned to the first time the node was started (whether that assignment happened manually or automatically). A node that was previously a replica, however, may become the leader if the previously assigned leader is not available.
+
+Consider this example:
+
+* Node A is started with the bootstrap parameters, pointing to a stand-alone ZooKeeper, with the `numShards` parameter set to 2.
+* Node B is started and pointed to the stand-alone ZooKeeper.
+
+Nodes A and B are both shards, and have fulfilled the 2 shard slots we defined when we started Node A. If we look in the Solr Admin UI, we'll see that both nodes are considered leaders (indicated with a solid blank circle).
+
+* Node C is started and pointed to the stand-alone ZooKeeper.
+
+Node C will automatically become a replica of Node A because we didn't specify any other shard for it to belong to, and it cannot become a new shard because we only defined two shards and those have both been taken.
+
+* Node D is started and pointed to the stand-alone ZooKeeper.
+
+Node D will automatically become a replica of Node B, for the same reasons why Node C is a replica of Node A.
+
+Upon restart, suppose that Node C starts before Node A. What happens? Node C will become the leader, while Node A becomes a replica of Node C.

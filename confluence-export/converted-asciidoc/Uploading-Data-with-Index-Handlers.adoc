@@ -1,0 +1,800 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:Indexing-and-Basic-Data-Operations.html[Indexing and Basic Data Operations]
+
+Uploading Data with Index Handlers
+----------------------------------
+
+Index Handlers are Request Handlers designed to add, delete and update documents to the index. In addition to having plugins for importing rich documents link:Uploading-Data-with-Solr-Cell-using-Apache-Tika.html[using Tika] or from structured data sources using the link:Uploading-Structured-Data-Store-Data-with-the-Data-Import-Handler.html[Data Import Handler], Solr natively supports indexing structured documents in XML, CSV and JSON.
+
+The recommended way to configure and use request handlers is with path based names that map to paths in the request url. However, request handlers can also be specified with the `qt` (query type) parameter if the ` requestDispatcher ` is appropriately configured. It is possible to access the same handler using more than one name, which can be useful if you wish to specify different sets of default options.
+
+A single unified update request handler supports XML, CSV, JSON, and javabin update requests, delegating to the appropriate `ContentStreamLoader` based on the `Content-Type` of the link:Content-Streams.html[ContentStream].
+
+Topics covered in this section:
+
+* link:#UploadingDatawithIndexHandlers-UpdateRequestHandlerConfiguration[UpdateRequestHandler Configuration]
+* link:#UploadingDatawithIndexHandlers-XMLFormattedIndexUpdates[XML Formatted Index Updates]
+** link:#UploadingDatawithIndexHandlers-AddingDocuments[Adding Documents]
+** link:#UploadingDatawithIndexHandlers-XMLUpdateCommands[XML Update Commands]
+** link:#UploadingDatawithIndexHandlers-UsingcurltoPerformUpdates[Using curl to Perform Updates]
+** link:#UploadingDatawithIndexHandlers-UsingXSLTtoTransformXMLIndexUpdates[Using XSLT to Transform XML Index Updates]
+* link:#UploadingDatawithIndexHandlers-JSONFormattedIndexUpdates[JSON Formatted Index Updates]
+** link:#UploadingDatawithIndexHandlers-Solr-StyleJSON[Solr-Style JSON]
+** link:#UploadingDatawithIndexHandlers-JSONUpdateConveniencePaths[JSON Update Convenience Paths]
+** link:#UploadingDatawithIndexHandlers-TransformingandIndexingCustomJSON[Transforming and Indexing Custom JSON]
+* link:#UploadingDatawithIndexHandlers-CSVFormattedIndexUpdates[CSV Formatted Index Updates]
+** link:#UploadingDatawithIndexHandlers-CSVUpdateParameters[CSV Update Parameters]
+** link:#UploadingDatawithIndexHandlers-IndexingTab-Delimitedfiles[Indexing Tab-Delimited files]
+** link:#UploadingDatawithIndexHandlers-CSVUpdateConveniencePaths[CSV Update Convenience Paths]
+* link:#UploadingDatawithIndexHandlers-NestedChildDocuments[Nested Child Documents]
+
+[[UploadingDatawithIndexHandlers-UpdateRequestHandlerConfiguration]]
+UpdateRequestHandler Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The default configuration file has the update request handler configured by default.
+
+-------------------------------------------------------------------
+<requestHandler name="/update" class="solr.UpdateRequestHandler" />
+-------------------------------------------------------------------
+
+link:#main[Back to Top]
+
+[[UploadingDatawithIndexHandlers-XMLFormattedIndexUpdates]]
+XML Formatted Index Updates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Index update commands can be sent as XML message to the update handler using `Content-type: application/xml` or `Content-type: text/xml`.
+
+[[UploadingDatawithIndexHandlers-AddingDocuments]]
+Adding Documents
+^^^^^^^^^^^^^^^^
+
+The XML schema recognized by the update handler for adding documents is very straightforward:
+
+* The `<add>` element introduces one more documents to be added.
+* The `<doc>` element introduces the fields making up a document.
+* The `<field>` element presents the content for a specific field.
+
+For example:
+
+--------------------------------------------------------------------------------------------------------------------
+<add>
+  <doc>
+    <field name="authors">Patrick Eagar</field>
+    <field name="subject">Sports</field>
+    <field name="dd">796.35</field>
+    <field name="numpages">128</field>
+    <field name="desc"></field>
+    <field name="price">12.40</field>
+    <field name="title" boost="2.0">Summer of the all-rounder: Test and championship cricket in England 1982</field>
+    <field name="isbn">0002166313</field>
+    <field name="yearpub">1982</field>
+    <field name="publisher">Collins</field>
+  </doc>
+  <doc boost="2.5">
+  ...
+  </doc>
+</add>
+--------------------------------------------------------------------------------------------------------------------
+
+Each element has certain optional attributes which may be specified.
+
+[width="100%",cols="34%,33%,33%",options="header",]
+|========================================================================================================================================================================
+|Command |Optional Parameter |Parameter Description
+|<add> |commitWithin=__number__ |Add the document within the specified number of milliseconds
+|<add> |overwrite=__boolean__ |Default is true. Indicates if the unique key constraints should be checked to overwrite previous versions of the same document (see below)
+|<doc> |boost=__float__ |Default is 1.0. Sets a boost value for the document.To learn more about boosting, see link:Searching.html[Searching].
+|<field> |boost=__float__ |Default is 1.0. Sets a boost value for the field.
+|========================================================================================================================================================================
+
+If the document schema defines a unique key, then by default an `/update` operation to add a document will overwrite (ie: replace) any document in the index with the same unique key. If no unique key has been defined, indexing performance is somewhat faster, as no check has to be made for an existing documents to replace.
+
+If you have a unique key field, but you feel confident that you can safely bypass the uniqueness check (eg: you build your indexes in batch, and your indexing code guarantees it never adds the same document more then once) you can specify the `overwrite="false"` option when adding your documents.
+
+[[UploadingDatawithIndexHandlers-XMLUpdateCommands]]
+XML Update Commands
+^^^^^^^^^^^^^^^^^^^
+
+[[UploadingDatawithIndexHandlers-CommitandOptimizeOperations]]
+Commit and Optimize Operations
+++++++++++++++++++++++++++++++
+
+The `<commit>` operation writes all documents loaded since the last commit to one or more segment files on the disk. Before a commit has been issued, newly indexed content is not visible to searches. The commit operation opens a new searcher, and triggers any event listeners that have been configured.
+
+Commits may be issued explicitly with a `<commit/>` message, and can also be triggered from `<autocommit>` parameters in `solrconfig.xml`.
+
+The `<optimize>` operation requests Solr to merge internal data structures in order to improve search performance. For a large index, optimization will take some time to complete, but by merging many small segment files into a larger one, search performance will improve. If you are using Solr's replication mechanism to distribute searches across many systems, be aware that after an optimize, a complete index will need to be transferred. In contrast, post-commit transfers are usually much smaller.
+
+The `<commit>` and `<optimize>` elements accept these optional attributes:
+
+[width="100%",cols="50%,50%",options="header",]
+|===========================================================================================================================================
+|Optional Attribute |Description
+|waitSearcher |Default is true. Blocks until a new searcher is opened and registered as the main query searcher, making the changes visible.
+|expungeDeletes |(commit only) Default is false. Merges segments that have more than 10% deleted docs, expunging them in the process.
+|maxSegments |(optimize only) Default is 1. Merges the segments down to no more than this number of segments.
+|===========================================================================================================================================
+
+Here are examples of <commit> and <optimize> using optional attributes:
+
+----------------------------------------------------
+<commit waitSearcher="false"/>
+<commit waitSearcher="false" expungeDeletes="true"/>
+<optimize waitSearcher="false"/>
+----------------------------------------------------
+
+[[UploadingDatawithIndexHandlers-DeleteOperations]]
+Delete Operations
++++++++++++++++++
+
+Documents can be deleted from the index in two ways. "Delete by ID" deletes the document with the specified ID, and can be used only if a UniqueID field has been defined in the schema. "Delete by Query" deletes all documents matching a specified query, although `commitWithin` is ignored for a Delete by Query. A single delete message can contain multiple delete operations.
+
+----------------------------------
+<delete>
+  <id>0002166313</id>
+  <id>0031745983</id>
+  <query>subject:sport</query>
+  <query>publisher:penguin</query>
+</delete>
+----------------------------------
+
+When using the Join query parser, you should use the `score` parameter with a value of `none` to avoid a `ClassCastException`. See the section on the link:Other-Parsers.html[Join Query Parser] for more details on the `score` parameter.
+
+[[UploadingDatawithIndexHandlers-RollbackOperations]]
+Rollback Operations
++++++++++++++++++++
+
+The rollback command rolls back all add and deletes made to the index since the last commit. It neither calls any event listeners nor creates a new searcher. Its syntax is simple: `<rollback/>`.
+
+[[UploadingDatawithIndexHandlers-UsingcurltoPerformUpdates]]
+Using `curl` to Perform Updates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can use the `curl` utility to perform any of the above commands, using its `--data-binary` option to append the XML message to the `curl` command, and generating a HTTP POST request. For example:
+
+------------------------------------------------------------------------------------------------
+curl http://localhost:8983/solr/my_collection/update -H "Content-Type: text/xml" --data-binary '
+<add>
+  <doc>
+    <field name="authors">Patrick Eagar</field>
+    <field name="subject">Sports</field>
+    <field name="dd">796.35</field>
+    <field name="isbn">0002166313</field>
+    <field name="yearpub">1982</field>
+    <field name="publisher">Collins</field>
+  </doc>
+</add>'
+------------------------------------------------------------------------------------------------
+
+For posting XML messages contained in a file, you can use the alternative form:
+
+----------------------------------------------------------------------------------------------------------
+curl http://localhost:8983/solr/my_collection/update -H "Content-Type: text/xml" --data-binary @myfile.xml
+----------------------------------------------------------------------------------------------------------
+
+Short requests can also be sent using a HTTP GET command, URL-encoding the request, as in the following. Note the escaping of "<" and ">":
+
+------------------------------------------------------------------------------
+curl http://localhost:8983/solr/my_collection/update?stream.body=%3Ccommit/%3E
+------------------------------------------------------------------------------
+
+Responses from Solr take the form shown here:
+
+-------------------------------
+<response>
+  <lst name="responseHeader">
+    <int name="status">0</int>
+    <int name="QTime">127</int>
+  </lst>
+</response>
+-------------------------------
+
+The status field will be non-zero in case of failure.
+
+[[UploadingDatawithIndexHandlers-UsingXSLTtoTransformXMLIndexUpdates]]
+Using XSLT to Transform XML Index Updates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The UpdateRequestHandler allows you to index any arbitrary XML using the `<tr>` parameter to apply an https://en.wikipedia.org/wiki/XSLT[XSL transformation]. You must have an XSLT stylesheet in the `conf/xslt` directory of your link:Config-Sets.html[config set] that can transform the incoming data to the expected `<add><doc/></add>` format, and use the `tr` parameter to specify the name of that stylesheet.
+
+Here is an example XSLT stylesheet:
+
+---------------------------------------------------------------------------------
+<xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform'>
+  <xsl:output media-type="text/xml" method="xml" indent="yes"/>
+  <xsl:template match='/'>
+    <add>
+      <xsl:apply-templates select="response/result/doc"/>
+    </add>
+  </xsl:template>  
+  <!-- Ignore score (makes no sense to index) -->
+  <xsl:template match="doc/*[@name='score']" priority="100"></xsl:template>
+  <xsl:template match="doc">
+    <xsl:variable name="pos" select="position()"/>
+    <doc>
+      <xsl:apply-templates>
+        <xsl:with-param name="pos"><xsl:value-of select="$pos"/></xsl:with-param>
+      </xsl:apply-templates>
+    </doc>
+  </xsl:template>
+  <!-- Flatten arrays to duplicate field lines -->
+  <xsl:template match="doc/arr" priority="100">
+    <xsl:variable name="fn" select="@name"/>
+    <xsl:for-each select="*">
+      <xsl:element name="field">
+        <xsl:attribute name="name"><xsl:value-of select="$fn"/></xsl:attribute>
+        <xsl:value-of select="."/>
+      </xsl:element>
+    </xsl:for-each>
+  </xsl:template>
+  <xsl:template match="doc/*">
+    <xsl:variable name="fn" select="@name"/>
+      <xsl:element name="field">
+        <xsl:attribute name="name"><xsl:value-of select="$fn"/></xsl:attribute>
+      <xsl:value-of select="."/>
+    </xsl:element>
+  </xsl:template>
+  <xsl:template match="*"/>
+</xsl:stylesheet>
+---------------------------------------------------------------------------------
+
+This stylesheet transforms Solr's XML search result format into Solr's Update XML syntax. One example usage would be to copy a Solr 1.3 index (which does not have CSV response writer) into a format which can be indexed into another Solr file (provided that all fields are stored):
+
+----------------------------------------------------------------------------------------
+http://localhost:8983/solr/my_collection/select?q=*:*&wt=xslt&tr=updateXml.xsl&rows=1000
+----------------------------------------------------------------------------------------
+
+You can also use the stylesheet in `XsltUpdateRequestHandler` to transform an index when updating:
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+curl "http://localhost:8983/solr/my_collection/update?commit=true&tr=updateXml.xsl" -H "Content-Type: text/xml" --data-binary @myexporteddata.xml
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+For more information about the XML Update Request Handler, see https://wiki.apache.org/solr/UpdateXmlMessages.
+
+link:#main[Back to Top]
+
+[[UploadingDatawithIndexHandlers-JSONFormattedIndexUpdates]]
+JSON Formatted Index Updates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Solr can accept JSON that conforms to a defined structure, or can accept arbitrary JSON-formatted documents. If sending arbitrarily formatted JSON, there are some additional parameters that need to be sent with the update request, described below in the section link:#UploadingDatawithIndexHandlers-TransformingandIndexingCustomJSON[Transforming and Indexing Custom JSON].
+
+[[UploadingDatawithIndexHandlers-Solr-StyleJSON]]
+Solr-Style JSON
+^^^^^^^^^^^^^^^
+
+JSON formatted update requests may be sent to Solr's `/update` handler using `Content-Type: application/json` or `Content-Type: text/json`.
+
+JSON formatted updates can take 3 basic forms, described in depth below:
+
+* link:#UploadingDatawithIndexHandlers-AddingaSingleJSONDocument[A single document to add], expressed as a top level JSON Object. To differentiate this from a set of commands, the `json.command=false` request parameter is required.
+* link:#UploadingDatawithIndexHandlers-AddingMultipleJSONDocuments[A list of documents to add], expressed as a top level JSON Array containing a JSON Object per document.
+* link:#UploadingDatawithIndexHandlers-SendingJSONUpdateCommands[A sequence of update commands], expressed as a top level JSON Object (aka: Map).
+
+[[UploadingDatawithIndexHandlers-AddingaSingleJSONDocument]]
+Adding a Single JSON Document
++++++++++++++++++++++++++++++
+
+The simplest way to add Documents via JSON is to send each document individually as a JSON Object, using the `/update/json/docs` path:
+
+----------------------------------------------------------------------------------------------------------------------------
+curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/my_collection/update/json/docs' --data-binary '
+{
+  "id": "1",
+  "title": "Doc 1"
+}'
+----------------------------------------------------------------------------------------------------------------------------
+
+[[UploadingDatawithIndexHandlers-AddingMultipleJSONDocuments]]
+Adding Multiple JSON Documents
+++++++++++++++++++++++++++++++
+
+Adding multiple documents at one time via JSON can be done via a JSON Array of JSON Objects, where each object represents a document:
+
+------------------------------------------------------------------------------------------------------------------
+curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/my_collection/update' --data-binary '
+[
+  {
+    "id": "1",
+    "title": "Doc 1"
+  },
+  {
+    "id": "2",
+    "title": "Doc 2"
+  }
+]' 
+------------------------------------------------------------------------------------------------------------------
+
+A sample JSON file is provided at `example/exampledocs/books.json` and contains an array of objects that you can add to the Solr `techproducts` example:
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+curl 'http://localhost:8983/solr/techproducts/update?commit=true' --data-binary @example/exampledocs/books.json -H 'Content-type:application/json'
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+[[UploadingDatawithIndexHandlers-SendingJSONUpdateCommands]]
+Sending JSON Update Commands
+++++++++++++++++++++++++++++
+
+In general, the JSON update syntax supports all of the update commands that the XML update handler supports, through a straightforward mapping. Multiple commands, adding and deleting documents, may be contained in one message:
+
+------------------------------------------------------------------------------------------------------------------
+curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/my_collection/update' --data-binary '
+{
+  "add": {
+    "doc": {
+      "id": "DOC1",
+      "my_boosted_field": {        /* use a map with boost/value for a boosted field */
+        "boost": 2.3,
+        "value": "test"
+      },
+      "my_multivalued_field": [ "aaa", "bbb" ]   /* Can use an array for a multi-valued field */
+    }
+  },
+  "add": {
+    "commitWithin": 5000,          /* commit this document within 5 seconds */
+    "overwrite": false,            /* don't check for existing documents with the same uniqueKey */
+    "boost": 3.45,                 /* a document boost */
+    "doc": {
+      "f1": "v1",                  /* Can use repeated keys for a multi-valued field */
+      "f1": "v2"
+    }
+  },
+
+  "commit": {},
+  "optimize": { "waitSearcher":false },
+
+  "delete": { "id":"ID" },         /* delete by ID */
+  "delete": { "query":"QUERY" }    /* delete by query */
+}' 
+------------------------------------------------------------------------------------------------------------------
+
+Note:
+
+Comments are not allowed in JSON, but duplicate names are.
+
+The comments in the above example are for illustrative purposes only, and can not be included in actual commands sent to Solr.
+
+As with other update handlers, parameters such as `commit`, `commitWithin`, `optimize`, and `overwrite` may be specified in the URL instead of in the body of the message.
+
+The JSON update format allows for a simple delete-by-id. The value of a `delete` can be an array which contains a list of zero or more specific document id's (not a range) to be deleted. For example, a single document:
+
+-------------------
+{ "delete":"myid" }
+-------------------
+
+Or a list of document IDs:
+
+--------------------------
+{ "delete":["id1","id2"] }
+--------------------------
+
+The value of a "delete" can be an array which contains a list of zero or more id's to be deleted. It is not a range (start and end).
+
+You can also specify `_version_` with each "delete":
+
+--------------------
+{
+  "delete":"id":50, 
+  "_version_":12345
+}
+--------------------
+
+You can specify the version of deletes in the body of the update request as well.
+
+[[UploadingDatawithIndexHandlers-JSONUpdateConveniencePaths]]
+JSON Update Convenience Paths
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In addition to the `/update` handler, there are a few additional JSON specific request handler paths available by default in Solr, that implicitly override the behavior of some request parameters:
+
+[width="100%",cols="50%,50%",options="header",]
+|=====================================================
+|Path |Default Parameters
+|`/update/json` |`stream.contentType=application/json`
+|`/update/json/docs` a|
+`stream.contentType=application/json`
+`json.command=false`
+
+|=====================================================
+
+The `/update/json` path may be useful for clients sending in JSON formatted update commands from applications where setting the Content-Type proves difficult, while the `/update/json/docs` path can be particularly convenient for clients that always want to send in documents – either individually or as a list – with out needing to worry about the full JSON command syntax.
+
+link:#main[Back to Top]
+
+[[UploadingDatawithIndexHandlers-TransformingandIndexingCustomJSON]]
+Transforming and Indexing Custom JSON
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you have JSON documents that you would like to index without transforming them into Solr's structure, you can add them to Solr by including some parameters with the update request. These parameters provide information on how to split a single JSON file into multiple Solr documents and how to map fields to Solr's schema. One or more valid JSON documents can be sent to the `/update/json/docs` path with the configuration params.
+
+[[UploadingDatawithIndexHandlers-MappingParameters]]
+Mapping Parameters
+++++++++++++++++++
+
+These parameters allow you to define how a JSON file should be read for multiple Solr documents.
+
+* **split**: Defines the path at which to split the input JSON into multiple Solr documents and is required if you have multiple documents in a single JSON file. If the entire JSON makes a single solr document, the path must be “`/`”.
+* **f**: This is a multivalued mapping parameter. At least one field mapping must be provided. The format of the parameter is` target-field-name:json-path`. The `json-path` is required. The `target-field-name` is the Solr document field name, and is optional. If not specified, it is automatically derived from the input JSON. Wildcards can be used here, see the section link:#UploadingDatawithIndexHandlers-Wildcards[Wildcards] below for more information.
+* *mapUniqueKeyOnly* (boolean): This parameter is particularly convenient when the fields in the input JSON are not available in the schema and link:Schemaless-Mode.html[schemaless mode] is not enabled. This will index all the fields into the default search field (using the `df` parameter, below) and only the `uniqueKey` field is mapped to the corresponding field in the schema. If the input JSON does not have a value for the `uniqueKey` field then a UUID is generated for the same.
+* **df**: If the `mapUniqueKeyOnly` flag is used, the update handler needs a field where the data should be indexed to. This is the same field that other handlers use as a default search field.
+* **srcField**: This is the name of the field to which the JSON source will be stored into. This can only be used if `split=/` (i.e., you want your JSON input file to be indexed as a single Solr document). Note that atomic updates will cause the field to be out-of-sync with the document.
+* **echo**: This is for debugging purpose only. Set it to true if you want the docs to be returned as a response. Nothing will be indexed.
+
+For example, if we have a JSON file that includes two documents, we could define an update request like this:
+
+-----------------------------------------------------------------
+curl 'http://localhost:8983/solr/my_collection/update/json/docs'\
+'?split=/exams'\
+'&f=first:/first'\
+'&f=last:/last'\
+'&f=grade:/grade'\
+'&f=subject:/exams/subject'\
+'&f=test:/exams/test'\
+'&f=marks:/exams/marks'\
+ -H 'Content-type:application/json' -d '
+{
+  "first": "John",
+  "last": "Doe",
+  "grade": 8,
+  "exams": [
+    {
+      "subject": "Maths",
+      "test"   : "term1",
+      "marks"  : 90},
+    {
+      "subject": "Biology",
+      "test"   : "term1",
+      "marks"  : 86}
+  ]
+}'
+-----------------------------------------------------------------
+
+With this request, we have defined that "exams" contains multiple documents. In addition, we have mapped several fields from the input document to Solr fields.
+
+When the update request is complete, the following two documents will be added to the index:
+
+----------------------
+{
+  "first":"John",
+  "last":"Doe",
+  "marks":90,
+  "test":"term1",
+  "subject":"Maths",
+  "grade":8
+}
+{
+  "first":"John",
+  "last":"Doe",
+  "marks":86,
+  "test":"term1",
+  "subject":"Biology",
+  "grade":8
+}
+----------------------
+
+In the prior example, all of the fields we wanted to use in Solr had the same names as they did in the input JSON. When that is the case, we can simplify the request as follows:
+
+-----------------------------------------------------------------
+curl 'http://localhost:8983/solr/my_collection/update/json/docs'\
+'?split=/exams'\
+'&f=/first'\
+'&f=/last'\
+'&f=/grade'\
+'&f=/exams/subject'\
+'&f=/exams/test'\
+'&f=/exams/marks'\
+ -H 'Content-type:application/json' -d '
+{
+  "first": "John",
+  "last": "Doe",
+  "grade": 8,
+  "exams": [
+    {
+      "subject": "Maths",
+      "test"   : "term1",
+      "marks"  : 90},
+    {
+      "subject": "Biology",
+      "test"   : "term1",
+      "marks"  : 86}
+  ]
+}'
+-----------------------------------------------------------------
+
+In this example, we simply named the field paths (such as `/exams/test`). Solr will automatically attempt to add the content of the field from the JSON input to the index in a field with the same name.
+
+Note:
+
+Note that if you are not working in link:Schemaless-Mode.html[Schemaless Mode], where fields that don't exist will be created on the fly with Solr's best guess for the field type, documents may get rejected if the fields do not exist in the schema before indexing.
+
+[[UploadingDatawithIndexHandlers-Wildcards]]
+Wildcards
++++++++++
+
+Instead of specifying all the field names explicitly, it is possible to specify wildcards to map fields automatically. There are two restrictions: wildcards can only be used at the end of the `json-path`, and the split path cannot use wildcards. A single asterisk "*" maps only to direct children, and a double asterisk "**" maps recursively to all descendants. The following are example wildcard path mappings:
+
+* `f=/docs/*`: maps all the fields under docs and in the name as given in json
+* `f=/docs/**`: maps all the fields under docs and its children in the name as given in json
+* `f=searchField:/docs/*`: maps all fields under /docs to a single field called ‘searchField’
+* `f=searchField:/docs/**`: maps all fields under /docs and its children to searchField
+* `f=$FQN:/**`: maps all fields to the fully qualified name (`$FQN`) of the JSON field. The fully qualified name is obtained by concatenating all the keys in the hierarchy with a period (`.`) as a delimiter.
+
+(Note: The default value of `f` is '`$FQN:/**'` fom Solr 5.0 . It used to be '`/**'` in 4.10.x releases. This breaks backward compatibility. If you wish to have the old behavior please specify `f=/**` explicitly.)
+
+With wildcards we can further simplify our previous example as follows:
+
+-----------------------------------------------------------------
+curl 'http://localhost:8983/solr/my_collection/update/json/docs'\
+'?split=/exams'\
+'&f=/**'\
+ -H 'Content-type:application/json' -d '
+{
+  "first": "John",
+  "last": "Doe",
+  "grade": 8,
+  "exams": [
+    {
+      "subject": "Maths",
+      "test"   : "term1",
+      "marks"  : 90},
+    {
+      "subject": "Biology",
+      "test"   : "term1",
+      "marks"  : 86}
+  ]
+}'
+-----------------------------------------------------------------
+
+Because we want the fields to be indexed with the field names as they are found in the JSON input, the double wildcard in `f=/**` will map all fields and their descendants to the same fields in Solr.
+
+It is also possible to send all the values to a single field and do a full text search on that. This is a good option to blindly index and query JSON documents without worrying about fields and schema.
+
+-----------------------------------------------------------------
+curl 'http://localhost:8983/solr/my_collection/update/json/docs'\
+'?split=/'\
+'&f=txt:/**'\
+ -H 'Content-type:application/json' -d '
+{
+  "first": "John",
+  "last": "Doe",
+  "grade": 8,
+  "exams": [
+    {
+      "subject": "Maths",
+      "test"   : "term1",
+      "marks"  : 90},
+    {
+      "subject": "Biology",
+      "test"   : "term1",
+      "marks"  : 86}
+  ]
+}' 
+-----------------------------------------------------------------
+
+In the above example, we've said all of the fields should be added to a field in Solr named 'txt'. This will add multiple fields to a single field, so whatever field you choose should be multi-valued.
+
+The default behavior is to use the fully qualified name (FQN) of the node. So, if we don't define any field mappings, like this:
+
+------------------------------------------------------------------------------
+curl 'http://localhost:8983/solr/my_collection/update/json/docs?split=/exams'\
+    -H 'Content-type:application/json' -d '
+{
+  "first": "John",
+  "last": "Doe",
+  "grade": 8,
+  "exams": [
+    {
+      "subject": "Maths",
+      "test"   : "term1",
+      "marks"  : 90},
+    {
+      "subject": "Biology",
+      "test"   : "term1",
+      "marks"  : 86}
+  ]
+}'
+------------------------------------------------------------------------------
+
+The indexed documents would be added to the index with fields that look like this:
+
+----------------------------
+{
+  "first":"John",
+  "last":"Doe",
+  "grade":8,
+  "exams.subject":"Maths",
+  "exams.test":"term1",
+  "exams.marks":90},
+{
+  "first":"John",
+  "last":"Doe",
+  "grade":8,
+  "exams.subject":"Biology",
+  "exams.test":"term1",
+  "exams.marks":86}
+----------------------------
+
+[[UploadingDatawithIndexHandlers-SettingJSONDefaults]]
+Setting JSON Defaults
++++++++++++++++++++++
+
+It is possible to send any json to the `/update/json/docs` endpoint and the default configuration of the component is as follows:
+
+------------------------------------------------------------------------------------------------
+<initParams path="/update/json/docs">
+  <lst name="defaults">
+    <!-- this ensures that the entire json doc will be stored verbatim into one field -->
+    <str name="srcField">_src_</str>
+    <!-- This means a the uniqueKeyField will be extracted from the fields and
+         all fields go into the 'df' field. In this config df is already configured to be 'text'
+     -->
+    <str name="mapUniqueKeyOnly">true</str>
+    <!-- The default search field where all the values are indexed to -->
+    <str name="df">text</str>
+  </lst>
+</initParams>
+------------------------------------------------------------------------------------------------
+
+So, if no params are passed, the entire json file would get indexed to the `_src_` field and all the values in the input JSON would go to a field named `text`. If there is a value for the uniqueKey it is stored and if no value could be obtained from the input JSON, a UUID is created and used as the uniqueKey field value.
+
+link:#main[Back to Top]
+
+[[UploadingDatawithIndexHandlers-CSVFormattedIndexUpdates]]
+CSV Formatted Index Updates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CSV formatted update requests may be sent to Solr's `/update` handler using `Content-Type: application/csv` or `Content-Type: text/csv`.
+
+A sample CSV file is provided at `example/exampledocs/books.csv` that you can use to add some documents to the Solr `techproducts` example:
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+curl 'http://localhost:8983/solr/techproducts/update?commit=true' --data-binary @example/exampledocs/books.csv -H 'Content-type:application/csv'
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+[[UploadingDatawithIndexHandlers-CSVUpdateParameters]]
+CSV Update Parameters
+^^^^^^^^^^^^^^^^^^^^^
+
+The CSV handler allows the specification of many parameters in the URL in the form: `f.parameter.optional_fieldname=value `.
+
+The table below describes the parameters for the update handler.
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|==========================================================================================================================================================================================================================================================================================
+|Parameter |Usage |Global (g) or Per Field (f) |Example
+|separator |Character used as field separator; default is "," |g,(f: see split) |separator=%09
+|trim |If true, remove leading and trailing whitespace from values. Default=false. |g,f |f.isbn.trim=true trim=false
+|header |Set to true if first line of input contains field names. These will be used if the *fieldnames* parameter is absent. |g |
+|fieldnames |Comma separated list of field names to use when adding documents. |g |fieldnames=isbn,price,title
+|literal.<field_name> |A literal value for a specified field name. |g |literal.color=red
+|skip |Comma separated list of field names to skip. |g |skip=uninteresting,shoesize
+|skipLines |Number of lines to discard in the input stream before the CSV data starts, including the header, if present. Default=0. |g |skipLines=5
+|encapsulator |The character optionally used to surround values to preserve characters such as the CSV separator or whitespace. This standard CSV format handles the encapsulator itself appearing in an encapsulated value by doubling the encapsulator. |g,(f: see split) |encapsulator="
+|escape |The character used for escaping CSV separators or other reserved characters. If an escape is specified, the encapsulator is not used unless also explicitly specified since most formats use either encapsulation or escaping, not both |g |escape=\
+|keepEmpty |Keep and index zero length (empty) fields. Default=false. |g,f |f.price.keepEmpty=true
+|map |Map one value to another. Format is value:replacement (which can be empty.) |g,f |map=left:right f.subject.map=history:bunk
+|split |If true, split a field into multiple values by a separate parser. |f |
+|overwrite |If true (the default), check for and overwrite duplicate documents, based on the uniqueKey field declared in the Solr schema. If you know the documents you are indexing do not contain any duplicates then you may see a considerable speed up setting this to false. |g |
+|commit |Issues a commit after the data has been ingested. |g |
+|commitWithin |Add the document within the specified number of milliseconds. |g |commitWithin=10000
+|rowid |Map the rowid (line number) to a field specified by the value of the parameter, for instance if your CSV doesn't have a unique key and you want to use the row id as such. |g |rowid=id
+|rowidOffset |Add the given offset (as an int) to the rowid before adding it to the document. Default is 0 |g |rowidOffset=10
+|==========================================================================================================================================================================================================================================================================================
+
+[[UploadingDatawithIndexHandlers-IndexingTab-Delimitedfiles]]
+Indexing Tab-Delimited files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The same feature used to index CSV documents can also be easily used to index tab-delimited files (TSV files) and even handle backslash escaping rather than CSV encapsulation.
+
+For example, one can dump a MySQL table to a tab delimited file with:
+
+-----------------------------------------------------
+SELECT * INTO OUTFILE '/tmp/result.txt' FROM mytable;
+-----------------------------------------------------
+
+This file could then be imported into Solr by setting the `separator` to tab (%09) and the `escape` to backslash (%5c).
+
+----------------------------------------------------------------------------------------------------------------
+curl 'http://localhost:8983/solr/update/csv?commit=true&separator=%09&escape=%5c' --data-binary @/tmp/result.txt
+----------------------------------------------------------------------------------------------------------------
+
+[[UploadingDatawithIndexHandlers-CSVUpdateConveniencePaths]]
+CSV Update Convenience Paths
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In addition to the `/update` handler, there is an additional CSV specific request handler path available by default in Solr, that implicitly override the behavior of some request parameters:
+
+[cols=",",options="header",]
+|===================================================
+|Path |Default Parameters
+|`/update/csv` |`stream.contentType=application/csv`
+|===================================================
+
+The `/update/csv` path may be useful for clients sending in CSV formatted update commands from applications where setting the Content-Type proves difficult.
+
+For more information on the CSV Update Request Handler, see https://wiki.apache.org/solr/UpdateCSV.
+
+[[UploadingDatawithIndexHandlers-NestedChildDocuments]]
+Nested Child Documents
+~~~~~~~~~~~~~~~~~~~~~~
+
+Solr nested documents using a "Block Join" when indexing as a way to model documents containing other documents, such as a blog post parent document and comments as child documents -- or products as parent documents and sizes, colors, or other variations as child documents. At query time, the link:Other-Parsers.html#OtherParsers-BlockJoinQueryParsers[Block Join Query Parsers] can be used search against these relationships. In terms of performance, indexing the relationships between documents may be more efficient than attempting to do joins only at query time, since the relationships are already stored in the index and do not need to be computed.
+
+Nested documents may be indexed via either the XML or JSON data syntax (or using link:Using-SolrJ.html[SolrJ)] - but regardless of syntax, you must include a field that identifies the parent document as a parent; it can be any field that suits this purpose, and it will be used as input for the link:Other-Parsers.html#OtherParsers-BlockJoinQueryParsers[block join query parsers].
+
+[[UploadingDatawithIndexHandlers-XMLExamples]]
+XML Examples
+++++++++++++
+
+For example, here are two documents and their child documents:
+
+------------------------------------------------------------------
+<add>
+  <doc> 
+  <field name="id">1</field>
+  <field name="title">Solr adds block join support</field>
+  <field name="content_type">parentDocument</field>
+    <doc>
+      <field name="id">2</field>   
+      <field name="comments">SolrCloud supports it too!</field>
+    </doc>
+  </doc>
+  <doc> 
+    <field name="id">3</field>
+    <field name="title">New Lucene and Solr release is out</field>
+    <field name="content_type">parentDocument</field>
+    <doc>
+      <field name="id">4</field>
+      <field name="comments">Lots of new features</field>
+    </doc>
+  </doc>
+</add>
+------------------------------------------------------------------
+
+In this example, we have indexed the parent documents with the field `content_type`, which has the value "parentDocument". We could have also used a boolean field, such as `isParent`, with a value of "true", or any other similar approach.
+
+[[UploadingDatawithIndexHandlers-JSONExamples]]
+JSON Examples
++++++++++++++
+
+This example is equivalent to the XML example above, note the special `_childDocuments_` key need to indicate the nested documents in JSON.
+
+--------------------------------------------------
+[
+  {
+    "id": "1",
+    "title": "Solr adds block join support",
+    "content_type": "parentDocument",
+    "_childDocuments_": [
+      {
+        "id": "2",
+        "comments": "SolrCloud supports it too!"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "New Lucene and Solr release is out",
+    "content_type": "parentDocument",
+    "_childDocuments_": [
+      {
+        "id": "4",
+        "comments": "Lots of new features"
+      }
+    ]
+  }
+]
+--------------------------------------------------
+
+Note
+
+Note:
+
+One limitation of indexing nested documents is that the whole block of parent-children documents must be updated together whenever any changes are required. In other words, even if a single child document or the parent document is changed, the whole block of parent-child documents must be indexed together.
+
+link:#main[Back to Top]

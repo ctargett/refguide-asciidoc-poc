@@ -1,0 +1,20 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:SolrCloud.html[SolrCloud]
+
+SolrCloud Configuration and Parameters
+--------------------------------------
+
+In this section, we'll cover the various configuration options for SolrCloud.
+
+The following sections cover these topics:
+
+* link:Setting-Up-an-External-ZooKeeper-Ensemble.html[Setting Up an External ZooKeeper Ensemble]
+* link:Using-ZooKeeper-to-Manage-Configuration-Files.html[Using ZooKeeper to Manage Configuration Files]
+* link:ZooKeeper-Access-Control.html[ZooKeeper Access Control]
+* link:Collections-API.html[Collections API]
+
+* link:Parameter-Reference.html[Parameter Reference]
+* link:Command-Line-Utilities.html[Command Line Utilities]
+* link:SolrCloud-with-Legacy-Configuration-Files.html[SolrCloud with Legacy Configuration Files]
+

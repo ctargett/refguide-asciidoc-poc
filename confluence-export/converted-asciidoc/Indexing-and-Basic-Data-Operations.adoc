@@ -1,0 +1,33 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+
+Indexing and Basic Data Operations
+----------------------------------
+
+This section describes how Solr adds data to its index. It covers the following topics:
+
+* **link:Introduction-to-Solr-Indexing.html[Introduction to Solr Indexing]**: An overview of Solr's indexing process.
+
+* **link:Post-Tool.html[Post Tool]**: Information about using `post.jar` to quickly upload some content to your system.
+
+* **link:Uploading-Data-with-Index-Handlers.html[Uploading Data with Index Handlers]**: Information about using Solr's Index Handlers to upload XML/XSLT, JSON and CSV data.
+
+* **link:Uploading-Data-with-Solr-Cell-using-Apache-Tika.html[Uploading Data with Solr Cell using Apache Tika]**: Information about using the Solr Cell framework to upload data for indexing.
+
+* **link:Uploading-Structured-Data-Store-Data-with-the-Data-Import-Handler.html[Uploading Structured Data Store Data with the Data Import Handler]**: Information about uploading and indexing data from a structured data store.
+
+* **link:Updating-Parts-of-Documents.html[Updating Parts of Documents]**: Information about how to use atomic updates and optimistic concurrency with Solr.
+
+* **link:Detecting-Languages-During-Indexing.html[Detecting Languages During Indexing]**: Information about using language identification during the indexing process.
+
+* **link:De-Duplication.html[De-Duplication]**: Information about configuring Solr to mark duplicate documents as they are indexed.
+
+* **link:Content-Streams.html[Content Streams]**: Information about streaming content to Solr Request Handlers.
+
+* **link:UIMA-Integration.html[UIMA Integration]**: Information about integrating Solr with Apache's Unstructured Information Management Architecture (UIMA). UIMA lets you define custom pipelines of Analysis Engines that incrementally add metadata to your documents as annotations.
+
+[[IndexingandBasicDataOperations-IndexingUsingClientAPIs]]
+Indexing Using Client APIs
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Using client APIs, such as link:Using-SolrJ.html[SolrJ], from your applications is an important option for updating Solr indexes. See the link:Client-APIs.html[Client APIs] section for more information.

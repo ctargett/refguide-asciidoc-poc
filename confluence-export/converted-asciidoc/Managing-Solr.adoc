@@ -1,0 +1,21 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+
+Managing Solr
+-------------
+
+This section describes how to run Solr and how to look at Solr when it is running. It contains the following sections:
+
+link:Taking-Solr-to-Production.html[Taking Solr to Production]: Describes how to install Solr as a service on Linux for production environments.
+
+link:Configuring-Logging.html[Configuring Logging]: Describes how to configure logging for Solr.
+
+link:Enabling-SSL.html[Enabling SSL]: Describes how to configure single-node Solr and SolrCloud to encrypt internal and external communication using SSL.
+
+link:Making-and-Restoring-Backups-of-SolrCores.html[Making and Restoring Backups of SolrCores]: Describes backup strategies for your Solr indexes.
+
+link:Using-JMX-with-Solr.html[Using JMX with Solr]: Describes how to use Java Management Extensions with Solr.
+
+link:Managed-Resources.html[Managed Resources]: Describes the REST APIs for dealing with resources that various Solr plugins may expose.
+
+link:Running-Solr-on-HDFS.html[Running Solr on HDFS]: How to use HDFS to store your Solr indexes and transaction logs.

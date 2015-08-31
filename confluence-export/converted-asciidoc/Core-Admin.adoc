@@ -1,0 +1,12 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:Using-the-Solr-Administration-User-Interface.html[Using the Solr Administration User Interface]
+
+Core Admin
+----------
+
+The Core Admin screen lets you manage your cores.
+
+The buttons at the top of the screen let you add a new core, unload the core displayed, rename the currently displayed core, swap the existing core with one that you specify in a drop-down box, reload the current core, and optimize the current core.
+
+The main display and available actions correspond to the commands used with the link:CoreAdmin-API.html[CoreAdminHandler], but provide another way of working with your cores.

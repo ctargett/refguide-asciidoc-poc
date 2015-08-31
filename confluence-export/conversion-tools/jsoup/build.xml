@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ASCII"?>
+<project>
+
+  <property name="version"
+            value="1.0"/>
+
+  <property name="jar"
+            value="build/parsers-${version}.jar"/>
+
+  <path id="classpath">
+    <pathelement location="${jar}"/>
+    <pathelement location="lib/jsoup-1.8.2.jar"/>
+  </path>
+
+  <target name="clean">
+    <delete dir="build"/>
+  </target>
+
+  <target name="jar">
+    <mkdir dir="build/classes"/>
+    <javac debug="yes"
+           debuglevel="source,lines,vars"
+           destdir="build/classes"
+           includeantruntime="false">
+      <compilerarg value="-Xlint:all"/>
+      <classpath refid="classpath"/>
+      <src path="src/"/>
+    </javac>
+    <jar destfile="${jar}">
+      <fileset dir="build/classes"
+               includes="**/*.class"/>
+    </jar>
+  </target>
+
+  <property name="from.dir"
+            value="/Users/cass/LuceneSolr/asciidoc-experiments/confluence-export/raw-export"/>
+  <property name="to.dir"
+            value="/Users/cass/LuceneSolr/asciidoc-experiments/confluence-export/cleaned-export"/>
+  <property name="sitemap"
+            value="${to.dir}/sitemap.txt"/>
+
+  <target name="map"
+          depends="jar">
+    <mkdir dir="${to.dir}"/>
+    <java classname="com.lucidworks.docparser.GetSiteMap"
+          fork="true">
+      <classpath refid="classpath"/>
+      <arg value ="${from.dir}"/>
+      <arg value ="${to.dir}"/>
+    </java>
+  </target>
+
+  <target name="scrape"
+          depends="jar">
+    <mkdir dir="${to.dir}"/>
+    <java classname="com.lucidworks.docparser.ScrapeConfluence"
+          fork="true">
+      <classpath refid="classpath"/>
+      <arg value ="${from.dir}"/>
+      <arg value ="${to.dir}"/>
+    </java>
+  </target>
+
+    <target name="hier"
+          depends="jar">
+    <mkdir dir="${to.dir}"/>
+    <java classname="com.lucidworks.docparser.ScrapeConfluenceHierarchy"
+          fork="true">
+      <classpath refid="classpath"/>
+      <arg value ="${from.dir}"/>
+      <arg value ="${to.dir}"/>
+      <arg value ="${sitemap}"/>
+    </java>
+  </target>
+
+</project>

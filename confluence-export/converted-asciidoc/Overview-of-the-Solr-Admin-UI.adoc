@@ -1,0 +1,41 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:Using-the-Solr-Administration-User-Interface.html[Using the Solr Administration User Interface]
+
+Overview of the Solr Admin UI
+-----------------------------
+
+Solr features a Web interface that makes it easy for Solr administrators and programmers to view link:Files-Screen.html[Solr configuration] details, run link:Query-Screen.html[queries and analyze] document fields in order to fine-tune a Solr configuration and access link:Getting-Assistance.html[online documentation] and other help.
+
+Accessing the URL `http://hostname:8983/solr/` will show the main dashboard, which is divided into two parts.
+
+A left-side of the screen is a menu under the Solr logo that provides the navigation through the screens of the UI. The first set of links are for system-level information and configuration and provide access to Logging, Core Admin and Java Properties, among other things. At the end of this information is a list of Solr cores configured for this instance. Clicking on a core name shows a secondary menu of information and configuration options for the core specifically. Items in this list include the Schema, Config, Plugins, and an ability to perform Queries on indexed data.
+
+The center of the screen shows the detail of the option selected. This may include a sub-navigation for the option or text or graphical representation of the requested data. See the sections in this guide for each screen for more details.
+
+Under the covers, the Solr Admin UI re-uses the same HTTP APIs available to all clients to access Solr-related data to drive an external interface.
+
+Note:
+
+The path to the Solr Admin UI given above is `http://hostname:port/solr`, which redirects to `http://hostname:port/solr/#/` in the current version. A convenience redirect is also supported, so simply accessing the Admin UI at `http://hostname:port/` will also redirect to `http://hostname:port/solr/#/`.
+
+[[OverviewoftheSolrAdminUI-ConfiguringtheAdminUIinsolrconfig.xml]]
+Configuring the Admin UI in `solrconfig.xml`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can configure the Solr Admin UI by editing the file `solrconfig.xml`.
+
+The `<admin>` block in the `solrconfig.xml` file determines the default query to be displayed in the Query section of the core-specific pages. The default is `*:*`, which is to find all documents. In this example, we have changed the default to the term `solr`.
+
+-------------------------------------
+<admin>
+    <defaultQuery>solr</defaultQuery>
+</admin>
+-------------------------------------
+
+[[OverviewoftheSolrAdminUI-RelatedTopics]]
+Related Topics
+~~~~~~~~~~~~~~
+
+* link:Configuring-solrconfig.xml.html[Configuring solrconfig.xml]
+

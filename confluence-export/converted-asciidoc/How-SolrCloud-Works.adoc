@@ -1,0 +1,36 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:SolrCloud.html[SolrCloud]
+
+How SolrCloud Works
+-------------------
+
+In this section, we'll discuss generally how SolrCloud works, covering these topics:
+
+* link:32604303.html[Nodes, Cores, Clusters and Leaders]
+* link:Shards-and-Indexing-Data-in-SolrCloud.html[Shards and Indexing Data in SolrCloud]
+* link:Distributed-Requests.html[Distributed Requests]
+* link:Read-and-Write-Side-Fault-Tolerance.html[Read and Write Side Fault Tolerance]
+* link:32604302.html[NRT, Replication, and Disaster Recovery with SolrCloud]
+
+If you are already familiar with SolrCloud concepts and functionality, you can skip to the section covering link:SolrCloud-Configuration-and-Parameters.html[SolrCloud Configuration and Parameters].
+
+[[HowSolrCloudWorks-BasicSolrCloudConcepts]]
+Basic SolrCloud Concepts
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+On a single node, Solr has a *core* that is essentially a single **index**. If you want multiple indexes, you create multiple cores. With SolrCloud, a single index can span multiple Solr instances. This means that a single index can be made up of multiple cores on different machines.
+
+The cores that make up one logical index are called a **collection**. A collection is a essentially a single index that can span many cores, both for index scaling as well as redundancy. If, for instance, you wanted to move your two-core Solr setup to SolrCloud, you would have 2 collections, each made up of multiple individual cores.
+
+In SolrCloud you can have multiple collections. Collections can be divided into shards. Each *shard* can exist in multiple copies; these copies of the same shard are called replicas. One of the replicas within a shard is the **leader**, designated by a leader-election process. Each *replica* is a physical index, so one replica corresponds to one core.
+
+It is important to understand the distinction between a core and a collection. In classic single node Solr, a core is basically equivalent to a collection in that it presents one logical index. In SolrCloud, the cores on multiple nodes form a collection. This is still just one logical index, but multiple cores host different shards of the full collection. So a core encapsulates a single physical index on an instance. A collection is a combination of all of the cores that together provide a logical index that is distributed across many nodes.
+
+Helpful hint for SolrCloud terminology
+
+Note:
+
+The following three sentences, each of which is very short, can help keep the relationship between collections, shards, replicas, and cores straight in your mind:
+
+Collections are made up of one or more shards. Shards have one or more replicas. Each replica is a core.

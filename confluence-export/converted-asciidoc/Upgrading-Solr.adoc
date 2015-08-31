@@ -1,0 +1,34 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+
+Upgrading Solr
+--------------
+
+If you are already using Solr 5.3, Solr 5.4 should not present any major problems. However, you should review the http://lucene.apache.org/solr/5_3_0/changes/Changes.html[`CHANGES.txt`] file found in your Solr package for changes and updates that may effect your existing implementation.
+
+[[UpgradingSolr-Upgradingfrom5.3.x]]
+Upgrading from 5.3.x
+~~~~~~~~~~~~~~~~~~~~
+
+[[UpgradingSolr-UpgradingfromOlderVersionsofSolr]]
+Upgrading from Older Versions of Solr
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Users upgrading from older versions are strongly encouraged to consult ` CHANGES.txt ` for the details of _all_ changes since the version they are upgrading from.
+
+* Solr does not support forcefully unlocking an index as of Solr 5.3. This is no longer supported by the underlying Lucene locking framework. The `unlockOnStartup` setting in solrconfig.xml has no effect anymore. If you are using simple lock factory (not recommended) or hdfs lock factory, you may need to manually unlock by deleting the lock file from filesystem or HDFS.
+* The system property `solr.solrxml.location` is not supported as of Solr 5.3. Now, `solr.xml` is first looked up in zookeeper, and if not found, fallback to SOLR_HOME.
+* SolrJ's `CollectionAdminRequest` class is now marked as abstract. Use one of its concrete sub-classes instead.``
+* `SolrClient` query functions now declare themselves as throwing `IOException` in addition to `SolrServerException`, to bring them in line with the update functions.
+* `SolrRequest.process()` is now final. Subclasses should instead be parameterized by their corresponding `SolrResponse` type, and implement `createResponse()`.
+* The signature of `SolrDispatchFilter.createCoreContainer()` has changed to take `(String,Properties)` arguments.
+* Tika's runtime dependency of 'jhighlight' was removed as the latter was found to contain some LGPL-only code. Until that's resolved by Tika, you can download the jar yourself and place it under `contrib/extraction/lib`.
+* The `_text` catch-all field in `data_driven_schema_configs` has been renamed to `_text_`.
+* A bug was introduced in Solr 4.10 that caused index time document boosts to trigger excessive field boosts in multivalued fields -- the result being that some field norms might be excessively large. This bug has now been fixed, but users of document boosts are strongly encouraged to re-index. See https://issues.apache.org/jira/browse/SOLR-7335[SOLR-7335] for more details.
+* A bug was introduced in Solr 4.10 that caused index time document boosts to trigger excessive field boosts in multivalued fields -- the result being that some field norms might be excessively large. This bug has now been fixed, but users of document boosts are strongly encouraged to re-index. See https://issues.apache.org/jira/browse/SOLR-7335[SOLR-7335] for more details.
+* Solr has internally been upgraded to use Jetty 9. See https://issues.apache.org/jira/browse/SOLR-4839[SOLR-4839] for full details, but there are a few key details all Solr users should know when upgrading:
+** It is no longer possible to run "`java -jar start.jar`" from inside the server directory. The `bin/solr` script is the only supported way to run Solr. This is necessary to support HTTP and HTTPS modules in Jetty which can be selectively enabled by the `bin/solr` scripts.
+** The way SSL support is configured has been changed. Please refer to the link:Enabling-SSL.html[Enabling SSL] section in the Solr Reference Guide for complete details.
+* Merge Policy's `noCFSRatio` option is no longer set based on `<useCompoundFile>` element in the `indexConfig` section of `solrconfig.xml`. This means that Solr will start using Lucene's default for MP `noCFSRatio`. Other value can be set inside the `<mergePolicy>` element in `solrconfig.xml`. See https://issues.apache.org/jira/browse/SOLR-7463[SOLR-7463] for details.
+
+For users upgrading from Solr 4.x, a summary of the significant changes can be found in the link:Major-Changes-from-Solr-4-to-Solr-5.html[Major Changes from Solr 4 to Solr 5] section.

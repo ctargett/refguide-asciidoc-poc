@@ -1,0 +1,16 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:Client-APIs.html[Client APIs]
+
+Using JavaScript
+----------------
+
+Using Solr from JavaScript clients is so straightforward that it deserves a special mention. In fact, it is so straightforward that there is no client API. You don't need to install any packages or configure anything.
+
+HTTP requests can be sent to Solr using the standard `XMLHttpRequest` mechanism.
+
+Out of the box, Solr can send link:Response-Writers.html#ResponseWriters-JSONResponseWriter[JavaScript Object Notation (JSON) responses], which are easily interpreted in JavaScript. Just add `wt=json` to the request URL to have responses sent as JSON.
+
+For more information and an excellent example, read the SolJSON page on the Solr Wiki:
+
+http://wiki.apache.org/solr/SolJSON

@@ -1,0 +1,37 @@
+<project xmlns:asciidoctor="antlib:org.asciidoctor.ant">
+
+  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctor-ant/1.5.1/asciidoctor-ant-1.5.1.jar"
+    dest="lib/asciidoctor-ant.jar" usetimestamp="true"/>
+
+  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj-pdf/1.5.0-alpha.9/asciidoctorj-pdf-1.5.0-alpha.9.jar" dest="lib/asciidoctorj-pdf.jar" usetimestamp="true" />
+
+
+  <target name="doc">
+    <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml" classpath="lib/asciidoctor-ant.jar"/>
+    <asciidoctor:convert
+                 sourceDirectory="asciidoc"
+                 outputDirectory="html"
+                 backend="html5"
+                 extensions="asc"
+                 sourceHighlighter="coderay"
+                 embedAssets="true"
+                 imagesDir="asciidoc/images">
+      <attribute key="docinfo1" value='' />
+      <attribute key="stylesheet" value="ref-guide.css" />
+      <attribute key="stylesdir" value="html/styles" />
+      <attribute key="icons" value="font" />
+      <attribute key="figure-caption!" value='' />
+      <attribute key="toc" value="right" />
+   </asciidoctor:convert>
+  </target>
+
+  <target name="pdf">
+     <property name="executable-full-path"
+            location="pdf/scripts/createPDF.sh"/>
+     <exec executable="${executable-full-path}" />
+  </target>
+
+
+
+
+</project>

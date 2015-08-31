@@ -1,0 +1,27 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+
+32604263
+--------
+
+This section discusses how Solr organizes its data into documents and fields, as well as how to work with the Solr schema file, `schema.xml`. It includes the following topics:
+
+link:32604170.html[Overview of Documents, Fields, and Schema Design]: An introduction to the concepts covered in this section.
+
+link:Solr-Field-Types.html[Solr Field Types]: Detailed information about field types in Solr, including the field types in the default Solr schema.
+
+link:Defining-Fields.html[Defining Fields]: Describes how to define fields in Solr.
+
+link:Copying-Fields.html[Copying Fields]: Describes how to populate fields with data copied from another field.
+
+link:Dynamic-Fields.html[Dynamic Fields]: Information about using dynamic fields in order to catch and index fields that do not exactly conform to other field definitions in your schema.
+
+link:Schema-API.html[Schema API]: Use curl commands to read various parts of a schema or create new fields and copyField rules.
+
+link:Other-Schema-Elements.html[Other Schema Elements]: Describes other important elements in the Solr schema.
+
+link:Putting-the-Pieces-Together.html[Putting the Pieces Together]: A higher-level view of the Solr schema and how its elements work together.
+
+link:DocValues.html[DocValues]: Describes how to create a docValues index for faster lookups.
+
+link:Schemaless-Mode.html[Schemaless Mode]: Automatically add previously unknown schema fields using value-based field type guessing.

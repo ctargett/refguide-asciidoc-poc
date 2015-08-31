@@ -1,0 +1,24 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:Using-the-Solr-Administration-User-Interface.html[Using the Solr Administration User Interface]
+
+Core Specific Tools
+-------------------
+
+In the left-hand navigation bar, you will see a pull-down menu titled "Core Selector". Clicking on the menu will show a list of Solr cores, with a search box that can be used to find a specific core (handy if you have a lot of cores). When you select a core, a secondary menu opens under the core name with the administration options available for that particular core.
+
+After selecting the core, the central part of the screen shows Statistics and other information about the core you chose. You can define a file called `admin-extra.html` that includes links or other information you would like to display in the "Admin Extra" part of this main screen.
+
+On the left side, under the core name, are links to other screens that display information or provide options for the specific core chosen. The core-specific options are listed below, with a link to the section of this Guide to find out more:
+
+* link:Analysis-Screen.html[Analysis] - lets you analyze the data found in specific fields.
+* link:Dataimport-Screen.html[Dataimport] - shows you information about the current status of the Data Import Handler.
+* link:Documents-Screen.html[Documents] - provides a simple form allowing you to execute various Solr indexing commands directly from the browser.
+* link:Files-Screen.html[Files] - shows the current core configuration files such as `solrconfig.xml` and `schema.xml`.
+* link:Ping.html[Ping] - lets you ping a named core and determine whether the core is active.
+* link:32604180.html[Plugins/Stats] - shows statistics for plugins and other installed components.
+* link:Query-Screen.html[Query] - lets you submit a structured query about various elements of a core.
+* link:Replication-Screen.html[Replication] - shows you the current replication status for the core, and lets you enable/disable replication.
+* link:Schema-Browser-Screen.html[Schema Browser] - displays schema data in a browser window.
+* link:Segments-Info.html[Segments Info] - Provides a visualization of the underlying Lucene index segments.
+

@@ -1,0 +1,16 @@
+index
+-----
+
+Key
+
+solr
+
+Name
+
+Apache Solr Reference Guide
+
+Description
+
+Created by
+
+cassandra.targett (Jun 03, 2013)

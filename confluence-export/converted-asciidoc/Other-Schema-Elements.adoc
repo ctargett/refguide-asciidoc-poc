@@ -1,0 +1,97 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:32604263.html[Documents, Fields, and Schema Design]
+
+Other Schema Elements
+---------------------
+
+This section describes several other important elements of `schema.xml`.
+
+[[OtherSchemaElements-UniqueKey]]
+Unique Key
+~~~~~~~~~~
+
+The `uniqueKey` element specifies which field is a unique identifier for documents. Although `uniqueKey` is not required, it is nearly always warranted by your application design. For example, `uniqueKey` should be used if you will ever update a document in the index.
+
+You can define the unique key field by naming it:
+
+-------------------------
+<uniqueKey>id</uniqueKey>
+-------------------------
+
+Schema defaults and `copyFields` cannot be used to populate the `uniqueKey` field. You also can't use `UUIDUpdateProcessorFactory` to have `uniqueKey` values generated automatically.
+
+Further, the operation will fail if the `uniqueKey` field is used, but is multivalued (or inherits the multivalueness from the `fieldtype`). However, `uniqueKey` will continue to work, as long as the field is properly used.
+
+[[OtherSchemaElements-DefaultSearchField]]
+Default Search Field
+~~~~~~~~~~~~~~~~~~~~
+
+If you are using the Lucene query parser, queries that don't specify a field name will use the defaultSearchField. The DisMax and Extended DisMax query parsers will also fallback to this if `qf` is not specified.
+
+Note:
+
+Use of the `defaultSearchField` element is deprecated in Solr versions 3.6 and higher. Instead, you should use the `df` request parameter. At some point, the `defaultSearchField` element may be removed.
+
+For more information about query parsers, see the section on link:Query-Syntax-and-Parsing.html[Query Syntax and Parsing].
+
+[[OtherSchemaElements-QueryParserDefaultOperator]]
+Query Parser Default Operator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In queries with multiple terms, Solr can either return results where all conditions are met or where one or more conditions are met. The _operator_ controls this behavior. An operator of AND means that all conditions must be fulfilled, while an operator of OR means that one or more conditions must be true.
+
+In `schema.xml`, the `solrQueryParser` element controls what operator is used if an operator is not specified in the query. The default operator setting only applies to the Lucene query parser, not the DisMax or Extended DisMax query parsers, which internally hard-code their operators to OR.
+
+Note:
+
+The query parser default operator parameter has been deprecated in Solr versions 3.6 and higher. You are instead encouraged to specify the query parser `q.op` parameter in your request handler.
+
+[[OtherSchemaElements-Similarity]]
+Similarity
+~~~~~~~~~~
+
+Similarity is a Lucene class used to score a document in searching.
+
+A global `<similarity>` declaration can be used to specify a custom similarity implementation that you want Solr to use when dealing with your index. A similarity can be specified either by referring directly to the name of a class with a no-argument constructor:
+
+---------------------------------------------------
+<similarity class="solr.DefaultSimilarityFactory"/>
+---------------------------------------------------
+
+or by referencing a `SimilarityFactory` implementation, which may take optional initialization parameters:
+
+----------------------------------------------
+<similarity class="solr.DFRSimilarityFactory">
+  <str name="basicModel">P</str>
+  <str name="afterEffect">L</str>
+  <str name="normalization">H2</str>
+  <float name="c">7</float>
+</similarity>
+----------------------------------------------
+
+A special `SchemaSimilarityFactory` is available, which allows individual field types to be configured with a similarity to override the default behavior:
+
+--------------------------------------------------
+<similarity class="solr.SchemaSimilarityFactory"/>
+<fieldType name="text_ib">
+   <analyzer/>
+   <similarity class="solr.IBSimilarityFactory">
+      <str name="distribution">SPL</str>
+      <str name="lambda">DF</str>
+      <str name="normalization">H2</str>
+   </similarity>
+</fieldType>
+--------------------------------------------------
+
+If a field type does not have an explicitly configured similarity factory, then a `DefaultSimilarity` instance is used.
+
+This examples above show `DFRSimilarityFactory` (divergence from random) and `IBSimilarityFactory` (using the Information-Based model), but there are several similarity implementations that can be used such as the `SweetSpotSimilarityFactory`, `BM25SimilarityFactory`, etc.... For details, see the Solr Javadocs for the http://lucene.apache.org/solr/5_3_0/solr-core/org/apache/solr/search/similarities/package-summary.html[similarity factories].
+
+[[OtherSchemaElements-RelatedTopics]]
+Related Topics
+~~~~~~~~~~~~~~
+
+* http://wiki.apache.org/solr/SchemaXml#Miscellaneous_Settings[SchemaXML-Miscellaneous Settings]
+* http://wiki.apache.org/solr/UniqueKey[UniqueKey]
+

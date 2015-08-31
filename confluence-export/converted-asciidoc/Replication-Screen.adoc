@@ -1,0 +1,21 @@
+1.  link:index.html[Apache Solr Reference Guide]
+2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
+3.  link:Using-the-Solr-Administration-User-Interface.html[Using the Solr Administration User Interface]
+4.  link:Core-Specific-Tools.html[Core-Specific Tools]
+
+Replication Screen
+------------------
+
+The Replication screen shows you the current replication state for the named core you have specified. SolrCloud has supplanted much of this functionality, but if you are still using Master-Slave index replication, you can use this screen to:
+
+1.  View the replicatable index state. (on a master node)
+2.  View the current replication status (on a slave node)
+3.  Disable replication. (on a master node)
+
+Caution When Using SolrCloud
+
+Note:
+
+When using link:Getting-Started-with-SolrCloud.html[SolrCloud], do not attempt to disable replication via this screen.
+
+More details on how to configure replication is available in the section called link:Index-Replication.html[Index Replication].
