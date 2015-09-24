@@ -58,8 +58,14 @@
     <available file="lib/${asciidoctor-ant.snapshot.jar}"/>
   </condition>
 
-  <!-- Fetch and build asciidoctor-ant - the latest asciidoctor-ant release (1.5.1) includes a buggy asciidoctorj-pdf dependency.
-       See https://github.com/asciidoctor/asciidoctor-maven-examples/issues/11#issuecomment-112226507                          -->
+  <!-- Fetch and build asciidoctor-ant.
+
+       The latest asciidoctor-ant release (1.5.1) has two problems that disallow conversion to PDF:
+
+       1. It includes a buggy asciidoctorj-pdf dependency.
+          See https://github.com/asciidoctor/asciidoctor-maven-examples/issues/11#issuecomment-112226507
+       2. The "pdf" backend was added after the 1.5.1 release
+   -->
   <target name="build-asciidoctor-ant" unless="asciidoctor-ant-built">
     <delete dir="build/asciidoctor-ant" failonerror="false"/>
     <mkdir dir="build"/>
