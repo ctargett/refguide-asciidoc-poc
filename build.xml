@@ -12,7 +12,7 @@
                  sourceDirectory="asciidoc"
                  outputDirectory="html"
                  backend="html5"
-                 extensions="asc"
+                 extensions="adoc"
                  sourceHighlighter="coderay"
                  embedAssets="true"
                  imagesDir="asciidoc/images">

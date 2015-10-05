@@ -153,8 +153,6 @@ The second part defines the rules for converting the documents to HTML.
 
 Still To Do:
 
-* Remove Lucidworks branding from header/footer called with `docinfo1` attribute & add Solr/Lucene/ASF branding.
-* Figure out why `docinfo1` attribute isn't working to add header/footer to pages automatically.
 * Determine where to put the pages online. See also section on <<Publishing Options>>.
 
 ==== PDF
