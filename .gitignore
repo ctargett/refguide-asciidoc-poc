@@ -1,3 +1,6 @@
+build
+pdf2
+lib/asciidoctor-ant-*-SNAPSHOT.jar
 # Converted Confluence docs
 confluence-export/cleaned-export/*
 confluence-export/raw-export/*

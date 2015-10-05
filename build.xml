@@ -31,7 +31,57 @@
      <exec executable="${executable-full-path}" />
   </target>
 
+  <property name="asciidoctor-ant.snapshot.jar" value="asciidoctor-ant-1.5.2-SNAPSHOT.jar"/>
 
+  <target name="pdf2" depends="build-asciidoctor-ant">
+    <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
+             classpath="lib/${asciidoctor-ant.snapshot.jar}"/>
+    <asciidoctor:convert
+                 sourceDirectory="asciidoc"
+                 outputDirectory="pdf2"
+                 backend="pdf"
+                 extensions="asc"
+                 sourceHighlighter="coderay"
+                 embedAssets="true"
+                 imagesDir="asciidoc/images"
+                 doctype="book">
+      <attribute key="icons" value="font" />
+      <attribute key="pdf-stylesDir" value="pdf/themes"/>
+      <attribute key="pdf-style" value="refguide"/>
+      <attribute key="pdf-fontsDir" value="pdf/fonts"/>
+      <attribute key="pagenums" value='' />
+      <attribute key="figure-caption!" value='' />
+   </asciidoctor:convert>
+  </target>
 
+  <condition property="asciidoctor-ant-built" value="true">
+    <available file="lib/${asciidoctor-ant.snapshot.jar}"/>
+  </condition>
 
+  <!-- Fetch and build asciidoctor-ant.
+
+       The latest asciidoctor-ant release (1.5.1) has two problems that disallow conversion to PDF:
+
+       1. It includes a buggy asciidoctorj-pdf dependency.
+          See https://github.com/asciidoctor/asciidoctor-maven-examples/issues/11#issuecomment-112226507
+       2. The "pdf" backend was added after the 1.5.1 release
+   -->
+  <target name="build-asciidoctor-ant" unless="asciidoctor-ant-built">
+    <delete dir="build/asciidoctor-ant" failonerror="false"/>
+    <mkdir dir="build"/>
+    <exec dir="build" executable="git" failonerror="true">
+      <arg value="clone"/>
+      <arg value="https://github.com/asciidoctor/asciidoctor-ant"/>
+    </exec>
+    <!-- asciidoctorj-pdf-1.5.0-alpha.7 is missing a required font - upgrade to 1.5.0-alpha.9  -->
+    <replaceregexp file="build/asciidoctor-ant/pom.xml"
+                   match="&lt;asciidoctorj-pdf.version&gt;1.5.0-alpha.7&lt;/asciidoctorj-pdf.version&gt;"
+                   replace="&lt;asciidoctorj-pdf.version&gt;1.5.0-alpha.9&lt;/asciidoctorj-pdf.version&gt;"/>
+    <exec dir="build/asciidoctor-ant" executable="mvn">
+      <arg value="clean"/>
+      <arg value="package"/>
+    </exec>
+    <copy todir="lib" file="build/asciidoctor-ant/target/${asciidoctor-ant.snapshot.jar}" 
+          failonerror="true" overwrite="true"/>
+  </target>
 </project>
