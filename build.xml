@@ -38,9 +38,10 @@
              classpath="lib/${asciidoctor-ant.snapshot.jar}"/>
     <asciidoctor:convert
                  sourceDirectory="asciidoc"
+                 sourceDocumentName="book.adoc"
                  outputDirectory="pdf2"
                  backend="pdf"
-                 extensions="asc"
+                 extensions="adoc"
                  sourceHighlighter="coderay"
                  embedAssets="true"
                  imagesDir="asciidoc/images"
@@ -81,7 +82,7 @@
       <arg value="clean"/>
       <arg value="package"/>
     </exec>
-    <copy todir="lib" file="build/asciidoctor-ant/target/${asciidoctor-ant.snapshot.jar}" 
+    <copy todir="lib" file="build/asciidoctor-ant/target/${asciidoctor-ant.snapshot.jar}"
           failonerror="true" overwrite="true"/>
   </target>
 </project>
