@@ -47,6 +47,7 @@
                  imagesDir="asciidoc/images"
                  doctype="book">
       <attribute key="icons" value="font" />
+      <attribute key="docinfo!" value='' />
       <attribute key="pdf-stylesDir" value="pdf/themes"/>
       <attribute key="pdf-style" value="refguide"/>
       <attribute key="pdf-fontsDir" value="pdf/fonts"/>

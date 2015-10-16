@@ -23,7 +23,7 @@ This repo is a proof-of-concept for converting the Ref Guide to Asciidoc format.
 
 This project includes `ant` targets for building HTML and PDF versions of the Ref Guide.
 
-* `ant doc` builds the HTML files by finding all `.adoc` files from `asciidoc` directory and making an HTML file for each page. It downloads a .jar file as a dependency. This only requires Ant to use.
+* `ant doc` builds the HTML files by finding all `.adoc` files from `asciidoc` directory and making an HTML file for each page. It downloads a .jar file as a dependency. This only requires Ant.
 * `ant pdf2` builds a PDF from the files defined in `asciidoc/book.adoc`. It builds a .jar file that is needed as a dependency before generating the PDF file. Maven is required to get all the dependencies to compile the .jar.
 
 == Why Change?
@@ -38,8 +38,7 @@ This project includes `ant` targets for building HTML and PDF versions of the Re
 
 * Versioning the online version of the guide is problematic. The only way Confluence supports versioning is to create copies of each "space" for each release. This adds to the maintenance burden for producing the Ref Guide, which is already taxed around the time of each release. We could instead use the existing versioning system currently used for Lucene and Solr Javadocs. If the publication process is integrated with the build process, instead of developing a new process, we could use the existing process.
 
-
-== Why Asciidoc and Asciidoctor
+=== Why Asciidoc and Asciidoctor
 
 Asciidoc is a lightweight text markup format which is similar to Markdown, but which has a broader range of markup notations for article and book publishing purposes.
 
@@ -56,7 +55,7 @@ More reasons at http://asciidoctor.org/docs/what-is-asciidoc/.
 
 
 == Details and TODOs
-This section describes the process for converting the Ref Guide and open issues to be done or discussed.
+This section describes the process for converting the Ref Guide from Confluence and open issues to be done or discussed.
 
 
 === Content Conversion Process
@@ -124,7 +123,7 @@ Asciidoctor is a toolchain written in Ruby which facilitates converting text fil
 
 ==== HTML
 
-Uses `asciidoctor-ant` plugin to convert to HTML. To generate HTML, simply run `ant html`.
+Uses `asciidoctor-ant` plugin to convert to HTML. To generate HTML, simply run `ant doc`.
 
 This task sets the output format, defines a custom stylesheet (see Styles, below), and defines the plugin to use for code syntax highlighting, and other parameters.
 
@@ -181,7 +180,7 @@ The second step installs the plugin that provides code syntax highlighting (Pygm
 
 See https://github.com/asciidoctor/asciidoctor-pdf for more details on using this plugin.
 
-===== Issues
+*Issues*
 It seems `asciidoctor-ant` should be able to handle the PDF conversion, but it doesn't.
 
 Another plugin `asciidoctor-pdf` allows conversion direct to PDF, although this is a gem? It also has other dependencies, I think. Can it be a jar, like `asciidoctor-ant`?
@@ -220,16 +219,34 @@ Host in ASF CMS with website.
 
 Host however the javadocs are hosted.
 
-Jekyll
+Jekyll, JBake, Awestruck & similar static site generators.
 
 ==== Comments
 
-A key feature of today's cwiki setup is the ability for users to comment on errors or inconsistencies with the current content.
+A key feature of today's cwiki setup is the ability for users to comment on errors or inconsistencies with the current content. The ASF has a comment system that can be implemented.
 
-TODO:
+*Adding Comments to Pages*
 
-* Modify HTML generation to include comment snippet on each page (link to snippet: https://comments.apache.org/panel.lua?site=solrcwiki&view=snippet&uid=741d0acac05816701215f891d97c8b451fe320b5).
-* Create an experiment on people.apache.org to see how comments will be handled by default between versions and current in-process pages.
+Comments are added by including a JavaScript snippet on each page, which points to the ASF comment system with a unique page ID.
+
+The snippet is available at (must login): https://comments.apache.org/panel.lua?site=solrcwiki&view=snippet&uid=741d0acac05816701215f891d97c8b451fe320b5).
+
+Because this needs a page ID, and must be added to the generated HTML, there is an open question about how to insert the snippet during the production process. Some options:
+
+* It can be easily added to the footer of the page, but that is suboptimal.
+* Use a static site generator (Jekyll, JBake, Awestruck, etc.) that generates the whole site for a web server. Preferred would be to add this after the `<body>` but before the `<footer>`.
+* Develop a post-processor for the publication process. Asciidoctor has general support for this, but none available that do specifically what we want. The closest might be the Google Analytics PostProcessor: https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/google-analytics-postprocessor.rb
+
+*Managing Comments*
+
+The ASF comment system stores comments based on page ID. Every page that includes this ID will show the same comments. This allows us two options for incorporating comments:
+
+. The same page across versions have the same ID (such as, "Language-Analysis"), so all versions of the page for each version will show the same comments.
+.. Pro: comments are always in the same place.
+.. Con: old comments may not be relevant to later changes.
+. The same page across versions have unique IDs (such as, "Language-Analysis-5.3", "Language-Analysis-5.4", etc.), so each version of the page has comments only for that individual page/version.
+.. Pro: comments are specific to the version.
+.. Con: comments are spread across pages.
 
 ===== Search
 
