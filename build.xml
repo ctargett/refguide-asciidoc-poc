@@ -1,11 +1,14 @@
 <project xmlns:asciidoctor="antlib:org.asciidoctor.ant">
 
-  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctor-ant/1.5.1/asciidoctor-ant-1.5.1.jar"
+  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctor-ant/1.5.3/asciidoctor-ant-1.5.3.jar"
     dest="lib/asciidoctor-ant.jar" usetimestamp="true"/>
 
-  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj-pdf/1.5.0-alpha.9/asciidoctorj-pdf-1.5.0-alpha.9.jar" dest="lib/asciidoctorj-pdf.jar" usetimestamp="true" />
+  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj-pdf/1.5.0-alpha.11/asciidoctorj-pdf-1.5.0-alpha.11.jar" dest="lib/asciidoctorj-pdf.jar" usetimestamp="true" />
+
+  <get src="http://repo1.maven.org/maven2/org/jbake/jbake-core/2.4.0/jbake-core-2.4.0.jar" dest="lib/jbake-core.jar" usetimestamp="true"/>
 
 
+<!-- Uses pure Asciidoctor build task-->
   <target name="doc">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml" classpath="lib/asciidoctor-ant.jar"/>
     <asciidoctor:convert
@@ -25,17 +28,28 @@
    </asciidoctor:convert>
   </target>
 
+<!-- Builds site with JBake -->
+  <target name ="jbake-site">
+     <taskdef uri="antlib:org.jbake.jbake-core.ant" resource="org/jbake/jbake-core.xml" classpath="lib/jbake-core.jar"/>
+     <jbake:generate />
+  </target>
+
+<!-- Builds PDF -->
+
+<!-- Approach 1 - use a shell script -->
   <target name="pdf">
      <property name="executable-full-path"
             location="pdf/scripts/createPDF.sh"/>
      <exec executable="${executable-full-path}" />
   </target>
 
-  <property name="asciidoctor-ant.snapshot.jar" value="asciidoctor-ant-1.5.2-SNAPSHOT.jar"/>
+<!-- Approach 2 - use asciidoctor-pdf -->
+<!--  <property name="asciidoctor-ant.snapshot.jar" value="asciidoctor-ant-1.5.2-SNAPSHOT.jar"/> -->
+  <property name="asciidoctor-ant.snapshot.jar" value="asciidoctor-ant.jar"/>
 
-  <target name="pdf2" depends="build-asciidoctor-ant">
+  <target name="pdf2">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
-             classpath="lib/${asciidoctor-ant.snapshot.jar}"/>
+             classpath="lib/asciidoctor-ant.jar"/>
     <asciidoctor:convert
                  sourceDirectory="asciidoc"
                  sourceDocumentName="book.adoc"
@@ -56,11 +70,11 @@
    </asciidoctor:convert>
   </target>
 
-  <condition property="asciidoctor-ant-built" value="true">
+<!--  <condition property="asciidoctor-ant-built" value="true">
     <available file="lib/${asciidoctor-ant.snapshot.jar}"/>
-  </condition>
+</condition> -->
 
-  <!-- Fetch and build asciidoctor-ant.
+  <!-- Fetch and build asciidoctor-ant.  **With asciidoctor-ant 1.5.3 this can perhaps go away**
 
        The latest asciidoctor-ant release (1.5.1) has two problems that disallow conversion to PDF:
 
@@ -68,6 +82,7 @@
           See https://github.com/asciidoctor/asciidoctor-maven-examples/issues/11#issuecomment-112226507
        2. The "pdf" backend was added after the 1.5.1 release
    -->
+   <!-- With asciidoctor-ant 1.5.3 this can perhaps go away
   <target name="build-asciidoctor-ant" unless="asciidoctor-ant-built">
     <delete dir="build/asciidoctor-ant" failonerror="false"/>
     <mkdir dir="build"/>
@@ -75,7 +90,8 @@
       <arg value="clone"/>
       <arg value="https://github.com/asciidoctor/asciidoctor-ant"/>
     </exec>
-    <!-- asciidoctorj-pdf-1.5.0-alpha.7 is missing a required font - upgrade to 1.5.0-alpha.9  -->
+
+    <old comment: asciidoctorj-pdf-1.5.0-alpha.7 is missing a required font - upgrade to 1.5.0-alpha.9 >
     <replaceregexp file="build/asciidoctor-ant/pom.xml"
                    match="&lt;asciidoctorj-pdf.version&gt;1.5.0-alpha.7&lt;/asciidoctorj-pdf.version&gt;"
                    replace="&lt;asciidoctorj-pdf.version&gt;1.5.0-alpha.9&lt;/asciidoctorj-pdf.version&gt;"/>
@@ -86,4 +102,6 @@
     <copy todir="lib" file="build/asciidoctor-ant/target/${asciidoctor-ant.snapshot.jar}"
           failonerror="true" overwrite="true"/>
   </target>
+  -->
+
 </project>

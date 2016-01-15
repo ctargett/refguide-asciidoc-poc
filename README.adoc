@@ -215,13 +215,24 @@ Instructions on how to modify the theme are found in the https://github.com/asci
 
 === Publishing Options
 
-Host in ASF CMS with website.
+. Host in ASF CMS with website.
+. Host however the javadocs are hosted.
 
-Host however the javadocs are hosted.
+==== Static Site Generators
 
-Jekyll, JBake, Awestruck & similar static site generators.
+Site generators allow creation of complex templates such as navigation menus and Javascript-based comments (like the Apache comment system, described more below).
 
-==== Comments
+No matter where the content is hosted, we should use a static site generator such as Jekyll, JBake, Awestruck & similar to generate the HTML pages.
+
+Jekyll has a lot of attention these days, but is Ruby-based and it's not easy to see how it and it's dependencies would fit with the current Solr build process. Or even how to make it work with Ant.
+
+http://www.jbake.org/[JBake] is Java-based, and touts itself as the "Jekyll of the JVM".
+
+Both of these options require each document to contain a metadata header, which includes the page title and status (such as "published", "draft", etc.).
+
+A downside to both options is they are primarily designed for blog posts, which is a slightly different paradigm than online documentation.
+
+=== Comments
 
 A key feature of today's cwiki setup is the ability for users to comment on errors or inconsistencies with the current content. The ASF has a comment system that can be implemented.
 
@@ -248,9 +259,13 @@ The ASF comment system stores comments based on page ID. Every page that include
 .. Pro: comments are specific to the version.
 .. Con: comments are spread across pages.
 
-===== Search
+=== Search
 
 How will we provide search?
+
+Recommend probably indexing generated HTML pages. Could use bin/post from Solr to recurse over the HTML files and index them.
+
+Will need to figure out where to host Solr.
 
 
 == How to Write Asciidoc
