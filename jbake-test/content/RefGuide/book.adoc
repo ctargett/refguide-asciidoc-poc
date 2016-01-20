@@ -1,0 +1,9 @@
+= Apache Solr Reference Guide
+:doctype: book
+:jbake-type: page
+
+include::About-Filters.adoc[]
+
+include::Index-Replication.adoc[]
+
+include::Language-Analysis.adoc[]

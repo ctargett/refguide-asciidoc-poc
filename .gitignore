@@ -4,5 +4,3 @@ lib/*
 # Converted Confluence docs
 confluence-export/cleaned-export/*
 confluence-export/raw-export/*
-jekyll-test/*
-jbake-test/*
