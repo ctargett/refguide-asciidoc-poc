@@ -1,0 +1,11 @@
+This directory is a sample project using http://www.jbake.org/[JBake] as a static site generator for the Solr Ref Guide.
+
+If you have JBake installed locally (see http://www.jbake.org/docs/2.4.0/#installation), you can launch the JBake server to see the existing content in this project.
+
+. Change directory to the top-level `jbake-test` directory.
+. Issue command `jbake -s`. This will start the JBake server in the foreground; if you close your terminal window the server will die.
+. Then go to http://localhost:8820/RefGuide/book.html for the Solr Ref Guide content.
+
+JBake sample content is at http://localhost:8820 but work has not been completed to replace the sample content with Ref Guide, nor provide a link to it. The only way to see the content is to go to it with the URL above.
+
+Also, while JBake provides several options for modifying templates, these have not yet been customized.
