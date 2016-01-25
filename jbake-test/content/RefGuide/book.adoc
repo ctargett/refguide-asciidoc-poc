@@ -1,6 +1,6 @@
 = Apache Solr Reference Guide
 :doctype: book
-:jbake-type: page
+:jbake-type: book
 
 include::About-Filters.adoc[]
 

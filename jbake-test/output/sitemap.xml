@@ -4,7 +4,13 @@
         <loc>http://jbake.org/about.html</loc>
     </url>
     <url>
-        <loc>http://jbake.org/RefGuide/book.html</loc>
+        <loc>http://jbake.org/RefGuide/About-Filters.html</loc>
+    </url>
+    <url>
+        <loc>http://jbake.org/RefGuide/Index-Replication.html</loc>
+    </url>
+    <url>
+        <loc>http://jbake.org/RefGuide/Language-Analysis.html</loc>
     </url>
     <url>
         <loc>http://jbake.org/blog/2013/fourth-post.html</loc>

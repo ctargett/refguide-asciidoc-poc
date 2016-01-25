@@ -4,3 +4,4 @@ lib/*
 # Converted Confluence docs
 confluence-export/cleaned-export/*
 confluence-export/raw-export/*
+html/scripts/*
