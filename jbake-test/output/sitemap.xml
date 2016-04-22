@@ -7,10 +7,34 @@
         <loc>http://jbake.org/RefGuide/About-Filters.html</loc>
     </url>
     <url>
+        <loc>http://jbake.org/RefGuide/About-Tokenizers.html</loc>
+    </url>
+    <url>
+        <loc>http://jbake.org/RefGuide/Analyzers.html</loc>
+    </url>
+    <url>
+        <loc>http://jbake.org/RefGuide/CharFilterFactories.html</loc>
+    </url>
+    <url>
+        <loc>http://jbake.org/RefGuide/Filter-Descriptions.html</loc>
+    </url>
+    <url>
         <loc>http://jbake.org/RefGuide/Index-Replication.html</loc>
     </url>
     <url>
         <loc>http://jbake.org/RefGuide/Language-Analysis.html</loc>
+    </url>
+    <url>
+        <loc>http://jbake.org/RefGuide/Phonetic-Matching.html</loc>
+    </url>
+    <url>
+        <loc>http://jbake.org/RefGuide/Running-Your-Analyzer.html</loc>
+    </url>
+    <url>
+        <loc>http://jbake.org/RefGuide/Tokenizers.html</loc>
+    </url>
+    <url>
+        <loc>http://jbake.org/RefGuide/Understanding-Analyzers-Tokenizers-and-Filters.html</loc>
     </url>
     <url>
         <loc>http://jbake.org/blog/2013/fourth-post.html</loc>

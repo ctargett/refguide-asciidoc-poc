@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Tokenizers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../css/ref-guide.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="../favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../">JBake</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../feed.xml">Subscribe</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+	<div class="page-header">
+		<h1>Tokenizers</h1>
+	</div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>You configure the tokenizer for a text field type in <code>schema.xml</code> with a <code>&lt;tokenizer&gt;</code> element, as a child of <code>&lt;analyzer&gt;</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;fieldType</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.TextField</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;analyzer</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">index</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.StandardTokenizerFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;filter</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.StandardFilterFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;/analyzer&gt;</span>
+<span class="tag">&lt;/fieldType&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The class attribute names a factory class that will instantiate a tokenizer object when needed. Tokenizer factory classes implement the <code>org.apache.solr.analysis.TokenizerFactory</code>. A TokenizerFactory&#8217;s <code>create()</code> method accepts a Reader and returns a TokenStream. When Solr creates the tokenizer it passes a Reader object that provides the content of the text field.</p>
+</div>
+<div class="paragraph">
+<p>Arguments may be passed to tokenizer factories by setting attributes on the <code>&lt;tokenizer&gt;</code> element.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;fieldType</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">semicolonDelimited</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.TextField</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;analyzer</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">query</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.PatternTokenizerFactory</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">pattern</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">; </span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;/analyzer&gt;</span>
+<span class="tag">&lt;/fieldType&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tokenizer_types">Tokenizer Types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following sections describe the tokenizer factory classes included in this release of Solr.</p>
+</div>
+<div class="paragraph">
+<p>For more information about Solr&#8217;s tokenizers, see <a href="http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters" class="bare">http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_standard_tokenizer">Standard Tokenizer</h3>
+<div class="paragraph">
+<p>This tokenizer splits the text field into tokens, treating whitespace and punctuation as delimiters. Delimiter characters are discarded, with the following exceptions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Periods (dots) that are not followed by whitespace are kept as part of the token, including Internet domain names.</p>
+</li>
+<li>
+<p>The "@" character is among the set of token-splitting punctuation, so email addresses are <strong>not</strong> preserved as single tokens.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that words are split at hyphens.</p>
+</div>
+<div class="paragraph">
+<p>The Standard Tokenizer supports <a href="http://unicode.org/reports/tr29/#Word_Boundaries">Unicode standard annex UAX#29</a> word boundaries with the following token types: <code>&lt;ALPHANUM&gt;</code>, <code>&lt;NUM&gt;</code>, <code>&lt;SOUTHEAST_ASIAN&gt;</code>, <code>&lt;IDEOGRAPHIC&gt;</code>, and <code>&lt;HIRAGANA&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.StandardTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>maxTokenLength</code>: (integer, default 255) Solr ignores tokens that exceed the number of characters specified by <code>maxTokenLength</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.StandardTokenizerFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Please, email <a href="mailto:john.doe@foo.com">john.doe@foo.com</a> by 03-09, re: m37-xq."</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Please", "email", "john.doe", "foo.com", "by", "03", "09", "re", "m37", "xq"</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_classic_tokenizer">Classic Tokenizer</h3>
+<div class="paragraph">
+<p>The Classic Tokenizer preserves the same behavior as the Standard Tokenizer of Solr versions 3.1 and previous. It does not use the <a href="http://unicode.org/reports/tr29/#Word_Boundaries">Unicode standard annex UAX#29</a> word boundary rules that the Standard Tokenizer uses. This tokenizer splits the text field into tokens, treating whitespace and punctuation as delimiters. Delimiter characters are discarded, with the following exceptions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Periods (dots) that are not followed by whitespace are kept as part of the token.</p>
+</li>
+<li>
+<p>Words are split at hyphens, unless there is a number in the word, in which case the token is not split and the numbers and hyphen(s) are preserved.</p>
+</li>
+<li>
+<p>Recognizes Internet domain names and email addresses and preserves them as a single token.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.ClassicTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>maxTokenLength</code>: (integer, default 255) Solr ignores tokens that exceed the number of characters specified by <code>maxTokenLength</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.ClassicTokenizerFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Please, email <a href="mailto:john.doe@foo.com">john.doe@foo.com</a> by 03-09, re: m37-xq."</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Please", "email", "<a href="mailto:john.doe@foo.com">john.doe@foo.com</a>", "by", "03-09", "re", "m37-xq"</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_keyword_tokenizer">Keyword Tokenizer</h3>
+<div class="paragraph">
+<p>This tokenizer treats the entire text field as a single token.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.KeywordTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.KeywordTokenizerFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Please, email <a href="mailto:john.doe@foo.com">john.doe@foo.com</a> by 03-09, re: m37-xq."</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Please, email <a href="mailto:john.doe@foo.com">john.doe@foo.com</a> by 03-09, re: m37-xq."</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_letter_tokenizer">Letter Tokenizer</h3>
+<div class="paragraph">
+<p>This tokenizer creates tokens from strings of contiguous letters, discarding all non-letter characters.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.LetterTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.LetterTokenizerFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "I can&#8217;t."</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "I", "can", "t"</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lower_case_tokenizer">Lower Case Tokenizer</h3>
+<div class="paragraph">
+<p>Tokenizes the input stream by delimiting at non-letters and then converting all letters to lowercase. Whitespace and non-letters are discarded.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.LowerCaseTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.LowerCaseTokenizerFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "I just <strong>LOVE</strong> my iPhone!"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "i", "just", "love", "my", "iphone"</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_n_gram_tokenizer">N-Gram Tokenizer</h3>
+<div class="paragraph">
+<p>Reads the field text and generates n-gram tokens of sizes in the given range.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.NGramTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>minGramSize</code>: (integer, default 1) The minimum n-gram size, must be &gt; 0.</p>
+</div>
+<div class="paragraph">
+<p><code>maxGramSize</code>: (integer, default 2) The maximum n-gram size, must be &gt;= <code>minGramSize</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default behavior. Note that this tokenizer operates over the whole field. It does not break the field at whitespace. As a result, the space character is included in the encoding.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.NGramTokenizerFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "hey man"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "h", "e", "y", " ", "m", "a", "n", "he", "ey", "y ", " m", "ma", "an"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>With an n-gram size range of 4 to 5:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.NGramTokenizerFactory</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minGramSize</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">4</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">maxGramSize</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">5</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "bicycle"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "bicy", "bicyc", "icyc", "icycl", "cycl", "cycle", "ycle"</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_edge_n_gram_tokenizer">Edge N-Gram Tokenizer</h3>
+<div class="paragraph">
+<p>Reads the field text and generates edge n-gram tokens of sizes in the given range.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.EdgeNGramTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>minGramSize</code>: (integer, default is 1) The minimum n-gram size, must be &gt; 0.</p>
+</div>
+<div class="paragraph">
+<p><code>maxGramSize</code>: (integer, default is 1) The maximum n-gram size, must be &gt;= <code>minGramSize</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>side</code>: ("front" or "back", default is "front") Whether to compute the n-grams from the beginning (front) of the text or from the end (back).</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default behavior (min and max default to 1):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.EdgeNGramTokenizerFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "babaloo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "b"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Edge n-gram range of 2 to 5</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.EdgeNGramTokenizerFactory</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minGramSize</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">maxGramSize</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">5</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "babaloo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong>"ba", "bab", "baba", "babal"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Edge n-gram range of 2 to 5, from the back side:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.EdgeNGramTokenizerFactory</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">minGramSize</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">2</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">maxGramSize</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">5</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">side</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">back</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "babaloo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "oo", "loo", "aloo", "baloo"</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_icu_tokenizer">ICU Tokenizer</h3>
+<div class="paragraph">
+<p>This tokenizer processes multilingual text and tokenizes it appropriately based on its script attribute.</p>
+</div>
+<div class="paragraph">
+<p>You can customize this tokenizer&#8217;s behavior by specifying <a href="http://userguide.icu-project.org/boundaryanalysis#TOC-RBBI-Rules">per-script rule files</a>. To add per-script rules, add a <code>rulefiles</code> argument, which should contain a comma-separated list of <code>code:rulefile</code> pairs in the following format: four-letter ISO 15924 script code, followed by a colon, then a resource path. For example, to specify rules for Latin (script code "Latn") and Cyrillic (script code "Cyrl"), you would enter <code>Latn:my.Latin.rules.rbbi,Cyrl:my.Cyrillic.rules.rbbi</code>.</p>
+</div>
+<div class="paragraph">
+<p>The default <code>solr.ICUTokenizerFactory</code> provides UAX#29 word break rules tokenization (like <code>solr.StandardTokenizer</code>), but also includes custom tailorings for Hebrew (specializing handling of double and single quotation marks), and for syllable tokenization for Khmer, Lao, and Myanmar.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.ICUTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>rulefile</code>: a comma-separated list of <code>code:rulefile</code> pairs in the following format: four-letter ISO 15924 script code, followed by a colon, then a resource path.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml">  <span class="tag">&lt;analyzer&gt;</span>
+    <span class="comment">&lt;!-- no customization --&gt;</span>
+    <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.ICUTokenizerFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml">  <span class="tag">&lt;analyzer&gt;</span>
+    <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.ICUTokenizerFactory</span><span class="delimiter">&quot;</span></span>
+    <span class="attribute-name">rulefiles</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">Latn:my.Latin.rules.rbbi,Cyrl:my.Cyrillic.rules.rbbi</span><span class="delimiter">&quot;</span></span>
+  <span class="tag">/&gt;</span>
+  <span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_path_hierarchy_tokenizer">Path Hierarchy Tokenizer</h3>
+<div class="paragraph">
+<p>This tokenizer creates synonyms from file path hierarchies.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.PathHierarchyTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>delimiter</code>: (character, no default) You can specify the file path delimiter and replace it with a delimiter you provide. This can be useful for working with backslash delimiters.</p>
+</div>
+<div class="paragraph">
+<p><code>replace</code>: (character, no default) Specifies the delimiter character Solr uses in the tokenized output.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;fieldType</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text_path</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.TextField</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">positionIncrementGap</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">100</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;analyzer&gt;</span>
+    <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.PathHierarchyTokenizerFactory</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">delimiter</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">\</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">replace</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;/analyzer&gt;</span>
+<span class="tag">&lt;/fieldType&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "c:\usr\local\apache"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "c:", "c:/usr", "c:/usr/local", "c:/usr/local/apache"</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_regular_expression_pattern_tokenizer">Regular Expression Pattern Tokenizer</h3>
+<div class="paragraph">
+<p>This tokenizer uses a Java regular expression to break the input text stream into tokens. The expression provided by the pattern argument can be interpreted either as a delimiter that separates tokens, or to match patterns that should be extracted from the text as tokens.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">the Javadocs for <code>java.util.regex.Pattern</code></a> for more information on Java regular expression syntax.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.PatternTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>pattern</code>: (Required) The regular expression, as defined by in <code>java.util.regex.Pattern</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>group</code>: (Optional, default -1) Specifies which regex group to extract as the token(s). The value -1 means the regex should be treated as a delimiter that separates tokens. Non-negative group numbers (&gt;= 0) indicate that character sequences matching that regex group should be converted to tokens. Group zero refers to the entire regex, groups greater than zero refer to parenthesized sub-expressions of the regex, counted from left to right.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>A comma separated list. Tokens are separated by a sequence of zero or more spaces, a comma, and zero or more spaces.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.PatternTokenizerFactory</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">pattern</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">\s*,\s*</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "fee,fie, foe , fum, foo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "fee", "fie", "foe", "fum", "foo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Extract simple, capitalized words. A sequence of at least one capital letter followed by zero or more letters of either case is extracted as a token.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.PatternTokenizerFactory</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">pattern</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">[A-Z][A-Za-z]*</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">group</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Hello. My name is Inigo Montoya. You killed my father. Prepare to die."</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Hello", "My", "Inigo", "Montoya", "You", "Prepare"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Extract part numbers which are preceded by "SKU", "Part" or "Part Number", case sensitive, with an optional semi-colon separator. Part numbers must be all numeric digits, with an optional hyphen. Regex capture groups are numbered by counting left parenthesis from left to right. Group 3 is the subexpression "[0-9-]+", which matches one or more digits or hyphens.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.PatternTokenizerFactory</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">pattern</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">(SKU|Part(\sNumber)?):?\s(\[0-9-\]+)</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">group</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">3</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "SKU: 1234, Part Number 5678, Part: 126-987"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "1234", "5678", "126-987"</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uax29_url_email_tokenizer">UAX29 URL Email Tokenizer</h3>
+<div class="paragraph">
+<p>This tokenizer splits the text field into tokens, treating whitespace and punctuation as delimiters. Delimiter characters are discarded, with the following exceptions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Periods (dots) that are not followed by whitespace are kept as part of the token.</p>
+</li>
+<li>
+<p>Words are split at hyphens, unless there is a number in the word, in which case the token is not split and the numbers and hyphen(s) are preserved.</p>
+</li>
+<li>
+<p>Recognizes top-level Internet domain names (validated against the white list in the <a href="http://www.internic.net/zones/root.zone">IANA Root Zone Database</a> when the tokenizer was generated); email addresses; <code>file</code> <code>:</code> <code>//</code>, <code>http(s)://</code>, and <code>ftp://</code> addresses; IPv4 and IPv6 addresses; and preserves them as a single token.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The UAX29 URL Email Tokenizer supports <a href="http://unicode.org/reports/tr29/#Word_Boundaries">Unicode standard annex UAX#29</a> word boundaries with the following token types: <code>&lt;ALPHANUM&gt;</code>, <code>&lt;NUM&gt;</code>, <code>&lt;URL&gt;</code>, <code>&lt;EMAIL&gt;</code>, <code>&lt;SOUTHEAST_ASIAN&gt;</code>, <code>&lt;IDEOGRAPHIC&gt;</code>, and <code>&lt;HIRAGANA&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.UAX29URLEmailTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>maxTokenLength</code>: (integer, default 255) Solr ignores tokens that exceed the number of characters specified by <code>maxTokenLength</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.UAX29URLEmailTokenizerFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Visit <a href="http://accarol.com/contact.htm?from=external&amp;a=10" class="bare">http://accarol.com/contact.htm?from=external&amp;a=10</a> or e-mail <a href="mailto:bob.cratchet@accarol.com">bob.cratchet@accarol.com</a>"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Visit", "http://accarol.com/contact.htm?from=external&amp;a=10", "or", "e", "mail", "<a href="mailto:bob.cratchet@accarol.com">bob.cratchet@accarol.com</a>"</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_white_space_tokenizer">White Space Tokenizer</h3>
+<div class="paragraph">
+<p>Simple tokenizer that splits the text stream on whitespace and returns sequences of non-whitespace characters as tokens. Note that any punctuation <em>will</em> be included in the tokenization.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.WhitespaceTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.WhitespaceTokenizerFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "To be, or what?"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "To", "be,", "or", "what?"</p>
+</div>
+</div>
+</div>
+</div></p>
+
+	<hr />
+
+	<script type="text/javascript"><!--//--><![CDATA[//><!--
+	    var comments_shortname = 'solrcwiki';
+	    var comments_identifier = 'Tokenizers'; // Insert your unique page ID here
+	    (function(w, d) {
+		    d.write('<div id="comments_thread"><\/div>');
+		    var s = d.createElement('script');
+		    s.type = 'text/javascript';
+		    s.async = true;
+		    s.src = 'https://comments.apache.org/show_comments.lua?site=' + comments_shortname + '&page=' + comments_identifier + '&oldschool=true';
+		    (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
+	    })(window, document);
+	    //--><!]]></script>
+	    <noscript>
+	    <iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&amp;page=Tokenizers&oldschool=true"></iframe>
+	    </noscript>
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2016 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.4.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
+
+  </body>
+</html>
