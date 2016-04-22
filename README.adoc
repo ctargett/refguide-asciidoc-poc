@@ -5,21 +5,19 @@ toc::[]
 
 This project is a proof of concept to evaluate changing the Apache Solr Ref Guide from being managed as a Confluence wiki to text files committed as part of Solr source code. HTML pages and PDFs could be generated using a publishing toolchain that is integrated with existing Solr/Lucene build processes.
 
-This README describes the reasons for the change, what this POC demonstrates, and a short introduction on how to work with the recommended markdown format.
+This README describes the reasons for the change, what this POC demonstrates, and a short introduction on how to work with the recommended markdown format. Links are provided to additional information in this project's wiki.
 
-== Proof of Concept Ref Guide
-
-=== What's in this Repo?
+== What's in this Repo?
 This repo is a proof-of-concept for converting the Ref Guide to Asciidoc format. It includes:
 
-* The currrent ref guide exported to HTML format (on 31 August 2015), and converted to Asciidoc format, in the `confluence-export` directory.
+* The current ref guide exported to HTML format (on 31 August 2015), and converted to Asciidoc format, in the `confluence-export` directory.
 * Scripts to support converting from Confluence to Asciidoc format (more below).
 * A few sample pages from the conversion with some additional cleanup, in the `asciidoc` directory.
 * A sample `build.xml` to generate HTML and PDF versions of the sample pages.
 * Scripts to assist with PDF generation.
 * Sample HTML and PDF files with preliminary design included.
 
-=== How to Build
+== How to Build
 
 This project includes `ant` targets for building HTML and PDF versions of the Ref Guide.
 
@@ -30,6 +28,7 @@ This project includes `ant` targets for building HTML and PDF versions of the Re
 
 NOTE: Some details have been moved into the wiki attached to this repo.
 
+== Open Questions
 
 === Location of Source
 
@@ -81,39 +80,7 @@ Uses `asciidoctor-ant` plugin to convert to HTML. To generate HTML, simply run `
 
 This task sets the output format, defines a custom stylesheet (see Styles, below), and defines the plugin to use for code syntax highlighting, and other parameters.
 
-===== HTML-related Rules in build.xml
-
-The first part gets the required JAR file.
-
-[source,xml]
-----
-<get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctor-ant/1.5.1/asciidoctor-ant-1.5.1.jar"
-  dest="lib/asciidoctor-ant.jar" usetimestamp="true"/>
-----
-
-The second part defines the rules for converting the documents to HTML.
-
-[source,xml]
-----
-<target name="doc">
-  <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml" classpath="lib/asciidoctor-ant.jar"/>
-  <asciidoctor:convert
-               sourceDirectory="asciidoc"
-               outputDirectory="html"
-               backend="html5"
-               extensions="asc"
-               sourceHighlighter="coderay"
-               embedAssets="true"
-               imagesDir="asciidoc/images">
-    <attribute key="docinfo1" value='' />
-    <attribute key="stylesheet" value="ref-guide.css" />
-    <attribute key="stylesdir" value="html/styles" />
-    <attribute key="icons" value="font" />
-    <attribute key="figure-caption!" value='' />
-    <attribute key="toc" value="right" />
- </asciidoctor:convert>
-</target>
-----
+See <<wiki/BuildDetails.asciidoc, Build Details>> for more information on the HTML output task.
 
 Still To Do:
 
@@ -169,30 +136,7 @@ A downside to both options is they are primarily designed for blog posts, which 
 
 === Comments
 
-A key feature of today's cwiki setup is the ability for users to comment on errors or inconsistencies with the current content. The ASF has a comment system that can be implemented.
-
-*Adding Comments to Pages*
-
-Comments are added by including a JavaScript snippet on each page, which points to the ASF comment system with a unique page ID.
-
-The snippet is available at (must login): https://comments.apache.org/panel.lua?site=solrcwiki&view=snippet&uid=741d0acac05816701215f891d97c8b451fe320b5).
-
-Because this needs a page ID, and must be added to the generated HTML, there is an open question about how to insert the snippet during the production process. Some options:
-
-* It can be easily added to the footer of the page, but that is suboptimal.
-* Use a static site generator (Jekyll, JBake, Awestruck, etc.) that generates the whole site for a web server. Preferred would be to add this after the `<body>` but before the `<footer>`.
-* Develop a post-processor for the publication process. Asciidoctor has general support for this, but none available that do specifically what we want. The closest might be the Google Analytics PostProcessor: https://github.com/asciidoctor/asciidoctor-extensions-lab/blob/master/lib/google-analytics-postprocessor.rb
-
-*Managing Comments*
-
-The ASF comment system stores comments based on page ID. Every page that includes this ID will show the same comments. This allows us two options for incorporating comments:
-
-. The same page across versions have the same ID (such as, "Language-Analysis"), so all versions of the page for each version will show the same comments.
-.. Pro: comments are always in the same place.
-.. Con: old comments may not be relevant to later changes.
-. The same page across versions have unique IDs (such as, "Language-Analysis-5.3", "Language-Analysis-5.4", etc.), so each version of the page has comments only for that individual page/version.
-.. Pro: comments are specific to the version.
-.. Con: comments are spread across pages.
+See <<wiki/Comments.asciidoc,Comments>> in this repo's wiki for details on how to handle comments in this structure.
 
 === Search
 
