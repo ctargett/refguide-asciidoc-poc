@@ -1,11 +1,10 @@
 = Solr Ref Guide in Asciidoc
 :toc:
 
-toc::[]
+This project is a proof of concept for changing the Apache Solr Ref Guide from being managed as a Confluence wiki to text files committed as part of Solr source code. HTML pages and PDFs can instead be generated using a publishing toolchain that is integrated with existing Solr/Lucene build processes.
 
-This project is a proof of concept to evaluate changing the Apache Solr Ref Guide from being managed as a Confluence wiki to text files committed as part of Solr source code. HTML pages and PDFs could be generated using a publishing toolchain that is integrated with existing Solr/Lucene build processes.
-
-This README describes the reasons for the change, what this POC demonstrates, and a short introduction on how to work with the recommended markdown format. Links are provided to additional information in this project's wiki.
+== WHY?
+See https://github.com/ctargett/refguide-asciidoc-poc/wiki/Why[Why Asciidoc] for discussion of why to change from Confluence and why choose Asciidoc.
 
 == What's in this Repo?
 This repo is a proof-of-concept for converting the Ref Guide to Asciidoc format. It includes:
@@ -16,6 +15,7 @@ This repo is a proof-of-concept for converting the Ref Guide to Asciidoc format.
 * A sample `build.xml` to generate HTML and PDF versions of the sample pages.
 * Scripts to assist with PDF generation.
 * Sample HTML and PDF files with preliminary design included.
+* Sample configs for JBake and Jekyll for more site features (like comments, page templates, etc).
 
 == How to Build
 
@@ -24,9 +24,58 @@ This project includes `ant` targets for building HTML and PDF versions of the Re
 * `ant doc` builds the HTML files by finding all `.adoc` files from `asciidoc` directory and making an HTML file for each page. It downloads a .jar file as a dependency. This only requires Ant.
 * `ant pdf2` builds a PDF from the files defined in `asciidoc/book.adoc`. It builds a .jar file that is needed as a dependency before generating the PDF file. Maven is required to get all the dependencies to compile the .jar.
 
-== Details and TODOs
+== Conversion Tools
 
-NOTE: Some details have been moved into the wiki attached to this repo.
+See https://github.com/ctargett/refguide-asciidoc-poc/wiki/ContentConversion[Content Conversion] for details on how the content will be converted from Confluence to Asciidoc, including a list of cleanup issues that will need to be completed.
+
+== Toolchain Overview
+
+* Raw files in .adoc format
+* Asciidoctor for conversion to HTML and PDF
+* Ant scripts
+
+== Build Process
+
+Asciidoctor is a toolchain written in Ruby which facilitates converting text files to other formats for publishing. One sub-project is the `asciidoctor-ant` plugin for Apache Ant.
+
+=== HTML
+
+Uses `asciidoctor-ant` plugin to convert to HTML. To generate HTML, simply run `ant doc`.
+
+This task sets the output format, defines a custom stylesheet (see Styles, below), and defines the plugin to use for code syntax highlighting, and other parameters.
+
+See https://github.com/ctargett/refguide-asciidoc-poc/wiki/BuildDetails[Build Details] for more information on the HTML output task.
+
+Still To Do:
+
+* Determine where to put the pages online. See also section on <<Publishing Options>>.
+
+=== PDF
+
+*TODO* Update this.
+
+Currently the `ant pdf` target calls a script `pdf/scripts/createPDF.sh` which relies on the `asciidoctor-pdf` gem to be installed on the local machine.
+
+To install this gem locally, follow these steps:
+
+. `gem install --pre asciidoctor-pdf`
+. `gem install coderay`
+
+The second step installs the plugin that provides code syntax highlighting (Pygments is better IMO, but is not supported by `asciidoctor-ant` at this time.)
+
+See https://github.com/asciidoctor/asciidoctor-pdf for more details on using this plugin.
+
+==== Issues
+
+It seems `asciidoctor-ant` should be able to handle the PDF conversion, but it doesn't.
+
+Another plugin `asciidoctor-pdf` allows conversion direct to PDF, although this is a gem? It also has other dependencies, I think. Can it be a jar, like `asciidoctor-ant`?
+
+=== Known Output Bugs
+
+There are some known issues that may impact our ability to convert documents as we want:
+
+* Possibly an issue with pipe characters inside literal blocks in tables: https://github.com/asciidoctor/asciidoctor/issues/1421. Unclear if we have any of these.
 
 == Open Questions
 
@@ -70,52 +119,7 @@ Some examples of how others have done it:
 
 For a much longer list, see https://github.com/asciidoctor/asciidoctor.org/issues/270.
 
-=== Build Process
-
-Asciidoctor is a toolchain written in Ruby which facilitates converting text files to other formats for publishing. One sub-project is the `asciidoctor-ant` plugin for Apache Ant.
-
-==== HTML
-
-Uses `asciidoctor-ant` plugin to convert to HTML. To generate HTML, simply run `ant doc`.
-
-This task sets the output format, defines a custom stylesheet (see Styles, below), and defines the plugin to use for code syntax highlighting, and other parameters.
-
-See <<wiki/BuildDetails.asciidoc, Build Details>> for more information on the HTML output task.
-
-Still To Do:
-
-* Determine where to put the pages online. See also section on <<Publishing Options>>.
-
-==== PDF
-
-===== Current Behavior
-
-Currently the `ant pdf` target calls a script `pdf/scripts/createPDF.sh` which relies on the `asciidoctor-pdf` gem to be installed on the local machine.
-
-To install this gem locally, follow these steps:
-
-. `gem install --pre asciidoctor-pdf`
-. `gem install coderay`
-
-The second step installs the plugin that provides code syntax highlighting (Pygments is better IMO, but is not supported by `asciidoctor-ant` at this time.)
-
-See https://github.com/asciidoctor/asciidoctor-pdf for more details on using this plugin.
-
-*Issues*
-It seems `asciidoctor-ant` should be able to handle the PDF conversion, but it doesn't.
-
-Another plugin `asciidoctor-pdf` allows conversion direct to PDF, although this is a gem? It also has other dependencies, I think. Can it be a jar, like `asciidoctor-ant`?
-
-
-=== Publication Bugs
-
-There are some known issues that may impact our ability to convert documents as we want:
-
-* Possibly an issue with pipe characters inside literal blocks in tables: https://github.com/asciidoctor/asciidoctor/issues/1421. Unclear if we have any of these.
-
-
-
-=== Publishing Options
+=== Hosting Options
 
 . Host in ASF CMS with website.
 . Host however the javadocs are hosted.
@@ -136,7 +140,7 @@ A downside to both options is they are primarily designed for blog posts, which 
 
 === Comments
 
-See <<wiki/Comments.asciidoc,Comments>> in this repo's wiki for details on how to handle comments in this structure.
+See https://github.com/ctargett/refguide-asciidoc-poc/wiki/Comments[Comments] for details on how to handle comments.
 
 === Search
 
@@ -145,6 +149,3 @@ How will we provide search?
 Recommend probably indexing generated HTML pages. Could use bin/post from Solr to recurse over the HTML files and index them.
 
 Will need to figure out where to host Solr.
-
-
-== How to Write Asciidoc
