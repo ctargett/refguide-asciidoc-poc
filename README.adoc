@@ -9,9 +9,9 @@ See https://github.com/ctargett/refguide-asciidoc-poc/wiki/Why[Why Asciidoc] for
 == What's in this Repo?
 This repo is a proof-of-concept for converting the Ref Guide to Asciidoc format. It includes:
 
-* The current ref guide exported to HTML format (on 31 August 2015), and converted to Asciidoc format, in the `confluence-export` directory.
+* The current Ref Guide exported to HTML format (on 31 August 2015), and converted to Asciidoc format, in the `confluence-export` directory.
 * Scripts to support converting from Confluence to Asciidoc format (more below).
-* A few sample pages from the conversion with some additional cleanup, in the `asciidoc` directory.
+* Some sample pages from the conversion with some additional cleanup, in the `asciidoc` directory.
 * A sample `build.xml` to generate HTML and PDF versions of the sample pages.
 * Scripts to assist with PDF generation.
 * Sample HTML and PDF files with preliminary design included.
@@ -21,7 +21,8 @@ This repo is a proof-of-concept for converting the Ref Guide to Asciidoc format.
 
 This project includes `ant` targets for building HTML and PDF versions of the Ref Guide.
 
-* `ant doc` builds the HTML files by finding all `.adoc` files from `asciidoc` directory and making an HTML file for each page. It downloads a .jar file as a dependency. This only requires Ant.
+* `ant asciidoctor` builds the HTML files by finding all `.adoc` files from `asciidoc` directory and making an HTML file for each page. It downloads a .jar file as a dependency. This only requires Ant.
+* `ant jbake-site` builds a full HTML site using JBake, a static site generator. This provides templatized HTML files. NOTE: at the current time, this will only work with the jbake directory in the static-site-tests branch.
 * `ant pdf2` builds a PDF from the files defined in `asciidoc/book.adoc`. It builds a .jar file that is needed as a dependency before generating the PDF file. Maven is required to get all the dependencies to compile the .jar.
 
 == Conversion Tools
@@ -32,7 +33,7 @@ See https://github.com/ctargett/refguide-asciidoc-poc/wiki/ContentConversion[Con
 
 * Raw files in .adoc format
 * Asciidoctor for conversion to HTML and PDF
-* Ant scripts
+* Ant `build.xml` for building a set of simple HTML files; a full docs site; a PDF.
 
 == Build Process
 

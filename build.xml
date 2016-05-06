@@ -9,7 +9,7 @@
 
 
 <!-- Uses pure Asciidoctor build task-->
-  <target name="doc">
+  <target name="asciidoctor">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml" classpath="lib/asciidoctor-ant.jar"/>
     <asciidoctor:convert
                  sourceDirectory="asciidoc"
