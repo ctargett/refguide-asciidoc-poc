@@ -1,8 +1,24 @@
 = Apache Solr Reference Guide
 :doctype: book
+:jbake-type: book
 
-include::asciidoc/About-Filters.adoc[]
+= Understanding Analyzers, Tokenizers, and Filters
+include::Understanding-Analyzers-Tokenizers-and-Filters.adoc[]
 
-include::asciidoc/Index-Replication.adoc[]
+include::Analyzers.adoc[]
 
-include::asciidoc/Language-Analysis.adoc[]
+include::About-Tokenizers[]
+
+include::About-Filters.adoc[]
+
+include::Tokenizers.adoc[]
+
+include::Filter-Descriptions.adoc[]
+
+include::CharFilterFactories.adoc[]
+
+include::Language-Analysis.adoc[]
+
+include::Phonetic-Matching.adoc[]
+
+include::Running-Your-Analyzer.adoc[]

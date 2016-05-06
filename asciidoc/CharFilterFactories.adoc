@@ -1,11 +1,13 @@
+= CharFilterFactories
+:description: Detailed information on available character input filters.
+:jbake-type: page
+:jbake-status: published
 :toc: macro
 :toc-title: In This Section
 
 1.  link:index.html[Apache Solr Reference Guide]
 2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
 3.  link:32604225.html[Understanding Analyzers, Tokenizers, and Filters]
-
-= CharFilterFactories
 
 Char Filter is a component that pre-processes input characters. Char Filters can be chained like Token Filters and placed in front of a Tokenizer. Char Filters can add, change, or remove characters while preserving the original character offsets to support features like highlighting.
 

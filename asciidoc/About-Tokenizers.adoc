@@ -1,8 +1,11 @@
+= About Tokenizers
+:description: Introduction to using tokenizers with incoming content.
+:jbake-type: page
+:jbake-status: published
+
 1.  link:index.html[Apache Solr Reference Guide]
 2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
 3.  link:32604225.html[Understanding Analyzers, Tokenizers, and Filters]
-
-= About Tokenizers
 
 The job of a <<Tokenizers.adoc#_tokenizers,tokenizer>> is to break up a stream of text into tokens, where each token is (usually) a sub-sequence of the characters in the text. An analyzer is aware of the field it is configured for, but a tokenizer is not. Tokenizers read from a character stream (a Reader) and produce a sequence of Token objects (a TokenStream).
 

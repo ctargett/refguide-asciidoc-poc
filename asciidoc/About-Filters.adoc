@@ -1,8 +1,11 @@
+= About Filters
+:description: An introduction to filters.
+:jbake-type: page
+:jbake-status: published
+
 1.  link:index.html[Apache Solr Reference Guide]
 2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
 3.  link:32604225.html[Understanding Analyzers, Tokenizers, and Filters]
-
-= About Filters
 
 Like <<Tokenizers.adoc#_tokenizers,tokenizers>>, <<Filter-Descriptions.adoc#_filters,filters>> consume input and produce a stream of tokens. Filters also derive from `org.apache.lucene.analysis.TokenStream`. Unlike tokenizers, a filter's input is another TokenStream. The job of a filter is usually easier than that of a tokenizer since in most cases a filter looks at each token in the stream sequentially and decides whether to pass it along, replace it or discard it.
 

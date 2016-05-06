@@ -1,8 +1,12 @@
+= Index Replication
+:description: Introduction to classic index replication (not SolrCloud).
+:jbake-type: page
+:jbake-status: published
+
+
 1.  link:index.html[Apache Solr Reference Guide]
 2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
 3.  link:Legacy-Scaling-and-Distribution.html[Legacy Scaling and Distribution]
-
-= Index Replication
 
 Index Replication distributes complete copies of a master index to one or more slave servers. The master server continues to manage updates to the index. All querying is handled by the slaves. This division of labor enables Solr to scale to provide adequate responsiveness to queries against large search volumes.
 

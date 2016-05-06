@@ -1,3 +1,8 @@
+= Language Analysis
+:description: Overview of language analysis capabilities of Solr.
+:jbake-type: page
+:jbake-status: published
+
 1.  link:index.html[Apache Solr Reference Guide]
 2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
 3.  link:32604225.html[Understanding Analyzers, Tokenizers, and Filters]

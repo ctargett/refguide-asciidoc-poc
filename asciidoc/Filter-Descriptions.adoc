@@ -1,11 +1,13 @@
+= Filter Descriptions
+:description: Detailed information on available content filters.
+:jbake-type: page
+:jbake-status: published
 :toc: macro
 :toc-title: In This Section
 
 1.  link:index.html[Apache Solr Reference Guide]
 2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
 3.  link:32604225.html[Understanding Analyzers, Tokenizers, and Filters]
-
-= Filter Descriptions
 
 You configure each filter with a `<filter>` element in `schema.xml` as a child of `<analyzer>`, following the `<tokenizer>` element. Filter definitions should follow a tokenizer or another filter definition because they take a `TokenStream` as input. For example.
 

@@ -1,8 +1,11 @@
+= Running Your Analyzer
+:description: Testing and running analysis.
+:jbake-type: page
+:jbake-status: published
+
 1.  link:index.html[Apache Solr Reference Guide]
 2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
 3.  link:32604225.html[Understanding Analyzers, Tokenizers, and Filters]
-
-= Running Your Analyzer
 
 Once you've defined a field type in `schema.xml` and specified the analysis steps that you want applied to it, you should test it out to make sure that it behaves the way you expect it to. Luckily, there is a very handy page in the Solr <<Using-the-Solr-Administration-User-Interface.adoc,admin interface>> that lets you do just that. You can invoke the analyzer for any text field, provide sample input, and display the resulting token stream.
 
