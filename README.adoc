@@ -28,7 +28,7 @@ However, this project includes `ant` targets for building HTML and PDF versions 
 * `ant asciidoctor` builds the HTML files by finding all `.adoc` files from `asciidoc` directory and making an HTML file for each page. It downloads a .jar file as a dependency. This only requires Ant.
 * `ant jbake-site` builds a full HTML site using JBake, a static site generator. This provides templatized HTML files.
 +
-NOTE: At the current time, the `ant jbake-site` target will only work with the `jbake` directory in the static-site-tests branch.
+NOTE: At the current time, the `ant jbake-site` target will only work with the `jbake` directory in the `static-site-tests` branch.
 
 * `ant pdf2` builds a PDF from the files defined in `asciidoc/book.adoc`. It builds a .jar file that is needed as a dependency before generating the PDF file. Maven is required to get all the dependencies to compile the .jar.
 
