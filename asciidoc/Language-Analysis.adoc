@@ -3,12 +3,6 @@
 :jbake-type: page
 :jbake-status: published
 
-1.  link:index.html[Apache Solr Reference Guide]
-2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
-3.  link:32604225.html[Understanding Analyzers, Tokenizers, and Filters]
-
-= Language Analysis
-
 This section contains information about tokenizers and filters related to character set conversion or for use with specific languages. For the European languages, tokenization is fairly straightforward. Tokens are delimited by white space and/or a relatively small set of punctuation characters. In other languages the tokenization rules are often not so simple. Some European languages may require special tokenization rules as well, such as rules for decompounding German words.
 
 For information about language detection at index time, see link:Detecting-Languages-During-Indexing.html[Detecting Languages During Indexing].

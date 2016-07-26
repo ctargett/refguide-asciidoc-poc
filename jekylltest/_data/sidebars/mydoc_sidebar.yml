@@ -1,0 +1,48 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+entries:
+- title: sidebar
+  product: Solr Reference Guide
+  version: 6.2
+  folders:
+
+  - title: Analyzers
+    output: web, pdf
+    folderitems:
+    - title: Understanding Analyzers, Tokenizers and Filters
+      url: /Understanding-Analyzers-Tokenizers-and-Filters.html
+      output: web, pdf
+    - title: Analyzers
+      url: /Analyzers.html
+      output: web, pdf
+    - title: About Tokenizers
+      url: /About-Tokenizers.html
+      output: web, pdf
+    - title: About Filters
+      url: /About-Filters.html
+      output: web, pdf
+    - title: Tokenizers
+      url: /Tokenizers.html
+      output: web, pdf
+    - title: Filter Descriptions
+      url: /Filter-Descriptions.html
+      output: web, pdf
+    - title: CharFilter Factories
+      url: /CharFilterFactories.html
+      output: web, pdf
+    - title: Language Analysis
+      url: /Language-Analysis.html
+      output: web, pdf
+    - title: Phonetic Matching
+      url: /Phonetic-Matching.html
+      output: web, pdf
+    - title: Running Your Analyzer
+      url: /Running-Your-Analyzer.html
+      output: web, pdf
+
+  - title: Index Replication
+    output: web
+    folderitems:
+    - title: Index Replication
+      url: /Index-Replication.html
+      output: web

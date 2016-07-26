@@ -1,0 +1,28 @@
+## Topnav single links
+## if you want to list an external url, use external_url instead of url. the theme will apply a different link base.
+topnav:
+- title: Topnav
+  items:
+    - title: News
+      url: /news
+
+#Topnav dropdowns
+topnav_dropdowns:
+- title: Topnav dropdowns
+  folders:
+    - title: Jekyll Resources
+      folderitems:
+        - title: Jekyll Talk
+          external_url: https://talk.jekyllrb.com
+        - title: Jekyll documentation
+          external_url: http://jekyllrb.com/docs/home/
+        - title: Jekyll on Stack Overflow
+          external_url: http://stackoverflow.com/questions/tagged/jekyll
+    - title: Solr Resources
+      folderitems:
+        - title: Javadocs
+          external_url: http://lucene.apache.org/solr/6_1_0/solr-core/index.html
+        - title: Lucene/Solr source code
+          external_url: https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git
+        - title: Community Information
+          external_url: http://lucene.apache.org/solr/resources.html#community
