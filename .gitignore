@@ -5,3 +5,4 @@ lib/*
 confluence-export/cleaned-export/*
 confluence-export/raw-export/*
 html/scripts/*
+.DS_Store
