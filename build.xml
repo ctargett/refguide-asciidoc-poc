@@ -5,9 +5,8 @@
 
   <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj-pdf/1.5.0-alpha.11/asciidoctorj-pdf-1.5.0-alpha.11.jar" dest="lib/asciidoctorj-pdf.jar" usetimestamp="true" />
 
-  <get src="http://repo1.maven.org/maven2/org/jbake/jbake-core/2.4.0/jbake-core-2.4.0.jar" dest="lib/jbake-core.jar" usetimestamp="true"/>
-
-<!-- Uses pure Asciidoctor build task-->
+<!-- ======= Asciidoctor HTML conversion ========
+   Uses pure Asciidoctor build task-->
   <target name="asciidoctor">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml" classpath="lib/asciidoctor-ant.jar"/>
     <asciidoctor:convert
@@ -27,17 +26,27 @@
    </asciidoctor:convert>
   </target>
 
-<!-- Builds site with JBake -->
+<!-- ======= JBake Build =======
+  Builds site with JBake. This (for now) assumes that jbake (http://jbake.org) is installed locally. -->
+
+<property name="jbakesitedir" value="jbake-test/output"/>
+
+   <target name ="jbake-clean">
+     <delete dir="${jbakesitedir}"/>
+   </target>
+
   <target name ="jbake-site">
-     <taskdef uri="antlib:org.jbake.jbake-core.ant" resource="org/jbake/jbake-core.xml" classpath="lib/jbake-core.jar"/>
-     <jbake:generate xmlns:jbake="antlib:org.jbake.jbake-core.ant"/>
+     <exec executable="jbake" dir="jbake-test">
+        <arg value="-b"/>
+     </exec>
   </target>
 
-  <!-- Builds site with Jekyll -->
-  <!-- This assumes that jekyll (http://jekyllrb.com) is installed locally. This file needs to be updated to download it as part of the build -->
+<!-- ======= Jekyll Build =======
+  Builds site with Jekyll. This (for now) assumes that jekyll (http://jekyllrb.com) is installed locally.
 
-<!-- This section of the script is borrowed from Ankyll (http://www.stuartgunter.org/ankyll/), a generic Ant script to build and publish Jekyll-based sites to Amazon S3. -->
-<!-- the Jekyll generated site directory -->
+  This section of the script is borrowed from Ankyll (http://www.stuartgunter.org/ankyll/), a generic Ant script to build and publish Jekyll-based sites to Amazon S3. The S3 parts of the original have been removed. -->
+
+<!-- the Jekyll generated output directory -->
 <property name="jekyllsitedir" value="_site/"/>
 
 <!-- the encoded URL to your sitemap (for submitting to search engines) -->
@@ -47,7 +56,6 @@
          description="Cleans the project by removing the site and backup directories">
   <delete dir="${jekyllsitedir}"/>
 </target>
-
 
 <target name="jekyll-site"
          description="Builds the site using Jekyll">
@@ -74,7 +82,8 @@
          description="Prepares the site for deployment for local testing prior to deployment.">
 </target>
 
-<!-- Builds PDF -->
+
+<!-- ====== PDF Build ======= -->
 
 <!-- Approach 1 - use a shell script -->
   <target name="pdf">
