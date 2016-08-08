@@ -1,7 +1,7 @@
 = Tokenizers
 :page-description: Detailed information on available tokenizers.
 :page-permalink: Tokenizers.html
-:page-sidebar: mydoc_sidebar
+:page-shortname: tokenizers
 
 You configure the tokenizer for a text field type in `schema.xml` with a `<tokenizer>` element, as a child of `<analyzer>`:
 

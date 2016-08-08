@@ -4,7 +4,7 @@
 :page-toc: false
 :toc: macro
 :toc-title: In This Section
-:page-sidebar: mydoc_sidebar
+:page-shortname: charfilterfactories
 
 Char Filter is a component that pre-processes input characters. Char Filters can be chained like Token Filters and placed in front of a Tokenizer. Char Filters can add, change, or remove characters while preserving the original character offsets to support features like highlighting.
 

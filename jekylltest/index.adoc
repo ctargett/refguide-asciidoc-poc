@@ -2,6 +2,7 @@
 :page-permalink: index.html
 :page-sidebar: mydoc_sidebar
 
+[.lead]
 This is an example of using Jekyll & Asciidoc to publish the Solr Reference Guide.
 
 == Features

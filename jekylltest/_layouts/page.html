@@ -31,7 +31,7 @@ layout: default
 <div class="post-content">
 
    {% if page.summary %}
-    <div class="summary">{{page.summary}}</div>
+    <div class="summary">{{ page.summary }}</div>
    {% endif %}
 
     {% unless page.toc == false %}
@@ -46,7 +46,7 @@ layout: default
         {% assign projectTags = site.data.tags.allowed-tags %}
         {% for tag in page.tags %}
         {% if projectTags contains tag %}
-        <a href="{{ "tag_" | append: tag | append: ".html" }}" class="btn btn-default navbar-btn cursorNorm" role="button">{{page.tagName}}{{tag}}</a>
+        <a href="{{ "tag-" | append: tag | append: ".html" }}" class="btn btn-default navbar-btn cursorNorm" role="button">{{page.tagName}}{{tag}}</a>
         {% endif %}
         {% endfor %}
         {% endif %}
@@ -57,20 +57,13 @@ layout: default
 {{site.data.alerts.hr_shaded}}
 
 <!-- Adds comments from Apache's Comment system -->
-<script type="text/javascript"><!--//--><![CDATA[//><!--
-    var comments_shortname = 'solrcwiki';
-    var comments_identifier = '{{ page.title }}'; // Insert your unique page ID here
-    (function(w, d) {
-       d.write('<div id="comments_thread"><\/div>');
-       var s = d.createElement('script');
-       s.type = 'text/javascript';
-       s.async = true;
-       s.src = 'https://comments.apache.org/show_comments.lua?site=' + comments_shortname + '&page=' + comments_identifier + '&oldschool=true';
-       (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
-    })(window, document);
-    //--><!]]></script>
-    <noscript>
-    <iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&amp;page={{ page.title }}&oldschool=true"></iframe>
-    </noscript>
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page={{ page.shortname }}" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page={{ page.shortname }}"></iframe>
+</noscript>
 
 {% include footer.html %}

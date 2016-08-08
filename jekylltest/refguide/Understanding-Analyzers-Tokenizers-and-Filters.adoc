@@ -1,7 +1,7 @@
 = Understanding Analyzers, Tokenizers, and Filters
 :page-description: Introduction to field analysis during indexing.
 :page-permalink: Understanding-Analyzers-Tokenizers-and-Filters.html
-:page-sidebar: mydoc_sidebar
+:page-shortname: understanding-analyzers-tokenizers-and-filters
 
 The following sections describe how Solr breaks down and works with textual data. There are three main concepts to understand: analyzers, tokenizers, and filters.
 

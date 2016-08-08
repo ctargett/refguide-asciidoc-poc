@@ -1,6 +1,3 @@
-body {
-    font-size:15px;
-}
 
 .gi-2x{font-size: 2em;}
 .gi-3x{font-size: 3em;}
@@ -9,22 +6,8 @@ body {
 
 .breadcrumb > .active {color: #777 !important;}
 
-/* make room for the nav bar */
-h1[id],
-h2[id],
-h3[id],
-h4[id],
-h5[id],
-h6[id],
-dt[id]{
-padding-top: 60px;
-margin-top: -40px
-}
-
-body h1 {margin-top:40px;}
-
 .post-content img {
-    margin: 12px 0px 3px 0px;
+    margin: 12px 0 3px 0;
     width: auto;
     height: auto;
     max-width: 100%;
@@ -32,7 +15,7 @@ body h1 {margin-top:40px;}
 }
 
 .post-content ol li, .post-content ul li {
-    margin: 10px 0px;
+    margin: 10px 0;
 }
 
 .pageSummary {
@@ -54,89 +37,17 @@ body h1 {margin-top:40px;}
     color: gray;
 }
 
-table {
-    background-color: transparent;
-}
 caption {
     padding-top: 8px;
     padding-bottom: 8px;
     color: #777;
     text-align: left;
 }
-th {
-    text-align: left;
-}
-table {
-    max-width: 90%;
-    margin-bottom: 20px;
-    border: 1px solid #dedede;
-}
-
-table > thead > tr > th,
-table > tbody > tr > th,
-table > tfoot > tr > th,
-table > thead > tr > td,
-table > tbody > tr > td,
-table > tfoot > tr > td {
-    padding: 8px;
-    line-height: 1.42857143;
-    vertical-align: top;
-    border-top: 1px solid #ddd;
-}
-table > thead > tr > th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #ddd;
-    text-transform: none;
-    background-color: #777;
-    color: white;
-    text-align: left;
-}
-table > caption + thead > tr:first-child > th,
-table > colgroup + thead > tr:first-child > th,
-table > thead:first-child > tr:first-child > th,
-table > caption + thead > tr:first-child > td,
-table > colgroup + thead > tr:first-child > td,
-table > thead:first-child > tr:first-child > td {
-    border-top: 0;
-}
-table > tbody + tbody {
-    b
-}
-table > tbody > tr:nth-of-type(odd) {
-    background-color: #f9f9f9;
-}
-
-table col[class*="col-"] {
-    position: static;
-    display: table-column;
-    float: none;
-}
-table td[class*="col-"],
-table th[class*="col-"] {
-    position: static;
-    display: table-cell;
-    float: none;
-}
-
-
-table td:first-child {
-    width: 150px;
-    /*font-weight:bold;*/
-}
-
-table.boldFirstColumn td:first-child {
-    font-weight: bold;
-}
-
-table tr td {
-    hyphens: auto;
-}
-
 
 p.external a {
     text-align:right;
     font-size:12px;
-    font-color: #0088cc;
+    color: #0088cc;
     display:inline;
 }
 
@@ -166,7 +77,7 @@ ul#results-container a {
     background-color: transparent;
 }
 
-ul#results-container a: hover {
+ul#results-container a:hover {
     color: black;
 }
 
@@ -194,41 +105,7 @@ ul#results-container a: hover {
     margin: 3px;
 }
 
-div#toc ul li {
-    margin: 8px 0px 8px 22px;
-    list-style: square;
-    line-height: 1.25;
-}
 
-div#toc ul {
-    background-color: whitesmoke;
-    padding: 5px;
-    border-radius: 5px;
-    max-width: 300px;
-    color: gray;
-}
-
-div#toc ul li ul {
-    padding-left:8px;
-
-}
-
-div#toc ul li ul li::before {
-    content: "–  ";
-}
-
-div#toc >ul::before {
-    content: "On this Page";
-    font-weight: bold;
-    color: #555;
-    text-align:center;
-    margin-left:auto;
-    margin-right:auto;
-    width:70px;
-    padding-top:20px;
-    padding-bottom:20px;
-    padding-left:10px;
-}
 
 li.dropdownActive a {
     font-weight: bold;
@@ -271,13 +148,13 @@ a.accordion-toggle, a.accordion-collapsed {
 .nav ul {
     padding: 0;
     /*margin: 0 0 0 18px;*/
-    margin:0px;
+    margin:0;
 }
 
 .nav {
     /* padding: 4px;*/
-    padding:0px;
-    margin: 0px;
+    padding:0;
+    margin: 0;
 }
 
 .nav > li {
@@ -292,9 +169,6 @@ a.accordion-toggle, a.accordion-collapsed {
     color: #333;
     display: block;
     outline: none;
-    /*-webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;*/
     text-decoration: none;
 }
 
@@ -322,24 +196,26 @@ background-color: #347DBE;
 }
 
 .nav li a {
-    font-size: 14px;
     line-height: 18px;
     padding: 2px 10px;
     background-color: #f1f1f1;
 }
 
 .nav > li > a {
-    font-size: 14px;
     line-height: 20px;
     padding: 4px 10px;
 }
 
 ul#mysidebar {
-    border-radius:0px;
+    border-radius:0;
 }
 
 .nav ul li ul li a {
     padding-left:40px;
+}
+
+ul.nav li ul {
+   font-size: 10pt;
 }
 
 .nav li.thirdlevel > a {
@@ -374,11 +250,6 @@ ul#mysidebar {
 
 .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
     border-radius: 5px;
-}
-
-span.projectTitle {
-    font-family: Helvetica;
-    font-weight: bold;
 }
 
 .footer {
@@ -436,9 +307,6 @@ figcaption {
 
 table.dataTable thead {
     background-color: #444;
-}
-table td {
-    hyphens: auto;
 }
 
 section table tr.success {
@@ -530,7 +398,7 @@ a[data-toggle] {
 .summary {
     font-size:120%;
     color: #808080;
-    margin:20px 0px 20px 0px;
+    margin:20px 0 20px 0;
     border-left: 5px solid #ED1951;
     padding-left: 10px;
 
@@ -546,9 +414,6 @@ a.fa.fa-envelope-o.mailto {
     font-weight: 600;
 }
 
-h3 {color: #ED1951; font-weight:normal; font-size:130%;}
-h4 {color: #808080; font-weight:normal; font-size:120%; font-style:italic;}
-
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
     background-color: #248ec2;
     color: white;
@@ -561,7 +426,7 @@ li img {clear:both; }
 
 div#toc ul li ul li {
     list-style-type: none;
-    margin: 5px 0px 0px 0px;
+    margin: 5px 0 0 0;
 }
 
 .tab-content {
@@ -581,8 +446,6 @@ li.activeSeries {
     font-size:18px;
 }
 
-}
-
 div.tags {padding: 10px 5px;}
 
 .tabLabel {
@@ -593,7 +456,7 @@ hr {
     border: 0;
     border-bottom: 1px dashed #ccc;
     background: #999;
-    margin: 30px 0px;
+    margin: 30px 0;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
@@ -603,10 +466,6 @@ button.cursorNorm {
     cursor: pointer;
 }
 
-h2  {
-    font-size:24px;
-    line-height:29px;
-}
 span.otherProgrammingLanguages {
     font-style: normal;
 }
@@ -629,7 +488,7 @@ a[data-toggle="tooltip"] {
 ol.series li {
     list-style-type: decimal;
     margin-left: 40px;
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 .siteTagline {
@@ -639,7 +498,7 @@ ol.series li {
     font-family: monospace;
     text-align: center;
     line-height: 10px;
-    margin: 20px 0px;
+    margin: 20px 0;
     display: block;
 }
 
@@ -647,14 +506,9 @@ ol.series li {
     text-align: center;
     margin-bottom: 20px;
     font-family: courier;
-    font-color: silver;
+    color: silver;
     color: #444;
     display:block;
-}
-
-/* not sure if using this ...*/
-.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-    border-color: #248ec2 !important;
 }
 
 #mysidebar .nav ul {
@@ -691,34 +545,17 @@ table code {background-color: transparent;}
     background-color: transparent !important;
 }
 
-table p {
-    margin-top: 12px;
-    margin-bottom: 12px;
-}
-
-pre, table code {
-    white-space: pre-wrap;       /* css-3 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
-}
-
-pre {
-    margin: 25px 0px;
-}
-
 #json-box-container pre {
-    margin: 0px;
+    margin: 0;
 }
 
 .video-js {
-    margin: 30px 0px;
+    margin: 30px 0;
 }
 
 video {
     display: block;
-    margin: 30px 0px;
+    margin: 30px 0;
     border: 1px solid #c0c0c0;
 }
 
@@ -728,7 +565,7 @@ p.required, p.dataType {display: block; color: #c0c0c0; font-size: 80%; margin-l
 dd {margin-left:20px;}
 
 .post-content img.inline {
-    margin:0px;
+    margin:0;
     margin-bottom:6px;
 }
 .panel-heading {
@@ -764,7 +601,7 @@ span.soft {
     background-color: #f0f0f0;
     font-family: courier;
     font-size: 110%;
-    margin: 20px 0px;
+    margin: 20px 0;
     color: #444;
 }
 
@@ -776,7 +613,7 @@ span.soft {
 .formBoundary {
     border: 1px solid gray;
     padding: 15px;
-    margin: 15px 0px;
+    margin: 15px 0;
     background-color: whitesmoke;
 }
 
@@ -813,19 +650,24 @@ span.soft {
 
 .videoThumbs img {
     float: left;
-    margin:15px 15px 15px 0px;
+    margin:15px 15px 15px 0;
     box-shadow: 2px 2px 1px #f0f0f0;
     border: 1px solid #dedede;
 }
 
-
-@media only screen and (min-width: 900px), @media only screen and (min-device-width: 900px) {
-    .col-md-9 img {
+@media only screen and (min-width: 900px)
+{.col-md-9 img {
         max-width: 700px;
         max-height: 700px;
     }
 }
 
+@media only screen and (min-device-width: 900px)
+{.col-md-9 img {
+        max-width: 700px;
+        max-height: 700px;
+    }
+}
 *:hover > .anchorjs-link {
     transition: color .25s linear;
     text-decoration: none;
@@ -835,25 +677,6 @@ span.soft {
     color: white;
     background-color: #444;
     padding:10px;
-}
-
-/* this part adds an icon after external links, using FontAwesome*/
-a[href^="http://"]:after, a[href^="https://"]:after {
-    content: "\f08e";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-style: normal;
-    display: inline-block;
-    text-decoration: none;
-    padding-left: 3px;
-}
-
-/* Strip the outbound icon when this class is present */
-a[href].noCrossRef::after,
-a.no_icon:after
- {
-    content:"" !important;
-    padding-left: 0;
 }
 
 .btn-default {
@@ -896,7 +719,7 @@ div.results {
 }
 
 .post-list p {
-    margin: 10px 0px;
+    margin: 10px 0;
 }
 
 time {
@@ -904,7 +727,7 @@ time {
 }
 
 p.post-meta time {
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 span.label.label-default {
@@ -943,14 +766,6 @@ ol li ul li ol li ul li{
     list-style: disc;
 }
 
-.post-content table th {
-    vertical-align: top;
-}
-
-table thead th code.highlighter-rouge {
-    background-color: transparent;
-}
-
 
 .box {
     padding: 10px;
@@ -963,7 +778,6 @@ table thead th code.highlighter-rouge {
     font-size: 12px;
     hyphens: auto;
     float: left;
-    font-size: 12px;
 }
 
 .box:hover {
@@ -998,10 +812,6 @@ div.arrow {
     font-size: 20px;
 }
 
-/** div.content {
-    max-width: 110px
-} **//
-
 #userMap div.arrow, #userMap div.content {
     float: left;
 }
@@ -1017,7 +827,7 @@ div.arrow {
 }
 
 .box1 {
-    margin-left:0px;
+    margin-left:0;
 }
 
 button.btn.btn-default.btn-lg.modalButton1 {
@@ -1036,7 +846,7 @@ div.box.box1 {
 
 #userMap .complexArrow {
     font-size: 22px;
-    margin: 0px 10px;
+    margin: 0 10px;
 }
 
 

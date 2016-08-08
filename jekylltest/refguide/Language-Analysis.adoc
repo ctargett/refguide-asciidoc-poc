@@ -2,7 +2,7 @@
 :page-description: Overview of language analysis capabilities of Solr.
 :page-permalink: Language-Analysis.html
 :page-toc: false
-:page-sidebar: mydoc_sidebar
+:page-shortname: language-analysis
 
 This section contains information about tokenizers and filters related to character set conversion or for use with specific languages.
 
