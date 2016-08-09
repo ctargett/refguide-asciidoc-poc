@@ -1,54 +1,82 @@
 = Solr Ref Guide in Asciidoc
 :toc:
 
-This project is a proof of concept for changing the Apache Solr Ref Guide from being managed as a Confluence wiki to text files committed as part of Solr source code. HTML pages and PDFs can instead be generated using a publishing toolchain that is integrated with existing Solr/Lucene build processes.
+This project is a proof of concept for changing the https://cwiki.apache.org/confluence/display/solr[Apache Solr Reference Guide] from being managed as a Confluence wiki to plain-text files committed as part of Solr source code.
 
-== WHY?
-See https://github.com/ctargett/refguide-asciidoc-poc/wiki/Why[Why Asciidoc] for discussion of why to change from Confluence and why choose Asciidoc.
+Instead of relying on Confluence, HTML pages and PDFs could instead be generated using a publishing toolchain that is integrated with existing Lucene/Solr build processes.
+
+Asciidoc has been chosen as the format for Ref Guide format. This is a plain-text light-weight markup language, similar to Markdown, but with more options for structured articles, manuals, books, etc.
+
+See this repo's wiki page https://github.com/ctargett/refguide-asciidoc-poc/wiki/Why[Why Asciidoc] for discussion of reasons to change from Confluence and why Asciidoc is a good choice.
 
 == What's in this Repo?
 This repo is a proof-of-concept for converting the Ref Guide to Asciidoc format. It includes:
 
-* The current ref guide exported to HTML format (on 31 August 2015), and converted to Asciidoc format, in the `confluence-export` directory.
-* Scripts to support converting from Confluence to Asciidoc format (more below).
-* A few sample pages from the conversion with some additional cleanup, in the `asciidoc` directory.
+* The current Ref Guide exported to HTML format (on 31 August 2015), and converted to Asciidoc format, in the `confluence-export` directory.
+* Scripts to support converting from Confluence to Asciidoc format.
+* Some sample pages from the conversion with some additional cleanup, in the `asciidoc` directory.
 * A sample `build.xml` to generate HTML and PDF versions of the sample pages.
 * Scripts to assist with PDF generation.
 * Sample HTML and PDF files with preliminary design included.
-* Sample configs for JBake and Jekyll for more site features (like comments, page templates, etc).
+* Sample configs for JBake for more site features (like comments, page templates, etc).
 
 == How to Build
+This repo includes HTML pages already generated for casual review.
 
-This project includes `ant` targets for building HTML and PDF versions of the Ref Guide.
+However, this project includes `ant` targets for building HTML and PDF versions of the Ref Guide.
 
-* `ant doc` builds the HTML files by finding all `.adoc` files from `asciidoc` directory and making an HTML file for each page. It downloads a .jar file as a dependency. This only requires Ant.
+* `ant asciidoctor` builds the HTML files by finding all `.adoc` files from `asciidoc` directory and making an HTML file for each page. It downloads a .jar file as a dependency. This only requires Ant.
+* `ant jbake-site` builds a full HTML site using JBake, a static site generator. This provides templatized HTML files.
++
+NOTE: At the current time, the `ant jbake-site` target will only work with the `jbake` directory in the `static-site-tests` branch.
+
 * `ant pdf2` builds a PDF from the files defined in `asciidoc/book.adoc`. It builds a .jar file that is needed as a dependency before generating the PDF file. Maven is required to get all the dependencies to compile the .jar.
 
 == Conversion Tools
 
-See https://github.com/ctargett/refguide-asciidoc-poc/wiki/ContentConversion[Content Conversion] for details on how the content will be converted from Confluence to Asciidoc, including a list of cleanup issues that will need to be completed.
+See this repo's wiki page  https://github.com/ctargett/refguide-asciidoc-poc/wiki/ContentConversion[Content Conversion] for details on how the content will be converted from Confluence to Asciidoc, including a list of cleanup items that will need to be completed.
 
-== Toolchain Overview
+== Site Generation Process
 
-* Raw files in .adoc format
-* Asciidoctor for conversion to HTML and PDF
-* Ant scripts
+Asciidoctor is designed as a toolchain for publishing content. Confluence provides a similar toolchain, so when thinking about replacing it, we must think about each aspect of the process and how it can be replaced.
 
-== Build Process
+Confluence provides a full end-to-end solution, from editing content to publishing a PDF. It includes features such as page comments and search, which are vital to community involvement and successful navigation of a topic as broad as Solr.
 
-Asciidoctor is a toolchain written in Ruby which facilitates converting text files to other formats for publishing. One sub-project is the `asciidoctor-ant` plugin for Apache Ant.
+This project proposes the following:
+
+* Raw content files will be stored in Asciidoc (.adoc) format.
+* Asciidoctor will be used for conversion to HTML and PDF
+* Ant `build.xml` targets will be used for building a set of simple HTML files, a full site, and a PDF version.
+
+=== Asciidoctor
+
+Asciidoctor is a toolchain written in Ruby which facilitates converting text files to other formats for publishing.
+
+It is both the markup language AND the conversion tool. The https://github.com/asciidoctor[Asciidoctor GitHub repositories] include several projects for build integration, content preview, content styling, and other tools required for a robust publishing solution.
+
+=== JBake
+
+Uses http://www.jbake.org/[JBake], a static site generator that converts source content into template-based HTML pages for web publishing.
+
+JBake provides a basic server for use in previewing content, but it is not a server. A production-ready web server will need to be available for proper hosting of JBake-generated pages.
+
+For this project, basic templates have been created with http://freemarker.org/[Apache FreeMarker]. These templates allow for unified design while freeing content authors to focus on content instead of design. They also define navigation and add JavaScript for page comments (see this repo's wiki page https://github.com/ctargett/refguide-asciidoc-poc/wiki/Comments[Comments] for more detail).
+
+JBake can also support Groovy and Thymeleaf templates if those are preferred. Examples for those template engines have not been customized for this project.
 
 === HTML
+
+It's possible to simply use Asciidoctor to generate HTML pages. However, the HTML output is limited to what is defined in the source content itself or in the PDF. There is no ability to add site navigation or add customized JavaScript.
 
 Uses `asciidoctor-ant` plugin to convert to HTML. To generate HTML, simply run `ant doc`.
 
 This task sets the output format, defines a custom stylesheet (see Styles, below), and defines the plugin to use for code syntax highlighting, and other parameters.
 
-See https://github.com/ctargett/refguide-asciidoc-poc/wiki/BuildDetails[Build Details] for more information on the HTML output task.
+See this repo's wiki page https://github.com/ctargett/refguide-asciidoc-poc/wiki/BuildDetails[Build Details] for more information on the HTML output task.
 
 Still To Do:
 
-* Determine where to put the pages online. See also section on <<Publishing Options>>.
+* Determine where to put the pages online. See also section on <<Hosting Options>>.
 
 === PDF
 
@@ -65,13 +93,13 @@ The second step installs the plugin that provides code syntax highlighting (Pygm
 
 See https://github.com/asciidoctor/asciidoctor-pdf for more details on using this plugin.
 
-==== Issues
+==== PDF Issues
 
 It seems `asciidoctor-ant` should be able to handle the PDF conversion, but it doesn't.
 
 Another plugin `asciidoctor-pdf` allows conversion direct to PDF, although this is a gem? It also has other dependencies, I think. Can it be a jar, like `asciidoctor-ant`?
 
-=== Known Output Bugs
+=== Known Asciidoctor Bugs
 
 There are some known issues that may impact our ability to convert documents as we want:
 
@@ -81,7 +109,9 @@ There are some known issues that may impact our ability to convert documents as 
 
 === Location of Source
 
-At the outset, we recommend keeping the source in a different SVN tree from the main Lucene/Solr code. This will allow for a publication process separate from the release process. Over time, we would like the source for the docs to be co-located with Solr's source.
+Should the content source live in a separate tree?
+
+Should the content source live in a new sub-directory of the Solr Git repo?
 
 === Organization of Files
 
@@ -90,62 +120,21 @@ How should we organize the Ref Guide pages in the directory tree?
 * As chapters, with a folder for each main subject heading.
 * As one big directory of files.
 
-Some examples of how others have done it:
-
-* HBase
-** Source code: https://github.com/apache/hbase/tree/master/src/main/asciidoc
-** Production book: http://hbase.apache.org/book.html
-** JIRA for discussion to transition to HBase: https://issues.apache.org/jira/browse/HBASE-11533
-
-* Eclipse Project Handbook
-** Source code: http://git.eclipse.org/c/www.eclipse.org/projects.git/tree/handbook/source
-** Production: http://www.eclipse.org/projects/handbook/
-
-* Pro Git book
-** Source code: https://github.com/progit/progit2
-** Production: http://git-scm.com/book/en/v2
-
-* CouchDB book (O'Reilly)
-** Source code: not available publicly
-** Production: http://guide.couchdb.org/editions/1/en/index.html
-
-* Clojure Cookbook (O'Reilly)
-** Source code: https://github.com/clojure-cookbook/clojure-cookbook
-** Production: http://clojure-cookbook.com/ (link to purchase)
-
-* Asciidoctor.org website:
-** Source code: https://github.com/asciidoctor/asciidoctor.org
-** Production: http://asciidoctor.org
-
-For a much longer list, see https://github.com/asciidoctor/asciidoctor.org/issues/270.
+Some examples of how others have done it are available in this repo's wiki page https://github.com/ctargett/refguide-asciidoc-poc/wiki/FileOrganization[File Organization].
 
 === Hosting Options
+
+Without Confluence, we will need to determine how and where to host the rendered pages:
 
 . Host in ASF CMS with website.
 . Host however the javadocs are hosted.
 
-==== Static Site Generators
-
-Site generators allow creation of complex templates such as navigation menus and Javascript-based comments (like the Apache comment system, described more below).
-
-No matter where the content is hosted, we should use a static site generator such as Jekyll, JBake, Awestruck & similar to generate the HTML pages.
-
-Jekyll has a lot of attention these days, but is Ruby-based and it's not easy to see how it and it's dependencies would fit with the current Solr build process. Or even how to make it work with Ant.
-
-http://www.jbake.org/[JBake] is Java-based, and touts itself as the "Jekyll of the JVM".
-
-Both of these options require each document to contain a metadata header, which includes the page title and status (such as "published", "draft", etc.).
-
-A downside to both options is they are primarily designed for blog posts, which is a slightly different paradigm than online documentation.
-
 === Comments
 
-See https://github.com/ctargett/refguide-asciidoc-poc/wiki/Comments[Comments] for details on how to handle comments.
+See this repo's wiki page  https://github.com/ctargett/refguide-asciidoc-poc/wiki/Comments[Comments] for details on how to handle comments.
 
 === Search
 
 How will we provide search?
 
-Recommend probably indexing generated HTML pages. Could use bin/post from Solr to recurse over the HTML files and index them.
-
-Will need to figure out where to host Solr.
+Recommend probably indexing generated HTML pages. Could use `bin/post` from Solr to recurse over the HTML files and index them. In this case, we will need to figure out where to host Solr.
