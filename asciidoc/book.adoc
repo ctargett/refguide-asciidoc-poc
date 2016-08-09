@@ -1,8 +1,0 @@
-= Apache Solr Reference Guide
-:doctype: book
-
-include::asciidoc/About-Filters.adoc[]
-
-include::asciidoc/Index-Replication.adoc[]
-
-include::asciidoc/Language-Analysis.adoc[]

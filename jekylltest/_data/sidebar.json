@@ -1,0 +1,70 @@
+{"entries":[
+   {
+      "title":"sidebar",
+      "product":"Solr Reference Guide",
+      "version":6.2,
+      "folders":[
+         {
+            "title":"Analysis of Data",
+            "output":"pdf, web",
+            "folderitems":[{
+               "title":"Understanding Analyzers, Tokenizers, and Filters",
+               "output":"web, pdf",
+               "url":"/Understanding-Analyzers-Tokenizers-and-Filters.html"},
+            {
+               "title":"Analyzers",
+               "output":"web, pdf",
+               "url":"/Analyzers.html"
+               },
+            {
+               "title":"About Tokenizers",
+               "output":"web, pdf",
+               "url":"/About-Tokenizers.html"
+               },
+            {
+               "title":"About Filters",
+               "output":"web, pdf",
+               "url":"/About-Filters.html"
+               },
+            {
+               "title":"Tokenizers",
+               "output":"web, pdf",
+               "url":"/Tokenizers.html"
+               },
+            {
+               "title":"Filter Descriptions",
+               "output":"web, pdf",
+               "url":"/Filter-Descriptions.html"
+               },
+            {
+               "title":"CharFilter Factories",
+               "output":"web, pdf",
+               "url":"/CharFilterFactories.html"
+               },
+            {
+               "title":"Language Analysis",
+               "output":"web, pdf",
+               "url":"/Language-Analysis.html"
+               },
+            {
+               "title":"Phonetic Matching",
+               "output":"web, pdf",
+               "url":"/Phonetic-Matching.html"
+               },
+            {
+               "title":"Running Your Analyzer",
+               "output":"web, pdf",
+               "url":"/Running-Your-Analyzer.html"
+               }]
+         },
+         {
+            "title":"Scaling Solr",
+            "output": "pdf, web",
+            "folderitems":[{
+               "title":"Index Replication",
+               "output":"web, pdf",
+               "url":"/Index-Replication.html"
+               }]
+         }]
+   }]
+}

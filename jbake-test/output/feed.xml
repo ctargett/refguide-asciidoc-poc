@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JBake</title>
+    <link>http://lucene.apache.org/solr</link>
+    <atom:link href="http://lucene.apache.org/solr/feed.xml" rel="self" type="application/rss+xml" />
+    <description>JBake Bootstrap Template</description>
+    <language>en-gb</language>
+    <pubDate>Mon, 8 Aug 2016 11:26:18 -0500</pubDate>
+    <lastBuildDate>Mon, 8 Aug 2016 11:26:18 -0500</lastBuildDate>
+
+
+  </channel> 
+</rss>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>CharFilterFactories</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/prettify.css" rel="stylesheet">
+    <link href="css/ref-guide.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="">Solr</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sections <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="About-Filters.html">About Filters</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+	<div class="page-header">
+		<h1>CharFilterFactories</h1>
+	</div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Char Filter is a component that pre-processes input characters. Char Filters can be chained like Token Filters and placed in front of a Tokenizer. Char Filters can add, change, or remove characters while preserving the original character offsets to support features like highlighting.</p>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle" class="title">In This Section</div>
+<ul class="sectlevel1">
+<li><a href="#_solr_mappingcharfilterfactory">solr.MappingCharFilterFactory</a></li>
+<li><a href="#_solr_htmlstripcharfilterfactory">solr.HTMLStripCharFilterFactory</a></li>
+<li><a href="#_solr_icunormalizer2charfilterfactory">solr.ICUNormalizer2CharFilterFactory</a></li>
+<li><a href="#_solr_patternreplacecharfilterfactory">solr.PatternReplaceCharFilterFactory</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solr_mappingcharfilterfactory">solr.MappingCharFilterFactory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter creates <code>org.apache.lucene.analysis.MappingCharFilter</code>, which can be used for changing one string to another (for example, for normalizing <code>é</code> to <code>e</code>.).</p>
+</div>
+<div class="paragraph">
+<p>This filter requires specifying a <code>mapping</code> argument, which is the path and name of a file containing the mappings to perform.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;charFilter</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.MappingCharFilterFactory</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">mapping</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">mapping-FoldToASCII.txt</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">...</span><span class="tag">&gt;</span>
+  [...]
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mapping file syntax:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Comment lines beginning with a hash mark (<code>#</code>), as well as blank lines, are ignored.</p>
+</li>
+<li>
+<p>Each non-comment, non-blank line consists of a mapping of the form: <code>"source" &#8658; "target"</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Double-quoted source string, optional whitespace, an arrow (<code>&#8658;</code>), optional whitespace, double-quoted target string.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Trailing comments on mapping lines are not allowed.</p>
+</li>
+<li>
+<p>The source string must contain at least one character, but the target string may be empty.</p>
+</li>
+<li>
+<p>The following character escape sequences are recognized within source and target strings:</p>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: %;">
+<col style="width: %;">
+<col style="width: %;">
+<col style="width: %;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Escape Sequence</th>
+<th class="tableblock halign-left valign-top">Resulting character (<a href="http://www.ecma-international.org/publications/standards/Ecma-048.htm">ECMA-48</a> alias)</th>
+<th class="tableblock halign-left valign-top">Unicode character</th>
+<th class="tableblock halign-left valign-top">Example Mapping Line</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>\\</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>\</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">U+005C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"\\" &#8658; "/"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>\"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">U+0022</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"\"and\"" &#8658; "'and'"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>\b</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">backspace (BS)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">U+0008</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"\b" &#8658; " "</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>\t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tab (HT)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">U+0009</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"\t" &#8658; ","</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>\n</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">newline (LF)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">U+000A</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"\n" &#8658; "&lt;br&gt;"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>\f</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">form feed (FF)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">U+000C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"\f" &#8658; "\n"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>\r</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">carriage return (CR)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">U+000D</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"\r" &#8658; "/carriage-return/"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>\uXXXX</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unicode char referenced by the 4 hex digits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">U+XXXX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>"\uFEFF" &#8658; ""</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>A backslash followed by any other character is interpreted as if the character were present without the backslash.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solr_htmlstripcharfilterfactory">solr.HTMLStripCharFilterFactory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter creates <code>org.apache.solr.analysis.HTMLStripCharFilter</code>. This Char Filter strips HTML from the input stream and passes the result to another Char Filter or a Tokenizer.</p>
+</div>
+<div class="paragraph">
+<p>This filter:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Removes HTML/XML tags while preserving other content.</p>
+</li>
+<li>
+<p>Removes attributes within tags and supports optional attribute quoting.</p>
+</li>
+<li>
+<p>Removes XML processing instructions, such as: &lt;?foo bar?&gt;</p>
+</li>
+<li>
+<p>Removes XML comments.</p>
+</li>
+<li>
+<p>Removes XML elements starting with &lt;!&gt;.</p>
+</li>
+<li>
+<p>Removes contents of &lt;script&gt; and &lt;style&gt; elements.</p>
+</li>
+<li>
+<p>Handles XML comments inside these elements (normal comment processing will not always work).</p>
+</li>
+<li>
+<p>Replaces numeric character entities references like <code>&amp;#65</code>; or <code>&amp;#x7f</code>; with the corresponding character.</p>
+</li>
+<li>
+<p>The terminating ';' is optional if the entity reference at the end of the input; otherwise the terminating ';' is mandatory, to avoid false matches on something like "Alpha&amp;Omega Corp".</p>
+</li>
+<li>
+<p>Replaces all named character entity references with the corresponding character.</p>
+</li>
+<li>
+<p><code>&amp;nbsp</code>; is replaced with a space instead of the 0xa0 character.</p>
+</li>
+<li>
+<p>Newlines are substituted for block-level elements.</p>
+</li>
+<li>
+<p>&lt;CDATA&gt; sections are recognized.</p>
+</li>
+<li>
+<p>Inline tags, such as <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>, or <code>&lt;span&gt;</code> will be removed.</p>
+</li>
+<li>
+<p>Uppercase character entities like <code>quot</code>, <code>gt</code>, <code>lt</code> and <code>amp</code> are recognized and handled as lowercase.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+The input need not be an HTML document. The filter removes only constructs that look like HTML. If the input doesn&#8217;t include anything that looks like HTML, the filter won&#8217;t remove any input.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The table below presents examples of HTML stripping.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 60%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Input</th>
+<th class="tableblock halign-left valign-top">Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>my &lt;a href="www.foo.bar"&gt;link&lt;/a&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">my link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;br&gt;hello&lt;!--comment-&#8594;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hello</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hello&lt;script&gt;&lt;!-- f('&lt;!--internal-&#8594;&lt;/script&gt;'); -&#8594;&lt;/script&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hello</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>if a&lt;b then print a;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if a&lt;b then print a;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hello &lt;td height=22 nowrap align="left"&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hello</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>a&lt;b &amp;#65 Alpha&amp;Omega Ω</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">a&lt;b A Alpha&amp;Omega Ω</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solr_icunormalizer2charfilterfactory">solr.ICUNormalizer2CharFilterFactory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter performs pre-tokenization Unicode normalization using <a href="http://site.icu-project.org">ICU4J</a>.</p>
+</div>
+<div class="paragraph">
+<p>Arguments:</p>
+</div>
+<div class="paragraph">
+<p><code>name</code>: A <a href="http://unicode.org/reports/tr15/">Unicode Normalization Form</a>, one of <code>nfc</code>, <code>nfkc</code>, <code>nfkc_cf</code>. Default is <code>nfkc_cf</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>mode</code>: Either <code>compose</code> or <code>decompose</code>. Default is <code>compose</code>. Use <code>decompose</code> with <code>name="nfc"</code> or <code>name="nfkc"</code> to get NFD or NFKD, respectively.</p>
+</div>
+<div class="paragraph">
+<p><code>filter</code>: A <a href="http://www.icu-project.org/apiref/icu4j/com/ibm/icu/text/UnicodeSet.html">UnicodeSet</a> pattern. Codepoints outside the set are always left unchanged. Default is <code>[]</code> (the null set, no filtering - all codepoints are subject to normalization).</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;charFilter</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.ICUNormalizer2CharFilterFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">...</span><span class="tag">&gt;</span>
+  [...]
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solr_patternreplacecharfilterfactory">solr.PatternReplaceCharFilterFactory</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter uses <a href="http://www.regular-expressions.info/reference.html">regular expressions</a> to replace or change character patterns.</p>
+</div>
+<div class="paragraph">
+<p>Arguments:</p>
+</div>
+<div class="paragraph">
+<p><code>pattern</code>: the regular expression pattern to apply to the incoming text.</p>
+</div>
+<div class="paragraph">
+<p><code>replacement</code>: the text to use to replace matching patterns.</p>
+</div>
+<div class="paragraph">
+<p>You can configure this filter in <code>schema.xml</code> like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;analyzer&gt;</span>
+  <span class="tag">&lt;charFilter</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">solr.PatternReplaceCharFilterFactory</span><span class="delimiter">&quot;</span></span>
+             <span class="attribute-name">pattern</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">([nN][oO]\.)\s*(\d+)</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">replacement</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">$1$2</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;tokenizer</span> <span class="attribute-name">...</span><span class="tag">&gt;</span>
+  [...]
+<span class="tag">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The table below presents examples of regex-based pattern replacement:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: %;">
+<col style="width: %;">
+<col style="width: %;">
+<col style="width: %;">
+<col style="width: %;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Input</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+<th class="tableblock halign-left valign-top">Replacement</th>
+<th class="tableblock halign-left valign-top">Output</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">seeing looking</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(\w+)(ing)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>$1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">seeing look</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Removes "ing" from the end of word.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">seeing looking</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(\w+)ing</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>$1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">seeing look</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Same as above. 2nd parentheses can be omitted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No.1 NO. no. 543</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[nN][oO]\.\s*(\d+)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>#$1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">#1 NO. #543</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Replace some string literals</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">abc=1234=5678</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(\w+)=(\d+)=(\d+)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>$3=$1=$2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5678=abc=1234</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change the order of the groups.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></p>
+
+	<hr />
+
+	<script type="text/javascript"><!--//--><![CDATA[//><!--
+	    var comments_shortname = 'solrcwiki';
+	    var comments_identifier = 'CharFilterFactories'; // Insert your unique page ID here
+	    (function(w, d) {
+		    d.write('<div id="comments_thread"><\/div>');
+		    var s = d.createElement('script');
+		    s.type = 'text/javascript';
+		    s.async = true;
+		    s.src = 'https://comments.apache.org/show_comments.lua?site=' + comments_shortname + '&page=' + comments_identifier + '&oldschool=true';
+		    (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
+	    })(window, document);
+	    //--><!]]></script>
+	    <noscript>
+	    <iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&amp;page=CharFilterFactories&oldschool=true"></iframe>
+	    </noscript>
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2016 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.4.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/prettify.js"></script>
+
+  </body>
+</html>

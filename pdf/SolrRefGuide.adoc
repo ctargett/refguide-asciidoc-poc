@@ -1,0 +1,49 @@
+= Apache Solr Reference Guide: For Solr 0.0
+:doctype: article
+:toc:
+:toc-title: Table of Contents
+
+
+[colophon]
+= Licenses
+Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements.  See the NOTICE file distributed with this work for additional information regarding copyright ownership.  The ASF licenses this file to you under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the specific language governing permissions and limitations under the License.
+
+Apache and the Apache feather logo are trademarks of The Apache Software Foundation. Apache Lucene, Apache Solr and their respective logos are trademarks of the Apache Software Foundation. Please see the http://www.apache.org/foundation/marks/[Apache Trademark Policy] for more information.
+
+Fonts used in the Apache Solr Reference Guide include https://www.theleagueofmoveabletype.com/raleway[Raleway], licensed under the http://scripts.sil.org/OFL[SIL Open Font License, 1.1].
+
+<<<
+
+= Introduction to Document Analysis
+
+This section introduces tokenization, analyzers and filters.
+
+include::jekylltest/refguide/Understanding-Analyzers-Tokenizers-and-Filters.adoc[]
+
+include::jekylltest/refguide/Analyzers.adoc[]
+
+include::jekylltest/refguide/About-Tokenizers.adoc[]
+
+include::jekylltest/refguide/About-Filters.adoc[]
+
+include::jekylltest/refguide/Tokenizers.adoc[]
+
+include::jekylltest/refguide/Filter-Descriptions.adoc[]
+
+include::jekylltest/refguide/CharFilterFactories.adoc[]
+
+include::jekylltest/refguide/Language-Analysis.adoc[]
+
+include::jekylltest/refguide/Phonetic-Matching.adoc[]
+
+include::jekylltest/refguide/Running-Your-Analyzer.adoc[]
+
+<<<
+
+= Scaling Solr
+
+This section describes index replication in the master/slave architecture.
+
+include::jekylltest/refguide/Index-Replication.adoc[]

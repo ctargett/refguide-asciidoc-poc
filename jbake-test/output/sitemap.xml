@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <url>
+        <loc>http://lucene.apache.org/solr/About-Filters.html</loc>
+    </url>
+    <url>
+        <loc>http://lucene.apache.org/solr/About-Tokenizers.html</loc>
+    </url>
+    <url>
+        <loc>http://lucene.apache.org/solr/Analyzers.html</loc>
+    </url>
+    <url>
+        <loc>http://lucene.apache.org/solr/CharFilterFactories.html</loc>
+    </url>
+    <url>
+        <loc>http://lucene.apache.org/solr/Filter-Descriptions.html</loc>
+    </url>
+    <url>
+        <loc>http://lucene.apache.org/solr/Index-Replication.html</loc>
+    </url>
+    <url>
+        <loc>http://lucene.apache.org/solr/Language-Analysis.html</loc>
+    </url>
+    <url>
+        <loc>http://lucene.apache.org/solr/Phonetic-Matching.html</loc>
+    </url>
+    <url>
+        <loc>http://lucene.apache.org/solr/Running-Your-Analyzer.html</loc>
+    </url>
+    <url>
+        <loc>http://lucene.apache.org/solr/Tokenizers.html</loc>
+    </url>
+    <url>
+        <loc>http://lucene.apache.org/solr/Understanding-Analyzers-Tokenizers-and-Filters.html</loc>
+    </url>
+</urlset>

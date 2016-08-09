@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Phonetic Matching</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/prettify.css" rel="stylesheet">
+    <link href="css/ref-guide.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="">Solr</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sections <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="About-Filters.html">About Filters</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">
+
+	<div class="page-header">
+		<h1>Phonetic Matching</h1>
+	</div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="index.html">Apache Solr Reference Guide</a></p>
+</li>
+<li>
+<p><a href="Apache-Solr-Reference-Guide.html">Apache Solr Reference Guide</a></p>
+</li>
+<li>
+<p><a href="32604225.html">Understanding Analyzers, Tokenizers, and Filters</a></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Phonetic matching algorithms may be used to encode tokens so that two different spellings that are pronounced similarly will match.</p>
+</div>
+<div class="paragraph">
+<p>For overviews of and comparisons between algorithms, see <a href="http://en.wikipedia.org/wiki/Phonetic_algorithm" class="bare">http://en.wikipedia.org/wiki/Phonetic_algorithm</a> and <a href="http://ntz-develop.blogspot.com/2011/03/phonetic-algorithms.html" class="bare">http://ntz-develop.blogspot.com/2011/03/phonetic-algorithms.html</a></p>
+</div>
+<div class="paragraph">
+<p>Algorithms discussed in this section:</p>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle" class="title">In This Section</div>
+<ul class="sectlevel1">
+<li><a href="#_beider_morse_phonetic_matching_bmpm">Beider-Morse Phonetic Matching (BMPM)</a></li>
+<li><a href="#_daitch_mokotoff_soundex">Daitch-Mokotoff Soundex</a></li>
+<li><a href="#_double_metaphone">Double Metaphone</a></li>
+<li><a href="#_metaphone">Metaphone</a></li>
+<li><a href="#_soundex">Soundex</a></li>
+<li><a href="#_refined_soundex">Refined Soundex</a></li>
+<li><a href="#_caverphone">Caverphone</a></li>
+<li><a href="#_kölner_phonetik_a_k_a_cologne_phonetic">Kölner Phonetik a.k.a. Cologne Phonetic</a></li>
+<li><a href="#_nysiis">NYSIIS</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_beider_morse_phonetic_matching_bmpm">Beider-Morse Phonetic Matching (BMPM)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use this encoding in your analyzer, see <a href="Filter-Descriptions.html#FilterDescriptions-Beider-MorseFilter">Beider Morse Filter</a> in the Filter Descriptions section.</p>
+</div>
+<div class="paragraph">
+<p>Beider-Morse Phonetic Matching (BMPM) is a "soundalike" tool that lets you search using a new phonetic matching system. BMPM helps you search for personal names (or just surnames) in a Solr/Lucene index, and is far superior to the existing phonetic codecs, such as regular soundex, metaphone, caverphone, etc.</p>
+</div>
+<div class="paragraph">
+<p>In general, phonetic matching lets you search a name list for names that are phonetically equivalent to the desired name. BMPM is similar to a soundex search in that an exact spelling is not required. Unlike soundex, it does not generate a large quantity of false hits.</p>
+</div>
+<div class="paragraph">
+<p>From the spelling of the name, BMPM attempts to determine the language. It then applies phonetic rules for that particular language to transliterate the name into a phonetic alphabet. If it is not possible to determine the language with a fair degree of certainty, it uses generic phonetic instead. Finally, it applies language-independent rules regarding such things as voiced and unvoiced consonants and vowels to further insure the reliability of the matches.</p>
+</div>
+<div class="paragraph">
+<p>For example, assume that the matches found when searching for Stephen in a database are "Stefan", "Steph", "Stephen", "Steve", "Steven", "Stove", and "Stuffin". "Stefan", "Stephen", and "Steven" are probably relevant, and are names that you want to see. "Stuffin", however, is probably not relevant. Also rejected were "Steph", "Steve", and "Stove". Of those, "Stove" is probably not one that we would have wanted. But "Steph" and "Steve" are possibly ones that you might be interested in.</p>
+</div>
+<div class="paragraph">
+<p>For Solr, BMPM searching is available for the following languages:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>English</p>
+</li>
+<li>
+<p>French</p>
+</li>
+<li>
+<p>German</p>
+</li>
+<li>
+<p>Greek</p>
+</li>
+<li>
+<p>Hebrew written in Hebrew letters</p>
+</li>
+<li>
+<p>Hungarian</p>
+</li>
+<li>
+<p>Italian</p>
+</li>
+<li>
+<p>Polish</p>
+</li>
+<li>
+<p>Romanian</p>
+</li>
+<li>
+<p>Russian written in Cyrillic letters</p>
+</li>
+<li>
+<p>Russian transliterated into English letters</p>
+</li>
+<li>
+<p>Spanish</p>
+</li>
+<li>
+<p>Turkish</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The name matching is also applicable to non-Jewish surnames from the countries in which those languages are spoken.</p>
+</div>
+<div class="paragraph">
+<p>For more information, see here: <a href="http://stevemorse.org/phoneticinfo.htm" class="bare">http://stevemorse.org/phoneticinfo.htm</a> and <a href="http://stevemorse.org/phonetics/bmpm.htm">http://stevemorse.org/phonetics/bmpm.htm.</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_daitch_mokotoff_soundex">Daitch-Mokotoff Soundex</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use this encoding in your analyzer, see <a href="Filter-Descriptions.html#FilterDescriptions-Daitch-MokotoffSoundexFilter">Daitch-Mokotoff Soundex Filter</a> in the Filter Descriptions section.</p>
+</div>
+<div class="paragraph">
+<p>The Daitch-Mokotoff Soundex algorithm is a refinement of the Russel and American Soundex algorithms, yielding greater accuracy in matching especially Slavic and Yiddish surnames with similar pronunciation but differences in spelling.</p>
+</div>
+<div class="paragraph">
+<p>The main differences compared to the other soundex variants are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>coded names are 6 digits long</p>
+</li>
+<li>
+<p>initial character of the name is coded</p>
+</li>
+<li>
+<p>rules to encoded multi-character n-grams</p>
+</li>
+<li>
+<p>multiple possible encodings for the same name (branching)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note: the implementation used by Solr (commons-codec&#8217;s ` DaitchMokotoffSoundex `) has additional branching rules compared to the original description of the algorithm.</p>
+</div>
+<div class="paragraph">
+<p>For more information, see <a href="http://en.wikipedia.org/wiki/Daitch%E2%80%93Mokotoff_Soundex" class="bare">http://en.wikipedia.org/wiki/Daitch%E2%80%93Mokotoff_Soundex</a> and <a href="http://www.avotaynu.com/soundex.htm" class="bare">http://www.avotaynu.com/soundex.htm</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_double_metaphone">Double Metaphone</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use this encoding in your analyzer, see <a href="Filter-Descriptions.html#FilterDescriptions-DoubleMetaphoneFilter">Double Metaphone Filter</a> in the Filter Descriptions section. Alternatively, you may specify <code>encoding="DoubleMetaphone"</code> with the <a href="Filter-Descriptions.html#FilterDescriptions-PhoneticFilter">Phonetic Filter</a>, but note that the Phonetic Filter version will <strong>not</strong> provide the second ("alternate") encoding that is generated by the Double Metaphone Filter for some tokens.</p>
+</div>
+<div class="paragraph">
+<p>Encodes tokens using the double metaphone algorithm by Lawrence Philips. See the original article at <a href="http://www.drdobbs.com/the-double-metaphone-search-algorithm/184401251?pgno=2" class="bare">http://www.drdobbs.com/the-double-metaphone-search-algorithm/184401251?pgno=2</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_metaphone">Metaphone</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use this encoding in your analyzer, specify <code>encoding="Metaphone"</code> with the <a href="Filter-Descriptions.html#FilterDescriptions-PhoneticFilter">Phonetic Filter</a>.</p>
+</div>
+<div class="paragraph">
+<p>Encodes tokens using the Metaphone algorithm by Lawrence Philips, described in "Hanging on the Metaphone" in Computer Language, Dec. 1990.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="http://en.wikipedia.org/wiki/Metaphone" class="bare">http://en.wikipedia.org/wiki/Metaphone</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_soundex">Soundex</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use this encoding in your analyzer, specify <code>encoding="Soundex"</code> with the <a href="Filter-Descriptions.html#FilterDescriptions-PhoneticFilter">Phonetic Filter</a>.</p>
+</div>
+<div class="paragraph">
+<p>Encodes tokens using the Soundex algorithm, which is used to relate similar names, but can also be used as a general purpose scheme to find words with similar phonemes.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://www.drdobbs.com/the-double-metaphone-search-algorithm/184401251?pgno=2">See</a> <a href="http://en.wikipedia.org/wiki/Soundex" class="bare">http://en.wikipedia.org/wiki/Soundex</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_refined_soundex">Refined Soundex</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use this encoding in your analyzer, specify <code>encoding="RefinedSoundex"</code> with the <a href="Filter-Descriptions.html#FilterDescriptions-PhoneticFilter">Phonetic Filter</a>.</p>
+</div>
+<div class="paragraph">
+<p>Encodes tokens using an improved version of the Soundex algorithm.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="http://en.wikipedia.org/wiki/Soundex" class="bare">http://en.wikipedia.org/wiki/Soundex</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_caverphone">Caverphone</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use this encoding in your analyzer, specify <code>encoding="Caverphone"</code> with the <a href="Filter-Descriptions.html#FilterDescriptions-PhoneticFilter">Phonetic Filter</a>.</p>
+</div>
+<div class="paragraph">
+<p>Caverphone is an algorithm created by the Caversham Project at the University of Otago. The algorithm is optimised for accents present in the southern part of the city of Dunedin, New Zealand.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="http://en.wikipedia.org/wiki/Caverphone" class="bare">http://en.wikipedia.org/wiki/Caverphone</a> and the Caverphone 2.0 specification at <a href="http://caversham.otago.ac.nz/files/working/ctp150804.pdf" class="bare">http://caversham.otago.ac.nz/files/working/ctp150804.pdf</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_kölner_phonetik_a_k_a_cologne_phonetic">Kölner Phonetik a.k.a. Cologne Phonetic</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use this encoding in your analyzer, specify <code>encoding="ColognePhonetic"</code> with the <a href="Filter-Descriptions.html#FilterDescriptions-PhoneticFilter">Phonetic Filter</a>.</p>
+</div>
+<div class="paragraph">
+<p>The Kölner Phonetik, an algorithm published by Hans Joachim Postel in 1969, is optimized for the German language.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="http://de.wikipedia.org/wiki/K%C3%B6lner_Phonetik" class="bare">http://de.wikipedia.org/wiki/K%C3%B6lner_Phonetik</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nysiis">NYSIIS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use this encoding in your analyzer, specify <code>encoding="Nysiis"</code> with the <a href="Filter-Descriptions.html#FilterDescriptions-PhoneticFilter">Phonetic Filter</a>.</p>
+</div>
+<div class="paragraph">
+<p>NYSIIS is an encoding used to relate similar names, but can also be used as a general purpose scheme to find words with similar phonemes.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="http://en.wikipedia.org/wiki/NYSIIS" class="bare">http://en.wikipedia.org/wiki/NYSIIS</a> and <a href="http://www.dropby.com/NYSIIS.html" class="bare">http://www.dropby.com/NYSIIS.html</a></p>
+</div>
+</div>
+</div></p>
+
+	<hr />
+
+	<script type="text/javascript"><!--//--><![CDATA[//><!--
+	    var comments_shortname = 'solrcwiki';
+	    var comments_identifier = 'Phonetic Matching'; // Insert your unique page ID here
+	    (function(w, d) {
+		    d.write('<div id="comments_thread"><\/div>');
+		    var s = d.createElement('script');
+		    s.type = 'text/javascript';
+		    s.async = true;
+		    s.src = 'https://comments.apache.org/show_comments.lua?site=' + comments_shortname + '&page=' + comments_identifier + '&oldschool=true';
+		    (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
+	    })(window, document);
+	    //--><!]]></script>
+	    <noscript>
+	    <iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&amp;page=Phonetic Matching&oldschool=true"></iframe>
+	    </noscript>
+
+		</div>
+		<div id="push"></div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2016 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.4.0</a></p>
+      </div>
+    </div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/prettify.js"></script>
+
+  </body>
+</html>

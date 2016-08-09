@@ -1,0 +1,26 @@
+= Apache Solr Reference Guide
+:page-permalink: index.html
+:page-sidebar: mydoc_sidebar
+
+[.lead]
+This is an example of using Jekyll & Asciidoc to publish the Solr Reference Guide.
+
+== Features
+
+This example is based on Tom Johnson's https://github.com/tomjohnson1492/documentation-theme-jekyll[Documentation Theme], with modifications for styling. Some features were also removed because they are replaced by Asciidoctor functionality.
+
+The https://github.com/asciidoctor/jekyll-asciidoc[jekyll-asciidoc] gem is also used to render the pages from `.adoc` format to `.html`.
+
+== Sample Homepage
+
+[.lead]
+This reference guide describes Apache Solr, the open source solution for search.
+
+This example Guide contains the following sections. Use the sidebar on the left to navigate directly to individual pages.
+
+[frame=none,align=center]
+|===
+
+|*Analysis*:This section includes all the pages in https://cwiki.apache.org/confluence/display/solr/Understanding+Analyzers%2C+Tokenizers%2C+and+Filters[Understanding Analyzers, Tokenizers, and Filters] from the Confluence-based CWIKI. |*Index Replication*: This section includes only the page https://cwiki.apache.org/confluence/display/solr/Index+Replication[Index Replication] from the Confluence-based CWIKI.
+
+|===
