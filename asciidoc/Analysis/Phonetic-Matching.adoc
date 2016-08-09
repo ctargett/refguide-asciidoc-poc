@@ -3,11 +3,6 @@
 :jbake-type: page
 :jbake-status: published
 :toc: macro
-:toc-title: In This Section
-
-1.  link:index.html[Apache Solr Reference Guide]
-2.  link:Apache-Solr-Reference-Guide.html[Apache Solr Reference Guide]
-3.  link:32604225.html[Understanding Analyzers, Tokenizers, and Filters]
 
 Phonetic matching algorithms may be used to encode tokens so that two different spellings that are pronounced similarly will match.
 

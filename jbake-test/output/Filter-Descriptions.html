@@ -40,17 +40,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">JBake</a>
+          <a class="navbar-brand" href="">Solr</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="feed.xml">Subscribe</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sections <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
+                <li><a href="About-Filters.html">About Filters</a></li>
                 <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>
@@ -64,25 +62,13 @@
       </div>
     </div>
     <div class="container">
+
 	<div class="page-header">
 		<h1>Filter Descriptions</h1>
 	</div>
 
 	<p><div id="preamble">
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="index.html">Apache Solr Reference Guide</a></p>
-</li>
-<li>
-<p><a href="Apache-Solr-Reference-Guide.html">Apache Solr Reference Guide</a></p>
-</li>
-<li>
-<p><a href="32604225.html">Understanding Analyzers, Tokenizers, and Filters</a></p>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>You configure each filter with a <code>&lt;filter&gt;</code> element in <code>schema.xml</code> as a child of <code>&lt;analyzer&gt;</code>, following the <code>&lt;tokenizer&gt;</code> element. Filter definitions should follow a tokenizer or another filter definition because they take a <code>TokenStream</code> as input. For example.</p>
 </div>
@@ -120,7 +106,7 @@
 </div>
 <div id="toc" class="toc">
 <div id="toctitle" class="title">In This Section</div>
-<ul class="sectlevel2">
+<ul class="sectlevel1">
 <li><a href="#_ascii_folding_filter">ASCII Folding Filter</a></li>
 <li><a href="#_beider_morse_filter">Beider-Morse Filter</a></li>
 <li><a href="#_classic_filter">Classic Filter</a></li>
@@ -163,8 +149,9 @@
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_ascii_folding_filter">ASCII Folding Filter</h3>
+<div class="sect1">
+<h2 id="_ascii_folding_filter">ASCII Folding Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter converts alphabetic, numeric, and symbolic Unicode characters which are not in the Basic Latin Unicode block (the first 127 ASCII characters) to their ASCII equivalents, if one exists. This filter converts characters from the following Unicode blocks:</p>
 </div>
@@ -243,8 +230,10 @@
 <p><strong>Out:</strong> "a" (ASCII character 97)</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_beider_morse_filter">Beider-Morse Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_beider_morse_filter">Beider-Morse Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Implements the Beider-Morse Phonetic Matching (BMPM) algorithm, which allows identification of similar names, even if they are spelled differently or in different languages. More information about how this works is available in the section on <a href="#Phonetic-Matching.adoc">Phonetic Matching</a>.</p>
 </div>
@@ -292,8 +281,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_classic_filter">Classic Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_classic_filter">Classic Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter takes the output of the <a href="Tokenizers.html#Tokenizers-ClassicTokenizer">Classic Tokenizer</a> and strips periods from acronyms and "'s" from possessives.</p>
 </div>
@@ -324,8 +315,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "IBM", "cat", "can&#8217;t"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_common_grams_filter">Common Grams Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_common_grams_filter">Common Grams Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter creates word shingles by combining common tokens such as stop words with regular tokens. This is useful for creating phrase queries containing common words, such as "the cat." Solr normally ignores stop words in queried phrases, so searching for "the cat" would return all matches for the word "cat."</p>
 </div>
@@ -365,14 +358,18 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "the_cat"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_collation_key_filter">Collation Key Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_collation_key_filter">Collation Key Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Collation allows sorting of text in a language-sensitive way. It is usually used for sorting, but can also be used with advanced searches. We&#8217;ve covered this in much more detail in the section on <a href="Language-Analysis.html#LanguageAnalysis-UnicodeCollation">Unicode Collation</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_daitch_mokotoff_soundex_filter">Daitch-Mokotoff Soundex Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_daitch_mokotoff_soundex_filter">Daitch-Mokotoff Soundex Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Implements the Daitch-Mokotoff Soundex algorithm, which allows identification of similar names, even if they are spelled differently. More information about how this works is available in the section on <a href="#Phonetic-Matching.adoc">Phonetic Matching</a>.</p>
 </div>
@@ -397,8 +394,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_double_metaphone_filter">Double Metaphone Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_double_metaphone_filter">Double Metaphone Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter creates tokens using the ` DoubleMetaphone ` encoding algorithm from commons-codec. For more information, see the <a href="Phonetic-Matching.html">Phonetic Matching</a> section.</p>
 </div>
@@ -467,8 +466,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p>Note that "Kuczewski" has two encodings, which are added at the same position.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_edge_n_gram_filter">Edge N-Gram Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_edge_n_gram_filter">Edge N-Gram Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter generates edge n-gram tokens of sizes within the given range.</p>
 </div>
@@ -554,8 +555,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "four", "scor", "score", "twen", "twent", "twenty"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_english_minimal_stem_filter">English Minimal Stem Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_english_minimal_stem_filter">English Minimal Stem Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter stems plural English words to their singular form.</p>
 </div>
@@ -586,8 +589,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "dog", "cat"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_hunspell_stem_filter">Hunspell Stem Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_hunspell_stem_filter">Hunspell Stem Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The <a href="http://wiki.apache.org/solr/Hunspell">Hunspell Stem Filter</a> provides support for several languages. You must provide the dictionary (<code>.dic</code>) and rules (<code>.aff</code>) files for each language you wish to use with the Hunspell Stem Filter. You can download those language files <a href="http://wiki.services.openoffice.org/wiki/Dictionaries">here</a>.</p>
 </div>
@@ -634,8 +639,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "jump", "jump", "jump"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_hyphenated_words_filter">Hyphenated Words Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_hyphenated_words_filter">Hyphenated Words Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter reconstructs hyphenated words that have been tokenized as two tokens because of a line break or other intervening whitespace in the field test. If a token ends with a hyphen, it is joined with the following token and the hyphen is discarded. Note that for this filter to work properly, the upstream tokenizer must not remove trailing hyphen characters. This filter is generally only useful at index time.</p>
 </div>
@@ -666,8 +673,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "A", "hyphenated", "word"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_icu_folding_filter">ICU Folding Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_icu_folding_filter">ICU Folding Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter is a custom Unicode normalization form that applies the foldings specified in <a href="http://www.unicode.org/reports/tr30/tr30-4.html">Unicode Technical Report 30</a> in addition to the <code>NFKC_Casefold</code> normalization form as described in <a href="#FilterDescriptions-ICUNormalizer2Filter">ICU Normalizer 2 Filter</a>. This filter is a better substitute for the combined behavior of the <a href="#FilterDescriptions-ASCIIFoldingFilter">ASCII Folding Filter</a>, <a href="#FilterDescriptions-LowerCaseFilter">Lower Case Filter</a>, and <a href="#FilterDescriptions-ICUNormalizer2Filter">ICU Normalizer 2 Filter</a>.</p>
 </div>
@@ -695,8 +704,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p>For detailed information on this normalization form, see <a href="http://www.unicode.org/reports/tr30/tr30-4.html" class="bare">http://www.unicode.org/reports/tr30/tr30-4.html</a>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_icu_normalizer_2_filter">ICU Normalizer 2 Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_icu_normalizer_2_filter">ICU Normalizer 2 Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter factory normalizes text according to one of five Unicode Normalization Forms as described in <a href="http://unicode.org/reports/tr15/">Unicode Standard Annex #15</a>:</p>
 </div>
@@ -749,8 +760,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p>To use this filter, see <code>solr/contrib/analysis-extras/README.txt</code> for instructions on which jars you need to add to your <code>solr_home/lib</code>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_icu_transform_filter">ICU Transform Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_icu_transform_filter">ICU Transform Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter applies <a href="http://userguide.icu-project.org/transforms/general">ICU Tranforms</a> to text. This filter supports only ICU System Transforms. Custom rule sets are not supported.</p>
 </div>
@@ -781,8 +794,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p>To use this filter, see <code>solr/contrib/analysis-extras/README.txt</code> for instructions on which jars you need to add to your <code>solr_home/lib</code>.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_keep_words_filter">Keep Words Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_keep_words_filter">Keep Words Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter discards all tokens except those that are listed in the given word list. This is the inverse of the Stop Words Filter. This filter can be useful for building specialized indices for a constrained set of terms.</p>
 </div>
@@ -884,8 +899,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "happy", "funny"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_kstem_filter">KStem Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_kstem_filter">KStem Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>KStem is an alternative to the Porter Stem Filter for developers looking for a less aggressive stemmer. KStem was written by Bob Krovetz, ported to Lucene by Sergio Guzman-Lara (UMASS Amherst). This stemmer is only appropriate for English language text.</p>
 </div>
@@ -916,8 +933,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "jump", "jump", "jump"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_length_filter">Length Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_length_filter">Length Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter passes tokens whose length falls within the min/max limit specified. All other tokens are discarded.</p>
 </div>
@@ -957,8 +976,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "turn", "right"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_lower_case_filter">Lower Case Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_lower_case_filter">Lower Case Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Converts any uppercase letters in a token to the equivalent lowercase token. All other characters are left unchanged.</p>
 </div>
@@ -989,8 +1010,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "down", "with", "camelcase"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_managed_stop_filter">Managed Stop Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_managed_stop_filter">Managed Stop Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This is specialized version of the <a href="#FilterDescriptions-StopFilter">Stop Words Filter Factory</a> that uses a set of stop words that are <a href="Managed-Resources.html">managed from a REST API.</a></p>
 </div>
@@ -1018,8 +1041,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p>See <a href="#_stop-filter">Stop Filter</a> for example input/output.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_managed_synonym_filter">Managed Synonym Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_managed_synonym_filter">Managed Synonym Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This is specialized version of the <a href="#_synonym-filter">Synonym Filter Factory</a> that uses a mapping on synonyms that is <a href="#Managed-Resources.adoc">managed from a REST API</a>.</p>
 </div>
@@ -1047,8 +1072,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p>See <a href="#_synonym-filter">Synonym Filter</a> for example input/output.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_n_gram_filter">N-Gram Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_n_gram_filter">N-Gram Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Generates n-gram tokens of sizes in the given range. Note that tokens are ordered by position and then by gram size.</p>
 </div>
@@ -1134,8 +1161,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "fou", "four", "our", "sco", "scor", "score", "cor", "core", "ore"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_numeric_payload_token_filter">Numeric Payload Token Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_numeric_payload_token_filter">Numeric Payload Token Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter adds a numeric floating point payload value to tokens that match a given type. Refer to the Javadoc for the <code>org.apache.lucene.analysis.Token</code> class for more information about token types and payloads.</p>
 </div>
@@ -1172,8 +1201,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "bing"[0.75], "bang"[0.75], "boom"[0.75]</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_pattern_replace_filter">Pattern Replace Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_pattern_replace_filter">Pattern Replace Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter applies a regular expression to each token and, for those that match, substitutes the given replacement string in place of the matched pattern. Tokens which do not match are passed though unchanged.</p>
 </div>
@@ -1262,8 +1293,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "cat", "foo_1234", "9987", "blah1234foo"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_phonetic_filter">Phonetic Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_phonetic_filter">Phonetic Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter creates tokens using one of the phonetic encoding algorithms in the <code>org.apache.commons.codec.language</code> package. For more information, see the section on <a href="https://cwiki.apache.org/confluence/display/solr/Phonetic+Matching">Phonetic Matching</a>.</p>
 </div>
@@ -1355,8 +1388,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "four"(1), "F600"(1), "score"(2), "S600"(2), "and"(3), "A530"(3), "twenty"(4), "T530"(4)</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_porter_stem_filter">Porter Stem Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_porter_stem_filter">Porter Stem Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter applies the Porter Stemming Algorithm for English. The results are similar to using the Snowball Porter Stemmer with the <code>language="English"</code> argument. But this stemmer is coded directly in Java and is not based on Snowball. It does not accept a list of protected words and is only appropriate for English language text. However, it has been benchmarked as <a href="http://markmail.org/thread/d2c443z63z37rwf6">four times faster</a> than the English Snowball stemmer, so can provide a performance enhancement.</p>
 </div>
@@ -1387,8 +1422,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "jump", "jump", "jump"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_remove_duplicates_token_filter">Remove Duplicates Token Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_remove_duplicates_token_filter">Remove Duplicates Token Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The filter removes duplicate tokens in the stream. Tokens are considered to be duplicates if they have the same text and position values.</p>
 </div>
@@ -1438,8 +1475,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "Watch"(1) "Television"(2) "TV"(2)</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_reversed_wildcard_filter">Reversed Wildcard Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_reversed_wildcard_filter">Reversed Wildcard Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter reverses tokens to provide faster leading wildcard and prefix queries. Tokens without wildcards are not reversed.</p>
 </div>
@@ -1486,8 +1525,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "oof*", "rab*"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_shingle_filter">Shingle Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_shingle_filter">Shingle Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter constructs shingles, which are token n-grams, from the token stream. It combines runs of tokens into a single token.</p>
 </div>
@@ -1559,8 +1600,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "To be"(1), "To be or"(1), "To be or not"(1), "be or"(2), "be or not"(2), "be or not to"(2), "or not"(3), "or not to"(3), "or not to be"(3), "not to"(4), "not to be"(4), "to be"(5)</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_snowball_porter_stemmer_filter">Snowball Porter Stemmer Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_snowball_porter_stemmer_filter">Snowball Porter Stemmer Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter factory instantiates a language-specific stemmer generated by Snowball. Snowball is a software package that generates pattern-based word stemmers. This type of stemmer is not as accurate as a table-based stemmer, but is faster and less complex. Table-driven stemmers are labor intensive to create and maintain and so are typically commercial products.</p>
 </div>
@@ -1652,8 +1695,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "cant", "cant"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_standard_filter">Standard Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_standard_filter">Standard Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter removes dots from acronyms and the substring "'s" from the end of tokens. This filter depends on the tokens being tagged with the appropriate term-type to recognize acronyms and words with apostrophes.</p>
 </div>
@@ -1670,8 +1715,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p>This filter is no longer operational in Solr when the <code>luceneMatchVersion</code> (in <code>solrconfig.xml</code>) is higher than "3.1".</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_stop_filter">Stop Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_stop_filter">Stop Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter discards, or <em>stops</em> analysis of, tokens that are on the given stop words list. A standard stop words list is included in the Solr config directory, named <code>stopwords.txt</code>, which is appropriate for typical English language text.</p>
 </div>
@@ -1737,8 +1784,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "what"(4)</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_suggest_stop_filter">Suggest Stop Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_suggest_stop_filter">Suggest Stop Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Like <a href="#_stop-filter">Stop Filter</a>, this filter discards, or <em>stops</em> analysis of, tokens that are on the given stop words list. Suggest Stop Filter differs from Stop Filter in that it will not remove the last token unless it is followed by a token separator. For example, a query &#8220;find the&#8221; would preserve the &#8216;the&#8217; since it was not followed by a space, punctuation etc., and mark it as a <code>KEYWORD</code> so that following filters will not change or remove it. By contrast, a query like &#8220;find the popsicle&#8221; would remove &#8220;the&#8221; as a stopword, since it&#8217;s followed by a space. When using one of the analyzing suggesters, you would normally use the ordinary <code>StopFilterFactory</code> in your index analyzer and then SuggestStopFilter in your query analyzer.</p>
 </div>
@@ -1790,8 +1839,10 @@ BeiderMorseFilter changed its behavior in Solr 5.0 (version 3.04 of the BMPM alg
 <p><strong>Out:</strong> "the"(2)</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_synonym_filter">Synonym Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_synonym_filter">Synonym Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter does synonym mapping. Each token is looked up in the list of synonyms and if a match is found, then the synonym is emitted in place of the token. The position value of the new tokens are set such they all occur at the same position as the original token.</p>
 </div>
@@ -1881,8 +1932,10 @@ small =&gt; tiny,teeny,weeny</code></pre>
 <p><strong>Out:</strong> "the"(1), "large"(2), "large"(3), "couch"(4), "sofa"(4), "divan"(4)</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_token_offset_payload_filter">Token Offset Payload Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_token_offset_payload_filter">Token Offset Payload Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter adds the numeric character offsets of the token as a payload value for that token.</p>
 </div>
@@ -1913,8 +1966,10 @@ small =&gt; tiny,teeny,weeny</code></pre>
 <p><strong>Out:</strong> "bing"[0,4], "bang"[5,9], "boom"[10,14]</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_trim_filter">Trim Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_trim_filter">Trim Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter trims leading and/or trailing whitespace from tokens. Most tokenizers break tokens at whitespace, so this filter is most often used for special situations.</p>
 </div>
@@ -1951,8 +2006,10 @@ small =&gt; tiny,teeny,weeny</code></pre>
 <p><strong>Out:</strong> "one", "two", "three", "four"</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_type_as_payload_filter">Type As Payload Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_type_as_payload_filter">Type As Payload Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter adds the token&#8217;s type, as an encoded byte sequence, as its payload.</p>
 </div>
@@ -1983,8 +2040,10 @@ small =&gt; tiny,teeny,weeny</code></pre>
 <p><strong>Out:</strong> "Pay"[&lt;ALPHANUM&gt;], "Bob&#8217;s"[&lt;APOSTROPHE&gt;], "I.O.U."[&lt;ACRONYM&gt;]</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_type_token_filter">Type Token Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_type_token_filter">Type Token Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter blacklists or whitelists a specified list of token types, assuming the tokens have type metadata associated with them. For example, the <a href="Tokenizers.html#_UAX29-URL-Email-Tokenizer">UAX29 URL Email Tokenizer</a> emits "&lt;URL&gt;" and "&lt;EMAIL&gt;" typed tokens, as well as other types. This filter would allow you to pull out only e-mail addresses from text as tokens, if you wish.</p>
 </div>
@@ -2014,8 +2073,10 @@ small =&gt; tiny,teeny,weeny</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_word_delimiter_filter">Word Delimiter Filter</h3>
+</div>
+<div class="sect1">
+<h2 id="_word_delimiter_filter">Word Delimiter Filter</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter splits tokens at word delimiters. The rules for determining delimiters are determined as follows:</p>
 </div>
@@ -2188,6 +2249,7 @@ small =&gt; tiny,teeny,weeny</code></pre>
 </div>
 <div class="paragraph">
 <p><strong>Out:</strong> "FooBar", "FooBar", "AstroBlaster", "XL-5000", "ES", "34"</p>
+</div>
 </div>
 </div></p>
 

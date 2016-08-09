@@ -40,17 +40,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">JBake</a>
+          <a class="navbar-brand" href="">Solr</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="feed.xml">Subscribe</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sections <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
+                <li><a href="About-Filters.html">About Filters</a></li>
                 <li><a href="#">Another action</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>
@@ -64,31 +62,19 @@
       </div>
     </div>
     <div class="container">
+
 	<div class="page-header">
 		<h1>CharFilterFactories</h1>
 	</div>
 
 	<p><div id="preamble">
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="index.html">Apache Solr Reference Guide</a></p>
-</li>
-<li>
-<p><a href="Apache-Solr-Reference-Guide.html">Apache Solr Reference Guide</a></p>
-</li>
-<li>
-<p><a href="32604225.html">Understanding Analyzers, Tokenizers, and Filters</a></p>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>Char Filter is a component that pre-processes input characters. Char Filters can be chained like Token Filters and placed in front of a Tokenizer. Char Filters can add, change, or remove characters while preserving the original character offsets to support features like highlighting.</p>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle" class="title">In This Section</div>
-<ul class="sectlevel2">
+<ul class="sectlevel1">
 <li><a href="#_solr_mappingcharfilterfactory">solr.MappingCharFilterFactory</a></li>
 <li><a href="#_solr_htmlstripcharfilterfactory">solr.HTMLStripCharFilterFactory</a></li>
 <li><a href="#_solr_icunormalizer2charfilterfactory">solr.ICUNormalizer2CharFilterFactory</a></li>
@@ -97,8 +83,9 @@
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_solr_mappingcharfilterfactory">solr.MappingCharFilterFactory</h3>
+<div class="sect1">
+<h2 id="_solr_mappingcharfilterfactory">solr.MappingCharFilterFactory</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter creates <code>org.apache.lucene.analysis.MappingCharFilter</code>, which can be used for changing one string to another (for example, for normalizing <code>é</code> to <code>e</code>.).</p>
 </div>
@@ -216,8 +203,10 @@
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_solr_htmlstripcharfilterfactory">solr.HTMLStripCharFilterFactory</h3>
+</div>
+<div class="sect1">
+<h2 id="_solr_htmlstripcharfilterfactory">solr.HTMLStripCharFilterFactory</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter creates <code>org.apache.solr.analysis.HTMLStripCharFilter</code>. This Char Filter strips HTML from the input stream and passes the result to another Char Filter or a Tokenizer.</p>
 </div>
@@ -327,8 +316,10 @@ The input need not be an HTML document. The filter removes only constructs that 
 </tbody>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_solr_icunormalizer2charfilterfactory">solr.ICUNormalizer2CharFilterFactory</h3>
+</div>
+<div class="sect1">
+<h2 id="_solr_icunormalizer2charfilterfactory">solr.ICUNormalizer2CharFilterFactory</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter performs pre-tokenization Unicode normalization using <a href="http://site.icu-project.org">ICU4J</a>.</p>
 </div>
@@ -357,8 +348,10 @@ The input need not be an HTML document. The filter removes only constructs that 
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_solr_patternreplacecharfilterfactory">solr.PatternReplaceCharFilterFactory</h3>
+</div>
+<div class="sect1">
+<h2 id="_solr_patternreplacecharfilterfactory">solr.PatternReplaceCharFilterFactory</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>This filter uses <a href="http://www.regular-expressions.info/reference.html">regular expressions</a> to replace or change character patterns.</p>
 </div>
@@ -435,6 +428,7 @@ The input need not be an HTML document. The filter removes only constructs that 
 </tr>
 </tbody>
 </table>
+</div>
 </div></p>
 
 	<hr />

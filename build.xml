@@ -3,11 +3,15 @@
   <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctor-ant/1.5.3/asciidoctor-ant-1.5.3.jar"
     dest="lib/asciidoctor-ant.jar" usetimestamp="true"/>
 
-  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj-pdf/1.5.0-alpha.11/asciidoctorj-pdf-1.5.0-alpha.11.jar" dest="lib/asciidoctorj-pdf.jar" usetimestamp="true" />
+<!--  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj-pdf/1.5.0-alpha.11/asciidoctorj-pdf-1.5.0-alpha.11.jar" dest="lib/asciidoctorj-pdf.jar" usetimestamp="true" /> -->
+
+<!--  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj/1.5.4.1/asciidoctorj-1.5.4.1.jar" dest="lib/asciidoctorj.jar" usetimestamp="true" /> -->
+
 
 <!-- ======= Asciidoctor HTML conversion ========
    Uses pure Asciidoctor build task-->
-  <target name="asciidoctor">
+  <target name="asciidoctor"
+          description="Builds raw HTML versions of all '.adoc' files">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml" classpath="lib/asciidoctor-ant.jar"/>
     <asciidoctor:convert
                  sourceDirectory="asciidoc"
@@ -27,24 +31,26 @@
   </target>
 
 <!-- ======= JBake Build =======
-  Builds site with JBake. This (for now) assumes that jbake (http://jbake.org) is installed locally. -->
+  Builds site with JBake. This (for now) assumes that JBake (http://jbake.org) is installed locally. -->
 
 <property name="jbakesitedir" value="jbake-test/output"/>
 
-   <target name ="jbake-clean">
+   <target name ="jbake-clean"
+           description="Cleans the JBake project by removing the 'output' directory">
      <delete dir="${jbakesitedir}"/>
    </target>
 
-  <target name ="jbake-site">
+  <target name ="jbake-site"
+          description="Builds the site using JBake">
      <exec executable="jbake" dir="jbake-test">
         <arg value="-b"/>
      </exec>
   </target>
 
 <!-- ======= Jekyll Build =======
-  Builds site with Jekyll. This (for now) assumes that jekyll (http://jekyllrb.com) is installed locally.
+  Builds site with Jekyll. This (for now) assumes that Jekyll (http://jekyllrb.com) is installed locally.
 
-  This section of the script is borrowed from Ankyll (http://www.stuartgunter.org/ankyll/), a generic Ant script to build and publish Jekyll-based sites to Amazon S3. The S3 parts of the original have been removed. -->
+  This section is borrowed from Ankyll (http://www.stuartgunter.org/ankyll/), an Ant script to build and publish Jekyll-based sites to Amazon S3. The S3 parts of the original have been removed. However, other portions to update Google & Bing sitemaps have been retained as examples of something we may want to integrate. -->
 
 <!-- the Jekyll generated output directory -->
 <property name="jekyllsitedir" value="_site/"/>
@@ -53,7 +59,7 @@
 <property name="sitemap" value="http%3A%2F%2Fwww.your-domain.com%2Fsitemap.xml"/>
 
 <target name="jekyll-clean"
-         description="Cleans the project by removing the site and backup directories">
+         description="Cleans the Jekyll project by removing the '_site' directory'">
   <delete dir="${jekyllsitedir}"/>
 </target>
 
@@ -85,31 +91,36 @@
 
 <!-- ====== PDF Build ======= -->
 
-<!-- Approach 1 - use a shell script -->
-  <target name="pdf">
+<!-- Approach 1 - Build PDF with a shell script using the asciidoctor-pdf gem installed locally. -->
+  <target name="pdf"
+          description="Builds a PDF using local install of asciidoctor-pdf">
      <property name="executable-full-path"
             location="pdf/scripts/createPDF.sh"/>
      <exec executable="${executable-full-path}" />
   </target>
 
-<!-- Approach 2 - use asciidoctor-pdf -->
+<!-- Approach 2 - Build PDF with asciidoctor-ant
+     v1.5.3 includes asciidoctorj-pdf 1.5.0-alpha.11, which is the same as asciidoctor-pdf 1.5.0-alpha.11  -->
 <!--  <property name="asciidoctor-ant.snapshot.jar" value="asciidoctor-ant-1.5.2-SNAPSHOT.jar"/> -->
   <property name="asciidoctor-ant.snapshot.jar" value="asciidoctor-ant.jar"/>
 
-  <target name="pdf2">
+  <target name="pdf2"
+          description="Builds a PDF using downloaded copy of asciidoctorj">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
              classpath="lib/asciidoctor-ant.jar"/>
     <asciidoctor:convert
-                 sourceDirectory="asciidoc"
-                 sourceDocumentName="book.adoc"
+                 sourceDirectory="pdf"
+                 sourceDocumentName="SolrRefGuide.adoc"
                  outputDirectory="pdf2"
                  backend="pdf"
                  extensions="adoc"
                  sourceHighlighter="coderay"
                  embedAssets="true"
-                 imagesDir="asciidoc/images"
-                 doctype="book">
+                 imagesDir="asciidoc/images/"
+                 doctype="book"
+                 safemode="unsafe">
       <attribute key="icons" value="font" />
+      <attribute key="icon-set" value="fa" />
       <attribute key="docinfo!" value='' />
       <attribute key="pdf-stylesDir" value="pdf/themes"/>
       <attribute key="pdf-style" value="refguide"/>

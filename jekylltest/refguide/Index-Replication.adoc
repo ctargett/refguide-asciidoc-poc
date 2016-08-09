@@ -9,7 +9,7 @@ Index Replication distributes complete copies of a master index to one or more s
 
 The figure below shows a Solr configuration using index replication. The master server's index is replicated on the slaves.
 
-image::32702467.png[title="_A Solr index can be replicated across multiple slave servers, which then processes requests._"]
+image::attachments/32604221/32702467.png[title="_A Solr index can be replicated across multiple slave servers, which then processes requests._"]
 
 Topics covered in this section:
 
