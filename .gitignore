@@ -1,5 +1,4 @@
 build
-pdf2
 lib/*
 # Converted Confluence docs
 confluence-export/cleaned-export/*
