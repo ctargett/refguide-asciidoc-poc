@@ -10,20 +10,12 @@
 
 	<hr />
 
-	<script type="text/javascript"><!--//--><![CDATA[//><!--
-	    var comments_shortname = 'solrcwiki';
-	    var comments_identifier = '${content.title}'; // Insert your unique page ID here
-	    (function(w, d) {
-		    d.write('<div id="comments_thread"><\/div>');
-		    var s = d.createElement('script');
-		    s.type = 'text/javascript';
-		    s.async = true;
-		    s.src = 'https://comments.apache.org/show_comments.lua?site=' + comments_shortname + '&page=' + comments_identifier + '&oldschool=true';
-		    (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
-	    })(window, document);
-	    //--><!]]></script>
-	    <noscript>
-	    <iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&amp;page=${content.title}&oldschool=true"></iframe>
-	    </noscript>
-
+		 <div id="comments_thread">
+		 </div>
+		 <script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=${content.shortname}" async="true">
+		 </script>
+		 <noscript>
+		 <iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=${content.shortname}"></iframe>
+		 </noscript>
+		 
 <#include "footer.ftl">

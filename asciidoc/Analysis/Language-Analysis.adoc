@@ -2,6 +2,7 @@
 :description: Overview of language analysis capabilities of Solr.
 :jbake-type: page
 :jbake-status: published
+:jbake-shortname: language-analysis
 
 This section contains information about tokenizers and filters related to character set conversion or for use with specific languages. For the European languages, tokenization is fairly straightforward. Tokens are delimited by white space and/or a relatively small set of punctuation characters. In other languages the tokenization rules are often not so simple. Some European languages may require special tokenization rules as well, such as rules for decompounding German words.
 

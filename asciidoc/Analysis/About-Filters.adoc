@@ -2,6 +2,7 @@
 :description: An introduction to filters.
 :jbake-type: page
 :jbake-status: published
+:jbake-shortname: about-filters
 
 Like <<Tokenizers.adoc#-tokenizer-types,tokenizers>>, <<Filter-Descriptions.adoc,filters>> consume input and produce a stream of tokens. Filters also derive from `org.apache.lucene.analysis.TokenStream`. Unlike tokenizers, a filter's input is another TokenStream. The job of a filter is usually easier than that of a tokenizer since in most cases a filter looks at each token in the stream sequentially and decides whether to pass it along, replace it or discard it.
 

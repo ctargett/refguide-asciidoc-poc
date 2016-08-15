@@ -10,14 +10,14 @@
     <meta name="generator" content="JBake">
 
     <!-- Le styles -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
-    <link href="css/prettify.css" rel="stylesheet">
-    <link href="css/ref-guide.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../css/ref-guide.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
+      <script src="../js/html5shiv.min.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="../favicon.ico">
   </head>
   <body onload="prettyPrint()">
     <div id="wrap">
@@ -40,11 +40,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">Solr</a>
+          <a class="navbar-brand" href="../">Solr</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="../index.html">Home</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sections <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -69,16 +69,6 @@
 
 	<p><div id="preamble">
 <div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="index.html">Apache Solr Reference Guide</a></p>
-</li>
-<li>
-<p><a href="Apache-Solr-Reference-Guide.html">Apache Solr Reference Guide</a></p>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>The following sections describe how Solr breaks down and works with textual data. There are three main concepts to understand: analyzers, tokenizers, and filters.</p>
 </div>
@@ -86,10 +76,10 @@
 <p><a href="Analyzers.html#_analyzers">Field analyzers</a> are used both during ingestion, when a document is indexed, and at query time. An analyzer examines the text of fields and generates a token stream. Analyzers may be a single class or they may be composed of a series of tokenizer and filter classes.</p>
 </div>
 <div class="paragraph">
-<p><a href="About-Tokenizers.html#<em>tokenizers">Tokenizers</a> break field data into lexical units, or _tokens</em>.</p>
+<p><a href="#About-Tokenizers.adoc">Tokenizers</a> break field data into lexical units, or <em>tokens</em>.</p>
 </div>
 <div class="paragraph">
-<p><a href="About-Filters.html#<em>about-filters">Filters</a> examine a stream of tokens and keep them, transform or discard them, or create new ones. Tokenizers and filters may be combined to form pipelines, or _chains</em>, where the output of one is input to the next. Such a sequence of tokenizers and filters is called an <em>analyzer</em> and the resulting output of an analyzer is used to match query results or build indices.</p>
+<p><a href="#About-Filters.adoc">Filters</a> examine a stream of tokens and keep them, transform or discard them, or create new ones. Tokenizers and filters may be combined to form pipelines, or <em>chains</em>, where the output of one is input to the next. Such a sequence of tokenizers and filters is called an <em>analyzer</em> and the resulting output of an analyzer is used to match query results or build indices.</p>
 </div>
 </div>
 </div>
@@ -167,22 +157,14 @@
 
 	<hr />
 
-	<script type="text/javascript"><!--//--><![CDATA[//><!--
-	    var comments_shortname = 'solrcwiki';
-	    var comments_identifier = 'Understanding Analyzers, Tokenizers, and Filters'; // Insert your unique page ID here
-	    (function(w, d) {
-		    d.write('<div id="comments_thread"><\/div>');
-		    var s = d.createElement('script');
-		    s.type = 'text/javascript';
-		    s.async = true;
-		    s.src = 'https://comments.apache.org/show_comments.lua?site=' + comments_shortname + '&page=' + comments_identifier + '&oldschool=true';
-		    (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
-	    })(window, document);
-	    //--><!]]></script>
-	    <noscript>
-	    <iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&amp;page=Understanding Analyzers, Tokenizers, and Filters&oldschool=true"></iframe>
-	    </noscript>
-
+		 <div id="comments_thread">
+		 </div>
+		 <script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=understanding-analyzers-tokenizers-and-filters" async="true">
+		 </script>
+		 <noscript>
+		 <iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=understanding-analyzers-tokenizers-and-filters"></iframe>
+		 </noscript>
+		 
 		</div>
 		<div id="push"></div>
     </div>
@@ -196,9 +178,9 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/prettify.js"></script>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
 
   </body>
 </html>

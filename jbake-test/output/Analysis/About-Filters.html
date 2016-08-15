@@ -10,14 +10,14 @@
     <meta name="generator" content="JBake">
 
     <!-- Le styles -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
-    <link href="css/prettify.css" rel="stylesheet">
-    <link href="css/ref-guide.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../css/ref-guide.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
+      <script src="../js/html5shiv.min.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="../favicon.ico">
   </head>
   <body onload="prettyPrint()">
     <div id="wrap">
@@ -40,11 +40,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="">Solr</a>
+          <a class="navbar-brand" href="../">Solr</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="../index.html">Home</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sections <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -67,21 +67,8 @@
 		<h1>About Filters</h1>
 	</div>
 
-	<p><div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="index.html">Apache Solr Reference Guide</a></p>
-</li>
-<li>
-<p><a href="Apache-Solr-Reference-Guide.html">Apache Solr Reference Guide</a></p>
-</li>
-<li>
-<p><a href="32604225.html">Understanding Analyzers, Tokenizers, and Filters</a></p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Like <a href="Tokenizers.html#_tokenizers">tokenizers</a>, <a href="Filter-Descriptions.html#_filters">filters</a> consume input and produce a stream of tokens. Filters also derive from <code>org.apache.lucene.analysis.TokenStream</code>. Unlike tokenizers, a filter&#8217;s input is another TokenStream. The job of a filter is usually easier than that of a tokenizer since in most cases a filter looks at each token in the stream sequentially and decides whether to pass it along, replace it or discard it.</p>
+	<p><div class="paragraph">
+<p>Like <a href="Tokenizers.html#-tokenizer-types">tokenizers</a>, <a href="#Filter-Descriptions.adoc">filters</a> consume input and produce a stream of tokens. Filters also derive from <code>org.apache.lucene.analysis.TokenStream</code>. Unlike tokenizers, a filter&#8217;s input is another TokenStream. The job of a filter is usually easier than that of a tokenizer since in most cases a filter looks at each token in the stream sequentially and decides whether to pass it along, replace it or discard it.</p>
 </div>
 <div class="paragraph">
 <p>A filter may also do more complex analysis by looking ahead to consider multiple tokens at once, although this is less common. One hypothetical use for such a filter might be to normalize state names that would be tokenized as two words. For example, the single token "california" would be replaced with "CA", while the token pair "rhode" followed by "island" would become the single token "RI".</p>
@@ -116,22 +103,14 @@
 
 	<hr />
 
-	<script type="text/javascript"><!--//--><![CDATA[//><!--
-	    var comments_shortname = 'solrcwiki';
-	    var comments_identifier = 'About Filters'; // Insert your unique page ID here
-	    (function(w, d) {
-		    d.write('<div id="comments_thread"><\/div>');
-		    var s = d.createElement('script');
-		    s.type = 'text/javascript';
-		    s.async = true;
-		    s.src = 'https://comments.apache.org/show_comments.lua?site=' + comments_shortname + '&page=' + comments_identifier + '&oldschool=true';
-		    (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s);
-	    })(window, document);
-	    //--><!]]></script>
-	    <noscript>
-	    <iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&amp;page=About Filters&oldschool=true"></iframe>
-	    </noscript>
-
+		 <div id="comments_thread">
+		 </div>
+		 <script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=about-filters" async="true">
+		 </script>
+		 <noscript>
+		 <iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=about-filters"></iframe>
+		 </noscript>
+		 
 		</div>
 		<div id="push"></div>
     </div>
@@ -145,9 +124,9 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/prettify.js"></script>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
 
   </body>
 </html>

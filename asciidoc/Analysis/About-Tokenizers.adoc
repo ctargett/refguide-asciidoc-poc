@@ -2,6 +2,7 @@
 :description: Introduction to using tokenizers with incoming content.
 :jbake-type: page
 :jbake-status: published
+:jbake-shortname: about-tokenizers
 
 The job of a <<Tokenizers.adoc#-tokenizer-types,tokenizer>> is to break up a stream of text into tokens, where each token is (usually) a sub-sequence of the characters in the text. An analyzer is aware of the field it is configured for, but a tokenizer is not. Tokenizers read from a character stream (a Reader) and produce a sequence of Token objects (a TokenStream).
 

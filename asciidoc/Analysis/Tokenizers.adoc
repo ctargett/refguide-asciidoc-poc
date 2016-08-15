@@ -2,6 +2,7 @@
 :description: Detailed information on available tokenizers.
 :jbake-type: page
 :jbake-status: published
+:jbake-shortname: tokenizers
 
 You configure the tokenizer for a text field type in `schema.xml` with a `<tokenizer>` element, as a child of `<analyzer>`:
 

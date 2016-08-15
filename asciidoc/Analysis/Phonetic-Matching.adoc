@@ -3,6 +3,7 @@
 :jbake-type: page
 :jbake-status: published
 :toc: macro
+:jbake-shortname: phonetic-matching
 
 Phonetic matching algorithms may be used to encode tokens so that two different spellings that are pronounced similarly will match.
 
