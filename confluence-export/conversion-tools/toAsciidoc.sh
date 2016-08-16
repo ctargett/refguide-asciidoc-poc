@@ -5,24 +5,55 @@
 # process html to asciidoc
 # reconvert asciidoc to html
 
+set -e
+if [ -z $1 ]
+then
+  echo "Must specify a work dir on the command line"
+  exit -1
+fi
 
-ASCIIDOC="converted-asciidoc"
+WORK_DIR=$1
 
-rm -fr build
-mkdir build
+# check that we have the expected version of pandoc
+PANDOC_VER=`pandoc --version | head -1 | cut -d' ' -f 2 | cut -d'.' -f 1-2`
+if [ $PANDOC_VER != "1.17" ]
+then
+    echo "Only tested with pandoc 1.17, you are using $PANDOC_VER"
+    exit -1
+fi
 
-for x in `find cleaned-export -name "*.html"`
-do
-    echo $x;
-    FNAME=`echo ${x} | sed -e 's#cleaned-export/##'`
-    echo "fname: $FNAME";
-    DIRNAME=$(dirname ${FNAME})
-    echo $DIRNAME;
+   
+# function to use multiple times
+convert_dir() {
+    if [ -z "$1" ]
+    then
+	echo "convert_dir called w/o html dir"
+	exit -1
+    fi
+    if [ -z "$2" ]
+    then
+	echo "convert_dir called w/o ascii dir"
+	exit -1
+    fi
+    HTML_DIR=$1
+    ASCII_DIR=$2
 
-    # a. convert to .asciidoc format using pandoc
-    rm ${ASCIIDOC}/${FNAME%.*}.asciidoc
-    pandoc cleaned-export/$FNAME -f html -t asciidoc -i --parse-raw --no-wrap -o ${ASCIIDOC}/${FNAME%.*}.asc
-    ls -l ${ASCIIDOC}/${FNAME%.*}.asc
+    rm -rf $ASCII_DIR
+    
+    for x in `find $HTML_DIR -name "*.html"`
+    do
+	echo $x;
+	FNAME=`echo ${x} | sed -e "s#${HTML_DIR}/##"`
+	DIRNAME=$(dirname ${FNAME})
+	mkdir -p "$ASCII_DIR/$DIRNAME"
+	
+	# convert to .asciidoc format using pandoc
+	pandoc $HTML_DIR/$FNAME -f html -t asciidoc -i --parse-raw --wrap=none --standalone --atx-headers -o ${ASCII_DIR}/${FNAME%.*}.asciidoc
+    done;
+}
 
 
-done
+# convert both flat & hierarchical HTML files
+
+convert_dir "$WORK_DIR/cleaned-flat-export" "$WORK_DIR/cleaned-flat-asciidoc"
+convert_dir "$WORK_DIR/cleaned-hier-export" "$WORK_DIR/cleaned-hier-asciidoc"
