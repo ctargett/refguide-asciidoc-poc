@@ -32,15 +32,23 @@
     </jar>
   </target>
 
-  <property name="from.dir"
-            value="/Users/cass/LuceneSolr/asciidoc-experiments/confluence-export/raw-export"/>
-  <property name="to.dir"
-            value="/Users/cass/LuceneSolr/asciidoc-experiments/confluence-export/cleaned-export"/>
-  <property name="sitemap"
-            value="${to.dir}/sitemap.txt"/>
+  <property name="from.dir" location="${work.dir}/raw-export"/>
+  <property name="to.dir" location="${work.dir}/cleaned-export"/>
+  <property name="sitemap" location="${to.dir}/sitemap.txt"/>
 
+  <target name="-dir-check">
+    <fail unless="work.dir">use -Dwork.dir=/something to define working dir (ie: /something/raw-export, /something/cleaned-export, etc...</fail>
+    <fail message="Raw export dir does not exist: ${from.dir}">
+      <condition>
+        <not>
+          <available file="${from.dir}" />
+        </not>
+      </condition>
+    </fail>
+  </target>
+  
   <target name="map"
-          depends="jar">
+          depends="-dir-check,jar">
     <mkdir dir="${to.dir}"/>
     <java classname="com.lucidworks.docparser.GetSiteMap"
           fork="true">
@@ -51,7 +59,7 @@
   </target>
 
   <target name="scrape"
-          depends="jar">
+          depends="-dir-check,jar">
     <mkdir dir="${to.dir}"/>
     <java classname="com.lucidworks.docparser.ScrapeConfluence"
           fork="true">
@@ -61,8 +69,8 @@
     </java>
   </target>
 
-    <target name="hier"
-          depends="jar">
+  <target name="hier"
+          depends="-dir-check,jar">
     <mkdir dir="${to.dir}"/>
     <java classname="com.lucidworks.docparser.ScrapeConfluenceHierarchy"
           fork="true">
