@@ -20,9 +20,11 @@ import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 import org.jsoup.select.NodeVisitor;
 
-/**  Extract body of Confluence page using Jsoup library.
+/**  
+ * Extract body of Confluence page using Jsoup library and organize in hierarchical directories
+ * This requres that a sitemap has already been created from the <code>indir</code> by {@link GetSiteMap}
  */
-public class ScrapeConfluenceHierarchy {
+public class ScrapeConfluenceHierarchy extends ScrapeConfluence {
     public static void main(String[] args) 
         throws IOException, FileNotFoundException {
         if (args.length < 3) {
@@ -106,7 +108,6 @@ public class ScrapeConfluenceHierarchy {
             String title = pageName.replace('-',' ');
             docOut.title(title);
 
-
             Element breadcrumbs = doc.select("ol#breadcrumbs").first();
             if (breadcrumbs != null) {
                 Element nav = new Element(Tag.valueOf("nav"),".");
@@ -134,18 +135,11 @@ public class ScrapeConfluenceHierarchy {
             docOut.body().appendChild(mainContent);
             docOut.normalise();
 
-            // start cleanup
-            Elements elements = null;
-
-            // remove side panels (page-internal ToCs)
-            Element sideBar = docOut.select("[data-type=aside]").first();
-            if (sideBar != null) {
-                sideBar.remove();
-            }
+            cleanupContent(docOut);
 
             // fix links
             Pattern p1 = Pattern.compile("_\\d*\\.html");
-            elements = docOut.select("a[href]");
+            Elements elements = docOut.select("a[href]");
             for (Element element : elements) {
                 String href = element.attr("href");
                 String pageNameA = null;
@@ -178,62 +172,6 @@ public class ScrapeConfluenceHierarchy {
                 }
             }
 
-            // remove empty bolds
-            elements = docOut.getElementsByTag("strong");
-            for (Element element : elements) {
-                if (!element.hasText()) {
-                    element.remove();
-                }
-            }
-            elements = docOut.getElementsByTag("em");
-            for (Element element : elements) {
-                if (!element.hasText()) {
-                    element.remove();
-                }
-            }
-            // remove empty pars
-            elements = docOut.getElementsByTag("p");
-            for (Element element : elements) {
-                if (!element.hasText()) {
-                    element.remove();
-                }
-            }
-            // remove confluence styles
-            elements = docOut.select("[style]");
-            for (Element element : elements) {
-                element.removeAttr("style");
-            }
-            // remove confluence themes from <pre> tags
-            elements = docOut.getElementsByTag("pre");
-            for (Element element : elements) {
-                if (element.hasAttr("class")) {
-                    element.removeAttr("class");
-                }
-            }
-            // replace icon text
-            elements = docOut.getElementsByClass("aui-icon");
-            for (Element element : elements) {
-                //                System.out.println(title + ": replaced Icon");
-                element.text("Note:");
-            }
-
-            // remove divs
-            elements = docOut.getElementsByTag("div");
-            for (Element element : elements) {
-                element.unwrap();
-            }
-
-            elements = docOut.getElementsByTag("tbody");
-            for (Element element : elements) {
-                element.unwrap();
-            }
-
-            // remove breaks
-            elements = docOut.getElementsByTag("br");
-            for (Element element : elements) {
-                element.remove();
-            }
-
             docOut.normalise();
             OutputStream out = new FileOutputStream(outPage);
             Writer writer = new OutputStreamWriter(out,"UTF-8");
@@ -243,24 +181,6 @@ public class ScrapeConfluenceHierarchy {
             bufWriter.close();
             writer.close();
             out.close();
-        }
-    }
-
-    static String readFile(String fileName) throws IOException {
-        InputStream in = new FileInputStream(fileName);
-        Reader reader = new InputStreamReader(in,"UTF-8");
-        BufferedReader br = new BufferedReader(reader);
-        try {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-            while (line != null) {
-                sb.append(line);
-                sb.append("\n");
-                line = br.readLine();
-            }
-            return sb.toString();
-        } finally {
-            br.close();
         }
     }
 
@@ -274,21 +194,4 @@ public class ScrapeConfluenceHierarchy {
         }
         return result;
     }
-    
-    static String cleanFileName(String name) {
-        int idx = name.lastIndexOf('_');
-        if (idx > 0) return name.substring(0,idx);
-        idx = name.lastIndexOf('.');
-        if (idx > 0) return name.substring(0,idx);
-        return name;
-    }
-
-    static String cleanLink(String name) {
-        int idx = name.indexOf("display/fusion/");
-        if (idx < 0) return name;
-        int trim = idx + "display/fusion/".length();
-        name = name.substring(trim,name.length());
-        return name.replace('+','-');
-    }
-
 }
