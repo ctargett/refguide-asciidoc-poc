@@ -4,6 +4,8 @@ import java.io.*;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,23 +56,25 @@ public class ScrapeConfluence {
                 continue;
             }
 
+            Map<String,String> metadata = new HashMap<>();
+            metadata.put("page-name", pageName);
+            
             // create clean HTML page
             Document docOut = Document.createShell(outPage.toURI().toString());
             String title = pageName.replace('-',' ');
-            docOut.title(title);
 
             Element breadcrumbs = doc.select("#breadcrumb-section").first();
             if (breadcrumbs == null) {
                 System.out.println(title + ": no breadcrumbs");
             } else {
+              // TODO: add breadcrumb as metadata?
                 Element nav = new Element(Tag.valueOf("nav"),".");
                 nav.appendChild(breadcrumbs);
                 docOut.body().appendChild(nav);
             }
 
-            Element h1 = new Element(Tag.valueOf("h1"),".");
-            h1.text(title);
-            docOut.body().appendChild(h1);
+            setMetadata(docOut, title, metadata);
+            
             docOut.body().appendChild(mainContent);
             docOut.normalise();
 
@@ -142,6 +146,23 @@ public class ScrapeConfluence {
         return name.replace('+','-');
     }
 
+  static void setMetadata(Document docOut, String title, Map<String,String> metadata) {
+    
+    docOut.title(title);
+
+    // // Skip h1 for now, rely on pandoc to get it from the <title>
+    // Element h1 = new Element(Tag.valueOf("h1"),".");
+    // h1.text(title);
+    // docOut.body().appendChild(h1);
+
+    for (Map.Entry<String,String> entry : metadata.entrySet()) {
+      Element meta = new Element(Tag.valueOf("meta"),".");
+      meta.attr("name", entry.getKey());
+      meta.attr("content", entry.getValue());
+      docOut.head().appendChild(meta);
+    }
+  }
+  
   static void cleanupContent(Document docOut) {
     // start cleanup
     Elements elements = null;

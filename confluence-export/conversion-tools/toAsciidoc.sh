@@ -14,6 +14,12 @@ fi
 
 WORK_DIR=$1
 
+if [ ! -d $WORK_DIR ]
+then
+    echo "$WORK_DIR does not exist (as a directory)"
+    exit -1
+fi
+
 # check that we have the expected version of pandoc
 PANDOC_VER=`pandoc --version | head -1 | cut -d' ' -f 2 | cut -d'.' -f 1-2`
 if [ $PANDOC_VER != "1.17" ]
@@ -22,6 +28,12 @@ then
     exit -1
 fi
 
+PANDOC_TEMPLATE="$(dirname $0)/custom.pandoc.template"
+if [ ! -e $PANDOC_TEMPLATE ]
+then
+    echo "$PANDOC_TEMPLATE does not exist"
+    exit -1
+fi
    
 # function to use multiple times
 convert_dir() {
@@ -48,7 +60,7 @@ convert_dir() {
 	mkdir -p "$ASCII_DIR/$DIRNAME"
 	
 	# convert to .asciidoc format using pandoc
-	pandoc $HTML_DIR/$FNAME -f html -t asciidoc -i --parse-raw --wrap=none --standalone --atx-headers -o ${ASCII_DIR}/${FNAME%.*}.asciidoc
+	pandoc $HTML_DIR/$FNAME -f html -t asciidoc -i --parse-raw --wrap=none --standalone --atx-headers --template=$PANDOC_TEMPLATE -o ${ASCII_DIR}/${FNAME%.*}.asciidoc
     done;
 }
 

@@ -106,10 +106,13 @@ public class ScrapeConfluenceHierarchy extends ScrapeConfluence {
             // create clean HTML page
             Document docOut = Document.createShell(outPage.toURI().toString());
             String title = pageName.replace('-',' ');
-            docOut.title(title);
+            
+            Map<String,String> metadata = new HashMap<>();
+            metadata.put(":page-name", pageName);
 
             Element breadcrumbs = doc.select("ol#breadcrumbs").first();
             if (breadcrumbs != null) {
+              // TODO: add breadcrumb as metadata?
                 Element nav = new Element(Tag.valueOf("nav"),".");
                 Element curParent = nav;
                 Element breadcrumbUl = new Element(Tag.valueOf("ul"),".");
@@ -129,9 +132,8 @@ public class ScrapeConfluenceHierarchy extends ScrapeConfluence {
                 docOut.body().appendChild(nav);
             }
             
-            Element h1 = new Element(Tag.valueOf("h1"),".");
-            h1.text(title);
-            docOut.body().appendChild(h1);
+            setMetadata(docOut, title, metadata);
+
             docOut.body().appendChild(mainContent);
             docOut.normalise();
 
