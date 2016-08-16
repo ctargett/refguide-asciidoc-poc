@@ -21,6 +21,8 @@ import org.jsoup.select.NodeVisitor;
  * This creates an identical (flat) directory structured containing cleaned up documents
  */
 public class ScrapeConfluence {
+  static final Pattern PRE_CODE_CLASS_PATTERN = Pattern.compile("brush:\\s+([^;]+)");
+  
     public static void main(String[] args) 
         throws IOException, FileNotFoundException {
         if (args.length < 2) {
@@ -180,7 +182,12 @@ public class ScrapeConfluence {
     elements = docOut.getElementsByTag("pre");
     for (Element element : elements) {
       if (element.hasAttr("class")) {
-        element.removeAttr("class");
+        Matcher codeType = PRE_CODE_CLASS_PATTERN.matcher(element.attr("class"));
+        if (codeType.find()) {
+          element.attr("class", codeType.group(1));
+        } else {
+          element.removeAttr("class");
+        }
       }
     }
     // replace icon text
