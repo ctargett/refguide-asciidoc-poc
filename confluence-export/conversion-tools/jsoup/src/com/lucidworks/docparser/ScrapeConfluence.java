@@ -185,7 +185,7 @@ public class ScrapeConfluence {
       }
     }
     if (null == sideBar) {
-      // worst case scnerio, just remove the toc itself even if not in a panel...
+      // final scnereo: toc by itself in the page body...
       elements = docOut.select("div.toc-macro");
       for (Element element : elements) {
         if (! element.select("div.toc-macro").isEmpty()) {
@@ -195,10 +195,17 @@ public class ScrapeConfluence {
       }
     }
     if (sideBar != null) {
-      sideBar.remove();
       addOneMetadata(docOut, "toc", "true");
+      sideBar.replaceWith(new TextNode("toc::[]",""));
+      // TODO: this currently replaces the entire aside/column/panel if there was one...
+      // ...would it be better to leave the other panel text and only remove the div.toc-macro?
+      //  examples:
+      //    Covered in this section:
+      //    Topics covered in this section:
+      //    Filters discussed in this section:
+      //    Algorithms discussed in this section:
     } else {
-      // sanity check if we missed any...
+      // sanity check if we missed any (multiple TOCs on a page?) ...
       elements = docOut.select("div.toc-macro");
       if (! elements.isEmpty()) {
         System.out.println("MISSED A TOC: " + elements.toString());
