@@ -1,10 +1,9 @@
 = Filter Descriptions
 :page-description: Detailed information on available content filters.
 :page-permalink: Filter-Descriptions.html
-:page-toc: false
-:toc: macro
-:toc-title: In This Section
+:page-toc: true
 :page-shortname: filter-descriptions
+
 
 You configure each filter with a `<filter>` element in `schema.xml` as a child of `<analyzer>`, following the `<tokenizer>` element. Filter definitions should follow a tokenizer or another filter definition because they take a `TokenStream` as input. For example.
 

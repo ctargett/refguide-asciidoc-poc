@@ -6,7 +6,7 @@
 # reconvert asciidoc to html
 
 
-ASCIIDOC="converted-asciidoc"
+ASCIIDOC="converted2-asciidoc"
 
 rm -fr build
 mkdir build
@@ -19,10 +19,10 @@ do
     DIRNAME=$(dirname ${FNAME})
     echo $DIRNAME;
 
-    # a. convert to .asciidoc format using pandoc
-    rm ${ASCIIDOC}/${FNAME%.*}.asciidoc
-    pandoc cleaned-export/$FNAME -f html -t asciidoc -i --parse-raw --no-wrap -o ${ASCIIDOC}/${FNAME%.*}.asc
-    ls -l ${ASCIIDOC}/${FNAME%.*}.asc
+    # a. convert to .adoc format using pandoc
+    rm ${ASCIIDOC}/${FNAME%.*}.adoc
+    pandoc cleaned-export/$FNAME -f html -t asciidoc -i --parse-raw --atx-headers --wrap=none -o ${ASCIIDOC}/${FNAME%.*}.adoc
+    ls -l ${ASCIIDOC}/${FNAME%.*}.adoc
 
 
 done

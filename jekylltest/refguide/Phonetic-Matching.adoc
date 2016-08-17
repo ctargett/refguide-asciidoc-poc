@@ -3,7 +3,6 @@
 :page-permalink: Phonetic-Matching.html
 :page-toc: false
 :toc: macro
-:toc-title: In This Section
 :page-shortname: phonetic-matching
 
 Phonetic matching algorithms may be used to encode tokens so that two different spellings that are pronounced similarly will match.

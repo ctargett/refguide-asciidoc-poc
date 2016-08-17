@@ -1,30 +1,22 @@
 = Solr Ref Guide in Asciidoc
 :toc:
 
-This project is a proof of concept for changing the https://cwiki.apache.org/confluence/display/solr[Apache Solr Reference Guide] from being managed as a Confluence wiki to plain-text files committed as part of Solr source code.
+This project is a proof of concept for reimplementing the https://cwiki.apache.org/confluence/display/solr[Apache Solr Reference Guide] as an Asciidoc-driven HTML site.
 
-Instead of relying on Confluence, HTML pages and PDFs could instead be generated using a publishing toolchain that is integrated with existing Lucene/Solr build processes.
+Instead of the current approach that uses Confluence, HTML pages and PDFs could be generated using a publishing toolchain that is integrated with existing Lucene/Solr build processes.
 
 Asciidoc has been chosen as the format for Ref Guide format. This is a plain-text light-weight markup language, similar to Markdown, but with more options for structured articles, manuals, books, etc.
 
-See this repo's wiki page https://github.com/ctargett/refguide-asciidoc-poc/wiki/Why[Why Asciidoc] for discussion of reasons to change from Confluence and why Asciidoc is a good choice.
+See the wiki page in this repo https://github.com/ctargett/refguide-asciidoc-poc/wiki/Why[Why Asciidoc] for discussion of reasons to change from Confluence and why Asciidoc is a good choice.
 
 == What's in this Repo?
 This repo is a proof-of-concept for converting the Ref Guide to Asciidoc format. It includes:
 
 * The current Ref Guide exported to HTML format (on 31 August 2015), and converted to Asciidoc format, in the `confluence-export` directory.
 * Scripts to support converting from Confluence to Asciidoc format.
-* Some sample pages from the conversion with some additional cleanup, in the `asciidoc` directory.
-* A sample `build.xml` to generate HTML and PDF versions of the sample pages.
-* Scripts to assist with PDF generation.
-* Sample HTML and PDF files with preliminary design included.
-* Sample configs for JBake for more site features (like comments, page templates, etc).
-
-=== Caveats
-
-* I had very little experience with Ant prior to this project, as you'll see in the `build.xml`, my skills are admittedly quite basic and there are probably better ways to do what I've tried to do.
-* In order to produce this POC and the online demo files, I've had to learn Apache Freemarker template language, Liquid template language, Asciidoctor PDF template syntax, Jekyll, JBake, JavaScript and a few other things. I'm not yet expert in any of them.
-* I have a day job, which is quite demanding at times, and stuff I do in the community. And a personal life. This project has been a total "free-time" project. Nothing is 100% ready for production yet.
+* Sample pages from the conversion with additional cleanup, in the `asciidoc` directory.
+* A sample `build.xml` to generate publishable versions of the sample pages.
+* Sample configs for Jekyll and JBake as static site generators to demonstrate integration of comments, site navigation, etc.
 
 == How to Build
 This repo includes HTML pages already generated for casual review. A demo is also available at https://home.apache.org/~ctargett/RefGuidePOC.
@@ -40,6 +32,11 @@ However, this project includes `ant` targets for building HTML and PDF versions 
 
 See this repo's wiki page  https://github.com/ctargett/refguide-asciidoc-poc/wiki/ContentConversion[Content Conversion] for details on how the content will be converted from Confluence to Asciidoc, including a list of post-conversion cleanup tasks that will need to be completed.
 
+*TO DO*
+
+* Script the remaining post-conversion cleanup tasks (as described in the page above).
+* Run through all pages to create a full set of `.adoc` pages for Jekyll & PDF.
+
 == Site Generation Process
 
 Asciidoctor is designed as a toolchain for publishing content. Confluence provides a similar toolchain, so when thinking about replacing it, we must think about each aspect of the process and how it can be replaced.
@@ -48,9 +45,9 @@ Confluence provides a full end-to-end solution, from editing content to publishi
 
 This project proposes the following:
 
-* Raw content files will be stored in Asciidoc (.adoc) format.
-* Asciidoctor will be used for conversion to HTML and PDF
-* Ant `build.xml` targets will be used for building a set of simple HTML files, a full site, and a PDF version.
+* Raw content files will be stored in Asciidoc (`.adoc`) format.
+* Jekyll will be used for creation of a full HTML site.
+* Asciidoctor-pdf will be used for conversion to PDF.
 
 More on these options below:
 
@@ -58,7 +55,7 @@ More on these options below:
 
 Asciidoctor is a toolchain written in Ruby which facilitates converting text files to other formats for publishing.
 
-It is both the markup language AND the conversion tool. The https://github.com/asciidoctor[Asciidoctor GitHub repositories] include several projects for build integration, content preview, content styling, and other tools required for a robust publishing solution.
+Asciidoctor is both the markup language AND the conversion tool. The https://github.com/asciidoctor[Asciidoctor GitHub repositories] include several projects for build integration, content preview, content styling, and other tools required for a robust publishing solution.
 
 === HTML
 
@@ -74,9 +71,11 @@ See this repo's wiki page https://github.com/ctargett/refguide-asciidoc-poc/wiki
 
 Jekyll is a static site generator, which uses templates to create complete websites from raw content files in Asciidoc or Markdown (and other simple markup formats).
 
-Jekyll is the most well-known of these types of tools, and has the most robust development and user community, and is the most mature.
+Jekyll is the most well-known of currently available static site generators, and has the most robust development and user community, and is the most mature.
 
-Jekyll is written in Ruby. For this POC, I was unable to figure out how to get a Ruby gem into an Ant script (see the Caveats!), so building the `jekyll-site` target requires Jekyll to be installed locally beforehand. It also uses the https://github.com/asciidoctor/jekyll-asciidoc[`jekyll-asciidoc`] plugin, which would also need to be installed locally as a dependency. The `build.xml` file needs to be updated to get these gems automatically as part of the build process.
+Jekyll is written in Ruby. For this POC, I was unable to figure out how to get a Ruby gem into an Ant script, so building the `jekyll-site` target requires Jekyll to be installed locally beforehand.
+
+The Ant integration also uses the https://github.com/asciidoctor/jekyll-asciidoc[`jekyll-asciidoc`] plugin, which would also need to be installed locally as a dependency. The `build.xml` file needs to be updated to get these gems automatically as part of the build process.
 
 The current POC uses a Jekyll https://github.com/tomjohnson1492/documentation-theme-jekyll[Documentation Theme] developed by Tom Johnson, so the POC has a UX that is very different from out-of-the-box Jekyll.
 
@@ -86,21 +85,15 @@ I have additionally modified Tom's theme quite a bit:
 * Modified the styling (fonts, colors, etc.) to conform to the Solr Style Guide (more to do here).
 * Started a long process to unify the CSS. Tom's theme has about 5 stylesheets, and I had 2 more, so some culling was necessary. There might be some copyright issues there that need to be fixed before incorporating into a live site.
 
-The borrowed theme I'm using implements "search", but it is not a full-text search engine. It's more a keyword index of titles and page description metadata.
+The borrowed theme implements "search", but it is not a full-text search engine. It's a keyword index of titles and page description metadata.
 
-=== JBake
+*TO DO*
 
-http://www.jbake.org/[JBake] is another static site generator and works similarly to Jekyll to convert source content into template-based HTML pages for web publishing.
-
-JBake is written in Java - it's tagline is "Jekyll of the JVM" - but has a much smaller suite of features and available integration tools. The community is also smaller, mostly dependent on the development efforts of a single person.
-
-I could find build examples for Maven and Gradle, but not for Ant, and am currently unable to figure out how to make the build target download the .jar. So, having JBake installed locally is a requirement to use the `jbake-site` target. JBake supports Asciidoctor natively, so no additional dependencies are required.
-
-For this project, basic templates have been created with http://freemarker.org/[Apache FreeMarker]. These templates add JavaScript for page comments (see this repo's wiki page https://github.com/ctargett/refguide-asciidoc-poc/wiki/Comments[Comments] for more detail). However, to get a navigation sidebar, we would need to write our own JavaScript to implement this feature.
-
-JBake can also support Groovy and Thymeleaf templates if those are preferred. Examples for those template engines have not been customized for this project.
-
-In essence, using JBake instead of Jekyll will require more upfront work to get the look & feel we want, and there is no guarantee some features are possible.
+* Fix Jekyll targets in `build.xml` to download the Ruby dependencies (Ruby, Jekyll, and jekyll-asciidoc).
+* Fix broken tag pages.
+* Further CSS consolidation.
+* Experiment with approaches to automating the generation of sidebar topic headings. The current approach uses a manually edited data file; this could be problematic with a large number of editors.
+* Test publication with the full Ref Guide instead of a subset of pages.
 
 === PDF
 
@@ -119,6 +112,44 @@ The example here uses the same raw content files that the Jekyll demo uses (for 
 As for styling, a YAML-based theme file is required to define colors, fonts, sizes, etc. This implements many of the features of CSS.
 
 Overall, this plugin is the easiest to use of the various options (another option requires converting the content to DocBook format first, then to PDF), but is still in an alpha stage (as of 10 Aug 2016), so many features are still pending for future releases.
+
+*TO DO*
+
+* Experiment with `level-offset` parameters to see if the heading problem can be fixed easily.
+* Check compression requirements.
+* Test PDF publication with the full Ref Guide instead of a subset of pages.
+* Experiment with ways to automate the page list, perhaps building on the solution that is devised for the Jekyll sidebar.
+
+=== JBake
+
+http://www.jbake.org/[JBake] is another static site generator and works similarly to Jekyll to convert source content into template-based HTML pages for web publishing.
+
+JBake is written in Java - it's tagline is "Jekyll of the JVM" - but has a much smaller suite of features and available integration tools. The community is also smaller, mostly dependent on the development efforts of a single person.
+
+I could find build examples for Maven and Gradle, but not for Ant, and am currently unable to figure out how to make the build target download the .jar. So, having JBake installed locally is a requirement to use the `jbake-site` target. JBake supports Asciidoctor natively, so no additional dependencies are required.
+
+For this project, basic templates have been created with http://freemarker.org/[Apache FreeMarker]. These templates add JavaScript for page comments (see this repo's wiki page https://github.com/ctargett/refguide-asciidoc-poc/wiki/Comments[Comments] for more detail). However, to get a navigation sidebar, we would need to write our own JavaScript to implement this feature.
+
+JBake can also support Groovy and Thymeleaf templates if those are preferred. Examples for those template engines have not been customized for this project.
+
+In essence, using JBake instead of Jekyll will require more upfront work to get the look & feel we want, and there is no guarantee some features are possible. This project is included as a comparison with Jekyll, but will not be built out any further.
+
+== Comments
+
+Comments are one of the two main reasons why a static site generator is required to have a full-featured replacement for Confluence.
+
+This POC uses the Apache Comment System. See this repo's wiki page  https://github.com/ctargett/refguide-asciidoc-poc/wiki/Comments[Comments] for more details on this system.
+
+Because static site generators are template driven, it's simple to add JavaScript snippets to the template for each page. Variables allow filling in a page ID (this POC uses a page shortname) as each page is generated, which pull in the comments from the comment system.
+
+Migration of existing comments from Confluence was briefly considered and rejected as too complicated. Comments are only available from the XML export from Confluence, while we needed the HTML export for effective content conversion. Then there is a question of if they are worth migrating - my own view is that they are not.
+
+For more on how these decisions were made, see this repo's wiki page,  https://github.com/ctargett/refguide-asciidoc-poc/wiki/Comments[Comments].
+
+*TO DO*
+
+* Settle on a shortname format for all pages.
+* Style the comments sections (custom style in progress in https://github.com/ctargett/refguide-asciidoc-poc/blob/master/jekylltest/css/comments.css[comments.css]).
 
 == Open Questions
 
@@ -143,10 +174,6 @@ Without Confluence, we will need to determine how and where to host the rendered
 
 . Host in ASF CMS with website.
 . Host however the javadocs are hosted.
-
-=== Comments
-
-See this repo's wiki page  https://github.com/ctargett/refguide-asciidoc-poc/wiki/Comments[Comments] for details on how to handle comments.
 
 === Search
 
