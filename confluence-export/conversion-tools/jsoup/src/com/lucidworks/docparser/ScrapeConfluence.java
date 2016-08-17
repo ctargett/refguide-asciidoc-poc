@@ -4,6 +4,8 @@ import java.io.*;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,9 +18,13 @@ import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 import org.jsoup.select.NodeVisitor;
 
-/**  Extract body of Confluence page using Jsoup library.
+/**  
+ * Extract body of Confluence page using Jsoup library.
+ * This creates an identical (flat) directory structured containing cleaned up documents
  */
 public class ScrapeConfluence {
+  static final Pattern PRE_CODE_CLASS_PATTERN = Pattern.compile("brush:\\s+([^;]+)");
+  
     public static void main(String[] args) 
         throws IOException, FileNotFoundException {
         if (args.length < 2) {
@@ -50,39 +56,33 @@ public class ScrapeConfluence {
                 continue;
             }
 
+            Map<String,String> metadata = new HashMap<>();
+            metadata.put("page-name", pageName);
+            
             // create clean HTML page
             Document docOut = Document.createShell(outPage.toURI().toString());
             String title = pageName.replace('-',' ');
-            title = title.replace("Fusion Documentation : ","");
-            docOut.title(title);
 
             Element breadcrumbs = doc.select("#breadcrumb-section").first();
             if (breadcrumbs == null) {
                 System.out.println(title + ": no breadcrumbs");
             } else {
+              // TODO: add breadcrumb as metadata?
                 Element nav = new Element(Tag.valueOf("nav"),".");
                 nav.appendChild(breadcrumbs);
                 docOut.body().appendChild(nav);
             }
 
-            Element h1 = new Element(Tag.valueOf("h1"),".");
-            h1.text(title);
-            docOut.body().appendChild(h1);
+            setMetadata(docOut, title, metadata);
+            
             docOut.body().appendChild(mainContent);
             docOut.normalise();
 
-            // start cleanup
-            Elements elements = null;
-
-            // remove side panels (page-internal ToCs)
-            Element sideBar = docOut.select("[data-type=aside]").first();
-            if (sideBar != null) {
-                sideBar.remove();
-            }
+            cleanupContent(docOut);
 
             // fix links
             Pattern p1 = Pattern.compile("_\\d*\\.html");
-            elements = docOut.select("a[href]");
+            Elements elements = docOut.select("a[href]");
             for (Element element : elements) {
                 String href = element.attr("href");
                 if (href.contains("display/fusion")) {
@@ -96,62 +96,6 @@ public class ScrapeConfluence {
                         //                        System.out.println("rel link: " +  element.attr("href"));
                     }
                 }
-            }
-
-            // remove empty bolds
-            elements = docOut.getElementsByTag("strong");
-            for (Element element : elements) {
-                if (!element.hasText()) {
-                    element.remove();
-                }
-            }
-            elements = docOut.getElementsByTag("em");
-            for (Element element : elements) {
-                if (!element.hasText()) {
-                    element.remove();
-                }
-            }
-            // remove empty pars
-            elements = docOut.getElementsByTag("p");
-            for (Element element : elements) {
-                if (!element.hasText()) {
-                    element.remove();
-                }
-            }
-            // remove confluence styles
-            elements = docOut.select("[style]");
-            for (Element element : elements) {
-                element.removeAttr("style");
-            }
-            // remove confluence themes from <pre> tags
-            elements = docOut.getElementsByTag("pre");
-            for (Element element : elements) {
-                if (element.hasAttr("class")) {
-                    element.removeAttr("class");
-                }
-            }
-            // replace icon text
-            elements = docOut.getElementsByClass("aui-icon");
-            for (Element element : elements) {
-                //                System.out.println(title + ": replaced Icon");
-                element.text("Note:");
-            }
-
-            // remove divs
-            elements = docOut.getElementsByTag("div");
-            for (Element element : elements) {
-                element.unwrap();
-            }
-
-            elements = docOut.getElementsByTag("tbody");
-            for (Element element : elements) {
-                element.unwrap();
-            }
-
-            // remove breaks
-            elements = docOut.getElementsByTag("br");
-            for (Element element : elements) {
-                element.remove();
             }
 
             docOut.normalise();
@@ -202,5 +146,129 @@ public class ScrapeConfluence {
         return name.replace('+','-');
     }
 
+  static void setMetadata(Document docOut, String title, Map<String,String> metadata) {
+    
+    docOut.title(title);
+
+    // // Skip h1 for now, rely on pandoc to get it from the <title>
+    // Element h1 = new Element(Tag.valueOf("h1"),".");
+    // h1.text(title);
+    // docOut.body().appendChild(h1);
+
+    for (Map.Entry<String,String> entry : metadata.entrySet()) {
+      addOneMetadata(docOut, entry.getKey(), entry.getValue());
+    }
+  }
+  
+  static void addOneMetadata(Document docOut, String name, String content) {
+      Element meta = new Element(Tag.valueOf("meta"),".");
+      meta.attr("name", name);
+      meta.attr("content", content);
+      docOut.head().appendChild(meta);
+  }
+  
+  
+  static void cleanupContent(Document docOut) {
+    // start cleanup
+    Elements elements = null;
+    
+    // remove side panels (page-internal ToCs)
+    Element sideBar = docOut.select("[data-type=aside]").first();
+    if (null == sideBar) {
+      // sometimes they aren't an 'aside', they are columns cotaining panels
+      elements = docOut.select("div.columnMacro");
+      for (Element element : elements) {
+        if (! element.select("div.toc-macro").isEmpty()) {
+          sideBar = element;
+          break;
+        }
+      }
+    }
+    if (null == sideBar) {
+      // worst case scnerio, just remove the toc itself even if not in a panel...
+      elements = docOut.select("div.toc-macro");
+      for (Element element : elements) {
+        if (! element.select("div.toc-macro").isEmpty()) {
+          sideBar = element;
+          break;
+        }
+      }
+    }
+    if (sideBar != null) {
+      sideBar.remove();
+      addOneMetadata(docOut, "toc", "true");
+    } else {
+      // sanity check if we missed any...
+      elements = docOut.select("div.toc-macro");
+      if (! elements.isEmpty()) {
+        System.out.println("MISSED A TOC: " + elements.toString());
+        System.exit(-1);
+      }
+    }
+    
+    // remove empty bolds
+    elements = docOut.getElementsByTag("strong");
+    for (Element element : elements) {
+      if (!element.hasText()) {
+        element.remove();
+      }
+    }
+    elements = docOut.getElementsByTag("em");
+    for (Element element : elements) {
+      if (!element.hasText()) {
+        element.remove();
+      }
+    }
+    
+    // remove empty pars
+    elements = docOut.getElementsByTag("p");
+    for (Element element : elements) {
+      if (!element.hasText()) {
+        element.remove();
+      }
+    }
+    // remove confluence styles
+    elements = docOut.select("[style]");
+    for (Element element : elements) {
+      element.removeAttr("style");
+    }
+    // remove confluence themes from <pre> tags
+    elements = docOut.getElementsByTag("pre");
+    for (Element element : elements) {
+      if (element.hasAttr("class")) {
+        Matcher codeType = PRE_CODE_CLASS_PATTERN.matcher(element.attr("class"));
+        if (codeType.find()) {
+          element.attr("class", codeType.group(1));
+        } else {
+          element.removeAttr("class");
+        }
+      }
+    }
+    // replace icon text
+    elements = docOut.getElementsByClass("aui-icon");
+    for (Element element : elements) {
+      //                System.out.println(title + ": replaced Icon");
+      element.text("Note:");
+    }
+    
+    // remove divs
+    elements = docOut.getElementsByTag("div");
+    for (Element element : elements) {
+      element.unwrap();
+    }
+    
+    elements = docOut.getElementsByTag("tbody");
+    for (Element element : elements) {
+      element.unwrap();
+    }
+    
+    // remove breaks
+    elements = docOut.getElementsByTag("br");
+    for (Element element : elements) {
+      element.remove();
+    }
+
+    docOut.normalise();
+  }
 }
 
