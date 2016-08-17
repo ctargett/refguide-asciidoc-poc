@@ -156,12 +156,17 @@ public class ScrapeConfluence {
     // docOut.body().appendChild(h1);
 
     for (Map.Entry<String,String> entry : metadata.entrySet()) {
-      Element meta = new Element(Tag.valueOf("meta"),".");
-      meta.attr("name", entry.getKey());
-      meta.attr("content", entry.getValue());
-      docOut.head().appendChild(meta);
+      addOneMetadata(docOut, entry.getKey(), entry.getValue());
     }
   }
+  
+  static void addOneMetadata(Document docOut, String name, String content) {
+      Element meta = new Element(Tag.valueOf("meta"),".");
+      meta.attr("name", name);
+      meta.attr("content", content);
+      docOut.head().appendChild(meta);
+  }
+  
   
   static void cleanupContent(Document docOut) {
     // start cleanup
@@ -169,8 +174,36 @@ public class ScrapeConfluence {
     
     // remove side panels (page-internal ToCs)
     Element sideBar = docOut.select("[data-type=aside]").first();
+    if (null == sideBar) {
+      // sometimes they aren't an 'aside', they are columns cotaining panels
+      elements = docOut.select("div.columnMacro");
+      for (Element element : elements) {
+        if (! element.select("div.toc-macro").isEmpty()) {
+          sideBar = element;
+          break;
+        }
+      }
+    }
+    if (null == sideBar) {
+      // worst case scnerio, just remove the toc itself even if not in a panel...
+      elements = docOut.select("div.toc-macro");
+      for (Element element : elements) {
+        if (! element.select("div.toc-macro").isEmpty()) {
+          sideBar = element;
+          break;
+        }
+      }
+    }
     if (sideBar != null) {
       sideBar.remove();
+      addOneMetadata(docOut, "toc", "true");
+    } else {
+      // sanity check if we missed any...
+      elements = docOut.select("div.toc-macro");
+      if (! elements.isEmpty()) {
+        System.out.println("MISSED A TOC: " + elements.toString());
+        System.exit(-1);
+      }
     }
     
     // remove empty bolds
