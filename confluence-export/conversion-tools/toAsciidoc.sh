@@ -65,7 +65,4 @@ convert_dir() {
 }
 
 
-# convert both flat & hierarchical HTML files
-
 convert_dir "$WORK_DIR/cleaned-flat-export" "$WORK_DIR/cleaned-flat-asciidoc"
-convert_dir "$WORK_DIR/cleaned-hier-export" "$WORK_DIR/cleaned-hier-asciidoc"

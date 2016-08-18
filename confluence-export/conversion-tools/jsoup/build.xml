@@ -34,8 +34,8 @@
 
   <property name="from.dir" location="${work.dir}/raw-export"/>
   <property name="to.flat.dir" location="${work.dir}/cleaned-flat-export"/>
-  <property name="to.hier.dir" location="${work.dir}/cleaned-hier-export"/>
-  <property name="sitemap" location="${to.hier.dir}/sitemap.txt"/>
+  <property name="entities.xml.path" location="${work.dir}/raw-xml-export/entities.xml"/>
+  <property name="page-tree.xml.path" location="${work.dir}/page-tree.xml"/>
 
   <target name="-dir-check">
     <fail unless="work.dir">use -Dwork.dir=/something to define working dir (ie: /something/raw-export, /something/cleaned-export, etc...</fail>
@@ -48,17 +48,19 @@
     </fail>
   </target>
   
-  <target name="map"
-          depends="-dir-check,jar">
-    <mkdir dir="${to.hier.dir}"/>
-    <java classname="com.lucidworks.docparser.GetSiteMap"
-          fork="true">
-      <classpath refid="classpath"/>
-      <arg value ="${from.dir}"/>
-      <arg value ="${to.hier.dir}"/>
-    </java>
+  <target name="page-tree"
+          depends="-dir-check">
+    <fail message="Can't find entities.xml in work.dir! ... looking for: ${entities.xml.path}">
+      <condition>
+        <not>
+          <available file="${entities.xml.path}" />
+        </not>
+      </condition>
+    </fail>
+    <xslt in="${entities.xml.path}" out="${page-tree.xml.path}"
+          style="../page-hierarchy.xsl" />
   </target>
-
+  
   <target name="scrape"
           depends="-dir-check,jar">
     <mkdir dir="${to.flat.dir}"/>
@@ -67,18 +69,6 @@
       <classpath refid="classpath"/>
       <arg value ="${from.dir}"/>
       <arg value ="${to.flat.dir}"/>
-    </java>
-  </target>
-
-  <target name="hier"
-          depends="-dir-check,jar">
-    <mkdir dir="${to.hier.dir}"/>
-    <java classname="com.lucidworks.docparser.ScrapeConfluenceHierarchy"
-          fork="true">
-      <classpath refid="classpath"/>
-      <arg value ="${from.dir}"/>
-      <arg value ="${to.hier.dir}"/>
-      <arg value ="${sitemap}"/>
     </java>
   </target>
 
