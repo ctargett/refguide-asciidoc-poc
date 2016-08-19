@@ -1,0 +1,127 @@
+Basic Authentication Plugin
+===========================
+:page-shortname: basic-authentication-plugin
+:page-permalink: basic-authentication-plugin.html
+
+Solr can support Basic authentication for users with the use of the BasicAuthPlugin.
+
+An authorization plugin is also available to configure Solr with permissions to perform various activities in the system. The authorization plugin is described in the section link:rule-based-authorization-plugin.html[Rule-Based Authorization Plugin].
+
+[[BasicAuthenticationPlugin-EnableBasicAuthentication]]
+== Enable Basic Authentication
+
+To use Basic authentication, you must first create a `security.json` file and store it in ZooKeeper. This file and how to upload it to ZooKeeper is described in detail in the section link:authentication-and-authorization-plugins.html#AuthenticationandAuthorizationPlugins-EnabledPluginswithsecurity.json[Enable Plugins with security.json].
+
+For Basic authentication, the `security.json` file must have an `authentication` part which defines the class being used for authentication. Usernames and passwords (as a sha256(password+salt) hash) could be added when the file is created, or can be added later with the Basic authentication API, described below.
+
+The `authorization` part is not related to Basic authentication, but is a separate authorization plugin designed to support fine-grained user access control. For more information, see link:rule-based-authorization-plugin.html[Rule-Based Authorization Plugin].
+
+An example `security.json` showing both sections is shown below to show how these plugins can work together:
+
+[source,js]
+----
+{
+"authentication":{
+   "blockUnknown": true,
+   "class":"solr.BasicAuthPlugin",
+   "credentials":{"solr":"IV0EHq1OnNrj6gvRCwvFwTrZ1+z1oBbnQdiVC3otuq0= Ndd7LKvVBAaZIF0QAVi1ekCfAJXr1GGfLtRUXhgrF8c="}
+},
+"authorization":{
+   "class":"solr.RuleBasedAuthorizationPlugin",
+   "permissions":[{"name":"security-edit",
+      "role":"admin"}],
+   "user-role":{"solr":"admin"}
+}}
+----
+
+Save the above json to a file called security.json locally. Run the following command to upload it to Zookeeper. (ensure that the Zookeeper port is correct)
+
+[source,bash]
+----
+server/scripts/cloud-scripts/zkcli.sh -zkhost localhost:9983 -cmd putfile /security.json security.json
+----
+
+There are several things defined in this file:
+
+* Basic authentication and rule-based authorization plugins are enabled.
+* A user called 'solr', with a password `'SolrRocks'` has been defined.
+* `'blockUknown:true'` means that unauthenticated requests are not allowed to pass through
+* The 'admin' role has been defined, and it has permission to edit security settings.
+* The 'solr' user has been defined to the 'admin' role.
+
+[[BasicAuthenticationPlugin-Caveats]]
+== Caveats
+
+There are a few things to keep in mind when using the Basic authentication plugin.
+
+* Credentials are sent in plain text by default. It's recommended to use SSL for communication when Basic authentication is enabled, as described in the section link:enabling-ssl.html[Enabling SSL].
+* A user who has access to write permissions to `security.json` will be able to modify all the permissions and how users have been assigned permissions. Special care should be taken to only grant access to editing security to appropriate users.
+* Your network should, of course, be secure. Even with Basic authentication enabled, you should not unnecessarily expose Solr to the outside world.
+
+[[BasicAuthenticationPlugin-EditingAuthenticationPluginConfiguration]]
+== Editing Authentication Plugin Configuration
+
+An Authentication API allows modifying user IDs and passwords. The API provides an endpoint with specific commands to set user details or delete a user.
+
+[[BasicAuthenticationPlugin-APIEntryPoint]]
+==== API Entry Point
+
+`admin/authentication`
+
+This endpoint is not collection-specific, so users are created for the entire Solr cluster. If users need to be restricted to a specific collection, that can be done with the authorization rules.
+
+[[BasicAuthenticationPlugin-AddaUserorEditaPassword]]
+==== Add a User or Edit a Password
+
+The `set-user` command allows you to add users and change their passwords. For example, the following defines two users and their passwords:
+
+[source,js]
+----
+curl --user solr:SolrRocks http://localhost:8983/solr/admin/authentication -H 'Content-type:application/json' -d '{ 
+  "set-user": {"tom" : "TomIsCool" , 
+               "harry":"HarrysSecret"}}'
+----
+
+[[BasicAuthenticationPlugin-DeleteaUser]]
+==== Delete a User
+
+The `delete-user` command allows you to remove a user. The user password does not need to be sent to remove a user. In the following example, we've asked that user IDs 'tom' and 'harry' be removed from the system.
+
+[source,js]
+----
+curl --user solr:SolrRocks http://localhost:8983/solr/admin/authentication -H 'Content-type:application/json' -d  '{
+ "delete-user": ["tom","harry"]}'
+----
+
+[[BasicAuthenticationPlugin-Setaproperty]]
+=== Set a property
+
+Set arbitrary properties for authentication plugin. The only supported property is `'blockUnknown'`
+
+[source,js]
+----
+curl --user solr:SolrRocks http://localhost:8983/solr/admin/authentication -H 'Content-type:application/json' -d  '{
+ "set-property": {"blockUnknown":false}}'
+----
+
+[[BasicAuthenticationPlugin-UsingBasicAuthwithSolrJ]]
+=== Using BasicAuth with SolrJ
+
+In SolrJ the basic auth credentials need to be set for each request as in this example:
+
+[source,java]
+----
+SolrRequest req ;//create a new request object 
+req.setBasicAuthCredentials(userName, password); 
+solrClient.request(req);
+----
+
+[[BasicAuthenticationPlugin-Securinginter-noderequests]]
+== Securing inter-node requests
+
+There are a lot of requests that originate from the Solr nodes itself. e.g: requests from overseer to nodes, recovery threads etc . These requests do not carry any basic auth credentials because no user initiated these requests. This means the user is Solr itself. Solr uses a special internode authentication mechanism where each Solr node is a super user and is fully trusted by other Solr nodes.
+
+[[BasicAuthenticationPlugin-PKIAuthenticationPlugin]]
+=== PKIAuthenticationPlugin
+
+This kicks in when there is any request going on between 2 Solr nodes. It is enabled only when the Authentication plugin does not wish to handle inter-node security (only BasicAuthPlugin as of now) .For each outgoing request `PKIAuthenticationPlugin` adds a special header `'SolrAuth' `which carries the timestamp and principal encrypted using the private key of that node. The public key is exposed through an API so that any node can read it whenever it needs it. Any node who gets the request with that header, would get the public key from the sender and decrypt the information. if it is able to decrypt the data, the request trusted. It is invalid if the timestamp is more than 5 secs old. This assumes that the clocks of different nodes in the cluster are synchronized. The timeout is configurable through a system property called 'pkiauth.ttl'. For example , if you wish to bump up the ttl to 10 seconds (10000 milliseconds) , start each node with a property `'-Dpkiauth.ttl=10000'` .

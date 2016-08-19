@@ -1,0 +1,20 @@
+Solr JDBC - Apache Zeppelin
+===========================
+:toc:
+:page-shortname: solr-jdbc-apache-zeppelin
+:page-permalink: solr-jdbc-apache-zeppelin.html
+
+toc::[] Note:
+
+This requires Apache Zeppelin 0.6.0 or greater which contains the JDBC interpreter.
+
+For http://zeppelin.apache.org[Apache Zeppelin], you will need to create a JDBC interpreter for Solr. This will add SolrJ to the interpreter classpath. Once the interpreter has been created, you can create a notebook to issue queries.
+
+[[SolrJDBC-ApacheZeppelin-CreatetheApacheSolrJDBCInterpreter]]
+== Create the Apache Solr JDBC Interpreter
+
+[[SolrJDBC-ApacheZeppelin-CreateaNotebook]]
+== Create a Notebook
+
+[[SolrJDBC-ApacheZeppelin-QuerywiththeNotebook]]
+== Query with the Notebook

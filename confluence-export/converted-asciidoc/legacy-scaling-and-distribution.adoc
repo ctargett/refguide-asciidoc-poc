@@ -1,0 +1,19 @@
+Legacy Scaling and Distribution
+===============================
+:page-shortname: legacy-scaling-and-distribution
+:page-permalink: legacy-scaling-and-distribution.html
+:page-children: introduction-to-scaling-and-distribution, distributed-search-with-index-sharding, index-replication, combining-distribution-and-replication, merging-indexes
+
+This section describes how to set up distribution and replication in Solr. It is considered "legacy" behavior, since while it is still supported in Solr, the SolrCloud functionality described in the previous chapter is where the current development is headed. However, if you don't need all that SolrCloud delivers, search distribution and index replication may be sufficient.
+
+This section covers the following topics:
+
+link:introduction-to-scaling-and-distribution.html[Introduction to Scaling and Distribution]: Conceptual information about distribution and replication in Solr.
+
+link:distributed-search-with-index-sharding.html[Distributed Search with Index Sharding]: Detailed information about implementing distributed searching in Solr.
+
+link:index-replication.html[Index Replication]: Detailed information about replicating your Solr indexes.
+
+link:combining-distribution-and-replication.html[Combining Distribution and Replication]: Detailed information about replicating shards in a distributed index.
+
+link:merging-indexes.html[Merging Indexes]: Information about combining separate indexes in Solr.

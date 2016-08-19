@@ -1,0 +1,21 @@
+The Well-Configured Solr Instance
+=================================
+:page-shortname: the-well-configured-solr-instance
+:page-permalink: the-well-configured-solr-instance.html
+:page-children: configuring-solrconfig-xml, solr-cores-and-solr-xml, configuration-apis, solr-plugins, jvm-settings
+
+This section tells you how to fine-tune your Solr instance for optimum performance. This section covers the following topics:
+
+link:configuring-solrconfig-xml.html[Configuring solrconfig.xml]: Describes how to work with the main configuration file for Solr, `solrconfig.xml`, covering the major sections of the file.
+
+link:solr-cores-and-solr-xml.html[Solr Cores and solr.xml]: Describes how to work with `solr.xml` and `core.properties` to configure your Solr core, or multiple Solr cores within a single instance.
+
+link:configuration-apis.html[Configuration APIs]: Describes several APIs used to configure Solr: Blob Store, Config, Request Parameters and Managed Resources.
+
+link:solr-plugins.html[Solr Plugins]: Introduces Solr plugins with pointers to more information.
+
+link:jvm-settings.html[JVM Settings]: Gives some guidance on best practices for working with Java Virtual Machines.
+
+Note:
+
+The focus of this section is generally on configuring a single Solr instance, but for those interested in scaling a Solr implementation in a cluster environment, see also the section link:solrcloud.html[SolrCloud]. There are also options to scale through sharding or replication, described in the section link:legacy-scaling-and-distribution.html[Legacy Scaling and Distribution].

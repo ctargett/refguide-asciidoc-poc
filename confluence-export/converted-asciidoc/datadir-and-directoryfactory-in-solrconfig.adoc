@@ -1,0 +1,38 @@
+DataDir and DirectoryFactory in SolrConfig
+==========================================
+:page-shortname: datadir-and-directoryfactory-in-solrconfig
+:page-permalink: datadir-and-directoryfactory-in-solrconfig.html
+
+[[DataDirandDirectoryFactoryinSolrConfig-SpecifyingaLocationforIndexDatawiththedataDirParameter]]
+== Specifying a Location for Index Data with the `dataDir` Parameter
+
+By default, Solr stores its index data in a directory called `/data` under the Solr home. If you would like to specify a different directory for storing index data, use the `<dataDir>` parameter in the `solrconfig.xml` file. You can specify another directory either with a full pathname or a pathname relative to the instance dir of the SolrCore. For example:
+
+[source,xml]
+----
+<dataDir>/var/data/solr/</dataDir>
+----
+
+If you are using replication to replicate the Solr index (as described in link:legacy-scaling-and-distribution.html[Legacy Scaling and Distribution]), then the `<dataDir>` directory should correspond to the index directory used in the replication configuration.
+
+[[DataDirandDirectoryFactoryinSolrConfig-SpecifyingtheDirectoryFactoryForYourIndex]]
+== Specifying the DirectoryFactory For Your Index
+
+The default `solr.StandardDirectoryFactory` is filesystem based, and tries to pick the best implementation for the current JVM and platform. You can force a particular implementation by specifying `solr.MMapDirectoryFactory`, `solr.NIOFSDirectoryFactory`, or `solr.SimpleFSDirectoryFactory`.
+
+[source,xml]
+----
+<directoryFactory name="DirectoryFactory"
+                  class="${solr.directoryFactory:solr.StandardDirectoryFactory}"/>
+----
+
+The `solr.RAMDirectoryFactory` is memory based, not persistent, and does not work with replication. Use this DirectoryFactory to store your index in RAM.
+
+[source,xml]
+----
+<directoryFactory class="org.apache.solr.core.RAMDirectoryFactory"/>
+----
+
+Note:
+
+If you are using Hadoop and would like to store your indexes in HDFS, you should use the `solr.HdfsDirectoryFactory` instead of either of the above implementations. For more details, see the section link:running-solr-on-hdfs.html[Running Solr on HDFS].

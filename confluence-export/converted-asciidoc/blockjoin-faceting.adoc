@@ -1,0 +1,116 @@
+BlockJoin Faceting
+==================
+:page-shortname: blockjoin-faceting
+:page-permalink: blockjoin-faceting.html
+
+It's a common requirement to aggregate children facet counts by their parents, i.e., if a parent document has several children documents, all of them need to increment facet value count only once. This functionality is provided by two search components with slightly different performance: the `BlockJoinFacetComponent`, and the `BlockJoinDocSetFacetComponent`.
+
+These components are considered experimental, and must be explicitly enabled for a request handler in `solrconfig.xml`, in the same way as any other link:requesthandlers-and-searchcomponents-in-solrconfig.html[search component].
+
+This example shows how you could add both search components to `solrconfig.xml` and define them in two different request handlers:
+
+*solrconfig.xml*
+
+[source,xml]
+----
+  <searchComponent name="bjqFacetComponent" class="org.apache.solr.search.join.BlockJoinFacetComponent"/>
+  <searchComponent name="bjqDocsetFacetComponent" class="org.apache.solr.search.join.BlockJoinDocSetFacetComponent"/>
+
+  <requestHandler name="/bjqfacet" class="org.apache.solr.handler.component.SearchHandler">
+    <lst name="defaults">
+      <str name="shards.qt">/bjqfacet</str>
+    </lst>
+    <arr name="last-components">
+      <str>bjqFacetComponent</str>
+    </arr>
+  </requestHandler>
+  
+    <requestHandler name="/bjqdocsetfacet" class="org.apache.solr.handler.component.SearchHandler">
+    <lst name="defaults">
+      <str name="shards.qt">/bjqdocsetfacet</str>
+    </lst>
+    <arr name="last-components">
+      <str>bjqDocsetFacetComponent</str>
+    </arr>
+  </requestHandler>
+----
+
+One of these components can be added into any search request handler.
+
+The difference between the `BlockJoinFacetComponent` and `BlockJoinDocSetFacetComponent` is in the way they deal with Solr's caches.
+
+* The `BlockJoinFacetComponent` disables queryResult cache for the request it takes part in.
+* The `BlockJoinDocSetFacetComponent` uses the filter cache, which might have worse performance if commits are frequent.
+
+In most cases, the differences are negligible. Both components work with distributed search in SolrCloud mode.
+
+Documents should be added in children-parent blocks as described in link:uploading-data-with-index-handlers.html#UploadingDatawithIndexHandlers-NestedChildDocuments[indexing nested child documents]. Examples:
+
+*document sample*
+
+[source,xml]
+----
+<add>
+  <doc>
+    <field name="id">1</field>
+    <field name="type_s">parent</field>
+    <doc>
+      <field name="id">11</field> 
+      <field name="COLOR_s">Red</field>
+      <field name="SIZE_s">XL</field>
+      <field name="PRICE_i">6</field>
+    </doc>
+    <doc>
+      <field name="id">12</field> 
+      <field name="COLOR_s">Red</field>
+      <field name="SIZE_s">XL</field>
+      <field name="PRICE_i">7</field>
+    </doc>
+    <doc>
+      <field name="id">13</field> 
+      <field name="COLOR_s">Blue</field>
+      <field name="SIZE_s">L</field>
+      <field name="PRICE_i">5</field>
+    </doc>
+  </doc>
+  <doc>
+    <field name="id">2</field>
+    <field name="type_s">parent</field>
+    <doc>
+      <field name="id">21</field> 
+      <field name="COLOR_s">Blue</field>
+      <field name="SIZE_s">XL</field>
+      <field name="PRICE_i">6</field>
+    </doc>
+    <doc>
+      <field name="id">22</field> 
+      <field name="COLOR_s">Blue</field>
+      <field name="SIZE_s">XL</field>
+      <field name="PRICE_i">7</field>
+    </doc>
+    <doc>
+      <field name="id">23</field> 
+      <field name="COLOR_s">Red</field>
+      <field name="SIZE_s">L</field>
+      <field name="PRICE_i">5</field>
+    </doc>
+  </doc>
+</add>
+----
+
+Queries are constructed the same way as for a link:other-parsers.html#OtherParsers-BlockJoinQueryParsers[Parent Block Join query]. For example:
+
+[source,java]
+----
+http://localhost:8983/solr/bjqfacet?q={!parent which=type_s:parent}SIZE_s:XL&child.facet.field=COLOR_s
+----
+
+As a result we should have facets for Red(1) and Blue(1), because matches on children `id=11` and `id=12` are aggregated into single hit into parent with `id=1`. The key components of the request are:
+
+[cols=",",options="header",]
+|=============================================================================================================================================
+|url part |meaning
+|`/bjqfacet` |The name of the request handler that has been defined with one of block join facet components enabled.
+|`q={!parent ...}..` |The mandatory parent query as a main query. The parent query could also be a subordinate clause in a more complex query.
+|`child.facet.field=...` |The child document field, which might be repeated many times with several fields, as necessary.
+|=============================================================================================================================================

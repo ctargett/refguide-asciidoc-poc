@@ -1,0 +1,44 @@
+Searching
+=========
+:page-shortname: searching
+:page-permalink: searching.html
+:page-children: overview-of-searching-in-solr, velocity-search-ui, relevance, query-syntax-and-parsing, faceting, highlighting, spell-checking, query-re-ranking, transforming-result-documents, suggester, morelikethis, pagination-of-results, result-grouping, collapse-and-expand-results, result-clustering, spatial-search, the-terms-component, the-term-vector-component, the-stats-component, the-query-elevation-component, response-writers, near-real-time-searching, realtime-get, exporting-result-sets, streaming-expressions, parallel-sql-interface
+
+This section describes how Solr works with search requests. It covers the following topics:
+
+* link:overview-of-searching-in-solr.html[Overview of Searching in Solr]: An introduction to searching with Solr.
+* link:velocity-search-ui.html[Velocity Search UI]: A simple search UI using the VelocityResponseWriter.
+* link:relevance.html[Relevance]: Conceptual information about understanding relevance in search results.
+* link:query-syntax-and-parsing.html[Query Syntax and Parsing]: A brief conceptual overview of query syntax and parsing. It also contains the following sub-sections:
+** link:common-query-parameters.html[Common Query Parameters]: No matter the query parser, there are several parameters that are common to all of them.
+** link:the-standard-query-parser.html[The Standard Query Parser]: Detailed information about the standard Lucene query parser.
+** link:the-dismax-query-parser.html[The DisMax Query Parser]: Detailed information about Solr's DisMax query parser.
+** link:the-extended-dismax-query-parser.html[The Extended DisMax Query Parser]: Detailed information about Solr's Extended DisMax (eDisMax) Query Parser.
+** link:function-queries.html[Function Queries]: Detailed information about parameters for generating relevancy scores using values from one or more numeric fields.
+** link:local-parameters-in-queries.html[Local Parameters in Queries]: How to add local arguments to queries.
+** link:other-parsers.html[Other Parsers]: More parsers designed for use in specific situations.
+* link:faceting.html[Faceting]: Detailed information about categorizing search results based on indexed terms.
+* link:highlighting.html[Highlighting]: Detailed information about Solr's highlighting utilities. Sub-sections cover the different types of highlighters:
+** link:standard-highlighter.html[Standard Highlighter]: Uses the most sophisticated and fine-grained query representation of the three highlighters.
+** link:fastvector-highlighter.html[FastVector Highlighter]: Optimized for term vector options on fields, and good for large documents and multiple languages.
+** link:postings-highlighter.html[Postings Highlighter]: Uses similar options as the FastVector highlighter, but is more compact and efficient.
+* link:spell-checking.html[Spell Checking]: Detailed information about Solr's spelling checker.
+* link:query-re-ranking.html[Query Re-Ranking]: Detailed information about re-ranking top scoring documents from simple queries using more complex scores.
+
+* link:transforming-result-documents.html[Transforming Result Documents]: Detailed information about using `DocTransformers` to add computed information to individual documents
+* link:suggester.html[Suggester]: Detailed information about Solr's powerful autosuggest component.
+* link:morelikethis.html[MoreLikeThis]: Detailed information about Solr's similar results query component.
+* link:pagination-of-results.html[Pagination of Results]: Detailed information about fetching paginated results for display in a UI, or for fetching all documents matching a query.
+* link:result-grouping.html[Result Grouping]: Detailed information about grouping results based on common field values.
+* link:result-clustering.html[Result Clustering]: Detailed information about grouping search results based on cluster analysis applied to text fields. A bit like "unsupervised" faceting.
+* link:spatial-search.html[Spatial Search]: How to use Solr's spatial search capabilities.
+* link:the-terms-component.html[The Terms Component]: Detailed information about accessing indexed terms and the documents that include them.
+* link:the-term-vector-component.html[The Term Vector Component]: How to get term information about specific documents.
+* link:the-stats-component.html[The Stats Component]: How to return information from numeric fields within a document set.
+* link:the-query-elevation-component.html[The Query Elevation Component]: How to force documents to the top of the results for certain queries.
+* link:response-writers.html[Response Writers]: Detailed information about configuring and using Solr's response writers.
+* link:near-real-time-searching.html[Near Real Time Searching]: How to include documents in search results nearly immediately after they are indexed.
+* link:realtime-get.html[RealTime Get]: How to get the latest version of a document without opening a searcher.
+* link:exporting-result-sets.html[Exporting Result Sets]: Functionality to export large result sets out of Solr.
+* link:streaming-expressions.html[Streaming Expressions]: A stream processing language for Solr, with a suite of functions to perform many types of queries and parallel execution tasks.
+* link:parallel-sql-interface.html[Parallel SQL Interface]: An interface for sending SQL statements to Solr, and using advanced parallel query processing and relational algebra for complex data analysis.

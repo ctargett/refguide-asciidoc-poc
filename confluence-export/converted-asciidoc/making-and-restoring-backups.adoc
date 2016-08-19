@@ -1,0 +1,137 @@
+Making and Restoring Backups
+============================
+:page-shortname: making-and-restoring-backups
+:page-permalink: making-and-restoring-backups.html
+
+If you are worried about data loss, and of course you _should_ be, you need a way to back up your Solr indexes so that you can recover quickly in case of catastrophic failure.
+
+Solr provides two approaches to backing up and restoring Solr cores or collections, depending on how you are running Solr. If you run SolrCloud, you will use the Collections API; if you run Solr in standalone mode, you will use the replication handler.
+
+[[MakingandRestoringBackups-SolrCloud]]
+== SolrCloud
+
+Support for backups when running SolrCloud is provided with the link:collections-api.html[Collections API]. This allows the backups to be generated across multiple shards, and restored to the same number of shards and replicas as the original collection.
+
+Two commands are available:
+
+* `action=BACKUP`: This command backs up Solr indexes and configurations. More information is available in the section link:collections-api.html#CollectionsAPI-BackupCollection[Backup Collection].
+* `action=RESTORE`: This command restores Solr indexes and configurations. More information is available in the section link:collections-api.html#CollectionsAPI-RestoreCollection[Restore Collection].
+
+[[MakingandRestoringBackups-StandaloneMode]]
+== Standalone Mode
+
+Backups and restoration uses Solr's replication handler. Out of the box, Solr includes implicit support for replication so this API can be used. Configuration of the replication handler can, however, be customized by defining your own replication handler in `solrconfig.xml` . For details on configuring the replication handler, see the section link:index-replication.html#IndexReplication-ConfiguringtheReplicationHandler[Configuring the ReplicationHandler].
+
+[[MakingandRestoringBackups-BackupAPI]]
+=== Backup API
+
+The backup API requires sending a command to the `/replication` handler to back up the system.
+
+You can trigger a back-up with an HTTP command like this (replace "gettingstarted" with the name of the core you are working with):
+
+*Backup API*
+
+[source,bash]
+----
+curl http://localhost:8983/solr/gettingstarted/replication?command=backup
+----
+
+The backup command is an asynchronous call, and it will represent data from the latest index commit point. All indexing and search operations will continue to be executed against the index as usual.
+
+Only one backup call can be made against a core at any point in time. While an ongoing backup operation is happening subsequent calls for restoring will throw an exception.
+
+The backup request can also take the following additional parameters:
+
+[width="100%",cols="50%,50%",options="header",]
+|====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|Parameter |Description
+|location |The path where the backup will be created. If the path is not absolute then the backup path will be relative to Solr's instance directory.
+|name |The snapshot will be created in a directory called `snapshot.<name>`. If a name is not specified then the directory name would have the following format: `snapshot.<yyyyMMddHHmmssSSS>`
+|numberToKeep |The number of backups to keep. If `maxNumberOfBackups` has been specified on the replication handler in `solrconfig.xml`, `maxNumberOfBackups` is always used and attempts to use `numberToKeep` will cause an error. Also, this parameter is not taken into consideration if the backup name is specified. More information about `maxNumberOfBackups` can be found in the section link:index-replication.html#IndexReplication-ConfiguringtheReplicationHandler[Configuring the ReplicationHandler].
+|====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+[[MakingandRestoringBackups-BackupStatus]]
+=== Backup Status
+
+The backup operation can be monitored to see if it has completed by sending the `details` command to the `/replication` handler, as in this example:
+
+*Status API*
+
+[source,bash]
+----
+http://localhost:8983/solr/gettingstarted/replication?command=details"
+----
+
+*Output Snippet*
+
+[source,xml]
+----
+<lst name="backup">
+  <str name="startTime">Sun Apr 12 16:22:50 DAVT 2015</str>
+  <int name="fileCount">10</int>
+  <str name="status">success</str>
+  <str name="snapshotCompletedAt">Sun Apr 12 16:22:50 DAVT 2015</str>
+  <str name="snapshotName">my_backup</str>
+</lst>
+----
+
+If it failed then a `snapShootException` will be sent in the response.
+
+[[MakingandRestoringBackups-RestoreAPI]]
+=== Restore API
+
+Restoring the backup requires sending the `restore` command to the `/replication` handler, followed by the name of the backup to restore.
+
+You can restore from a backup with a command like this:
+
+*Example Usage*
+
+[source,bash]
+----
+http://localhost:8983/solr/gettingstarted/replication?command=restore&name=backup_name"
+----
+
+This will restore the named index snapshot into the current core. Searches will start reflecting the snapshot data once the restore is complete.
+
+The restore request can also take these additional parameters:
+
+[cols=",",options="header",]
+|================================================================================================================================================================================================================================
+|Name |Description
+|location |The location of the backup snapshot file. If not specified, it looks for backups in Solr's data directory.
+|name |The name of the backed up index snapshot to be restored. If the name is not provided it looks for backups with `snapshot.<timestamp>` format in the location directory. It picks the latest timestamp backup in that case.
+|================================================================================================================================================================================================================================
+
+The restore command is an asynchronous call. Once the restore is complete the data reflected will be of the backed up index which was restored.
+
+Only one restore call can can be made against a core at one point in time. While an ongoing restore operation is happening subsequent calls for restoring will throw an exception.
+
+[[MakingandRestoringBackups-RestoreStatusAPI]]
+=== Restore Status API
+
+You can also check the status of a restore operation by sending the `restorestatus` command to the `/replication` handler, as in this example:
+
+*Status API*
+
+[source,bash]
+----
+curl -XGET http://localhost:8983/solr/gettingstarted/replication?command=restorestatus
+----
+
+*Output*
+
+[source,xml]
+----
+<response>
+  <lst name="responseHeader">
+    <int name="status">0</int>
+    <int name="QTime">0</int>
+  </lst>
+  <lst name="restorestatus">
+    <str name="snapshotName">snapshot.<name></str>
+    <str name="status">success</str>
+  </lst>
+</response>
+----
+
+The status value can be "In Progress" , "success" or "failed". If it failed then an "exception" will also be sent in the response.

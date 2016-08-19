@@ -1,0 +1,12 @@
+Configuration APIs
+==================
+:page-shortname: configuration-apis
+:page-permalink: configuration-apis.html
+:page-children: blob-store-api, config-api, request-parameters-api, managed-resources
+
+Solr includes several APIs that can be used to modify settings in `solrconfig.xml`.
+
+* link:blob-store-api.html[Blob Store API]
+* link:config-api.html[Config API]
+* link:request-parameters-api.html[Request Parameters API]
+* link:managed-resources.html[Managed Resources]

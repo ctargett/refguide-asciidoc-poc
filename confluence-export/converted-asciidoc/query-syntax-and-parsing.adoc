@@ -1,0 +1,20 @@
+Query Syntax and Parsing
+========================
+:page-shortname: query-syntax-and-parsing
+:page-permalink: query-syntax-and-parsing.html
+:page-children: common-query-parameters, the-standard-query-parser, the-dismax-query-parser, the-extended-dismax-query-parser, function-queries, local-parameters-in-queries, other-parsers
+
+Solr supports several query parsers, offering search application designers great flexibility in controlling how queries are parsed.
+
+This section explains how to specify the query parser to be used. It also describes the syntax and features supported by the main query parsers included with Solr and describes some other parsers that may be useful for particular situations. There are some query parameters common to all Solr parsers; these are discussed in the section link:common-query-parameters.html[Common Query Parameters].
+
+The parsers discussed in this Guide are:
+
+* link:the-standard-query-parser.html[The Standard Query Parser]
+* link:the-dismax-query-parser.html[The DisMax Query Parser]
+* link:the-extended-dismax-query-parser.html[The Extended DisMax Query Parser]
+* link:other-parsers.html[Other Parsers]
+
+The query parser plugins are all subclasses of http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/search/QParserPlugin.html[QParserPlugin]. If you have custom parsing needs, you may want to extend that class to create your own query parser.
+
+For more detailed information about the many query parsers available in Solr, see https://wiki.apache.org/solr/SolrQuerySyntax.
