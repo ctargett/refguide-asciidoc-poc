@@ -10,7 +10,7 @@ $if(toc)$
 :toc:
 $endif$
 $if(page-shortname)$
-:page-name: $page-shortname$
+:page-shortname: $page-shortname$
 $endif$
 $if(page-permalink)$
 :page-permalink: $page-permalink$
