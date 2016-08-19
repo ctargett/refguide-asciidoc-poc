@@ -60,7 +60,7 @@ convert_dir() {
 	mkdir -p "$ASCII_DIR/$DIRNAME"
 	
 	# convert to .asciidoc format using pandoc
-	pandoc $HTML_DIR/$FNAME -f html -t asciidoc -i --parse-raw --wrap=none --standalone --atx-headers --template=$PANDOC_TEMPLATE -o ${ASCII_DIR}/${FNAME%.*}.asciidoc
+	pandoc $HTML_DIR/$FNAME -f html -t asciidoc -i --parse-raw --wrap=none --standalone --atx-headers --template=$PANDOC_TEMPLATE -o ${ASCII_DIR}/${FNAME%.*}.adoc
     done;
 }
 
