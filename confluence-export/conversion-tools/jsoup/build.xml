@@ -32,17 +32,24 @@
     </jar>
   </target>
 
+  <property name="work.dir" location="../../"/>
   <property name="from.dir" location="${work.dir}/raw-export"/>
-  <property name="to.flat.dir" location="${work.dir}/cleaned-flat-export"/>
+  <property name="cleaned.dir" location="${work.dir}/cleaned-export"/>
   <property name="entities.xml.path" location="${work.dir}/raw-xml-export/entities.xml"/>
   <property name="page-tree.xml.path" location="${work.dir}/page-tree.xml"/>
 
   <target name="-dir-check">
-    <fail unless="work.dir">use -Dwork.dir=/something to define working dir (ie: /something/raw-export, /something/cleaned-export, etc...</fail>
-    <fail message="Raw export dir does not exist: ${from.dir}, did you specify wrong -Dwork.dir=... ?">
+    <fail message="Raw (HTML) confluence export dir does not exist: ${from.dir}">
       <condition>
         <not>
           <available file="${from.dir}" />
+        </not>
+      </condition>
+    </fail>
+    <fail message="Can't find entities.xml in raw (XML) confluence export dir: ${entities.xml.path}">
+      <condition>
+        <not>
+          <available file="${entities.xml.path}" />
         </not>
       </condition>
     </fail>
@@ -50,13 +57,6 @@
   
   <target name="page-tree"
           depends="-dir-check">
-    <fail message="Can't find entities.xml in work.dir! ... looking for: ${entities.xml.path}">
-      <condition>
-        <not>
-          <available file="${entities.xml.path}" />
-        </not>
-      </condition>
-    </fail>
     <xslt in="${entities.xml.path}" out="${page-tree.xml.path}"
           style="../page-hierarchy.xsl" />
   </target>
@@ -70,14 +70,14 @@
         </not>
       </condition>
     </fail>
-    <delete dir="${to.flat.dir}" />
-    <mkdir dir="${to.flat.dir}"/>
+    <delete dir="${cleaned.dir}" />
+    <mkdir dir="${cleaned.dir}"/>
     <java classname="com.lucidworks.docparser.ScrapeConfluence"
           fork="true">
       <classpath refid="classpath"/>
       <arg value="${from.dir}"/>
       <arg value="${page-tree.xml.path}"/>
-      <arg value="${to.flat.dir}"/>
+      <arg value="${cleaned.dir}"/>
     </java>
   </target>
 
