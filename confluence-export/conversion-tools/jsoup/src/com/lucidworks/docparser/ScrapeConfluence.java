@@ -1,9 +1,13 @@
 package com.lucidworks.docparser;
 
 import java.io.*;
-
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -12,8 +16,8 @@ import java.util.regex.Pattern;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
+import org.jsoup.parser.Parser;
 import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 import org.jsoup.select.NodeVisitor;
@@ -25,22 +29,37 @@ import org.jsoup.select.NodeVisitor;
 public class ScrapeConfluence {
   static final Pattern PRE_CODE_CLASS_PATTERN = Pattern.compile("brush:\\s+([^;]+)");
   
-    public static void main(String[] args) 
-        throws IOException, FileNotFoundException {
-        if (args.length < 2) {
+    public static void main(String[] args) throws Exception {
+        if (args.length < 3) {
             System.err.println("usage: ScrapeConfluence "
-                               + "<indir> <outdir>");
+                               + "<indir> <page-tree.xml> <outdir>");
             System.exit(-1);
         }
         File inputDir = new File(args[0]);
-        File outputDir = new File(args[1]);
+        File pageTreeXmlFile = new File(args[1]);
+        PageTree pageTree = new PageTree(pageTreeXmlFile);
+        File outputDir = new File(args[2]);
         HtmlFileFilter htmlFilter = new HtmlFileFilter();
         File[] pages = inputDir.listFiles(htmlFilter);
         for (File page : pages) {
+            if (page.getName().equals("index.html")) {
+              // we don't need/want you
+              // although i really wish i'd realized this page was i nthe HTML export before
+              // i did all that work to build page-tree.xml from the XML export
+              continue;
+            }
+          
             System.out.println("input Page URI: " + page.toURI().toString());
-            String pageName = cleanFileName(page.getName());
-            File outPage = new File(outputDir,pageName + ".html");
+            final Element pageTreePage = pageTree.getPage(page.toURI().toString());
+            final String pageName = pageTree.getPageShortName(pageTreePage);
+            final String title = pageTree.getPageTitle(pageTreePage);
+            final String permalink = pageName + ".html";
+            final File outPage = new File(outputDir, permalink);
             System.out.println("outPage URI: " + outPage.toURI().toString());
+            
+            if (outPage.exists()) {
+              throw new RuntimeException(permalink + " already exists - multiple files with same shortname: " + page + " => " + outPage);
+            }
 
             // Confluence encodes &nbsp; as 0xa0.
             // JSoup API doesn't handle this - change to space before parsing Document
@@ -51,29 +70,19 @@ public class ScrapeConfluence {
             Document doc = Jsoup.parse(fileContents);
             Element mainContent = doc.select("#main-content").first();
             if (mainContent == null) {
-                System.out.println("input file: " + page.getName());
-                System.out.println("no main-content div - wtf???");
-                continue;
+              throw new RuntimeException(page.getName() + " has no main-content div");
             }
-
-            Map<String,String> metadata = new HashMap<>();
-            metadata.put("page-name", pageName);
             
             // create clean HTML page
             Document docOut = Document.createShell(outPage.toURI().toString());
-            String title = pageName.replace('-',' ');
+            docOut.title(title);
 
-            Element breadcrumbs = doc.select("#breadcrumb-section").first();
-            if (breadcrumbs == null) {
-                System.out.println(title + ": no breadcrumbs");
-            } else {
-              // TODO: add breadcrumb as metadata?
-                Element nav = new Element(Tag.valueOf("nav"),".");
-                nav.appendChild(breadcrumbs);
-                docOut.body().appendChild(nav);
+            addMetadata(docOut, "page-shortname", pageName);
+            addMetadata(docOut, "page-permalink", permalink);
+            for (Element kid : pageTreePage.children()) {
+              addMetadata(docOut, "page-children", pageTree.getPageShortName(kid));
             }
 
-            setMetadata(docOut, title, metadata);
             
             docOut.body().appendChild(mainContent);
             docOut.normalise();
@@ -81,21 +90,9 @@ public class ScrapeConfluence {
             cleanupContent(docOut);
 
             // fix links
-            Pattern p1 = Pattern.compile("_\\d*\\.html");
             Elements elements = docOut.select("a[href]");
             for (Element element : elements) {
-                String href = element.attr("href");
-                if (href.contains("display/fusion")) {
-                    href= cleanLink(href) + ".html";
-                    //                    System.out.println("clean link: " + href);
-                    element.attr("href",href);
-                } else {
-                    Matcher m1 = p1.matcher(href);
-                    if (m1.find()) {
-                        element.attr("href",m1.replaceFirst(".html"));
-                        //                        System.out.println("rel link: " +  element.attr("href"));
-                    }
-                }
+              element.attr("href", fixLink(page, pageTree, element.attr("href")));
             }
 
             docOut.normalise();
@@ -128,39 +125,39 @@ public class ScrapeConfluence {
         }
     }
 
-    static String cleanFileName(String name) {
-        int idx = name.lastIndexOf('_');
-        if (idx > 0) return name.substring(0,idx);
-        idx = name.lastIndexOf('.');
-        if (idx > 0) return name.substring(0,idx);
-        return name;
+  static String fixLink(File page, PageTree pageTree, final String href) {
+    try {
+      URI uri = new URI(href);
+      if (uri.isAbsolute()) {
+        // TODO: look for lucene/solr javadoc URLs and replace them with some macro?
+        return href;
+      }
+      //  else: not an absoulte URL...
+      String path = uri.getPath(); // could be fragment only URL
+      Element linkedPage = pageTree.getPageIfMatch(path);
+      if (null != path && null != linkedPage) {
+        
+        // TODO: use .adoc suffix in links
+        // TODO: prepend with some macro we can use in post-processing to get <<LINK>> relative link syntax
+        path = pageTree.getPageShortName(linkedPage) + ".html";
+        
+        // HACKish, to ensure we get clean path + ?query? + fragement
+        String fixed = new URI(null, null, path, uri.getQuery(), uri.getFragment()).toString();
+        return fixed;
+        
+      } // else...
+      System.err.println("found odd rel link to " + href + " in " + page.toString());
+      return href;
+      
+    } catch (URISyntaxException se) {
+      System.err.println("found malformed URI " + href + " in " + page.toString());
+      // assume we should leave it alone...
+      return href;
     }
 
-    static String cleanLink(String name) {
-        //        System.out.println("in link: " + name);
-        int idx = name.indexOf("display/fusion/");
-        if (idx < 0) return name;
-        int trim = idx + "display/fusion/".length();
-        name = name.substring(trim,name.length());
-        //        System.out.println("out link: " + name);
-        return name.replace('+','-');
-    }
-
-  static void setMetadata(Document docOut, String title, Map<String,String> metadata) {
-    
-    docOut.title(title);
-
-    // // Skip h1 for now, rely on pandoc to get it from the <title>
-    // Element h1 = new Element(Tag.valueOf("h1"),".");
-    // h1.text(title);
-    // docOut.body().appendChild(h1);
-
-    for (Map.Entry<String,String> entry : metadata.entrySet()) {
-      addOneMetadata(docOut, entry.getKey(), entry.getValue());
-    }
   }
   
-  static void addOneMetadata(Document docOut, String name, String content) {
+  static void addMetadata(Document docOut, String name, String content) {
       Element meta = new Element(Tag.valueOf("meta"),".");
       meta.attr("name", name);
       meta.attr("content", content);
@@ -195,7 +192,7 @@ public class ScrapeConfluence {
       }
     }
     if (sideBar != null) {
-      addOneMetadata(docOut, "toc", "true");
+      addMetadata(docOut, "toc", "true");
       sideBar.replaceWith(new TextNode("toc::[]",""));
       // TODO: this currently replaces the entire aside/column/panel if there was one...
       // ...would it be better to leave the other panel text and only remove the div.toc-macro?
@@ -276,6 +273,61 @@ public class ScrapeConfluence {
     }
 
     docOut.normalise();
+  }
+
+  /**
+   * Wraps a (Jsoup) "DOM" of the <code>page-tree.xml</code> file with convinience methods
+   * for getting the names, shortnames, and kids of various pages
+   */
+  private static final class PageTree {
+    private static final Pattern HTML_EXPORT_FILENAME = Pattern.compile("^.*?\\D?(\\d+)\\.html$");
+    private static final Pattern SHORT_NAME_CLEANER = Pattern.compile("[^a-z0-9]+");
+    // Jsoups XML parsing is easier to work with then javax, especially getById
+    private final Document dom;
+    public PageTree(File pageTreeXml) throws Exception {
+      try (FileInputStream fis = new FileInputStream(pageTreeXml)) {
+        this.dom = Jsoup.parse(fis, null, pageTreeXml.toURI().toString(), Parser.xmlParser());
+      }
+    }
+    public Element getPage(int id) {
+      final Element ele = dom.getElementById(""+id);
+      if (null == ele) {
+        throw new NullPointerException("can't find DOM element with id: " + id);
+      }
+      return ele;
+    }
+    public Element getPage(String htmlFilePath) {
+      Element page = getPageIfMatch(htmlFilePath);
+      if (null != page) {
+        return page;
+      } // else...
+      throw new RuntimeException("Can't match page path pattern for html path: " + htmlFilePath);
+    }
+    public Element getPageIfMatch(String htmlFilePath) {
+      if (null == htmlFilePath || 0 == htmlFilePath.length()) {
+        return null;
+      }
+      Matcher m = HTML_EXPORT_FILENAME.matcher(htmlFilePath);
+      if (m.matches()) {
+        int id = Integer.valueOf(m.group(1));
+        return getPage(id);
+      } // else...
+      return null;
+    }
+    public String getPageTitle(Element page) {
+      String title = page.attr("title");
+      if (null == title) {
+        throw new NullPointerException("Page has null title attr");
+      }
+      return title;
+    }
+    public String getPageShortName(Element page) {
+      Matcher m = SHORT_NAME_CLEANER.matcher(getPageTitle(page).toLowerCase(Locale.ROOT));
+      return m.replaceAll("-");
+    }
+    public String getPageShortName(String htmlFilePath) {
+      return getPageShortName(getPage(htmlFilePath));
+    }
   }
 }
 

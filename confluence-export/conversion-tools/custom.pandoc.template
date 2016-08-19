@@ -9,14 +9,17 @@ $endif$
 $if(toc)$
 :toc:
 $endif$
-$if(page-name)$
-:page-name: $page-name$
+$if(page-shortname)$
+:page-name: $page-shortname$
 $endif$
 $if(page-permalink)$
 :page-permalink: $page-permalink$
 $endif$
 $if(page-tags)$
 :page-tags: $for(page-tags)$[$page-tags$]$sep$, $endfor$
+$endif$
+$if(page-children)$
+:page-children: $for(page-children)$$page-children$$sep$, $endfor$
 $endif$
 
 $endif$

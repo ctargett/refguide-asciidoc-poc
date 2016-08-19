@@ -63,12 +63,21 @@
   
   <target name="scrape"
           depends="-dir-check,jar">
+    <fail message="Can't find page-tree.xml in work.dir! ... run 'ant page-tree'">
+      <condition>
+        <not>
+          <available file="${page-tree.xml.path}" />
+        </not>
+      </condition>
+    </fail>
+    <delete dir="${to.flat.dir}" />
     <mkdir dir="${to.flat.dir}"/>
     <java classname="com.lucidworks.docparser.ScrapeConfluence"
           fork="true">
       <classpath refid="classpath"/>
-      <arg value ="${from.dir}"/>
-      <arg value ="${to.flat.dir}"/>
+      <arg value="${from.dir}"/>
+      <arg value="${page-tree.xml.path}"/>
+      <arg value="${to.flat.dir}"/>
     </java>
   </target>
 
