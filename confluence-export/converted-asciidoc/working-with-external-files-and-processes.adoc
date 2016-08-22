@@ -13,7 +13,7 @@ The `ExternalFileField` type makes it possible to specify the values for a field
 
 Note:
 
-External fields are not searchable. They can be used only for function queries or display. For more information on function queries, see the section on link:function-queries.html[Function Queries].
+External fields are not searchable. They can be used only for function queries or display. For more information on function queries, see the section on <<function-queries.adoc,Function Queries>>.
 
 The `ExternalFileField` type is handy for cases where you want to update a particular field in many documents more often than you want to update the rest of the documents. For example, suppose you have implemented a document rank based on the number of views. You might want to update the rank of all the documents daily or hourly, while the rest of the contents of the documents might be updated much less frequently. Without `ExternalFileField`, you would need to update each document just to change the rank. Using `ExternalFileField` is much more efficient because all document values for a particular field are stored in an external file that can be updated as frequently as you wish.
 
@@ -46,7 +46,7 @@ The keys listed in this file do not need to be unique. The file does not need to
 [[WorkingwithExternalFilesandProcesses-ReloadinganExternalFile]]
 === Reloading an External File
 
-It's possible to define an event listener to reload an external file when either a searcher is reloaded or when a new searcher is started. See the section link:query-settings-in-solrconfig.html#QuerySettingsinSolrConfig-Query-RelatedListeners[Query-Related Listeners] for more information, but a sample definition in `solrconfig.xml` might look like this:
+It's possible to define an event listener to reload an external file when either a searcher is reloaded or when a new searcher is started. See the section <<query-settings-in-solrconfig.adoc#QuerySettingsinSolrConfig-Query-RelatedListeners,Query-Related Listeners>> for more information, but a sample definition in `solrconfig.xml` might look like this:
 
 [source,xml]
 ----
@@ -61,8 +61,8 @@ The `PreAnalyzedField` type provides a way to send to Solr serialized token stre
 
 The serialization format is pluggable using implementations of PreAnalyzedParser interface. There are two out-of-the-box implementations:
 
-* link:#WorkingwithExternalFilesandProcesses-JsonPreAnalyzedParser[JsonPreAnalyzedParser]: as the name suggests, it parses content that uses JSON to represent field's content. This is the default parser to use if the field type is not configured otherwise.
-* link:#WorkingwithExternalFilesandProcesses-SimplePreAnalyzedParser[SimplePreAnalyzedParser]: uses a simple strict plain text format, which in some situations may be easier to create than JSON.
+* <<#WorkingwithExternalFilesandProcesses-JsonPreAnalyzedParser,JsonPreAnalyzedParser>>: as the name suggests, it parses content that uses JSON to represent field's content. This is the default parser to use if the field type is not configured otherwise.
+* <<#WorkingwithExternalFilesandProcesses-SimplePreAnalyzedParser,SimplePreAnalyzedParser>>: uses a simple strict plain text format, which in some situations may be easier to create than JSON.
 
 There is only one configuration parameter, `parserImpl`. The value of this parameter should be a fully qualified class name of a class that implements PreAnalyzedParser interface. The default value of this parameter is `org.apache.solr.schema.JsonPreAnalyzedParser`.
 

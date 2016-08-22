@@ -25,7 +25,7 @@ The exact output will vary, but you need to make sure you meet the minimum versi
 
 Solr is available from the Solr website at http://lucene.apache.org/solr/.
 
-For Linux/Unix/OSX systems, download the `.tgz` file. For Microsoft Windows systems, download the `.zip` file. When getting started, all you need to do is extract the Solr distribution archive to a directory of your choosing. When you're ready to setup Solr for a production environment, please refer to the instructions provided on the link:taking-solr-to-production.html[Taking Solr to Production] page. To keep things simple for now, extract the Solr distribution archive to your local home directory, for instance on Linux, do:
+For Linux/Unix/OSX systems, download the `.tgz` file. For Microsoft Windows systems, download the `.zip` file. When getting started, all you need to do is extract the Solr distribution archive to a directory of your choosing. When you're ready to setup Solr for a production environment, please refer to the instructions provided on the <<taking-solr-to-production.adoc,Taking Solr to Production>> page. To keep things simple for now, extract the Solr distribution archive to your local home directory, for instance on Linux, do:
 
 [source,plain]
 ----
@@ -33,4 +33,4 @@ $ cd ~/
 $ tar zxf solr-x.y.z.tgz
 ----
 
-Once extracted, you are now ready to run Solr using the instructions provided in the link:running-solr.html[Running Solr] section.
+Once extracted, you are now ready to run Solr using the instructions provided in the <<running-solr.adoc,Running Solr>> section.

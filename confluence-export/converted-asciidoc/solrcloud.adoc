@@ -14,19 +14,19 @@ SolrCloud is flexible distributed search and indexing, without a master node to 
 
 In this section, we'll cover everything you need to know about using Solr in SolrCloud mode. We've split up the details into the following topics:
 
-* link:getting-started-with-solrcloud.html[Getting Started with SolrCloud]
-* link:how-solrcloud-works.html[How SolrCloud Works]
-** link:shards-and-indexing-data-in-solrcloud.html[Shards and Indexing Data in SolrCloud]
-** link:distributed-requests.html[Distributed Requests]
-** link:read-and-write-side-fault-tolerance.html[Read and Write Side Fault Tolerance]
-* link:solrcloud-configuration-and-parameters.html[SolrCloud Configuration and Parameters]
-** link:setting-up-an-external-zookeeper-ensemble.html[Setting Up an External ZooKeeper Ensemble]
-** link:using-zookeeper-to-manage-configuration-files.html[Using ZooKeeper to Manage Configuration Files]
-** link:zookeeper-access-control.html[ZooKeeper Access Control]
-** link:collections-api.html[Collections API]
-** link:parameter-reference.html[Parameter Reference]
-** link:command-line-utilities.html[Command Line Utilities]
-** link:solrcloud-with-legacy-configuration-files.html[SolrCloud with Legacy Configuration Files]
-** link:configsets-api.html[ConfigSets API]
-* link:rule-based-replica-placement.html[Rule-based Replica Placement]
-* link:cross-data-center-replication-cdcr-.html[Cross Data Center Replication (CDCR)]
+* <<getting-started-with-solrcloud.adoc,Getting Started with SolrCloud>>
+* <<how-solrcloud-works.adoc,How SolrCloud Works>>
+** <<shards-and-indexing-data-in-solrcloud.adoc,Shards and Indexing Data in SolrCloud>>
+** <<distributed-requests.adoc,Distributed Requests>>
+** <<read-and-write-side-fault-tolerance.adoc,Read and Write Side Fault Tolerance>>
+* <<solrcloud-configuration-and-parameters.adoc,SolrCloud Configuration and Parameters>>
+** <<setting-up-an-external-zookeeper-ensemble.adoc,Setting Up an External ZooKeeper Ensemble>>
+** <<using-zookeeper-to-manage-configuration-files.adoc,Using ZooKeeper to Manage Configuration Files>>
+** <<zookeeper-access-control.adoc,ZooKeeper Access Control>>
+** <<collections-api.adoc,Collections API>>
+** <<parameter-reference.adoc,Parameter Reference>>
+** <<command-line-utilities.adoc,Command Line Utilities>>
+** <<solrcloud-with-legacy-configuration-files.adoc,SolrCloud with Legacy Configuration Files>>
+** <<configsets-api.adoc,ConfigSets API>>
+* <<rule-based-replica-placement.adoc,Rule-based Replica Placement>>
+* <<cross-data-center-replication-cdcr-.adoc,Cross Data Center Replication (CDCR)>>

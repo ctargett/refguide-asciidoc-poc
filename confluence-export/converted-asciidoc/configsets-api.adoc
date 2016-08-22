@@ -3,16 +3,16 @@ ConfigSets API
 :page-shortname: configsets-api
 :page-permalink: configsets-api.html
 
-The ConfigSets API enables you to create, delete, and otherwise manage ConfigSets. To use a ConfigSet created with this API as the configuration for a collection, use the link:collections-api.html[Collections API].
+The ConfigSets API enables you to create, delete, and otherwise manage ConfigSets. To use a ConfigSet created with this API as the configuration for a collection, use the <<collections-api.adoc,Collections API>>.
 
-This API can only be used with Solr running in SolrCloud mode. If you are not running Solr in SolrCloud mode but would still like to use shared configurations, please see the section link:config-sets.html[Config Sets].
+This API can only be used with Solr running in SolrCloud mode. If you are not running Solr in SolrCloud mode but would still like to use shared configurations, please see the section <<config-sets.adoc,Config Sets>>.
 
 [[ConfigSetsAPI-APIEntryPoints]]
 == API Entry Points
 
 The base URL for all API calls is `http://<hostname>:<port>/solr`.
 
-`/admin/configs?action=CREATE`: link:#ConfigSetsAPI-create[create] a ConfigSet, based on an existing ConfigSet `/admin/configs?action=DELETE`: link:#ConfigSetsAPI-delete[delete]a ConfigSet `/admin/configs?action=LIST`: link:#ConfigSetsAPI-list[list]all ConfigSets
+`/admin/configs?action=CREATE`: <<#ConfigSetsAPI-create,create>> a ConfigSet, based on an existing ConfigSet `/admin/configs?action=DELETE`: link:REL_LINK//#ConfigSetsAPI-delete[delete]a ConfigSet `/admin/configs?action=LIST`: link:REL_LINK//#ConfigSetsAPI-list[list]all ConfigSets
 
 [[ConfigSetsAPI-createCreateaConfigSet]]
 == [[ConfigSetsAPI-create]]Create a ConfigSet

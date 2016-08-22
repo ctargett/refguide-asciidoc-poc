@@ -8,22 +8,22 @@ This section discusses how Solr organizes its data into documents and fields, as
 
 This section includes the following topics:
 
-link:overview-of-documents-fields-and-schema-design.html[Overview of Documents, Fields, and Schema Design]: An introduction to the concepts covered in this section.
+<<overview-of-documents-fields-and-schema-design.adoc,Overview of Documents, Fields, and Schema Design>>: An introduction to the concepts covered in this section.
 
-link:solr-field-types.html[Solr Field Types]: Detailed information about field types in Solr, including the field types in the default Solr schema.
+<<solr-field-types.adoc,Solr Field Types>>: Detailed information about field types in Solr, including the field types in the default Solr schema.
 
-link:defining-fields.html[Defining Fields]: Describes how to define fields in Solr.
+<<defining-fields.adoc,Defining Fields>>: Describes how to define fields in Solr.
 
-link:copying-fields.html[Copying Fields]: Describes how to populate fields with data copied from another field.
+<<copying-fields.adoc,Copying Fields>>: Describes how to populate fields with data copied from another field.
 
-link:dynamic-fields.html[Dynamic Fields]: Information about using dynamic fields in order to catch and index fields that do not exactly conform to other field definitions in your schema.
+<<dynamic-fields.adoc,Dynamic Fields>>: Information about using dynamic fields in order to catch and index fields that do not exactly conform to other field definitions in your schema.
 
-link:schema-api.html[Schema API]: Use curl commands to read various parts of a schema or create new fields and copyField rules.
+<<schema-api.adoc,Schema API>>: Use curl commands to read various parts of a schema or create new fields and copyField rules.
 
-link:other-schema-elements.html[Other Schema Elements]: Describes other important elements in the Solr schema.
+<<other-schema-elements.adoc,Other Schema Elements>>: Describes other important elements in the Solr schema.
 
-link:putting-the-pieces-together.html[Putting the Pieces Together]: A higher-level view of the Solr schema and how its elements work together.
+<<putting-the-pieces-together.adoc,Putting the Pieces Together>>: A higher-level view of the Solr schema and how its elements work together.
 
-link:docvalues.html[DocValues]: Describes how to create a docValues index for faster lookups.
+<<docvalues.adoc,DocValues>>: Describes how to create a docValues index for faster lookups.
 
-link:schemaless-mode.html[Schemaless Mode]: Automatically add previously unknown schema fields using value-based field type guessing.
+<<schemaless-mode.adoc,Schemaless Mode>>: Automatically add previously unknown schema fields using value-based field type guessing.

@@ -4,7 +4,7 @@ Function Queries
 :page-shortname: function-queries
 :page-permalink: function-queries.html
 
-Function queries enable you to generate a relevancy score using the actual value of one or more numeric fields. Function queries are supported by the link:the-dismax-query-parser.html[DisMax], link:the-extended-dismax-query-parser.html[Extended DisMax], and link:the-standard-query-parser.html[standard] query parsers.
+Function queries enable you to generate a relevancy score using the actual value of one or more numeric fields. Function queries are supported by the <<the-dismax-query-parser.adoc,DisMax>>, link:REL_LINK//the-extended-dismax-query-parser.adoc[Extended DisMax], and link:REL_LINK//the-standard-query-parser.adoc[standard] query parsers.
 
 Function queries use __functions__. The functions can be a constant (numeric or string literal), a field, another function or a parameter substitution argument. You can use these functions to modify the ranking of results for users. These could be used to change the ranking of results based on a user's location, or some other calculation.
 
@@ -46,7 +46,7 @@ the output would be:
 <float name="score">0.343</float>
 ...
 ----
-* Use in a parameter that is explicitly for specifying functions, such as the EDisMax query parser's link:the-extended-dismax-query-parser.html[`boost`] param, or DisMax query parser's link:the-dismax-query-parser.html#TheDisMaxQueryParser-Thebf(BoostFunctions)Parameter[`bf` (boost function) parameter]. (Note that the `bf` parameter actually takes a list of function queries separated by white space and each with an optional boost. Make sure you eliminate any internal white space in single function queries when using `bf`). For example:
+* Use in a parameter that is explicitly for specifying functions, such as the EDisMax query parser's <<the-extended-dismax-query-parser.adoc,`boost`>> param, or DisMax query parser's link:REL_LINK//the-dismax-query-parser.adoc#TheDisMaxQueryParser-Thebf(BoostFunctions)Parameter[`bf` (boost function) parameter]. (Note that the `bf` parameter actually takes a list of function queries separated by white space and each with an optional boost. Make sure you eliminate any internal white space in single function queries when using `bf`). For example:
 +
 [source,java]
 ----
@@ -61,7 +61,7 @@ q=_val_:mynumericfield _val_:"recip(rord(myfield),1,2,3)"
 
 Only functions with fast random access are recommended.
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[FunctionQueries-AvailableFunctions]]
 == Available Functions
@@ -130,18 +130,18 @@ An expression can be any function which outputs boolean values, or even function
 |max a|
 Returns the maximum numeric value of multiple nested functions or constants, which are specified as arguments: `max(x,y,...)`. The max function can also be useful for "bottoming out" another function or field at some specified constant.
 
-(Use the `field(myfield,max)` syntax for link:#FunctionQueries-field[selecting the maximum value of a single multivalued field])
+(Use the `field(myfield,max)` syntax for <<#FunctionQueries-field,selecting the maximum value of a single multivalued field>>)
 
  |`max(myfield,myotherfield,0)`
 |maxdoc |Returns the number of documents in the index, including those that are marked as deleted but have not yet been purged. This is a constant (the same value for all documents in the index). |`maxdoc()`
 |min a|
 Returns the minimum numeric value of multiple nested functions of constants, which are specified as arguments: `min(x,y,...)`. The min function can also be useful for providing an "upper bound" on a function using a constant.
 
-(Use the `field(myfield,min)` link:#FunctionQueries-field[syntax for selecting the minimum value of a single multivalued field])
+(Use the `field(myfield,min)` <<#FunctionQueries-field,syntax for selecting the minimum value of a single multivalued field>>)
 
  |`min(myfield,myotherfield,0)`
 |ms a|
-Returns milliseconds of difference between its arguments. Dates are relative to the Unix or POSIX time epoch, midnight, January 1, 1970 UTC. Arguments may be the name of an indexed `TrieDateField`, or date math based on a link:working-with-dates.html[constant date or `NOW`].
+Returns milliseconds of difference between its arguments. Dates are relative to the Unix or POSIX time epoch, midnight, January 1, 1970 UTC. Arguments may be the name of an indexed `TrieDateField`, or date math based on a <<working-with-dates.adoc,constant date or `NOW`>>.
 
 * `ms()`: Equivalent to `ms(NOW)`, number of milliseconds since the epoch.
 * `ms(a):` Returns the number of milliseconds since the epoch that the argument represents.
@@ -164,7 +164,7 @@ See also `rord` below.
  |`ord(myIndexedField)` Example: If there were only three values ("apple","banana","pear") for a particular field X, then: `ord(X) `would be 1 for documents containing "apple", 2 for documnts containing "banana", etc...
 |pow |Raises the specified base to the specified power. `pow(x,y)` raises x to the power of y. |`pow(x,y)` `pow(x,log(y))` `pow(x,0.5):` the same as `sqrt`
 |product |Returns the product of multiple values or functions, which are specified in a comma-separated list. `mul(...)` may also be used as an alias for this function. |`product(x,y,...)` `product(x,2)` `product(x,y)mul(x,y)`
-|query |Returns the score for the given subquery, or the default value for documents not matching the query. Any type of subquery is supported through either parameter de-referencing `$otherparam` or direct specification of the query string in the link:local-parameters-in-queries.html[Local Parameters] through the `v` key. |`query(subquery, default)` `q=product``(popularity,`` query({!dismax v='solr rocks'})`: returns the product of the popularity and the score of the DisMax query. `q=product``(popularity,`` query($qq))&qq={!dismax}solr rocks`: equivalent to the previous query, using parameter de-referencing. `q=product``(popularity,`` query($qq,0.1))``&qq={!dismax}``solr rocks`: specifies a default score of 0.1 for documents that don't match the DisMax query.
+|query |Returns the score for the given subquery, or the default value for documents not matching the query. Any type of subquery is supported through either parameter de-referencing `$otherparam` or direct specification of the query string in the <<local-parameters-in-queries.adoc,Local Parameters>> through the `v` key. |`query(subquery, default)` `q=product``(popularity,`` query({!dismax v='solr rocks'})`: returns the product of the popularity and the score of the DisMax query. `q=product``(popularity,`` query($qq))&qq={!dismax}solr rocks`: equivalent to the previous query, using parameter de-referencing. `q=product``(popularity,`` query($qq,0.1))``&qq={!dismax}``solr rocks`: specifies a default score of 0.1 for documents that don't match the DisMax query.
 |recip a|
 Performs a reciprocal function with `recip(x,m,a,b)` implementing `a/(m*x+b)` where `m,a,b` are constants, and `x` is any arbitrarily complex function.
 
@@ -196,7 +196,7 @@ The `ord()` and `rord()` functions implicitly use `top()`, and hence `ord(foo)` 
 |xor() |Logical exclusive disjunction, or one or the other but not both. |`xor(field1,field2)` returns TRUE if either `field1` or `field2` is true; FALSE if both are true.
 |===============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[FunctionQueries-ExampleFunctionQueries]]
 == Example Function Queries
@@ -216,7 +216,7 @@ Suppose that you also have a field storing the weight of the box as `weight`. To
 http://localhost:8983/solr/collection_name/select?q=boxname:findbox _val_:"div(weight,product(x,y,z))"&fl=boxname x y z weight score
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[FunctionQueries-SortByFunction]]
 == Sort By Function
@@ -241,7 +241,7 @@ would return:
 <float name="score">0.343</float>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[FunctionQueries-RelatedTopics]]
 == Related Topics

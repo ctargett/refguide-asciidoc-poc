@@ -5,41 +5,41 @@ Other Parsers
 
 In addition to the main query parsers discussed earlier, there are several other query parsers that can be used instead of or in conjunction with the main parsers for specific purposes. This section details the other parsers, and gives examples for how they might be used.
 
-Many of these parsers are expressed the same way as link:local-parameters-in-queries.html[Local Parameters in Queries].
+Many of these parsers are expressed the same way as <<local-parameters-in-queries.adoc,Local Parameters in Queries>>.
 
 Query parsers discussed in this section:
 
-* link:#OtherParsers-BlockJoinQueryParsers[Block Join Query Parsers]
-* link:#OtherParsers-BoostQueryParser[Boost Query Parser]
-* link:#OtherParsers-CollapsingQueryParser[Collapsing Query Parser]
-* link:#OtherParsers-ComplexPhraseQueryParser[Complex Phrase Query Parser]
-* link:#OtherParsers-FieldQueryParser[Field Query Parser]
-* link:#OtherParsers-FunctionQueryParser[Function Query Parser]
-* link:#OtherParsers-FunctionRangeQueryParser[Function Range Query Parser]
-* link:#OtherParsers-GraphQueryParser[Graph Query Parser]
+* <<#OtherParsers-BlockJoinQueryParsers,Block Join Query Parsers>>
+* <<#OtherParsers-BoostQueryParser,Boost Query Parser>>
+* <<#OtherParsers-CollapsingQueryParser,Collapsing Query Parser>>
+* <<#OtherParsers-ComplexPhraseQueryParser,Complex Phrase Query Parser>>
+* <<#OtherParsers-FieldQueryParser,Field Query Parser>>
+* <<#OtherParsers-FunctionQueryParser,Function Query Parser>>
+* <<#OtherParsers-FunctionRangeQueryParser,Function Range Query Parser>>
+* <<#OtherParsers-GraphQueryParser,Graph Query Parser>>
 
-* link:#OtherParsers-JoinQueryParser[Join Query Parser]
-* link:#OtherParsers-LuceneQueryParser[Lucene Query Parser]
-* link:#OtherParsers-MaxScoreQueryParser[Max Score Query Parser]
-* link:#OtherParsers-MoreLikeThisQueryParser[More Like This Query Parser]
-* link:#OtherParsers-NestedQueryParser[Nested Query Parser]
-* link:#OtherParsers-OldLuceneQueryParser[Old Lucene Query Parser]
-* link:#OtherParsers-PrefixQueryParser[Prefix Query Parser]
-* link:#OtherParsers-RawQueryParser[Raw Query Parser]
+* <<#OtherParsers-JoinQueryParser,Join Query Parser>>
+* <<#OtherParsers-LuceneQueryParser,Lucene Query Parser>>
+* <<#OtherParsers-MaxScoreQueryParser,Max Score Query Parser>>
+* <<#OtherParsers-MoreLikeThisQueryParser,More Like This Query Parser>>
+* <<#OtherParsers-NestedQueryParser,Nested Query Parser>>
+* <<#OtherParsers-OldLuceneQueryParser,Old Lucene Query Parser>>
+* <<#OtherParsers-PrefixQueryParser,Prefix Query Parser>>
+* <<#OtherParsers-RawQueryParser,Raw Query Parser>>
 
-* link:#OtherParsers-Re-RankingQueryParser[Re-Ranking Query Parser]
-* link:#OtherParsers-SimpleQueryParser[Simple Query Parser]
-* link:#OtherParsers-SpatialQueryParsers[Spatial Query Parsers]
-* link:#OtherParsers-SurroundQueryParser[Surround Query Parser]
-* link:#OtherParsers-SwitchQueryParser[Switch Query Parser]
-* link:#OtherParsers-TermQueryParser[Term Query Parser]
-* link:#OtherParsers-TermsQueryParser[Terms Query Parser]
-* link:#OtherParsers-XMLQueryParser[XML Query Parser]
+* <<#OtherParsers-Re-RankingQueryParser,Re-Ranking Query Parser>>
+* <<#OtherParsers-SimpleQueryParser,Simple Query Parser>>
+* <<#OtherParsers-SpatialQueryParsers,Spatial Query Parsers>>
+* <<#OtherParsers-SurroundQueryParser,Surround Query Parser>>
+* <<#OtherParsers-SwitchQueryParser,Switch Query Parser>>
+* <<#OtherParsers-TermQueryParser,Term Query Parser>>
+* <<#OtherParsers-TermsQueryParser,Terms Query Parser>>
+* <<#OtherParsers-XMLQueryParser,XML Query Parser>>
 
 [[OtherParsers-BlockJoinQueryParsers]]
 == Block Join Query Parsers
 
-There are two query parsers that support block joins. These parsers allow indexing and searching for relational content that has beenlink:uploading-data-with-index-handlers.html[indexed as nested documents].
+There are two query parsers that support block joins. These parsers allow indexing and searching for relational content that has been<<uploading-data-with-index-handlers.adoc,indexed as nested documents>>.
 
 The example usage of the query parsers below assumes these two documents and each of their child documents have been indexed:
 
@@ -145,7 +145,7 @@ Creates a query "foo" which is boosted by the date boosting function referenced 
 
 The `CollapsingQParser` is really a _post filter_ that provides more performant field collapsing than Solr's standard approach when the number of distinct groups in the result set is high. This parser collapses the result set to a single document per group before it forwards the result set to the rest of the search components. So all downstream components (faceting, highlighting, etc...) will work with the collapsed result set.
 
-Details about using the `CollapsingQParser` can be found in the section link:collapse-and-expand-results.html[Collapse and Expand Results].
+Details about using the `CollapsingQParser` can be found in the section <<collapse-and-expand-results.adoc,Collapse and Expand Results>>.
 
 [[OtherParsers-ComplexPhraseQueryParser]]
 == Complex Phrase Query Parser
@@ -193,7 +193,7 @@ You may need to increase MaxBooleanClauses in `solrconfig.xml` as a result of th
 <maxBooleanClauses>4096</maxBooleanClauses>
 ----
 
-This property is described in more detail in the section link:query-settings-in-solrconfig.html#QuerySettingsinSolrConfig-QuerySizingandWarming[Query Sizing and Warming].
+This property is described in more detail in the section <<query-settings-in-solrconfig.adoc#QuerySettingsinSolrConfig-QuerySizingandWarming,Query Sizing and Warming>>.
 
 [[OtherParsers-Stopwords]]
 ==== Stopwords
@@ -233,7 +233,7 @@ This example creates a phrase query with "foo" followed by "bar" (assuming the a
 [[OtherParsers-FunctionQueryParser]]
 == Function Query Parser
 
-The `FunctionQParser` extends the `QParserPlugin` and creates a function query from the input value. This is only one way to use function queries in Solr; for another, more integrated, approach, see the section on link:function-queries.html[Function Queries].
+The `FunctionQParser` extends the `QParserPlugin` and creates a function query from the input value. This is only one way to use function queries in Solr; for another, more integrated, approach, see the section on <<function-queries.adoc,Function Queries>>.
 
 Example:
 
@@ -297,7 +297,7 @@ The `graph` query parser does a breadth first, cyclic aware, graph traversal of 
 [[OtherParsers-Limitations.1]]
 === Limitations
 
-The `graph` parser only works in single node Solr installations, or with link:solrcloud.html[SolrCloud] collections that use exactly 1 shard.
+The `graph` parser only works in single node Solr installations, or with <<solrcloud.adoc,SolrCloud>> collections that use exactly 1 shard.
 
 [[OtherParsers-Examples]]
 === Examples
@@ -603,14 +603,14 @@ Example:
 
 This example constructs the query: `TermQuery(Term("myfield","Foo Bar"))`.
 
-For easy filter construction to drill down in faceting, the link:#OtherParsers-TermQueryParser[TermQParserPlugin] is recommended. For full analysis on all fields, including text fields, you may want to use the link:#OtherParsers-FieldQueryParser[FieldQParserPlugin].
+For easy filter construction to drill down in faceting, the <<#OtherParsers-TermQueryParser,TermQParserPlugin>> is recommended. For full analysis on all fields, including text fields, you may want to use the link:REL_LINK//#OtherParsers-FieldQueryParser[FieldQParserPlugin].
 
 [[OtherParsers-Re-RankingQueryParser]]
 == Re-Ranking Query Parser
 
 The `ReRankQParserPlugin` is a special purpose parser for Re-Ranking the top result of a simple query using a more complex ranking query.
 
-Details about using the `ReRankQParserPlugin` can be found in the link:query-re-ranking.html[Query Re-Ranking] section.
+Details about using the `ReRankQParserPlugin` can be found in the <<query-re-ranking.adoc,Query Re-Ranking>> section.
 
 [[OtherParsers-SimpleQueryParser]]
 == Simple Query Parser
@@ -652,7 +652,7 @@ Any errors in syntax are ignored and the query parser will interpret queries as 
 
 There are two spatial QParsers in Solr: `geofilt` and `bbox`. But there are other ways to query spatially: using the `frange` parser with a distance function, using the standard (lucene) query parser with the range syntax to pick the corners of a rectangle, or with RPT and BBoxField you can use the standard query parser but use a special syntax within quotes that allows you to pick the spatial predicate.
 
-All these things are documented further in the section link:spatial-search.html[Spatial Search] .
+All these things are documented further in the section <<spatial-search.adoc,Spatial Search>> .
 
 [[OtherParsers-SurroundQueryParser]]
 == Surround Query Parser
@@ -740,14 +740,14 @@ Example:
 {!term f=weight}1.5
 ----
 
-For text fields, no analysis is done since raw terms are already returned from the faceting and terms components. To apply analysis to text fields as well, see the link:#OtherParsers-FieldQueryParser[Field Query Parser], above.
+For text fields, no analysis is done since raw terms are already returned from the faceting and terms components. To apply analysis to text fields as well, see the <<#OtherParsers-FieldQueryParser,Field Query Parser>>, above.
 
-If no analysis or transformation is desired for any type of field, see the link:#OtherParsers-RawQueryParser[Raw Query Parser], above.
+If no analysis or transformation is desired for any type of field, see the <<#OtherParsers-RawQueryParser,Raw Query Parser>>, above.
 
 [[OtherParsers-TermsQueryParser]]
 == Terms Query Parser
 
-`TermsQParser`, functions similarly to the link:#OtherParsers-TermQueryParser[Term Query Parser] but takes in multiple values separated by commas and returns documents matching any of the specified values. This can be useful for generating filter queries from the external human readable terms returned by the faceting or terms components, and may be more efficient in some cases than using the link:the-standard-query-parser.html[Standard Query Parser] to generate an boolean query since the default implementation "`method`" avoids scoring.
+`TermsQParser`, functions similarly to the <<#OtherParsers-TermQueryParser,Term Query Parser>> but takes in multiple values separated by commas and returns documents matching any of the specified values. This can be useful for generating filter queries from the external human readable terms returned by the faceting or terms components, and may be more efficient in some cases than using the link:REL_LINK//the-standard-query-parser.adoc[Standard Query Parser] to generate an boolean query since the default implementation "`method`" avoids scoring.
 
 This query parser takes the following parameters:
 

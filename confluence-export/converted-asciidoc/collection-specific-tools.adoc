@@ -10,18 +10,18 @@ Only Visible When using SolrCloud
 
 Note:
 
-The "Collection Selector" pull-down menu is only available on Solr instances running in link:solrcloud.html[SolrCloud mode].
+The "Collection Selector" pull-down menu is only available on Solr instances running in <<solrcloud.adoc,SolrCloud mode>>.
 
-Single node or master/slave replication instances of Solr will not display this menu, instead the Collection specific UI pages described in this section will be available in the link:core-specific-tools.html[Core Selector pull-down menu].
+Single node or master/slave replication instances of Solr will not display this menu, instead the Collection specific UI pages described in this section will be available in the <<core-specific-tools.adoc,Core Selector pull-down menu>>.
 
 Clicking on the Collection Selector pull-down menu will show a list of the collections in your Solr cluster, with a search box that can be used to find a specific collection by name. When you select a collection from the pull-down, the main display of the page will display some basic metadata about the collection, and a secondary menu will appear in the left nav with links to additional collection specific administration screens.
 
 The collection-specific UI screens are listed below, with a link to the section of this guide to find out more:
 
-* link:analysis-screen.html[Analysis] - lets you analyze the data found in specific fields.
-* link:dataimport-screen.html[Dataimport] - shows you information about the current status of the Data Import Handler.
-* link:documents-screen.html[Documents] - provides a simple form allowing you to execute various Solr indexing commands directly from the browser.
-* link:files-screen.html[Files] - shows the current core configuration files such as `solrconfig.xml`.
-* link:query-screen.html[Query] - lets you submit a structured query about various elements of a core.
-* link:stream-screen.html[Stream] - allows you to submit streaming expressions and see results and parsing explanations.
-* link:schema-browser-screen.html[Schema Browser] - displays schema data in a browser window.
+* <<analysis-screen.adoc,Analysis>> - lets you analyze the data found in specific fields.
+* <<dataimport-screen.adoc,Dataimport>> - shows you information about the current status of the Data Import Handler.
+* <<documents-screen.adoc,Documents>> - provides a simple form allowing you to execute various Solr indexing commands directly from the browser.
+* <<files-screen.adoc,Files>> - shows the current core configuration files such as `solrconfig.xml`.
+* <<query-screen.adoc,Query>> - lets you submit a structured query about various elements of a core.
+* <<stream-screen.adoc,Stream>> - allows you to submit streaming expressions and see results and parsing explanations.
+* <<schema-browser-screen.adoc,Schema Browser>> - displays schema data in a browser window.

@@ -6,7 +6,7 @@ Language Analysis
 
 This section contains information about tokenizers and filters related to character set conversion or for use with specific languages. For the European languages, tokenization is fairly straightforward. Tokens are delimited by white space and/or a relatively small set of punctuation characters. In other languages the tokenization rules are often not so simple. Some European languages may require special tokenization rules as well, such as rules for decompounding German words.
 
-For information about language detection at index time, see link:detecting-languages-during-indexing.html[Detecting Languages During Indexing].
+For information about language detection at index time, see <<detecting-languages-during-indexing.adoc,Detecting Languages During Indexing>>.
 
 toc::[]
 
@@ -15,7 +15,7 @@ toc::[]
 
 Protects words from being modified by stemmers. A customized protected word list may be specified with the "protected" attribute in the schema. Any words in the protected word list will not be modified by any stemmer in Solr.
 
-A sample Solr `protwords.txt` with comments can be found in the `sample_techproducts_configs` link:config-sets.html[config set] directory:
+A sample Solr `protwords.txt` with comments can be found in the `sample_techproducts_configs` <<config-sets.adoc,config set>> directory:
 
 [source,xml]
 ----
@@ -28,7 +28,7 @@ A sample Solr `protwords.txt` with comments can be found in the `sample_techprod
 </fieldtype>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-KeywordRepeatFilterFactory]]
 == KeywordRepeatFilterFactory
@@ -55,7 +55,7 @@ Note:
 
 When adding the same token twice, it will also score twice (double), so you may have to re-tune your ranking rules.
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-StemmerOverrideFilterFactory]]
 == StemmerOverrideFilterFactory
@@ -77,7 +77,7 @@ A sample http://svn.apache.org/repos/asf/lucene/dev/trunk/solr/core/src/test-fil
 </fieldtype>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-DictionaryCompoundWordTokenFilter]]
 == Dictionary Compound Word Token Filter
@@ -118,7 +118,7 @@ Assume that `germanwords.txt` contains at least the following words: `dumm kopf 
 
 *Out:* "Donaudampfschiff"(1), "Donau"(1), "dampf"(1), "schiff"(1), "dummkopf"(2), "dumm"(2), "kopf"(2)
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-UnicodeCollation]]
 == Unicode Collation
@@ -311,7 +311,7 @@ Using a Tailored ruleset:
 <copyField source="manu" dest="manuGERMAN"/>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-ASCII&DecimalFoldingFilters]]
 == ASCII & Decimal Folding Filters
@@ -364,50 +364,50 @@ This can increase recall by causing more matches. On the other hand, it can redu
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Language-SpecificFactories]]
 == Language-Specific Factories
 
 These factories are each designed to work with specific languages. The languages covered here are:
 
-* link:#LanguageAnalysis-Arabic[Arabic]
-* link:#LanguageAnalysis-BrazilianPortuguese[Brazilian Portuguese]
-* link:#LanguageAnalysis-Bulgarian[Bulgarian]
-* link:#LanguageAnalysis-Catalan[Catalan]
-* link:#LanguageAnalysis-Chinese[Chinese]
-* link:#LanguageAnalysis-SimplifiedChinese[Simplified Chinese]
-* link:#LanguageAnalysis-CJK[CJK]
-* link:#LanguageAnalysis-Czech[Czech]
-* link:#LanguageAnalysis-Danish[Danish]
+* <<#LanguageAnalysis-Arabic,Arabic>>
+* <<#LanguageAnalysis-BrazilianPortuguese,Brazilian Portuguese>>
+* <<#LanguageAnalysis-Bulgarian,Bulgarian>>
+* <<#LanguageAnalysis-Catalan,Catalan>>
+* <<#LanguageAnalysis-Chinese,Chinese>>
+* <<#LanguageAnalysis-SimplifiedChinese,Simplified Chinese>>
+* <<#LanguageAnalysis-CJK,CJK>>
+* <<#LanguageAnalysis-Czech,Czech>>
+* <<#LanguageAnalysis-Danish,Danish>>
 
-* link:#LanguageAnalysis-Dutch[Dutch]
-* link:#LanguageAnalysis-Finnish[Finnish]
-* link:#LanguageAnalysis-French[French]
-* link:#LanguageAnalysis-Galician[Galician]
-* link:#LanguageAnalysis-German[German]
-* link:#LanguageAnalysis-Greek[Greek]
-* link:#LanguageAnalysis-Hebrew,Lao,Myanmar,Khmer[Hebrew, Lao, Myanmar, Khmer]
-* link:#LanguageAnalysis-Hindi[Hindi]
+* <<#LanguageAnalysis-Dutch,Dutch>>
+* <<#LanguageAnalysis-Finnish,Finnish>>
+* <<#LanguageAnalysis-French,French>>
+* <<#LanguageAnalysis-Galician,Galician>>
+* <<#LanguageAnalysis-German,German>>
+* <<#LanguageAnalysis-Greek,Greek>>
+* <<#LanguageAnalysis-Hebrew,Lao,Myanmar,Khmer,Hebrew, Lao, Myanmar, Khmer>>
+* <<#LanguageAnalysis-Hindi,Hindi>>
 
-* link:#LanguageAnalysis-Indonesian[Indonesian]
-* link:#LanguageAnalysis-Italian[Italian]
-* link:#LanguageAnalysis-Irish[Irish]
-* link:#LanguageAnalysis-Japanese[Japanese]
-* link:#LanguageAnalysis-Latvian[Latvian]
-* link:#LanguageAnalysis-Norwegian[Norwegian]
-* link:#LanguageAnalysis-Persian[Persian]
-* link:#LanguageAnalysis-Polish[Polish]
-* link:#LanguageAnalysis-Portuguese[Portuguese]
+* <<#LanguageAnalysis-Indonesian,Indonesian>>
+* <<#LanguageAnalysis-Italian,Italian>>
+* <<#LanguageAnalysis-Irish,Irish>>
+* <<#LanguageAnalysis-Japanese,Japanese>>
+* <<#LanguageAnalysis-Latvian,Latvian>>
+* <<#LanguageAnalysis-Norwegian,Norwegian>>
+* <<#LanguageAnalysis-Persian,Persian>>
+* <<#LanguageAnalysis-Polish,Polish>>
+* <<#LanguageAnalysis-Portuguese,Portuguese>>
 
-* link:#LanguageAnalysis-Romanian[Romanian]
-* link:#LanguageAnalysis-Russian[Russian]
-* link:#LanguageAnalysis-Scandinavian[Scandinavian]
-* link:#LanguageAnalysis-Serbian[Serbian]
-* link:#LanguageAnalysis-Spanish[Spanish]
-* link:#LanguageAnalysis-Swedish[Swedish]
-* link:#LanguageAnalysis-Thai[Thai]
-* link:#LanguageAnalysis-Turkish[Turkish]
+* <<#LanguageAnalysis-Romanian,Romanian>>
+* <<#LanguageAnalysis-Russian,Russian>>
+* <<#LanguageAnalysis-Scandinavian,Scandinavian>>
+* <<#LanguageAnalysis-Serbian,Serbian>>
+* <<#LanguageAnalysis-Spanish,Spanish>>
+* <<#LanguageAnalysis-Swedish,Swedish>>
+* <<#LanguageAnalysis-Thai,Thai>>
+* <<#LanguageAnalysis-Turkish,Turkish>>
 
 [[LanguageAnalysis-Arabic]]
 === Arabic
@@ -431,7 +431,7 @@ This algorithm defines both character normalization and stemming, so these are s
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-BrazilianPortuguese]]
 === Brazilian Portuguese
@@ -458,7 +458,7 @@ This is a Java filter written specifically for stemming the Brazilian dialect of
 
 *Out:* "pra", "pra"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Bulgarian]]
 === Bulgarian
@@ -480,7 +480,7 @@ Solr includes a light stemmer for Bulgarian, following http://members.unine.ch/j
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Catalan]]
 === Catalan
@@ -512,7 +512,7 @@ Solr can stem Catalan using the Snowball Porter Stemmer with an argument of `lan
 
 *Out:* "llengu"(1), "llengu"(2)
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Chinese]]
 === Chinese
@@ -520,7 +520,7 @@ link:#main[Back to Top]
 [[LanguageAnalysis-ChineseTokenizer]]
 ==== Chinese Tokenizer
 
-The Chinese Tokenizer is deprecated as of Solr 3.4. Use the link:tokenizers.html#Tokenizers-StandardTokenizer[`solr.StandardTokenizerFactory`] instead.
+The Chinese Tokenizer is deprecated as of Solr 3.4. Use the <<tokenizers.adoc#Tokenizers-StandardTokenizer,`solr.StandardTokenizerFactory`>> instead.
 
 *Factory class:* `solr.ChineseTokenizerFactory`
 
@@ -538,7 +538,7 @@ The Chinese Tokenizer is deprecated as of Solr 3.4. Use the link:tokenizers.html
 [[LanguageAnalysis-ChineseFilterFactory]]
 ==== Chinese Filter Factory
 
-The Chinese Filter Factory is deprecated as of Solr 3.4. Use the link:filter-descriptions.html#FilterDescriptions-StopFilter[`solr.StopFilterFactory`] instead.
+The Chinese Filter Factory is deprecated as of Solr 3.4. Use the <<filter-descriptions.adoc#FilterDescriptions-StopFilter,`solr.StopFilterFactory`>> instead.
 
 *Factory class:* `solr.ChineseFilterFactory`
 
@@ -554,7 +554,7 @@ The Chinese Filter Factory is deprecated as of Solr 3.4. Use the link:filter-des
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-SimplifiedChinese]]
 === Simplified Chinese
@@ -583,7 +583,7 @@ Or to configure your own analysis setup, use the `solr.HMMChineseTokenizerFactor
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-CJK]]
 === CJK
@@ -603,7 +603,7 @@ This tokenizer breaks Chinese, Japanese and Korean language text into tokens. Th
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Czech]]
 === Czech
@@ -631,14 +631,14 @@ Solr includes a light stemmer for Czech, following https://dl.acm.org/citation.c
 
 *Out:* "preziden", "preziden", "preziden"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Danish]]
 === Danish
 
 Solr can stem Danish using the Snowball Porter Stemmer with an argument of `language="Danish"`.
 
-Also relevant are the link:#LanguageAnalysis-Scandinavian[Scandinavian normalization filters].
+Also relevant are the <<#LanguageAnalysis-Scandinavian,Scandinavian normalization filters>>.
 
 *Factory class:* `solr.SnowballPorterFilterFactory`
 
@@ -663,7 +663,7 @@ Also relevant are the link:#LanguageAnalysis-Scandinavian[Scandinavian normaliza
 
 *Out:* "undersøg"(1), "undersøg"(2)
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Dutch]]
 === Dutch
@@ -693,7 +693,7 @@ Solr can stem Dutch using the Snowball Porter Stemmer with an argument of `langu
 
 *Out:* "kanal", "kanal"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Finnish]]
 === Finnish
@@ -720,7 +720,7 @@ Solr includes support for stemming Finnish, and Lucene includes an example stopw
 
 *Out:* "kala", "kala"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-French]]
 === French
@@ -795,7 +795,7 @@ Solr includes three stemmers for French: one in the `solr.SnowballPorterFilterFa
 
 *Out:* "le", "chat", "le", "chat"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Galician]]
 === Galician
@@ -823,7 +823,7 @@ Solr includes a stemmer for Galician following http://bvg.udc.es/recursos_lingua
 
 *Out:* "feliz", "luz"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-German]]
 === German
@@ -866,7 +866,7 @@ Solr includes four stemmers for German: one in the `solr.SnowballPorterFilterFac
 
 *Out:* "haus", "haus"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Greek]]
 === Greek
@@ -891,7 +891,7 @@ Use of custom charsets is not longer supported as of Solr 3.1. If you need to in
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Hindi]]
 === Hindi
@@ -914,7 +914,7 @@ Solr includes support for stemming Hindi following http://computing.open.ac.uk/S
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Indonesian]]
 === Indonesian
@@ -942,7 +942,7 @@ Solr includes support for stemming Indonesian (Bahasa Indonesia) following http:
 
 *Out:* "bagai", "bagai"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Italian]]
 === Italian
@@ -972,7 +972,7 @@ Solr includes two stemmers for Italian: one in the `solr.SnowballPorterFilterFac
 
 *Out:* "propag", "propag", "propag"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Irish]]
 === Irish
@@ -1004,7 +1004,7 @@ Solr can stem Irish using the Snowball Porter Stemmer with an argument of `langu
 
 *Out:* "siopadóir", "síceapaite", "fearr", "athair"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Japanese]]
 === Japanese
@@ -1077,7 +1077,7 @@ Removes terms with one of the configured parts-of-speech. `JapaneseTokenizer` an
 
 *Arguments:*
 
-`tags`: filename for a list of parts-of-speech for which to remove terms; see `conf/lang/stoptags_ja.txt` in the `sample_techproducts_config` link:config-sets.html[config set] for an example.
+`tags`: filename for a list of parts-of-speech for which to remove terms; see `conf/lang/stoptags_ja.txt` in the `sample_techproducts_config` <<config-sets.adoc,config set>> for an example.
 
 `enablePositionIncrements`: if `luceneMatchVersion` is `4.3` or earlier and `enablePositionIncrements="false"`, no position holes will be left by this filter when it removes tokens. *This argument is invalid if `luceneMatchVersion` is `5.0` or later.*
 
@@ -1122,16 +1122,16 @@ Example:
 </fieldType>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Hebrew,Lao,Myanmar,Khmer]]
 === Hebrew, Lao, Myanmar, Khmer
 
 Lucene provides support, in addition to UAX#29 word break rules, for Hebrew's use of the double and single quote characters, and for segmenting Lao, Myanmar, and Khmer into syllables with the `solr.ICUTokenizerFactory` in the `analysis-extras` contrib module. To use this tokenizer, see `solr/contrib/analysis-extras/README.txt for` instructions on which jars you need to add to your `solr_home/lib`.
 
-See link:tokenizers.html#Tokenizers-ICUTokenizer[the ICUTokenizer] for more information.
+See <<tokenizers.adoc#Tokenizers-ICUTokenizer,the ICUTokenizer>> for more information.
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Latvian]]
 === Latvian
@@ -1161,7 +1161,7 @@ Solr includes support for stemming Latvian, and Lucene includes an example stopw
 
 *Out:* "tirg", "tirg"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Norwegian]]
 === Norwegian
@@ -1170,7 +1170,7 @@ Solr includes two classes for stemming Norwegian, `NorwegianLightStemFilterFacto
 
 Another option is to use the Snowball Porter Stemmer with an argument of language="Norwegian".
 
-Also relevant are the link:#LanguageAnalysis-Scandinavian[Scandinavian normalization filters].
+Also relevant are the <<#LanguageAnalysis-Scandinavian,Scandinavian normalization filters>>.
 
 [[LanguageAnalysis-NorwegianLightStemmer]]
 ==== Norwegian Light Stemmer
@@ -1253,7 +1253,7 @@ The `NorwegianMinimalStemFilterFactory` stems plural forms of Norwegian nouns on
 
 *Out:* "bil"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Persian]]
 === Persian
@@ -1278,7 +1278,7 @@ Solr includes support for normalizing Persian, and Lucene includes an example st
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Polish]]
 === Polish
@@ -1319,7 +1319,7 @@ More information about the Stempel stemmer is available in http://lucene.apache.
 
 The Morfologik dictionary param value is a constant specifying which dictionary to choose. The dictionary resource must be named `morfologik/stemming/language/language.dict` and have an associated `.info` metadata file. See http://morfologik.blogspot.com/[the Morfologik project] for details. If the dictionary attribute is not provided, the Polish dictionary is loaded and used by default.
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Portuguese]]
 === Portuguese
@@ -1365,7 +1365,7 @@ Solr includes four stemmers for Portuguese: one in the `solr.SnowballPorterFilte
 
 *Out:* "pra", "pra"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Romanian]]
 === Romanian
@@ -1389,7 +1389,7 @@ Solr can stem Romanian using the Snowball Porter Stemmer with an argument of `la
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Russian]]
 === Russian
@@ -1418,12 +1418,12 @@ Use of custom charsets is no longer supported as of Solr 3.4. If you need to ind
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Scandinavian]]
 === Scandinavian
 
-Scandinavian is a language group spanning three languages link:#LanguageAnalysis-Norwegian[Norwegian], link:#LanguageAnalysis-Swed[Swedish] and link:#LanguageAnalysis-Danish[Danish] which are very similar.
+Scandinavian is a language group spanning three languages <<#LanguageAnalysis-Norwegian,Norwegian>>, link:REL_LINK//#LanguageAnalysis-Swed[Swedish] and link:REL_LINK//#LanguageAnalysis-Danish[Danish] which are very similar.
 
 Swedish å,ä,ö are in fact the same letters as Norwegian and Danish å,æ,ø and thus interchangeable when used between these languages. They are however folded differently when people type them on a keyboard lacking these characters.
 
@@ -1489,7 +1489,7 @@ It's is a semantically more destructive solution than `ScandinavianNormalization
 
 *Out:* "blabarsyltetoj", "blabarsyltetoj", "blabarsyltetoj", "blabarsyltetoj"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Serbian]]
 === Serbian
@@ -1519,7 +1519,7 @@ See the Solr wiki for tips & advice on using this filter: https://wiki.apache.or
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Spanish]]
 === Spanish
@@ -1547,7 +1547,7 @@ Solr includes two stemmers for Spanish: one in the `solr.SnowballPorterFilterFac
 
 *Out:* "tor", "tor", "tor"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Swedish]]
 === Swedish
@@ -1557,7 +1557,7 @@ link:#main[Back to Top]
 
 Solr includes two stemmers for Swedish: one in the `solr.SnowballPorterFilterFactory language="Swedish"`, and a lighter stemmer called `solr.SwedishLightStemFilterFactory`. Lucene includes an example stopword list.
 
-Also relevant are the link:#LanguageAnalysis-Scandinavian[Scandinavian normalization filters].
+Also relevant are the <<#LanguageAnalysis-Scandinavian,Scandinavian normalization filters>>.
 
 *Factory class:* `solr.SwedishStemFilterFactory`
 
@@ -1580,7 +1580,7 @@ Also relevant are the link:#LanguageAnalysis-Scandinavian[Scandinavian normaliza
 
 *Out:* "klok", "klok", "klok"
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Thai]]
 === Thai
@@ -1601,7 +1601,7 @@ This filter converts sequences of Thai characters into individual Thai words. Un
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-Turkish]]
 === Turkish
@@ -1639,7 +1639,7 @@ Solr includes support for stemming Turkish through the `solr.SnowballPorterFilte
 </analyzer>
 ----
 
-link:#main[Back to Top]
+<<#main,Back to Top>>
 
 [[LanguageAnalysis-RelatedTopics]]
 == Related Topics

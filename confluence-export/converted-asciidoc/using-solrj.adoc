@@ -7,7 +7,7 @@ http://lucene.apache.org/solr/6_1_0/solr-solrj/[SolrJ] is an API that makes it e
 
 The center of SolrJ is the `org.apache.solr.client.solrj` package, which contains just five main classes. Begin by creating a ` SolrClient`, which represents the Solr instance you want to use. Then send `SolrRequests` or `SolrQuerys` and get back SolrResponses.
 
-`SolrClient` is abstract, so to connect to a remote Solr instance, you'll actually create an instance of either ` HttpSolrClient`, or http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/impl/CloudSolrClient.html[`CloudSolrClient`]. Both communicate with Solr via HTTP, the difference is that `HttpSolrClient` is configured using an explicit Solr URL, while `CloudSolrClient` is configured using the zkHost String for a link:solrcloud.html[SolrCloud] cluster.
+`SolrClient` is abstract, so to connect to a remote Solr instance, you'll actually create an instance of either ` HttpSolrClient`, or http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/impl/CloudSolrClient.html[`CloudSolrClient`]. Both communicate with Solr via HTTP, the difference is that `HttpSolrClient` is configured using an explicit Solr URL, while `CloudSolrClient` is configured using the zkHost String for a <<solrcloud.adoc,SolrCloud>> cluster.
 
 *Single node Solr client*
 
@@ -142,6 +142,6 @@ When implementing java applications that will be bulk loading a lot of documents
 [[UsingSolrJ-EmbeddedSolrServer]]
 == EmbeddedSolrServer
 
-The ` EmbeddedSolrServer ` class provides an implementation of the `SolrClient` client API talking directly to an micro-instance of Solr running directly in your Java application. This embedded approach is not recommended in most cases and fairly limited in the set of features it supports – in particular it can not be used with link:solrcloud.html[SolrCloud] or link:index-replication.html[Index Replication]. `EmbeddedSolrServer` exists primarily to help facilitate testing.
+The ` EmbeddedSolrServer ` class provides an implementation of the `SolrClient` client API talking directly to an micro-instance of Solr running directly in your Java application. This embedded approach is not recommended in most cases and fairly limited in the set of features it supports – in particular it can not be used with <<solrcloud.adoc,SolrCloud>> or link:REL_LINK//index-replication.adoc[Index Replication]. `EmbeddedSolrServer` exists primarily to help facilitate testing.
 
 For information on how to use `EmbeddedSolrServer` please review the SolrJ JUnit tests in the `org.apache.solr.client.solrj.embedded` package of the Solr source release.

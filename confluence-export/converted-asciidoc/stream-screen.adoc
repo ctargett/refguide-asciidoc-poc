@@ -3,7 +3,7 @@ Stream Screen
 :page-shortname: stream-screen
 :page-permalink: stream-screen.html
 
-The Stream screen allows you to enter a link:streaming-expressions.html[streaming expression] and see the results. It is very similar to the link:query-screen.html[Query Screen], except the input box is at the top and all options must be declared in the expression.
+The Stream screen allows you to enter a <<streaming-expressions.adoc,streaming expression>> and see the results. It is very similar to the link:REL_LINK//query-screen.adoc[Query Screen], except the input box is at the top and all options must be declared in the expression.
 
 The screen will insert everything up to the streaming expression itself, so you do not need to enter the full URI with the hostname, port, collection, etc. Simply input the expression after the `expr=` part, and the URL will be constructed dynamically as appropriate.
 

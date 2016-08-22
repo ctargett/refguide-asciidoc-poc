@@ -3,7 +3,7 @@ The Extended DisMax Query Parser
 :page-shortname: the-extended-dismax-query-parser
 :page-permalink: the-extended-dismax-query-parser.html
 
-The Extended DisMax (eDisMax) query parser is an improved version of the link:the-dismax-query-parser.html[DisMax query parser]. In addition to supporting all the DisMax query parser parameters, Extended Dismax:
+The Extended DisMax (eDisMax) query parser is an improved version of the <<the-dismax-query-parser.adoc,DisMax query parser>>. In addition to supporting all the DisMax query parser parameters, Extended Dismax:
 
 * supports the full Lucene query parser syntax.
 * supports queries such as AND, OR, NOT, -, and +.
@@ -18,12 +18,12 @@ The Extended DisMax (eDisMax) query parser is an improved version of the link:th
 [[TheExtendedDisMaxQueryParser-ExtendedDisMaxParameters]]
 == Extended DisMax Parameters
 
-In addition to all the link:the-dismax-query-parser.html#TheDisMaxQueryParser-DisMaxParameters[DisMax parameters], Extended DisMax includes these query parameters:
+In addition to all the <<the-dismax-query-parser.adoc#TheDisMaxQueryParser-DisMaxParameters,DisMax parameters>>, Extended DisMax includes these query parameters:
 
 [[TheExtendedDisMaxQueryParser-Themm.autoRelaxParameter]]
 === The mm.autoRelax Parameter
 
-If true, the number of clauses required (link:the-dismax-query-parser.html#TheDisMaxQueryParser-Themm(MinimumShouldMatch)Parameter[minimum should match]) will automatically be relaxed if a clause is removed (by e.g. stopwords filter) from some but not all `qf` fields. Use this parameter as a workaround if you experience that queries return zero hits due to uneven stopword removal between the `qf` fields.
+If true, the number of clauses required (<<the-dismax-query-parser.adoc#TheDisMaxQueryParser-Themm(MinimumShouldMatch)Parameter,minimum should match>>) will automatically be relaxed if a clause is removed (by e.g. stopwords filter) from some but not all `qf` fields. Use this parameter as a workaround if you experience that queries return zero hits due to uneven stopword removal between the `qf` fields.
 
 Note that relaxing mm may cause undesired side effects, hurting the precision of the search, depending on the nature of your index content.
 

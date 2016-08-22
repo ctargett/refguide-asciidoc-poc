@@ -44,4 +44,7 @@ do
     
     # convert to .asciidoc format using pandoc
     pandoc $HTML_DIR/$FNAME -f html -t asciidoc -i --parse-raw --wrap=none --standalone --atx-headers --template=$PANDOC_TEMPLATE -o ${ASCII_DIR}/${FNAME%.*}.adoc
+
+    # fix up relative links (in place edit)
+    perl -i -pe 's{link:REL_LINK//(.*?)\[(.*?)\]}{\<\<$1,$2\>\>}' ${ASCII_DIR}/${FNAME%.*}.adoc
 done;

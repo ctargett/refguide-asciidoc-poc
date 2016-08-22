@@ -86,7 +86,7 @@ We'll cover some additional configuration settings you can make to fine-tune you
 [[TakingSolrtoProduction-SolrHomeDirectory]]
 ==== Solr Home Directory
 
-The Solr home directory (not to be confused with the Solr installation directory) is where Solr manages core directories with index files. By default, the installation script uses `/var/solr/data`. If the `-d` option is used on the install script, then this will change to the `data` subdirectory in the location given to the -d option. Take a moment to inspect the contents of the Solr home directory on your system. If you do notlink:using-zookeeper-to-manage-configuration-files.html[store `solr.xml` in ZooKeeper], the home directory must contain a `solr.xml` file. When Solr starts up, the Solr start script passes the location of the home directory using the `-Dsolr.solr.home `system property.
+The Solr home directory (not to be confused with the Solr installation directory) is where Solr manages core directories with index files. By default, the installation script uses `/var/solr/data`. If the `-d` option is used on the install script, then this will change to the `data` subdirectory in the location given to the -d option. Take a moment to inspect the contents of the Solr home directory on your system. If you do not<<using-zookeeper-to-manage-configuration-files.adoc,store `solr.xml` in ZooKeeper>>, the home directory must contain a `solr.xml` file. When Solr starts up, the Solr start script passes the location of the home directory using the `-Dsolr.solr.home `system property.
 
 [[TakingSolrtoProduction-Environmentoverridesincludefile]]
 ==== Environment overrides include file
@@ -112,7 +112,7 @@ LOG4J_PROPS=/var/solr/log4j.properties
 SOLR_LOGS_DIR=/var/solr/logs
 ----
 
-For more information about Log4J configuration, please see: link:configuring-logging.html[Configuring Logging]
+For more information about Log4J configuration, please see: <<configuring-logging.adoc,Configuring Logging>>
 
 [[TakingSolrtoProduction-init.dscript]]
 ==== init.d script
@@ -173,7 +173,7 @@ By default, the `bin/solr` script sets the maximum Java heap size to 512M (-Xmx5
 SOLR_JAVA_MEM="-Xms10g -Xmx10g"
 ----
 
-Also, the include file comes with a set of pre-configured Java Garbage Collection settings that have shown to work well with Solr for a number of different workloads. However, these settings may not work well for your specific use of Solr. Consequently, you may need to change the GC settings, which should also be done with the `GC_TUNE` variable in the `/etc/default/solr.in.sh` include file. For more information about tuning your memory and garbage collection settings, see: link:jvm-settings.html[JVM Settings].
+Also, the include file comes with a set of pre-configured Java Garbage Collection settings that have shown to work well with Solr for a number of different workloads. However, these settings may not work well for your specific use of Solr. Consequently, you may need to change the GC settings, which should also be done with the `GC_TUNE` variable in the `/etc/default/solr.in.sh` include file. For more information about tuning your memory and garbage collection settings, see: <<jvm-settings.adoc,JVM Settings>>.
 
 [[TakingSolrtoProduction-Out-of-MemoryShutdownHook]]
 ==== Out-of-Memory Shutdown Hook
@@ -211,7 +211,7 @@ $ server/scripts/cloud-scripts/zkcli.sh -zkhost zk1,zk2,zk3 -cmd makepath /solr
 
 Note:
 
-If you also want to bootstrap ZooKeeper with existing `solr_home`, you can instead use use `zkcli.sh` / `zkcli.bat`'s `bootstrap` command, which will also create the chroot path if it does not exist. See link:command-line-utilities.html[Command Line Utilities] for more info.
+If you also want to bootstrap ZooKeeper with existing `solr_home`, you can instead use use `zkcli.sh` / `zkcli.bat`'s `bootstrap` command, which will also create the chroot path if it does not exist. See <<command-line-utilities.adoc,Command Line Utilities>> for more info.
 
 [[TakingSolrtoProduction-SolrHostname]]
 === Solr Hostname

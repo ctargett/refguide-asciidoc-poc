@@ -8,10 +8,10 @@ In the left-hand navigation bar, you will see a pull-down menu titled "Core Sele
 
 The core-specific UI screens are listed below, with a link to the section of this guide to find out more:
 
-* link:ping.html[Ping] - lets you ping a named core and determine whether the core is active.
-* link:plugins-stats-screen.html[Plugins/Stats] - shows statistics for plugins and other installed components.
-* link:replication-screen.html[Replication] - shows you the current replication status for the core, and lets you enable/disable replication.
-* link:segments-info.html[Segments Info] - Provides a visualization of the underlying Lucene index segments.
+* <<ping.adoc,Ping>> - lets you ping a named core and determine whether the core is active.
+* <<plugins-stats-screen.adoc,Plugins/Stats>> - shows statistics for plugins and other installed components.
+* <<replication-screen.adoc,Replication>> - shows you the current replication status for the core, and lets you enable/disable replication.
+* <<segments-info.adoc,Segments Info>> - Provides a visualization of the underlying Lucene index segments.
 
 If you are running a single node instance of Solr, additional UI screens normally displayed on a per-collection bases will also be listed:
 

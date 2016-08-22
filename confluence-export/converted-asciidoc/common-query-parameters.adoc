@@ -3,26 +3,26 @@ Common Query Parameters
 :page-shortname: common-query-parameters
 :page-permalink: common-query-parameters.html
 
-The table below summarizes Solr's common query parameters, which are supported by the link:the-standard-query-parser.html[Standard], link:the-dismax-query-parser.html[DisMax], and link:the-extended-dismax-query-parser.html[eDisMax] Request Handlers.
+The table below summarizes Solr's common query parameters, which are supported by the <<the-standard-query-parser.adoc,Standard>>, link:REL_LINK//the-dismax-query-parser.adoc[DisMax], and link:REL_LINK//the-extended-dismax-query-parser.adoc[eDisMax] Request Handlers.
 
 [width="100%",cols="50%,50%",options="header",]
-|================================================================================================================================================================================================================================================================================================================================================================================================================
+|==========================================================================================================================================================================================================================================================================================================================================================================================================================
 |Parameter |Description
-|link:#CommonQueryParameters-ThedefTypeParameter[defType] |Selects the query parser to be used to process the query.
-|link:#CommonQueryParameters-ThesortParameter[sort] |Sorts the response to a query in either ascending or descending order based on the response's score or another specified characteristic.
-|link:#CommonQueryParameters-ThestartParameter[start] |Specifies an offset (by default, 0) into the responses at which Solr should begin displaying content.
-|link:#CommonQueryParameters-TherowsParameter[rows] |Controls how many rows of responses are displayed at a time (default value: 10)
-|link:#CommonQueryParameters-Thefq(FilterQuery)Parameter[fq] |Applies a filter query to the search results.
-|link:#CommonQueryParameters-Thefl(FieldList)Parameter[fl] |Limits the information included in a query response to a specified list of fields. The fields need to either be `stored="true"` or `docValues="true"`
-|link:#CommonQueryParameters-ThedebugParameter[debug] |Request additional debugging information in the response. Specifying the `debug=timing` parameter returns just the timing information; specifying the `debug=results` parameter returns "explain" information for each of the documents returned; specifying the `debug=query parameter` returns all of the debug information.
-|link:#CommonQueryParameters-TheexplainOtherParameter[explainOther] |Allows clients to specify a Lucene query to identify a set of documents. If non-blank, the explain info of each document which matches this query, relative to the main query (specified by the q parameter) will be returned along with the rest of the debugging information.
-|link:#CommonQueryParameters-ThetimeAllowedParameter[timeAllowed] |Defines the time allowed for the query to be processed. If the time elapses before the query response is complete, partial information may be returned.
-|link:#CommonQueryParameters-ThesegmentTerminateEarlyParameter[segmentTerminateEarly] |Indicates that, if possible, Solr should stop collecting documents from each individual (sorted) segment once it can determine that any subsequent documents in that segment will not be candidates for the `rows` being returned. The default is false.
-|link:#CommonQueryParameters-TheomitHeaderParameter[omitHeader] |Excludes the header from the returned results, if set to true. The header contains information about the request, such as the time the request took to complete. The default is false.
-|link:#CommonQueryParameters-ThewtParameter[wt] |Specifies the Response Writer to be used to format the query response.
-|link:#CommonQueryParameters-ThelogParamsListParameter[logParamsList] |By default, Solr logs all parameters. Set this parameter to restrict which parameters are logged. Valid entries are the parameters to be logged, separated by commas (i.e., `logParamsList=param1,param2`). An empty list will log no parameters, so if logging all parameters is desired, do not define this additional parameter at all.
-|link:#CommonQueryParameters-TheechoParamsParameter[echoParams] |The response header can include parameters sent with the query request. This parameter controls what is contained in that section of the response header. Valid values are `none`, `all`, and `explicit`. The default value is `explicit.`
-|================================================================================================================================================================================================================================================================================================================================================================================================================
+|<<#CommonQueryParameters-ThedefTypeParameter,defType>> |Selects the query parser to be used to process the query.
+|<<#CommonQueryParameters-ThesortParameter,sort>> |Sorts the response to a query in either ascending or descending order based on the response's score or another specified characteristic.
+|<<#CommonQueryParameters-ThestartParameter,start>> |Specifies an offset (by default, 0) into the responses at which Solr should begin displaying content.
+|<<#CommonQueryParameters-TherowsParameter,rows>> |Controls how many rows of responses are displayed at a time (default value: 10)
+|<<#CommonQueryParameters-Thefq(FilterQuery)Parameter,fq>> |Applies a filter query to the search results.
+|<<#CommonQueryParameters-Thefl(FieldList)Parameter,fl>> |Limits the information included in a query response to a specified list of fields. The fields need to either be `stored="true"` or `docValues="true"`
+|<<#CommonQueryParameters-ThedebugParameter,debug>> |Request additional debugging information in the response. Specifying the `debug=timing` parameter returns just the timing information; specifying the `debug=results` parameter returns "explain" information for each of the documents returned; specifying the `debug=query parameter` returns all of the debug information.
+|<<#CommonQueryParameters-TheexplainOtherParameter,explainOther>> |Allows clients to specify a Lucene query to identify a set of documents. If non-blank, the explain info of each document which matches this query, relative to the main query (specified by the q parameter) will be returned along with the rest of the debugging information.
+|<<#CommonQueryParameters-ThetimeAllowedParameter,timeAllowed>> |Defines the time allowed for the query to be processed. If the time elapses before the query response is complete, partial information may be returned.
+|<<#CommonQueryParameters-ThesegmentTerminateEarlyParameter,segmentTerminateEarly>> |Indicates that, if possible, Solr should stop collecting documents from each individual (sorted) segment once it can determine that any subsequent documents in that segment will not be candidates for the `rows` being returned. The default is false.
+|<<#CommonQueryParameters-TheomitHeaderParameter,omitHeader>> |Excludes the header from the returned results, if set to true. The header contains information about the request, such as the time the request took to complete. The default is false.
+|<<#CommonQueryParameters-ThewtParameter,wt>> |Specifies the Response Writer to be used to format the query response.
+|<<#CommonQueryParameters-ThelogParamsListParameter,logParamsList>> |By default, Solr logs all parameters. Set this parameter to restrict which parameters are logged. Valid entries are the parameters to be logged, separated by commas (i.e., `logParamsList=param1,param2`). An empty list will log no parameters, so if logging all parameters is desired, do not define this additional parameter at all.
+|<<#CommonQueryParameters-TheechoParamsParameter,echoParams>> |The response header can include parameters sent with the query request. This parameter controls what is contained in that section of the response header. Valid values are `none`, `all`, and `explicit`. The default value is `explicit.`
+|==========================================================================================================================================================================================================================================================================================================================================================================================================================
 
 The following sections describe these parameters in detail.
 
@@ -33,20 +33,20 @@ The defType parameter selects the query parser that Solr should use to process t
 
 `defType=dismax`
 
-If no defType param is specified, then by default, the link:the-standard-query-parser.html[The Standard Query Parser] is used. (eg: `defType=lucene`)
+If no defType param is specified, then by default, the <<the-standard-query-parser.adoc,The Standard Query Parser>> is used. (eg: `defType=lucene`)
 
 [[CommonQueryParameters-ThesortParameter]]
 == The `sort` Parameter
 
 The `sort` parameter arranges search results in either ascending (`asc`) or descending (`desc`) order. The parameter can be used with either numerical or alphabetical content. The directions can be entered in either all lowercase or all uppercase letters (i.e., both `asc` or `ASC`).
 
-Solr can sort query responses according to document scores or the value of any field with a single value that is either indexed or uses link:docvalues.html[DocValues] (that is, any field whose attributes in the Schema include `multiValued="false"` and either `docValues="true"` or `indexed="true"` – if the field does not have DocValues enabled, the indexed terms are used to build them on the fly at runtime), provided that:
+Solr can sort query responses according to document scores or the value of any field with a single value that is either indexed or uses <<docvalues.adoc,DocValues>> (that is, any field whose attributes in the Schema include `multiValued="false"` and either `docValues="true"` or `indexed="true"` – if the field does not have DocValues enabled, the indexed terms are used to build them on the fly at runtime), provided that:
 
 * the field is non-tokenized (that is, the field has no analyzer and its contents have been parsed into tokens, which would make the sorting inconsistent), or
 
 * the field uses an analyzer (such as the KeywordTokenizer) that produces only a single term.
 
-If you want to be able to sort on a field whose contents you want to tokenize to facilitate searching, link:copying-fields.html[use a `copyField` directive] in the the Schema to clone the field. Then search on the field and sort on its clone.
+If you want to be able to sort on a field whose contents you want to tokenize to facilitate searching, <<copying-fields.adoc,use a `copyField` directive>> in the the Schema to clone the field. Then search on the field and sort on its clone.
 
 The table explains how Solr responds to various settings of the `sort` parameter.
 
@@ -105,7 +105,7 @@ fq=popularity:[10 TO *]&fq=section:0
 fq=+popularity:[10 TO *] +section:0
 ----
 
-* The document sets from each filter query are cached independently. Thus, concerning the previous examples: use a single `fq` containing two mandatory clauses if those clauses appear together often, and use two separate `fq` parameters if they are relatively independent. (To learn about tuning cache sizes and making sure a filter cache actually exists, see link:the-well-configured-solr-instance.html[The Well-Configured Solr Instance].)
+* The document sets from each filter query are cached independently. Thus, concerning the previous examples: use a single `fq` containing two mandatory clauses if those clauses appear together often, and use two separate `fq` parameters if they are relatively independent. (To learn about tuning cache sizes and making sure a filter cache actually exists, see <<the-well-configured-solr-instance.adoc,The Well-Configured Solr Instance>>.)
 
 * As with all parameters: special characters in an URL need to be properly escaped and encoded as hex values. Online tools are available to help you with URL-encoding. For example: http://meyerweb.com/eric/tools/dencoder/.
 
@@ -133,7 +133,7 @@ This table shows some basic examples of how to use `fl`:
 [[CommonQueryParameters-FunctionValues]]
 === Function Values
 
-link:function-queries.html[Functions] can be computed for each document in the result and returned as a psuedo-field:
+<<function-queries.adoc,Functions>> can be computed for each document in the result and returned as a psuedo-field:
 
 [source,java]
 ----
@@ -143,7 +143,7 @@ fl=id,title,product(price,popularity)
 [[CommonQueryParameters-DocumentTransformers]]
 === Document Transformers
 
-link:transforming-result-documents.html[Document Transformers] can be used to modify the information returned about each documents in the results of a query:
+<<transforming-result-documents.adoc,Document Transformers>> can be used to modify the information returned about each documents in the results of a query:
 
 [source,java]
 ----
@@ -207,18 +207,18 @@ The default value of this parameter is blank, which causes no extra "explain inf
 [[CommonQueryParameters-ThetimeAllowedParameter]]
 == The `timeAllowed` Parameter
 
-This parameter specifies the amount of time, in milliseconds, allowed for a search to complete. If this time expires before the search is complete, any partial results will be returned, but values such as `numFound`, link:faceting.html[Facet] counts, and result link:the-stats-component.html[Stats] may not be accurate for the entire result set.
+This parameter specifies the amount of time, in milliseconds, allowed for a search to complete. If this time expires before the search is complete, any partial results will be returned, but values such as `numFound`, <<faceting.adoc,Facet>> counts, and result link:REL_LINK//the-stats-component.adoc[Stats] may not be accurate for the entire result set.
 
 [[CommonQueryParameters-ThesegmentTerminateEarlyParameter]]
 == The `segmentTerminateEarly` Parameter
 
 This parameter may be set to either true or false.
 
-If set to true, and if link:indexconfig-in-solrconfig.html#IndexConfiginSolrConfig-mergePolicyFactory[the `<mergePolicyFactory/>`] for this collection is a http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/index/SortingMergePolicyFactory.html[`SortingMergePolicyFactory`] which uses a `sort` option which is compatible with link:#CommonQueryParameters-ThesortParameter[the `sort` parameter] specified for this query, then Solr will attempt to use an http://lucene.apache.org/core/6_1_0/misc/org/apache/lucene/search/EarlyTerminatingSortingCollector.html[`EarlyTerminatingSortingCollector`].
+If set to true, and if <<indexconfig-in-solrconfig.adoc#IndexConfiginSolrConfig-mergePolicyFactory,the `<mergePolicyFactory/>`>> for this collection is a http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/index/SortingMergePolicyFactory.html[`SortingMergePolicyFactory`] which uses a `sort` option which is compatible with link:REL_LINK//#CommonQueryParameters-ThesortParameter[the `sort` parameter] specified for this query, then Solr will attempt to use an http://lucene.apache.org/core/6_1_0/misc/org/apache/lucene/search/EarlyTerminatingSortingCollector.html[`EarlyTerminatingSortingCollector`].
 
 If early termination is used, a `segmentTerminatedEarly` header will be included in the `responseHeader`.
 
-Similar to using link:#CommonQueryParameters-ThetimeAllowedParameter[the `timeAllowed `Parameter], when early segment termination happens values such as `numFound`, link:faceting.html[Facet] counts, and result link:the-stats-component.html[Stats] may not be accurate for the entire result set.
+Similar to using <<#CommonQueryParameters-ThetimeAllowedParameter,the `timeAllowed `Parameter>>, when early segment termination happens values such as `numFound`, link:REL_LINK//faceting.adoc[Facet] counts, and result link:REL_LINK//the-stats-component.adoc[Stats] may not be accurate for the entire result set.
 
 The default value of this parameter is false.
 
@@ -232,7 +232,7 @@ If set to true, this parameter excludes the header from the returned results. Th
 [[CommonQueryParameters-ThewtParameter]]
 == The `wt` Parameter
 
-The `wt` parameter selects the Response Writer that Solr should use to format the query's response. For detailed descriptions of Response Writers, see link:response-writers.html[Response Writers].
+The `wt` parameter selects the Response Writer that Solr should use to format the query's response. For detailed descriptions of Response Writers, see <<response-writers.adoc,Response Writers>>.
 
 [[CommonQueryParameters-Thecache=falseParameter]]
 == The `cache=false` Parameter

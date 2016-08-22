@@ -248,7 +248,7 @@ The FieldReaderDataSource can take an `encoding` parameter, which will default t
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-FileDataSource]]
 === FileDataSource
 
-This can be used like an link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-URLDataSource[URLDataSource], but is used to fetch content from files on disk. The only difference from URLDataSource, when accessing disk files, is how a pathname is specified.
+This can be used like an <<#UploadingStructuredDataStoreDatawiththeDataImportHandler-URLDataSource,URLDataSource>>, but is used to fetch content from files on disk. The only difference from URLDataSource, when accessing disk files, is how a pathname is specified.
 
 This data source accepts these optional attributes.
 
@@ -262,7 +262,7 @@ This data source accepts these optional attributes.
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-JdbcDataSource]]
 === JdbcDataSource
 
-This is the default datasource. It's used with the link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheSQLEntityProcessor[SqlEntityProcessor]. See the example in the link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-FieldReaderDataSource[FieldReaderDataSource] section for details on configuration.
+This is the default datasource. It's used with the <<#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheSQLEntityProcessor,SqlEntityProcessor>>. See the example in the link:REL_LINK//#UploadingStructuredDataStoreDatawiththeDataImportHandler-FieldReaderDataSource[FieldReaderDataSource] section for details on configuration.
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-URLDataSource]]
 === URLDataSource
@@ -298,7 +298,7 @@ Entity processors extract data, transform it, and add it to a Solr index. Exampl
 Each processor has its own set of attributes, described in its own section below. In addition, there are non-specific attributes common to all entities which may be specified.
 
 [width="100%",cols="50%,50%",options="header",]
-|===============================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 |Attribute |Use
 |dataSource |The name of a data source. If there are multiple data sources defined, use this attribute with the name of the data source for this entity.
 |name |Required. The unique name used to identify an entity.
@@ -313,9 +313,9 @@ Each processor has its own set of attributes, described in its own section below
 |cacheKey |The name of a property of this entity to use as a cache key if `cacheImpl` is specified.
 |cacheLookup |An entity + property name that will be used to lookup cached instances of this entity if `cacheImpl` is specified.
 |where |an alternative way to specify `cacheKey` and `cacheLookup` concatenated with '='. eg `where="CODE=People.COUNTRY_CODE"` is equal to `cacheKey="CODE" cacheLookup="People.COUNTRY_CODE"`
-|child="true" |Enables indexing document blocks aka link:uploading-data-with-index-handlers.html[Nested Child Documents] for searching with link:other-parsers.html[Block Join Query Parsers]. It can be only specified on `<entity>` under another root entity. It switches from default behavior (merging field values) to nesting documents as children documents. Note: parent `<entity>` should add a field which is used as a parent filter in query time.
+|child="true" |Enables indexing document blocks aka <<uploading-data-with-index-handlers.adoc,Nested Child Documents>> for searching with link:REL_LINK//other-parsers.adoc[Block Join Query Parsers]. It can be only specified on `<entity>` under another root entity. It switches from default behavior (merging field values) to nesting documents as children documents. Note: parent `<entity>` should add a field which is used as a parent filter in query time.
 |join="zipper" |Enables merge join aka "zipper" algorithm for joining parent and child entities without cache. It should be specified at child (nested) `<entity>`. It implies that parent and child queries return results ordered by keys, otherwise it throws an exception. Keys should be specified either with `where` attribute or with `cacheKey` and `cacheLookup`.
-|===============================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
 Caching of entities in DIH is provided to avoid repeated lookups for same entities again and again. The default `SortedMapBackedCache` is a `HashMap` where a key is a field in the row and the value is a bunch of rows for that same key.
 
@@ -331,7 +331,7 @@ In the example below, each `manufacturer` entity is cached using the '`id`' prop
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-TheSQLEntityProcessor]]
 === The SQL Entity Processor
 
-The SqlEntityProcessor is the default processor. The associated link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-JdbcDataSource[data source] should be a JDBC URL.
+The SqlEntityProcessor is the default processor. The associated <<#UploadingStructuredDataStoreDatawiththeDataImportHandler-JdbcDataSource,data source>> should be a JDBC URL.
 
 The entity attributes specific to this processor are shown in the table below.
 
@@ -348,7 +348,7 @@ The entity attributes specific to this processor are shown in the table below.
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-TheXPathEntityProcessor]]
 === The XPathEntityProcessor
 
-This processor is used when indexing XML formatted data. The data source is typically link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-URLDataSource[URLDataSource] or link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-FileDataSource[FileDataSource]. Xpath can also be used with the link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheFileListEntityProcessor[FileListEntityProcessor] described below, to generate a document from each file.
+This processor is used when indexing XML formatted data. The data source is typically <<#UploadingStructuredDataStoreDatawiththeDataImportHandler-URLDataSource,URLDataSource>> or link:REL_LINK//#UploadingStructuredDataStoreDatawiththeDataImportHandler-FileDataSource[FileDataSource]. Xpath can also be used with the link:REL_LINK//#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheFileListEntityProcessor[FileListEntityProcessor] described below, to generate a document from each file.
 
 The entity attributes unique to this processor are shown below.
 
@@ -471,7 +471,7 @@ When connecting to a GMail account, you can improve the efficiency of the MailEn
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-TheTikaEntityProcessor]]
 === The TikaEntityProcessor
 
-The TikaEntityProcessor uses Apache Tika to process incoming documents. This is similar to link:uploading-data-with-solr-cell-using-apache-tika.html[Uploading Data with Solr Cell using Apache Tika], but using the DataImportHandler options instead.
+The TikaEntityProcessor uses Apache Tika to process incoming documents. This is similar to <<uploading-data-with-solr-cell-using-apache-tika.adoc,Uploading Data with Solr Cell using Apache Tika>>, but using the DataImportHandler options instead.
 
 Here is an example from the "`tika`" collection of the `dih` example (`example/example-DIH/tika/conf/tika-data-config.xml`):
 
@@ -514,7 +514,7 @@ This parameter defines the data source and an optional name which can be referre
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-TheFileListEntityProcessor]]
 === The FileListEntityProcessor
 
-This processor is basically a wrapper, and is designed to generate a set of files satisfying conditions specified in the attributes which can then be passed to another processor, such as the link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheXPathEntityProcessor[XPathEntityProcessor]. The entity information for this processor would be nested within the FileListEnitity entry. It generates five implicit fields: `fileAbsolutePath, ``fileDir, fileSize, ``fileLastModified, ``file,` which can be used in the nested processor. This processor does not use a data source.
+This processor is basically a wrapper, and is designed to generate a set of files satisfying conditions specified in the attributes which can then be passed to another processor, such as the <<#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheXPathEntityProcessor,XPathEntityProcessor>>. The entity information for this processor would be nested within the FileListEnitity entry. It generates five implicit fields: `fileAbsolutePath, ``fileDir, fileSize, ``fileLastModified, ``file,` which can be used in the nested processor. This processor does not use a data source.
 
 The attributes specific to this processor are described in the table below:
 
@@ -631,17 +631,17 @@ The Data Import Handler contains several built-in transformers. You can also wri
 Solr includes the following built-in transformers:
 
 [width="100%",cols="50%,50%",options="header",]
-|===========================================================================================================================================================================================
+|=====================================================================================================================================================================================================
 |Transformer Name |Use
-|link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-ClobTransformer[ClobTransformer] |Used to create a String out of a Clob type in database.
-|link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheDateFormatTransformer[DateFormatTransformer] |Parse date/time instances.
-|link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheHTMLStripTransformer[HTMLStripTransformer] |Strip HTML from a field.
-|link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheLogTransformer[LogTransformer] |Used to log data to log files or a console.
-|link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheNumberFormatTransformer[NumberFormatTransformer] |Uses the NumberFormat class in java to parse a string into a number.
-|link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheRegexTransformer[RegexTransformer] |Use regular expressions to manipulate fields.
-|link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheScriptTransformer[ScriptTransformer] |Write transformers in Javascript or any other scripting language supported by Java.
-|link:#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheTemplateTransformer[TemplateTransformer] |Transform a field using a template.
-|===========================================================================================================================================================================================
+|<<#UploadingStructuredDataStoreDatawiththeDataImportHandler-ClobTransformer,ClobTransformer>> |Used to create a String out of a Clob type in database.
+|<<#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheDateFormatTransformer,DateFormatTransformer>> |Parse date/time instances.
+|<<#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheHTMLStripTransformer,HTMLStripTransformer>> |Strip HTML from a field.
+|<<#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheLogTransformer,LogTransformer>> |Used to log data to log files or a console.
+|<<#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheNumberFormatTransformer,NumberFormatTransformer>> |Uses the NumberFormat class in java to parse a string into a number.
+|<<#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheRegexTransformer,RegexTransformer>> |Use regular expressions to manipulate fields.
+|<<#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheScriptTransformer,ScriptTransformer>> |Write transformers in Javascript or any other scripting language supported by Java.
+|<<#UploadingStructuredDataStoreDatawiththeDataImportHandler-TheTemplateTransformer,TemplateTransformer>> |Transform a field using a template.
+|=====================================================================================================================================================================================================
 
 These transformers are described below.
 

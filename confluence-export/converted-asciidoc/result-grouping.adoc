@@ -5,7 +5,7 @@ Result Grouping
 
 Result Grouping groups documents with a common field value into groups and returns the top documents for each group. For example, if you searched for "DVD" on an electronic retailer's e-commerce site, you might be returned three categories such as "TV and Video," "Movies," and "Computers," with three results per category. In this case, the query term "DVD" appeared in all three categories, so Solr groups them together in order to increase relevancy for the user.
 
-Result Grouping is separate from link:faceting.html[Faceting]. Though it is conceptually similar, faceting returns all relevant results and allows the user to refine the results based on the facet category. For example, if you search for "shoes" on a footwear retailer's e-commerce site, Solr would return all results for that query term, along with selectable facets such as "size," "color," "brand," and so on.
+Result Grouping is separate from <<faceting.adoc,Faceting>>. Though it is conceptually similar, faceting returns all relevant results and allows the user to refine the results based on the facet category. For example, if you search for "shoes" on a footwear retailer's e-commerce site, Solr would return all results for that query term, along with selectable facets such as "size," "color," "brand," and so on.
 
 You can however combine grouping with faceting. Grouped faceting supports `facet.field` and `facet.range` but currently doesn't support date and pivot faceting. The facet counts are computed based on the first `group.field` parameter, and other `group.field` parameters are ignored.
 
@@ -44,7 +44,7 @@ Result Grouping takes the following request parameters. Any number of these requ
 |group.func |query a|
 Group based on the unique values of a function query.
 
-*NOTE:* This option does not work with link:#ResultGrouping-DistributedResultGroupingCaveats[distributed searches].
+*NOTE:* This option does not work with <<#ResultGrouping-DistributedResultGroupingCaveats,distributed searches>>.
 
 |group.query |query |Return a single group of documents that match the given query.
 |rows |integer |The number of groups to return. The default value is 10.
@@ -58,13 +58,13 @@ Group based on the unique values of a function query.
 |group.ngroups |Boolean a|
 If true, Solr includes the number of groups that have matched the query in the results. The default value is false.
 
-See below for link:#ResultGrouping-DistributedResultGroupingCaveats[Distributed Result Grouping Caveats] when using sharded indexes
+See below for <<#ResultGrouping-DistributedResultGroupingCaveats,Distributed Result Grouping Caveats>> when using sharded indexes
 
 |group.truncate |Boolean |If true, facet counts are based on the most relevant document of each group matching the query. The default value is false.
 |group.facet |Boolean a|
 Determines whether to compute grouped facets for the field facets specified in facet.field parameters. Grouped facets are computed based on the first specified group. As with normal field faceting, fields shouldn't be tokenized (otherwise counts are computed for each token). Grouped faceting supports single and multivalued fields. Default is false.
 
-See below for link:#ResultGrouping-DistributedResultGroupingCaveats[Distributed Result Grouping Caveats] when using sharded indexes
+See below for <<#ResultGrouping-DistributedResultGroupingCaveats,Distributed Result Grouping Caveats>> when using sharded indexes
 
 |group.cache.percent |integer between 0 and 100 |Setting this parameter to a number greater than 0 enables caching for result grouping. Result Grouping executes two searches; this option caches the second search. The default value is 0. Testing has shown that group caching only improves search time with Boolean, wildcard, and fuzzy queries. For simple queries like term or "match all" queries, group caching degrades performance.
 |==============================================================================================================================================================================================================================================================================================================================================================================================================================================
@@ -225,7 +225,7 @@ In this case, Solr found five matches for "memory," but only returns four result
 [[ResultGrouping-DistributedResultGroupingCaveats]]
 == Distributed Result Grouping Caveats
 
-Grouping is supported for link:solrcloud.html[distributed searches], with some caveats:
+Grouping is supported for <<solrcloud.adoc,distributed searches>>, with some caveats:
 
 * Currently `group.func` is is not supported in any distributed searches
-* `group.ngroups` and `group.facet` require that all documents in each group must be co-located on the same shard in order for accurate counts to be returned. link:shards-and-indexing-data-in-solrcloud.html[Document routing via composite keys] can be a useful solution in many situations.
+* `group.ngroups` and `group.facet` require that all documents in each group must be co-located on the same shard in order for accurate counts to be returned. <<shards-and-indexing-data-in-solrcloud.adoc,Document routing via composite keys>> can be a useful solution in many situations.

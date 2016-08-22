@@ -8,12 +8,12 @@ In this section, we'll cover the various configuration options for SolrCloud.
 
 The following sections cover these topics:
 
-* link:setting-up-an-external-zookeeper-ensemble.html[Setting Up an External ZooKeeper Ensemble]
-* link:using-zookeeper-to-manage-configuration-files.html[Using ZooKeeper to Manage Configuration Files]
-* link:zookeeper-access-control.html[ZooKeeper Access Control]
-* link:collections-api.html[Collections API]
+* <<setting-up-an-external-zookeeper-ensemble.adoc,Setting Up an External ZooKeeper Ensemble>>
+* <<using-zookeeper-to-manage-configuration-files.adoc,Using ZooKeeper to Manage Configuration Files>>
+* <<zookeeper-access-control.adoc,ZooKeeper Access Control>>
+* <<collections-api.adoc,Collections API>>
 
-* link:parameter-reference.html[Parameter Reference]
-* link:command-line-utilities.html[Command Line Utilities]
-* link:solrcloud-with-legacy-configuration-files.html[SolrCloud with Legacy Configuration Files]
-* link:configsets-api.html[ConfigSets API]
+* <<parameter-reference.adoc,Parameter Reference>>
+* <<command-line-utilities.adoc,Command Line Utilities>>
+* <<solrcloud-with-legacy-configuration-files.adoc,SolrCloud with Legacy Configuration Files>>
+* <<configsets-api.adoc,ConfigSets API>>

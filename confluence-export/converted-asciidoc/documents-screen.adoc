@@ -22,7 +22,7 @@ When using the JSON document type, the functionality is similar to using a reque
 
 Then you can choose when documents should be added to the index (Commit Within), whether existing documents should be overwritten with incoming documents with the same id (if this is not **true**, then the incoming documents will be dropped), and, finally, if a document boost should be applied.
 
-This option will only add or overwrite documents to the index; for other update tasks, see the link:#DocumentsScreen-SolrCommand[Solr Command] option.
+This option will only add or overwrite documents to the index; for other update tasks, see the <<#DocumentsScreen-SolrCommand,Solr Command>> option.
 
 [[DocumentsScreen-CSV]]
 === CSV
@@ -59,10 +59,10 @@ When using the XML document type, the functionality is similar to using a reques
 
 Then you can choose when documents should be added to the index (Commit Within), and whether existing documents should be overwritten with incoming documents with the same id (if this is not **true**, then the incoming documents will be dropped).
 
-This option will only add or overwrite documents to the index; for other update tasks, see the link:#DocumentsScreen-SolrCommand[Solr Command] option.
+This option will only add or overwrite documents to the index; for other update tasks, see the <<#DocumentsScreen-SolrCommand,Solr Command>> option.
 
 [[DocumentsScreen-RelatedTopics]]
 == Related Topics
 
-* link:uploading-data-with-index-handlers.html[Uploading Data with Index Handlers]
-* link:uploading-data-with-solr-cell-using-apache-tika.html[Uploading Data with Solr Cell using Apache Tika]
+* <<uploading-data-with-index-handlers.adoc,Uploading Data with Index Handlers>>
+* <<uploading-data-with-solr-cell-using-apache-tika.adoc,Uploading Data with Solr Cell using Apache Tika>>

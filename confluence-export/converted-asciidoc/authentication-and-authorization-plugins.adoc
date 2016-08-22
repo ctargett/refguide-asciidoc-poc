@@ -8,9 +8,9 @@ Solr has security frameworks for supporting authentication and authorization of 
 
 The plugin implementation will dictate if the plugin can be used with Solr running in SolrCloud mode only or also if running in standalone mode. If the plugin supports SolrCloud only, a `security.json` file must be created and uploaded to ZooKeeper before it can be used. If the plugin also supports standalone mode, a system property `-DauthenticationPlugin=<pluginClassName>` can be used instead of creating and managing `security.json` in ZooKeeper. Here is a list of the available plugins and the approach supported:
 
-* link:basic-authentication-plugin.html[Basic authentication]: SolrCloud only.
-* link:kerberos-authentication-plugin.html[Kerberos authentication]: SolrCloud or standalone mode.
-* link:rule-based-authorization-plugin.html[Rule-based authorization]: SolrCloud only.
+* <<basic-authentication-plugin.adoc,Basic authentication>>: SolrCloud only.
+* <<kerberos-authentication-plugin.adoc,Kerberos authentication>>: SolrCloud or standalone mode.
+* <<rule-based-authorization-plugin.adoc,Rule-based authorization>>: SolrCloud only.
 
 The following section describes how to enable plugins with `security.json` in ZooKeeper when using Solr in SolrCloud mode.
 
@@ -33,7 +33,7 @@ All of the information required to initialize either type of security plugin is 
 }
 ----
 
-The `/security.json` file needs to be in ZooKeeper before a Solr instance comes up so Solr starts with the security plugin enabled. See the section link:#AuthenticationandAuthorizationPlugins-Addingsecurity.jsontoZookeeper[Adding security.json to Zookeeper] below for information on how to do this.
+The `/security.json` file needs to be in ZooKeeper before a Solr instance comes up so Solr starts with the security plugin enabled. See the section <<#AuthenticationandAuthorizationPlugins-Addingsecurity.jsontoZookeeper,Adding security.json to Zookeeper>> below for information on how to do this.
 
 Depending on the plugin(s) in use, other information will be stored in `security.json` such as user information or rules to create roles and permissions. This information is added through the APIs for each plugin provided by Solr, or, in the case of a custom plugin, the approach designed by you.
 
@@ -71,7 +71,7 @@ This example also defines `security.json` on the command line, but you can also 
 
 Note:
 
-Depending on the authentication and authorization plugin that you use, you may have user information stored in `security.json`. If so, we highly recommend that you implement access control in your ZooKeeper nodes. Information about how to enable this is available in the section link:zookeeper-access-control.html[ZooKeeper Access Control].
+Depending on the authentication and authorization plugin that you use, you may have user information stored in `security.json`. If so, we highly recommend that you implement access control in your ZooKeeper nodes. Information about how to enable this is available in the section <<zookeeper-access-control.adoc,ZooKeeper Access Control>>.
 
 [[AuthenticationandAuthorizationPlugins-Authentication]]
 == Authentication
@@ -106,8 +106,8 @@ An authentication plugin consists of two parts:
 
 Solr has two implementations of authentication plugins:
 
-* link:kerberos-authentication-plugin.html[Kerberos Authentication Plugin]
-* link:basic-authentication-plugin.html[Basic Authentication Plugin]
+* <<kerberos-authentication-plugin.adoc,Kerberos Authentication Plugin>>
+* <<basic-authentication-plugin.adoc,Basic Authentication Plugin>>
 
 [[AuthenticationandAuthorizationPlugins-Authorization]]
 == Authorization
@@ -142,4 +142,4 @@ The authorization plugin is only supported in SolrCloud mode. Also, reloading th
 
 Solr has one implementation of an authorization plugin:
 
-* link:rule-based-authorization-plugin.html[Rule-Based Authorization Plugin]
+* <<rule-based-authorization-plugin.adoc,Rule-Based Authorization Plugin>>

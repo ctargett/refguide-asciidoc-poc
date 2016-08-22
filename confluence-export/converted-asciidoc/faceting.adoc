@@ -5,7 +5,7 @@ Faceting
 :page-permalink: faceting.html
 :page-children: blockjoin-faceting
 
-As described in the section link:overview-of-searching-in-solr.html[Overview of Searching in Solr], faceting is the arrangement of search results into categories based on indexed terms. Searchers are presented with the indexed terms, along with numerical counts of how many matching documents were found were each term. Faceting makes it easy for users to explore search results, narrowing in on exactly the results they are looking for.
+As described in the section <<overview-of-searching-in-solr.adoc,Overview of Searching in Solr>>, faceting is the arrangement of search results into categories based on indexed terms. Searchers are presented with the indexed terms, along with numerical counts of how many matching documents were found were each term. Faceting makes it easy for users to explore search results, narrowing in on exactly the results they are looking for.
 
 toc::[]
 
@@ -15,11 +15,11 @@ toc::[]
 The table below summarizes the general parameters for controlling faceting.
 
 [width="100%",cols="50%,50%",options="header",]
-|========================================================================================================
+|==================================================================================================================
 |Parameter |Description
-|link:#Faceting-ThefacetParameter[facet] |If set to true, enables faceting.
-|link:#Faceting-Thefacet.queryParameter[facet.query] |Specifies a Lucene query to generate a facet count.
-|========================================================================================================
+|<<#Faceting-ThefacetParameter,facet>> |If set to true, enables faceting.
+|<<#Faceting-Thefacet.queryParameter,facet.query>> |Specifies a Lucene query to generate a facet count.
+|==================================================================================================================
 
 These parameters are described in the sections below.
 
@@ -44,28 +44,28 @@ To use facet queries in a syntax other than the default syntax, prefix the facet
 
 Several parameters can be used to trigger faceting based on the indexed terms in a field.
 
-When using this parameter, it is important to remember that "term" is a very specific concept in Lucene: it relates to the literal field/value pairs that are indexed after any analysis occurs. For text fields that include stemming, lowercasing, or word splitting, the resulting terms may not be what you expect. If you want Solr to perform both analysis (for searching) and faceting on the full literal strings, use the `copyField` directive in your Schema to create two versions of the field: one Text and one String. Make sure both are `indexed="true"`. (For more information about the `copyField` directive, see link:documents-fields-and-schema-design.html[Documents, Fields, and Schema Design].)
+When using this parameter, it is important to remember that "term" is a very specific concept in Lucene: it relates to the literal field/value pairs that are indexed after any analysis occurs. For text fields that include stemming, lowercasing, or word splitting, the resulting terms may not be what you expect. If you want Solr to perform both analysis (for searching) and faceting on the full literal strings, use the `copyField` directive in your Schema to create two versions of the field: one Text and one String. Make sure both are `indexed="true"`. (For more information about the `copyField` directive, see <<documents-fields-and-schema-design.adoc,Documents, Fields, and Schema Design>>.)
 
 The table below summarizes Solr's field value faceting parameters.
 
 [width="100%",cols="50%,50%",options="header",]
-|========================================================================================================================================================================================================================================================================
+|==================================================================================================================================================================================================================================================================================
 |Parameter |Description
-|link:#Faceting-Thefacet.fieldParameter[facet.field] |Identifies a field to be treated as a facet.
-|link:#Faceting-Thefacet.prefixParameter[facet.prefix] |Limits the terms used for faceting to those that begin with the specified prefix.
-|link:#Faceting-Thefacet.containsParameter[facet.contains] |Limits the terms used for faceting to those that contain the specified substring.
-|link:#Faceting-Thefacet.contains.ignoreCaseParameter[facet.contains.ignoreCase] |If facet.contains is used, ignore case when searching for the specified substring.
-|link:#Faceting-Thefacet.sortParameter[facet.sort] |Controls how faceted results are sorted.
-|link:#Faceting-Thefacet.limitParameter[facet.limit] |Controls how many constraints should be returned for each facet.
-|link:#Faceting-Thefacet.offsetParameter[facet.offset] |Specifies an offset into the facet results at which to begin displaying facets.
-|link:#Faceting-Thefacet.mincountParameter[facet.mincount] |Specifies the minimum counts required for a facet field to be included in the response.
-|link:#Faceting-Thefacet.missingParameter[facet.missing] |Controls whether Solr should compute a count of all matching results which have no value for the field, in addition to the term-based constraints of a facet field.
-|link:#Faceting-Thefacet.methodParameter[facet.method] |Selects the algorithm or method Solr should use when faceting a field.
-|link:#Faceting-Thefacet.enum.cache.minDfParameter[facet.enum.cache.minDF] |(Advanced) Specifies the minimum document frequency (the number of documents matching a term) for which the `filterCache` should be used when determining the constraint count for that term.
-|link:#Faceting-Over-RequestParameters[facet.overrequest.count] |(Advanced) A number of documents, beyond the effective `facet.limit` to request from each shard in a distributed search
-| link:#Faceting-Over-RequestParameters[facet.overrequest.ratio] |(Advanced) A multiplier of the effective `facet.limit` to request from each shard in a distributed search
-|link:#Faceting-Thefacet.threadsParameter[facet.threads] |(Advanced) Controls parallel execution of field faceting
-|========================================================================================================================================================================================================================================================================
+|<<#Faceting-Thefacet.fieldParameter,facet.field>> |Identifies a field to be treated as a facet.
+|<<#Faceting-Thefacet.prefixParameter,facet.prefix>> |Limits the terms used for faceting to those that begin with the specified prefix.
+|<<#Faceting-Thefacet.containsParameter,facet.contains>> |Limits the terms used for faceting to those that contain the specified substring.
+|<<#Faceting-Thefacet.contains.ignoreCaseParameter,facet.contains.ignoreCase>> |If facet.contains is used, ignore case when searching for the specified substring.
+|<<#Faceting-Thefacet.sortParameter,facet.sort>> |Controls how faceted results are sorted.
+|<<#Faceting-Thefacet.limitParameter,facet.limit>> |Controls how many constraints should be returned for each facet.
+|<<#Faceting-Thefacet.offsetParameter,facet.offset>> |Specifies an offset into the facet results at which to begin displaying facets.
+|<<#Faceting-Thefacet.mincountParameter,facet.mincount>> |Specifies the minimum counts required for a facet field to be included in the response.
+|<<#Faceting-Thefacet.missingParameter,facet.missing>> |Controls whether Solr should compute a count of all matching results which have no value for the field, in addition to the term-based constraints of a facet field.
+|<<#Faceting-Thefacet.methodParameter,facet.method>> |Selects the algorithm or method Solr should use when faceting a field.
+|<<#Faceting-Thefacet.enum.cache.minDfParameter,facet.enum.cache.minDF>> |(Advanced) Specifies the minimum document frequency (the number of documents matching a term) for which the `filterCache` should be used when determining the constraint count for that term.
+|<<#Faceting-Over-RequestParameters,facet.overrequest.count>> |(Advanced) A number of documents, beyond the effective `facet.limit` to request from each shard in a distributed search
+| <<#Faceting-Over-RequestParameters,facet.overrequest.ratio>> |(Advanced) A multiplier of the effective `facet.limit` to request from each shard in a distributed search
+|<<#Faceting-Thefacet.threadsParameter,facet.threads>> |(Advanced) Controls parallel execution of field faceting
+|==================================================================================================================================================================================================================================================================================
 
 These parameters are described in the sections below.
 
@@ -194,20 +194,20 @@ This param will cause loading the underlying fields used in faceting to be execu
 [[Faceting-RangeFaceting]]
 == Range Faceting
 
-You can use Range Faceting on any date field or any numeric field that supports range queries. This is particularly useful for stitching together a series of range queries (as facet by query) for things like prices. As of Solr 3.1, Range Faceting is preferred over link:#Faceting-DateFacetingParameters[Date Faceting] (described below).
+You can use Range Faceting on any date field or any numeric field that supports range queries. This is particularly useful for stitching together a series of range queries (as facet by query) for things like prices. As of Solr 3.1, Range Faceting is preferred over <<#Faceting-DateFacetingParameters,Date Faceting>> (described below).
 
 [width="100%",cols="50%,50%",options="header",]
-|=========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 |Parameter |Description
-|link:#Faceting-Thefacet.rangeParameter[facet.range] |Specifies the field to facet by range.
-|link:#Faceting-Thefacet.range.startParameter[facet.range.start] |Specifies the start of the facet range.
-|link:#Faceting-Thefacet.range.endParameter[facet.range.end] |Specifies the end of the facet range.
-|link:#Faceting-Thefacet.range.gapParameter[facet.range.gap] |Specifies the span of the range as a value to be added to the lower bound.
-|link:#Faceting-Thefacet.range.hardendParameter[facet.range.hardend] |A boolean parameter that specifies how Solr handles a range gap that cannot be evenly divided between the range start and end values. If true, the last range constraint will have the `facet.range.end` value an upper bound. If false, the last range will have the smallest possible upper bound greater then `facet.range.end` such that the range is the exact width of the specified range gap. The default value for this parameter is false.
-|link:#Faceting-Thefacet.range.includeParameter[facet.range.include] |Specifies inclusion and exclusion preferences for the upper and lower bounds of the range. See the `facet.range.include` topic for more detailed information.
-|link:#Faceting-Thefacet.range.otherParameter[facet.range.other] |Specifies counts for Solr to compute in addition to the counts for each facet range constraint.
-|link:#Faceting-Thefacet.range.methodParameter[facet.range.method] |Specifies the algorithm or method to use for calculating facets.
-|=========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|<<#Faceting-Thefacet.rangeParameter,facet.range>> |Specifies the field to facet by range.
+|<<#Faceting-Thefacet.range.startParameter,facet.range.start>> |Specifies the start of the facet range.
+|<<#Faceting-Thefacet.range.endParameter,facet.range.end>> |Specifies the end of the facet range.
+|<<#Faceting-Thefacet.range.gapParameter,facet.range.gap>> |Specifies the span of the range as a value to be added to the lower bound.
+|<<#Faceting-Thefacet.range.hardendParameter,facet.range.hardend>> |A boolean parameter that specifies how Solr handles a range gap that cannot be evenly divided between the range start and end values. If true, the last range constraint will have the `facet.range.end` value an upper bound. If false, the last range will have the smallest possible upper bound greater then `facet.range.end` such that the range is the exact width of the specified range gap. The default value for this parameter is false.
+|<<#Faceting-Thefacet.range.includeParameter,facet.range.include>> |Specifies inclusion and exclusion preferences for the upper and lower bounds of the range. See the `facet.range.include` topic for more detailed information.
+|<<#Faceting-Thefacet.range.otherParameter,facet.range.other>> |Specifies counts for Solr to compute in addition to the counts for each facet range constraint.
+|<<#Faceting-Thefacet.range.methodParameter,facet.range.method>> |Specifies the algorithm or method to use for calculating facets.
+|===================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
 [[Faceting-Thefacet.rangeParameter]]
 === The `facet.range` Parameter
@@ -313,9 +313,9 @@ Date Ranges & Time Zones
 
 Note:
 
-Range faceting on date fields is a common situation where the link:working-with-dates.html#WorkingwithDates-TZ[`TZ`] parameter can be useful to ensure that the "facet counts per day" or "facet counts per month" are based on a meaningful definition of when a given day/month "starts" relative to a particular TimeZone.
+Range faceting on date fields is a common situation where the <<working-with-dates.adoc#WorkingwithDates-TZ,`TZ`>> parameter can be useful to ensure that the "facet counts per day" or "facet counts per month" are based on a meaningful definition of when a given day/month "starts" relative to a particular TimeZone.
 
-For more information, see the examples in the link:working-with-dates.html[Working with Dates] section.
+For more information, see the examples in the <<working-with-dates.adoc,Working with Dates>> section.
 
 [[Faceting-Pivot(DecisionTree)Faceting]]
 == Pivot (Decision Tree) Faceting
@@ -375,7 +375,7 @@ http://localhost:8983/solr/techproducts/select?q=*:*&facet.pivot=cat,popularity,
 [[Faceting-CombiningStatsComponentWithPivots]]
 === Combining Stats Component With Pivots
 
-In addition to some of the link:#Faceting-LocalParametersforFaceting[general local parameters] supported by other types of faceting, a `stats` local parameters can be used with `facet.pivot` to refer to ` stats.field ` instances (by tag) that you would like to have computed for each Pivot Constraint.
+In addition to some of the <<#Faceting-LocalParametersforFaceting,general local parameters>> supported by other types of faceting, a `stats` local parameters can be used with `facet.pivot` to refer to ` stats.field ` instances (by tag) that you would like to have computed for each Pivot Constraint.
 
 In the example below, two different (overlapping) sets of statistics are computed for each of the facet.pivot result hierarchies:
 
@@ -596,7 +596,7 @@ Although `facet.pivot.mincount` deviates in name from the `facet.mincount` param
 
 * ` facet.limit `
 * ` facet.offset `
-* link:#Faceting-Thefacet.sortParameter[`facet.sort`]
+* <<#Faceting-Thefacet.sortParameter,`facet.sort`>>
 * ` facet.overrequest.count `
 * ` facet.overrequest.ratio `
 
@@ -608,11 +608,11 @@ Another supported form of faceting is interval faceting. This sounds similar to 
 Even though the same functionality can be achieved by using a facet query with range queries, the implementation of these two methods is very different and will provide different performance depending on the context. If you are concerned about the performance of your searches you should test with both options. Interval faceting tends to be better with multiple intervals for the same fields, while facet query tend to be better in environments where filter cache is more effective (static indexes for example). This method will use https://cwiki.apache.org/confluence/display/solr/DocValues[docValues] if they are enabled for the field, will use fieldCache otherwise.
 
 [width="100%",cols="50%,50%",options="header",]
-|====================================================================================================
+|==============================================================================================================
 |*Name* |*What it does*
-|link:#Faceting-Thefacet.intervalparameter[facet.interval] |Specifies the field to facet by interval.
-|link:#Faceting-Thefacet.interval.setparameter[facet.interval.set] |Sets the intervals for the field.
-|====================================================================================================
+|<<#Faceting-Thefacet.intervalparameter,facet.interval>> |Specifies the field to facet by interval.
+|<<#Faceting-Thefacet.interval.setparameter,facet.interval.set>> |Sets the intervals for the field.
+|==============================================================================================================
 
 [[Faceting-Thefacet.intervalparameter]]
 === The `facet.interval` parameter
@@ -658,7 +658,7 @@ Interval faceting supports output key replacement described below. Output keys c
 [[Faceting-LocalParametersforFaceting]]
 == Local Parameters for Faceting
 
-The link:local-parameters-in-queries.html[LocalParams syntax] allows overriding global settings. It can also provide a method of adding metadata to other parameter values, much like XML attributes.
+The <<local-parameters-in-queries.adoc,LocalParams syntax>> allows overriding global settings. It can also provide a method of adding metadata to other parameter values, much like XML attributes.
 
 [[Faceting-TaggingandExcludingFilters]]
 === Tagging and Excluding Filters
@@ -701,4 +701,4 @@ The parameter setting above causes the field facet results for the "doctype" fie
 == Related Topics
 
 * http://wiki.apache.org/solr/SimpleFacetParameters[SimpleFacetParameters] from the Solr Wiki.
-* link:spatial-search.html[Heatmap Faceting (Spatial)]
+* <<spatial-search.adoc,Heatmap Faceting (Spatial)>>

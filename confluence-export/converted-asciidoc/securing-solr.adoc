@@ -7,12 +7,12 @@ Securing Solr
 When planning how to secure Solr, you should consider which of the available features or approaches are right for you.
 
 * Authentication or authorization of users using:
-** link:kerberos-authentication-plugin.html[Kerberos Authentication Plugin]
-** link:basic-authentication-plugin.html[Basic Authentication Plugin]
-** link:rule-based-authorization-plugin.html[Rule-Based Authorization Plugin]
-** link:authentication-and-authorization-plugins.html[Custom authentication or authorization plugin]
-* link:enabling-ssl.html[Enabling SSL]
-* If using SolrCloud, link:zookeeper-access-control.html[ZooKeeper Access Control]
+** <<kerberos-authentication-plugin.adoc,Kerberos Authentication Plugin>>
+** <<basic-authentication-plugin.adoc,Basic Authentication Plugin>>
+** <<rule-based-authorization-plugin.adoc,Rule-Based Authorization Plugin>>
+** <<authentication-and-authorization-plugins.adoc,Custom authentication or authorization plugin>>
+* <<enabling-ssl.adoc,Enabling SSL>>
+* If using SolrCloud, <<zookeeper-access-control.adoc,ZooKeeper Access Control>>
 
 Note:
 

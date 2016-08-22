@@ -5,9 +5,9 @@ Updating Parts of Documents
 
 Once you have indexed the content you need in your Solr index, you will want to start thinking about your strategy for dealing with changes to those documents. Solr supports two approaches to updating documents that have only partially changed.
 
-The first is __link:#UpdatingPartsofDocuments-AtomicUpdates[atomic updates]__. This approach allows changing only one or more fields of a document without having to re-index the entire document.
+The first is __<<#UpdatingPartsofDocuments-AtomicUpdates,atomic updates>>__. This approach allows changing only one or more fields of a document without having to re-index the entire document.
 
-The second approach is known as _link:#UpdatingPartsofDocuments-OptimisticConcurrency[optimistic concurrency]_ or __optimistic locking__. It is a feature of many NoSQL databases, and allows conditional updating a document based on its version. This approach includes semantics and rules for how to deal with version matches or mis-matches.
+The second approach is known as _<<#UpdatingPartsofDocuments-OptimisticConcurrency,optimistic concurrency>>_ or __optimistic locking__. It is a feature of many NoSQL databases, and allows conditional updating a document based on its version. This approach includes semantics and rules for how to deal with version matches or mis-matches.
 
 Atomic Updates and Optimistic Concurrency may be used as independent strategies for managing changes to documents, or they may be combined: you can use optimistic concurrency to conditionally apply an atomic update.
 
@@ -117,7 +117,7 @@ When the client resubmits a changed document to Solr, the `_version_` can be inc
 
 If the document being updated does not include the `_version_` field, and atomic updates are not being used, the document will be treated by normal Solr rules, which is usually to discard the previous version.
 
-When using Optimistic Concurrency, clients can include an optional `versions=true` request parameter to indicate that the _new_ versions of the documents being added should be included in the response. This allows clients to immediately know what the `_version_` is of every documented added with out needing to make a redundant link:realtime-get.html[`/get` request].
+When using Optimistic Concurrency, clients can include an optional `versions=true` request parameter to indicate that the _new_ versions of the documents being added should be included in the response. This allows clients to immediately know what the `_version_` is of every documented added with out needing to make a redundant <<realtime-get.adoc,`/get` request>>.
 
 For example...
 
@@ -164,7 +164,7 @@ Power Tip
 
 Note:
 
-The `_version_` field is by default stored in the inverted index (`indexed="true"`). However, for some systems with a very large number of documents, the increase in FieldCache memory requirements may be too costly. A solution can be to declare the `_version_` field as link:docvalues.html[DocValues]:
+The `_version_` field is by default stored in the inverted index (`indexed="true"`). However, for some systems with a very large number of documents, the increase in FieldCache memory requirements may be too costly. A solution can be to declare the `_version_` field as <<docvalues.adoc,DocValues>>:
 
 *Sample field definition*
 

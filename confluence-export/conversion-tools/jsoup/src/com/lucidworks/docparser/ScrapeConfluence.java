@@ -139,15 +139,15 @@ public class ScrapeConfluence {
         
         // TODO: use .adoc suffix in links
         // TODO: prepend with some macro we can use in post-processing to get <<LINK>> relative link syntax
-        path = pageTree.getPageShortName(linkedPage) + ".html";
+        path = pageTree.getPageShortName(linkedPage) + ".adoc";
         
         // HACKish, to ensure we get clean path + ?query? + fragement
         String fixed = new URI(null, null, path, uri.getQuery(), uri.getFragment()).toString();
-        return fixed;
+        return "REL_LINK//" + fixed;
         
       } // else...
       System.err.println("found odd rel link to " + href + " in " + page.toString());
-      return href;
+      return "REL_LINK//" + href;
       
     } catch (URISyntaxException se) {
       System.err.println("found malformed URI " + href + " in " + page.toString());

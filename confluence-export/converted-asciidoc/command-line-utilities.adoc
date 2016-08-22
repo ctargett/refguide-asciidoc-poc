@@ -5,7 +5,7 @@ Command Line Utilities
 
 Solr's Administration page (found by default at `http://hostname:8983/solr/`), provides a section with menu items for monitoring indexing and performance statistics, information about index distribution and replication, and information on all threads running in the JVM at the time. There is also a section where you can run queries, and an assistance area.
 
-In addition, SolrCloud provides its own administration page (found at http://localhost:8983/solr/#/~cloud), as well as a few tools available via a ZooKeeper Command Line Utility (CLI). The CLI scripts found in `server/scripts/cloud-scripts` let you upload configuration information to ZooKeeper, in the same two ways that were shown in the examples in link:parameter-reference.html[Parameter Reference]. It also provides a few other commands that let you link collection sets to collections, make ZooKeeper paths or clear them, and download configurations from ZooKeeper to the local filesystem.
+In addition, SolrCloud provides its own administration page (found at http://localhost:8983/solr/#/~cloud), as well as a few tools available via a ZooKeeper Command Line Utility (CLI). The CLI scripts found in `server/scripts/cloud-scripts` let you upload configuration information to ZooKeeper, in the same two ways that were shown in the examples in <<parameter-reference.adoc,Parameter Reference>>. It also provides a few other commands that let you link collection sets to collections, make ZooKeeper paths or clear them, and download configurations from ZooKeeper to the local filesystem.
 
 Solr's zkcli.sh vs ZooKeeper's zkCli.sh
 

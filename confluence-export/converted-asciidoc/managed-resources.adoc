@@ -20,7 +20,7 @@ Let's begin learning about managed resources by looking at a couple of examples 
 [[ManagedResources-Stopwords]]
 === Stop words
 
-To begin, you need to define a field type that uses the link:filter-descriptions.html#FilterDescriptions-ManagedStopFilter[ManagedStopFilterFactory], such as:
+To begin, you need to define a field type that uses the <<filter-descriptions.adoc#FilterDescriptions-ManagedStopFilter,ManagedStopFilterFactory>>, such as:
 
 [source,xml]
 ----
@@ -33,7 +33,7 @@ To begin, you need to define a field type that uses the link:filter-descriptions
 </fieldType>
 ----
 
-There are two important things to notice about this field type definition. First, the filter implementation class is *`solr.ManagedStopFilterFactory`* . This is a special implementation of the link:filter-descriptions.html#FilterDescriptions-StopFilter[StopFilterFactory] that uses a set of stop words that are managed from a REST API. Second, the *`managed=”english”`* attribute gives a name to the set of managed stop words, in this case indicating the stop words are for English text.
+There are two important things to notice about this field type definition. First, the filter implementation class is *`solr.ManagedStopFilterFactory`* . This is a special implementation of the <<filter-descriptions.adoc#FilterDescriptions-StopFilter,StopFilterFactory>> that uses a set of stop words that are managed from a REST API. Second, the *`managed=”english”`* attribute gives a name to the set of managed stop words, in this case indicating the stop words are for English text.
 
 The REST endpoint for managing the English stop words in the techproducts collection is: `/solr/techproducts/schema/analysis/stopwords/english`.
 
@@ -76,7 +76,7 @@ Assuming you sent this request to Solr, the response body is a JSON document:
 }
 ----
 
-The `sample_techproducts_configs` link:config-sets.html[config set] ships with a pre-built set of managed stop words, however you should only interact with this file using the API and not edit it directly.
+The `sample_techproducts_configs` <<config-sets.adoc,config set>> ships with a pre-built set of managed stop words, however you should only interact with this file using the API and not edit it directly.
 
 One thing that should stand out to you in this response is that it contains a *`managedList`* of words as well as ` initArgs `. This is an important concept in this framework—managed resources typically have configuration and data. For stop words, the only configuration parameter is a boolean that determines whether to ignore the case of tokens during stop word filtering (ignoreCase=true|false). The data is a list of words, which is represented as a JSON array named *`managedList`* in the response.
 
@@ -110,7 +110,7 @@ Note: PUT/POST is used to add terms to an existing list instead of replacing the
 [[ManagedResources-Synonyms]]
 === Synonyms
 
-For the most part, the API for managing synonyms behaves similar to the API for stop words, except instead of working with a list of words, it uses a map, where the value for each entry in the map is a set of synonyms for a term. As with stop words, the `sample_techproducts_configs` link:config-sets.html[config set] includes a pre-built set of synonym mappings suitable for the sample data that is activated by the following field type definition in schema.xml:
+For the most part, the API for managing synonyms behaves similar to the API for stop words, except instead of working with a list of words, it uses a map, where the value for each entry in the map is a set of synonyms for a term. As with stop words, the `sample_techproducts_configs` <<config-sets.adoc,config set>> includes a pre-built set of synonym mappings suitable for the sample data that is activated by the following field type definition in schema.xml:
 
 [source,xml]
 ----

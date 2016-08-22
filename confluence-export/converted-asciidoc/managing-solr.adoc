@@ -6,16 +6,16 @@ Managing Solr
 
 This section describes how to run Solr and how to look at Solr when it is running. It contains the following sections:
 
-link:taking-solr-to-production.html[Taking Solr to Production]: Describes how to install Solr as a service on Linux for production environments.
+<<taking-solr-to-production.adoc,Taking Solr to Production>>: Describes how to install Solr as a service on Linux for production environments.
 
-link:securing-solr.html[Securing Solr]: How to use the Basic and Kerberos authentication and rule-based authorization plugins for Solr, and how to enable SSL.
+<<securing-solr.adoc,Securing Solr>>: How to use the Basic and Kerberos authentication and rule-based authorization plugins for Solr, and how to enable SSL.
 
-link:running-solr-on-hdfs.html[Running Solr on HDFS]: How to use HDFS to store your Solr indexes and transaction logs.
+<<running-solr-on-hdfs.adoc,Running Solr on HDFS>>: How to use HDFS to store your Solr indexes and transaction logs.
 
-link:making-and-restoring-backups.html[Making and Restoring Backups]: Describes backup strategies for your Solr indexes.
+<<making-and-restoring-backups.adoc,Making and Restoring Backups>>: Describes backup strategies for your Solr indexes.
 
-link:configuring-logging.html[Configuring Logging]: Describes how to configure logging for Solr.
+<<configuring-logging.adoc,Configuring Logging>>: Describes how to configure logging for Solr.
 
-link:using-jmx-with-solr.html[Using JMX with Solr]: Describes how to use Java Management Extensions with Solr.
+<<using-jmx-with-solr.adoc,Using JMX with Solr>>: Describes how to use Java Management Extensions with Solr.
 
-link:mbean-request-handler.html[MBean Request Handler]: How to use Solr's MBeans for programmatic access to the system plugins and stats.
+<<mbean-request-handler.adoc,MBean Request Handler>>: How to use Solr's MBeans for programmatic access to the system plugins and stats.

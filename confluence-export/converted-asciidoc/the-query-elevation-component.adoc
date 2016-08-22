@@ -3,7 +3,7 @@ The Query Elevation Component
 :page-shortname: the-query-elevation-component
 :page-permalink: the-query-elevation-component.html
 
-The https://wiki.apache.org/solr/QueryElevationComponent[Query Elevation Component] lets you configure the top results for a given query regardless of the normal Lucene scoring. This is sometimes called "sponsored search," "editorial boosting," or "best bets." This component matches the user query text to a configured map of top results. The text can be any string or non-string IDs, as long as it's indexed. Although this component will work with any QueryParser, it makes the most sense to use with link:the-dismax-query-parser.html[DisMax] or link:the-extended-dismax-query-parser.html[eDisMax].
+The https://wiki.apache.org/solr/QueryElevationComponent[Query Elevation Component] lets you configure the top results for a given query regardless of the normal Lucene scoring. This is sometimes called "sponsored search," "editorial boosting," or "best bets." This component matches the user query text to a configured map of top results. The text can be any string or non-string IDs, as long as it's indexed. Although this component will work with any QueryParser, it makes the most sense to use with <<the-dismax-query-parser.adoc,DisMax>> or link:REL_LINK//the-extended-dismax-query-parser.adoc[eDisMax].
 
 The https://wiki.apache.org/solr/QueryElevationComponent[Query Elevation Component] is supported by distributed searching.
 
@@ -106,7 +106,7 @@ You can force Solr to return only the results specified in the elevation file by
 [[TheQueryElevationComponent-DocumentTransformersandthemarkExcludesParameter]]
 === Document Transformers and the `markExcludes` Parameter
 
-The `[elevated]` link:transforming-result-documents.html[Document Transformer] can be used to annotate each document with information about whether or not it was elevated:
+The `[elevated]` <<transforming-result-documents.adoc,Document Transformer>> can be used to annotate each document with information about whether or not it was elevated:
 
 `http://localhost:8983/solr/techproducts/elevate?q=ipod&df=text&fl=id,[elevated]`
 

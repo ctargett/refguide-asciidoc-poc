@@ -99,13 +99,13 @@ Solr also provides a number of useful examples to help you learn about key featu
  $ bin/solr -e techproducts
 ----
 
-Currently, the available examples you can run are: techproducts, dih, schemaless, and cloud. See the section link:solr-start-script-reference.html#SolrStartScriptReference-RunningwithExampleConfigurations[Running with Example Configurations] for details on each example.
+Currently, the available examples you can run are: techproducts, dih, schemaless, and cloud. See the section <<solr-start-script-reference.adoc#SolrStartScriptReference-RunningwithExampleConfigurations,Running with Example Configurations>> for details on each example.
 
 Getting Started with SolrCloud
 
 Note:
 
-Running the `cloud` example starts Solr in link:solrcloud.html[SolrCloud] mode. For more information on starting Solr in cloud mode, see the section link:getting-started-with-solrcloud.html[Getting Started with SolrCloud].
+Running the `cloud` example starts Solr in <<solrcloud.adoc,SolrCloud>> mode. For more information on starting Solr in cloud mode, see the section link:REL_LINK//getting-started-with-solrcloud.adoc[Getting Started with SolrCloud].
 
 [[RunningSolr-CheckifSolrisRunning]]
 ==== Check if Solr is Running
@@ -149,11 +149,11 @@ To see all available options for creating a new core, execute:
 [[RunningSolr-AddDocuments]]
 == Add Documents
 
-Solr is built to find documents that match queries. Solr's schema provides an idea of how content is structured (more on the schema link:documents-fields-and-schema-design.html[later]), but without documents there is nothing to find. Solr needs input before it can do much.
+Solr is built to find documents that match queries. Solr's schema provides an idea of how content is structured (more on the schema <<documents-fields-and-schema-design.adoc,later>>), but without documents there is nothing to find. Solr needs input before it can do much.
 
 You may want to add a few sample documents before trying to index your own content. The Solr installation comes with different types of example documents located under the sub-directories of the `example/` directory of your installation.
 
-In the `bin/` directory is the post script, a command line tool which can be used to index different types of documents. Do not worry too much about the details for now. The link:indexing-and-basic-data-operations.html[Indexing and Basic Data Operations] section has all the details on indexing.
+In the `bin/` directory is the post script, a command line tool which can be used to index different types of documents. Do not worry too much about the details for now. The <<indexing-and-basic-data-operations.adoc,Indexing and Basic Data Operations>> section has all the details on indexing.
 
 To see some information about the usage of `bin/post`, use the `-help` option. Windows users, see the section for https://cwiki.apache.org/confluence/display/solr/Post+Tool#PostTool-Windows[Post Tool on Windows].
 
@@ -217,7 +217,7 @@ You can provide ranges for fields. The following query finds every document whos
 
 ` http://localhost:8983/solr/gettingstarted/select?q=price:[0%20TO%20400]&fl=id,name,price `
 
-link:faceting.html[Faceted browsing] is one of Solr's key features. It allows users to narrow search results in ways that are meaningful to your application. For example, a shopping site could provide facets to narrow search results by manufacturer or price.
+<<faceting.adoc,Faceted browsing>> is one of Solr's key features. It allows users to narrow search results in ways that are meaningful to your application. For example, a shopping site could provide facets to narrow search results by manufacturer or price.
 
 Faceting information is returned as a third part of Solr's query response. To get a taste of this power, take a look at the following query. It adds `facet=true` and `facet.field=cat`.
 

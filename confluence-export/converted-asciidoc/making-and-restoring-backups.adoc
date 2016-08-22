@@ -10,17 +10,17 @@ Solr provides two approaches to backing up and restoring Solr cores or collectio
 [[MakingandRestoringBackups-SolrCloud]]
 == SolrCloud
 
-Support for backups when running SolrCloud is provided with the link:collections-api.html[Collections API]. This allows the backups to be generated across multiple shards, and restored to the same number of shards and replicas as the original collection.
+Support for backups when running SolrCloud is provided with the <<collections-api.adoc,Collections API>>. This allows the backups to be generated across multiple shards, and restored to the same number of shards and replicas as the original collection.
 
 Two commands are available:
 
-* `action=BACKUP`: This command backs up Solr indexes and configurations. More information is available in the section link:collections-api.html#CollectionsAPI-BackupCollection[Backup Collection].
-* `action=RESTORE`: This command restores Solr indexes and configurations. More information is available in the section link:collections-api.html#CollectionsAPI-RestoreCollection[Restore Collection].
+* `action=BACKUP`: This command backs up Solr indexes and configurations. More information is available in the section <<collections-api.adoc#CollectionsAPI-BackupCollection,Backup Collection>>.
+* `action=RESTORE`: This command restores Solr indexes and configurations. More information is available in the section <<collections-api.adoc#CollectionsAPI-RestoreCollection,Restore Collection>>.
 
 [[MakingandRestoringBackups-StandaloneMode]]
 == Standalone Mode
 
-Backups and restoration uses Solr's replication handler. Out of the box, Solr includes implicit support for replication so this API can be used. Configuration of the replication handler can, however, be customized by defining your own replication handler in `solrconfig.xml` . For details on configuring the replication handler, see the section link:index-replication.html#IndexReplication-ConfiguringtheReplicationHandler[Configuring the ReplicationHandler].
+Backups and restoration uses Solr's replication handler. Out of the box, Solr includes implicit support for replication so this API can be used. Configuration of the replication handler can, however, be customized by defining your own replication handler in `solrconfig.xml` . For details on configuring the replication handler, see the section <<index-replication.adoc#IndexReplication-ConfiguringtheReplicationHandler,Configuring the ReplicationHandler>>.
 
 [[MakingandRestoringBackups-BackupAPI]]
 === Backup API
@@ -43,12 +43,12 @@ Only one backup call can be made against a core at any point in time. While an o
 The backup request can also take the following additional parameters:
 
 [width="100%",cols="50%,50%",options="header",]
-|====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|==============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 |Parameter |Description
 |location |The path where the backup will be created. If the path is not absolute then the backup path will be relative to Solr's instance directory.
 |name |The snapshot will be created in a directory called `snapshot.<name>`. If a name is not specified then the directory name would have the following format: `snapshot.<yyyyMMddHHmmssSSS>`
-|numberToKeep |The number of backups to keep. If `maxNumberOfBackups` has been specified on the replication handler in `solrconfig.xml`, `maxNumberOfBackups` is always used and attempts to use `numberToKeep` will cause an error. Also, this parameter is not taken into consideration if the backup name is specified. More information about `maxNumberOfBackups` can be found in the section link:index-replication.html#IndexReplication-ConfiguringtheReplicationHandler[Configuring the ReplicationHandler].
-|====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|numberToKeep |The number of backups to keep. If `maxNumberOfBackups` has been specified on the replication handler in `solrconfig.xml`, `maxNumberOfBackups` is always used and attempts to use `numberToKeep` will cause an error. Also, this parameter is not taken into consideration if the backup name is specified. More information about `maxNumberOfBackups` can be found in the section <<index-replication.adoc#IndexReplication-ConfiguringtheReplicationHandler,Configuring the ReplicationHandler>>.
+|==============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
 [[MakingandRestoringBackups-BackupStatus]]
 === Backup Status

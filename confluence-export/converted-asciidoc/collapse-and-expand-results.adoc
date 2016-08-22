@@ -7,7 +7,7 @@ The Collapsing query parser and the Expand component combine to form an approach
 
 Note:
 
-In order to use these features with SolrCloud, the documents must be located on the same shard. To ensure document co-location, you can define the `router.name` parameter as `compositeId` when creating the collection. For more information on this option, see the section link:shards-and-indexing-data-in-solrcloud.html#ShardsandIndexingDatainSolrCloud-DocumentRouting[Document Routing].
+In order to use these features with SolrCloud, the documents must be located on the same shard. To ensure document co-location, you can define the `router.name` parameter as `compositeId` when creating the collection. For more information on this option, see the section <<shards-and-indexing-data-in-solrcloud.adoc#ShardsandIndexingDatainSolrCloud-DocumentRouting,Document Routing>>.
 
 [[CollapseandExpandResults-CollapsingQueryParser]]
 == Collapsing Query Parser
@@ -21,7 +21,7 @@ The CollapsingQParser accepts the following local parameters:
 |Parameter |Description |Default
 |field |The field that is being collapsed on. The field must be a single valued String, Int or Float |none
 |min | max a|
-Selects the group head document for each group based on which document has the min or max value of the specified numeric field or link:function-queries.html[function query].
+Selects the group head document for each group based on which document has the min or max value of the specified numeric field or <<function-queries.adoc,function query>>.
 
 At most only one of the min, max, or sort (see below) parameters may be specified.
 
@@ -29,7 +29,7 @@ If none are specified, the group head document of each group will be selected ba
 
  |none
 |sort a|
-Selects the group head document for each group based on which document comes first according to the specified link:common-query-parameters.html#CommonQueryParameters-ThesortParameter[sort string].
+Selects the group head document for each group based on which document comes first according to the specified <<common-query-parameters.adoc#CommonQueryParameters-ThesortParameter,sort string>>.
 
 At most only one of the min, max, (see above) or sort parameters may be specified.
 

@@ -38,7 +38,7 @@ There are three possible conditions.
 
 * **shard**: this is the name of a shard or a wild card (* means for all shards). If shard is not specified, then the rule applies to the entire collection.
 * **replica**: this can be a number or a wild-card (* means any number zero to infinity).
-* **tag**: this is an attribute of a node in the cluster that can be used in a rule, e.g. “freedisk”, “cores”, “rack”, “dc”, etc. The tag name can be a custom string. If creating a custom tag, a snitch is responsible for providing tags and values. The section link:#Rule-basedReplicaPlacement-Snitches[Snitches] below describes how to add a custom tag, and defines six pre-defined tags (cores, freedisk, host, port, node, and sysprop).
+* **tag**: this is an attribute of a node in the cluster that can be used in a rule, e.g. “freedisk”, “cores”, “rack”, “dc”, etc. The tag name can be a custom string. If creating a custom tag, a snitch is responsible for providing tags and values. The section <<#Rule-basedReplicaPlacement-Snitches,Snitches>> below describes how to add a custom tag, and defines six pre-defined tags (cores, freedisk, host, port, node, and sysprop).
 
 [[Rule-basedReplicaPlacement-RuleOperators]]
 === Rule Operators
@@ -176,4 +176,4 @@ Rules are specified per collection during collection creation as request paramet
 snitch=class:EC2Snitch&rule=shard:*,replica:1,dc:dc1&rule=shard:*,replica:<2,dc:dc3
 ----
 
-These rules are persisted in `clusterstate.json` in Zookeeper and are available throughout the lifetime of the collection. This enables the system to perform any future node allocation without direct user interaction. The rules added during collection creation can be modified later using the link:collections-api.html#CollectionsAPI-modifycoll[MODIFYCOLLECTION] API.
+These rules are persisted in `clusterstate.json` in Zookeeper and are available throughout the lifetime of the collection. This enables the system to perform any future node allocation without direct user interaction. The rules added during collection creation can be modified later using the <<collections-api.adoc#CollectionsAPI-modifycoll,MODIFYCOLLECTION>> API.

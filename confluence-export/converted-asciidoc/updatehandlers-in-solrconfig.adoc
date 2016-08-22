@@ -4,7 +4,7 @@ UpdateHandlers in SolrConfig
 :page-shortname: updatehandlers-in-solrconfig
 :page-permalink: updatehandlers-in-solrconfig.html
 
-The settings in this section are configured in the `<updateHandler>` element in `solrconfig.xml` and may affect the performance of index updates. These settings affect how updates are done internally. `<updateHandler>` configurations do not affect the higher level configuration of link:requesthandlers-and-searchcomponents-in-solrconfig.html[RequestHandlers] that process client update requests.
+The settings in this section are configured in the `<updateHandler>` element in `solrconfig.xml` and may affect the performance of index updates. These settings affect how updates are done internally. `<updateHandler>` configurations do not affect the higher level configuration of <<requesthandlers-and-searchcomponents-in-solrconfig.adoc,RequestHandlers>> that process client update requests.
 
 [source,xml]
 ----
@@ -25,9 +25,9 @@ Data sent to Solr is not searchable until it has been _committed_ to the index. 
 
 In Solr, a `commit` is an action which asks Solr to "commit" those changes to the Lucene index files. By default commit actions result in a "hard commit" of all the Lucene index files to stable storage (disk). When a client includes a `commit=true` parameter with an update request, this ensures that all index segments affected by the adds & deletes on an update are written to disk as soon as index updates are completed.
 
-If an additional flag `softCommit=true` is specified, then Solr performs a 'soft commit', meaning that Solr will commit your changes to the Lucene data structures quickly but not guarantee that the Lucene index files are written to stable storage. This is an implementation of Near Real Time storage, a feature that boosts document visibility, since you don't have to wait for background merges and storage (to ZooKeeper, if using link:solrcloud.html[SolrCloud]) to finish before moving on to something else. A full commit means that, if a server crashes, Solr will know exactly where your data was stored; a soft commit means that the data is stored, but the location information isn't yet stored. The tradeoff is that a soft commit gives you faster visibility because it's not waiting for background merges to finish.
+If an additional flag `softCommit=true` is specified, then Solr performs a 'soft commit', meaning that Solr will commit your changes to the Lucene data structures quickly but not guarantee that the Lucene index files are written to stable storage. This is an implementation of Near Real Time storage, a feature that boosts document visibility, since you don't have to wait for background merges and storage (to ZooKeeper, if using <<solrcloud.adoc,SolrCloud>>) to finish before moving on to something else. A full commit means that, if a server crashes, Solr will know exactly where your data was stored; a soft commit means that the data is stored, but the location information isn't yet stored. The tradeoff is that a soft commit gives you faster visibility because it's not waiting for background merges to finish.
 
-For more information about Near Real Time operations, see link:near-real-time-searching.html[Near Real Time Searching].
+For more information about Near Real Time operations, see <<near-real-time-searching.adoc,Near Real Time Searching>>.
 
 [[UpdateHandlersinSolrConfig-autoCommit]]
 === `autoCommit`
@@ -67,7 +67,7 @@ You can also specify 'soft' autoCommits in the same way that you can specify 'so
 [[UpdateHandlersinSolrConfig-commitWithin]]
 === `commitWithin`
 
-The `commitWithin` settings allow forcing document commits to happen in a defined time period. This is used most frequently with link:near-real-time-searching.html[Near Real Time Searching], and for that reason the default is to perform a soft commit. This does not, however, replicate new documents to slave servers in a master/slave environment. If that's a requirement for your implementation, you can force a hard commit by adding a parameter, as in this example:
+The `commitWithin` settings allow forcing document commits to happen in a defined time period. This is used most frequently with <<near-real-time-searching.adoc,Near Real Time Searching>>, and for that reason the default is to perform a soft commit. This does not, however, replicate new documents to slave servers in a master/slave environment. If that's a requirement for your implementation, you can force a hard commit by adding a parameter, as in this example:
 
 [source,xml]
 ----
@@ -98,7 +98,7 @@ Users can write custom update event listener classes, but a common use case is t
 [[UpdateHandlersinSolrConfig-TransactionLog]]
 == Transaction Log
 
-As described in the section link:realtime-get.html[RealTime Get], a transaction log is required for that feature. It is configured in the `updateHandler` section of `solrconfig.xml`.
+As described in the section <<realtime-get.adoc,RealTime Get>>, a transaction log is required for that feature. It is configured in the `updateHandler` section of `solrconfig.xml`.
 
 Realtime Get currently relies on the update log feature, which is enabled by default. It relies on an update log, which is configured in `solrconfig.xml`, in a section like:
 
@@ -109,7 +109,7 @@ Realtime Get currently relies on the update log feature, which is enabled by def
 </updateLog>
 ----
 
-Three additional expert-level configuration settings affect indexing performance and how far a replica can fall behind on updates before it must enter into full recovery - see the section on link:read-and-write-side-fault-tolerance.html#ReadandWriteSideFaultTolerance-WriteSideFaultTolerance[write side fault tolerance] for more information:
+Three additional expert-level configuration settings affect indexing performance and how far a replica can fall behind on updates before it must enter into full recovery - see the section on <<read-and-write-side-fault-tolerance.adoc#ReadandWriteSideFaultTolerance-WriteSideFaultTolerance,write side fault tolerance>> for more information:
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
 |==================================================================================================================================================================================================================================================================================================================================

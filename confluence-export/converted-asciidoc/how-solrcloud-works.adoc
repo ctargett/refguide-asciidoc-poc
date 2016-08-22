@@ -8,15 +8,15 @@ The following sections cover provide general information about how various SolrC
 
 * [[sc32604299]]
 +
-link:/confluence/display/solr/Shards+and+Indexing+Data+in+SolrCloud[Shards and Indexing Data in SolrCloud]
+<</confluence/display/solr/Shards+and+Indexing+Data+in+SolrCloud,Shards and Indexing Data in SolrCloud>>
 * [[sc32604297]]
 +
-link:/confluence/display/solr/Distributed+Requests[Distributed Requests]
+<</confluence/display/solr/Distributed+Requests,Distributed Requests>>
 * [[sc32604296]]
 +
-link:/confluence/display/solr/Read+and+Write+Side+Fault+Tolerance[Read and Write Side Fault Tolerance]
+<</confluence/display/solr/Read+and+Write+Side+Fault+Tolerance,Read and Write Side Fault Tolerance>>
 
-If you are already familiar with SolrCloud concepts and basic functionality, you can skip to the section covering link:solrcloud-configuration-and-parameters.html[SolrCloud Configuration and Parameters].
+If you are already familiar with SolrCloud concepts and basic functionality, you can skip to the section covering <<solrcloud-configuration-and-parameters.adoc,SolrCloud Configuration and Parameters>>.
 
 [[HowSolrCloudWorks-KeySolrCloudConcepts]]
 == Key SolrCloud Concepts

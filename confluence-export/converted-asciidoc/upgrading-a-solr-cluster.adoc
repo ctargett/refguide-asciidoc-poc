@@ -5,7 +5,7 @@ Upgrading a Solr Cluster
 :page-permalink: upgrading-a-solr-cluster.html
 :page-children: indexupgrader-tool
 
-This page covers how to upgrade an existing Solr cluster that was installed using the link:taking-solr-to-production.html[service installation scripts] .
+This page covers how to upgrade an existing Solr cluster that was installed using the <<taking-solr-to-production.adoc,service installation scripts>> .
 
 Note:The steps outlined on this page assume you use the default service name of " `solr`". If you use an alternate service name or Solr installation directory, some of the paths and commands mentioned below will have to be modified accordingly.toc::[]
 
@@ -14,9 +14,9 @@ Note:The steps outlined on this page assume you use the default service name of 
 
 Here is a checklist of things you need to prepare before starting the upgrade process:
 
-1.  Examine the link:upgrading-solr.html[Upgrading Solr] page to determine if any behavior changes in the new version of Solr will affect your installation.
+1.  Examine the <<upgrading-solr.adoc,Upgrading Solr>> page to determine if any behavior changes in the new version of Solr will affect your installation.
 2.  If not using replication (ie: collections with replicationFactor > 1), then you should make a backup of each collection. If all of your collections use replication, then you don't technically need to make a backup since you will be upgrading and verifying each node individually.
-3.  Determine which Solr node is currently hosting the Overseer leader process in SolrCloud, as you should upgrade this node last. To determine the Overseer, use the Overseer Status API, see: link:collections-api.html[Collections API].
+3.  Determine which Solr node is currently hosting the Overseer leader process in SolrCloud, as you should upgrade this node last. To determine the Overseer, use the Overseer Status API, see: <<collections-api.adoc,Collections API>>.
 4.  Plan to perform your upgrade during a system maintenance window if possible. You'll be doing a rolling restart of your cluster (each node, one-by-one), but we still recommend doing the upgrade when system usage is minimal.
 5.  Verify the cluster is currently healthy and all replicas are active, as you should not perform an upgrade on a degraded cluster.
 6.  Re-build and test all custom server-side components against the new Solr JAR files.
@@ -24,7 +24,7 @@ Here is a checklist of things you need to prepare before starting the upgrade pr
 * `ZK_HOST`: The ZooKeeper connection string your current SolrCloud nodes use to connect to ZooKeeper; this value will be the same for all nodes in the cluster.
 * `SOLR_HOST`: The hostname each Solr node used to register with ZooKeeper when joining the SolrCloud cluster; this value will be used to set the *host* Java system property when starting the new Solr process.
 * `SOLR_PORT`: The port each Solr node is listening on, such as 8983.
-* `SOLR_HOME`: The absolute path to the Solr home directory for each Solr node; this directory must contain a `solr.xml` file. This value will be passed to the new Solr process using the `solr.solr.home` system property, see: link:solr-cores-and-solr-xml.html[Solr Cores and solr.xml].
+* `SOLR_HOME`: The absolute path to the Solr home directory for each Solr node; this directory must contain a `solr.xml` file. This value will be passed to the new Solr process using the `solr.solr.home` system property, see: <<solr-cores-and-solr-xml.adoc,Solr Cores and solr.xml>>.
 +
 If you are upgrading from an installation of Solr 5.x or later, these values can typically be found in either `/var/solr/solr.in.sh` or `/etc/default/solr.in.sh`.
 
@@ -38,12 +38,12 @@ The approach we recommend is to perform the upgrade of each Solr node, one-by-on
 [[UpgradingaSolrCluster-Step1:StopSolr]]
 === Step 1: Stop Solr
 
-Begin by stopping the Solr node you want to upgrade. After stopping the node, if using a replication, (ie: collections with replicationFactor > 1) verify that all leaders hosted on the downed node have successfully migrated to other replicas; you can do this by visiting the link:cloud-screens.html[Cloud panel in the Solr Admin UI]. If not using replication, then any collections with shards hosted on the downed node will be temporarily off-line.
+Begin by stopping the Solr node you want to upgrade. After stopping the node, if using a replication, (ie: collections with replicationFactor > 1) verify that all leaders hosted on the downed node have successfully migrated to other replicas; you can do this by visiting the <<cloud-screens.adoc,Cloud panel in the Solr Admin UI>>. If not using replication, then any collections with shards hosted on the downed node will be temporarily off-line.
 
 [[UpgradingaSolrCluster-Step2:InstallSolrasaService]]
 === Step 2: Install Solr as a Service
 
-Please follow the instructions to install Solr as a Service on Linux documented at link:taking-solr-to-production.html[Taking Solr to Production]. After running the install script, the new Solr node will be running, so please stop it by doing: `sudo service solr stop`. You need to update the `/etc/default/solr.in.sh` include file in the next step to complete the upgrade process.
+Please follow the instructions to install Solr as a Service on Linux documented at <<taking-solr-to-production.adoc,Taking Solr to Production>>. After running the install script, the new Solr node will be running, so please stop it by doing: `sudo service solr stop`. You need to update the `/etc/default/solr.in.sh` include file in the next step to complete the upgrade process.
 
 Note:If you have a `/var/solr/solr.in.sh` file for your existing Solr install, running the `install_solr_service.sh` script will move this file to it's new location: `/etc/default/solr.in.sh` (see https://issues.apache.org/jira/browse/SOLR-8101[SOLR-8101] for more details)
 

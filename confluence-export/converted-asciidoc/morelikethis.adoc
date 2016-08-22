@@ -72,9 +72,9 @@ The table below summarizes parameters accessible through the `MoreLikeThisHandle
 [[MoreLikeThis-MoreLikeThisQueryParser]]
 == More Like This Query Parser
 
-The `mlt` query parser provides a mechanism to retrieve documents similar to a given document, like the handler. More information on the usage of the mlt query parser can be found link:other-parsers.html[here].
+The `mlt` query parser provides a mechanism to retrieve documents similar to a given document, like the handler. More information on the usage of the mlt query parser can be found <<other-parsers.adoc,here>>.
 
 [[MoreLikeThis-RelatedTopics]]
 == Related Topics
 
-* link:requesthandlers-and-searchcomponents-in-solrconfig.html[RequestHandlers and SearchComponents in SolrConfig]
+* <<requesthandlers-and-searchcomponents-in-solrconfig.adoc,RequestHandlers and SearchComponents in SolrConfig>>
