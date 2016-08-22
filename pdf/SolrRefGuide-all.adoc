@@ -1,7 +1,6 @@
 = Apache Solr Reference Guide: For Solr 0.0
 :toc:
 :toc-title: Table of Contents
-:leveloffset: +1
 
 [discrete]
 = Licenses
@@ -15,34 +14,4 @@ Fonts used in the Apache Solr Reference Guide include https://www.theleagueofmov
 
 <<<
 
-= Introduction to Document Analysis
-
-This section introduces tokenization, analyzers and filters.
-
-include::jekylltest/refguide/Understanding-Analyzers-Tokenizers-and-Filters.adoc[]
-
-include::jekylltest/refguide/Analyzers.adoc[]
-
-include::jekylltest/refguide/About-Tokenizers.adoc[]
-
-include::jekylltest/refguide/About-Filters.adoc[]
-
-include::jekylltest/refguide/Tokenizers.adoc[]
-
-include::jekylltest/refguide/Filter-Descriptions.adoc[]
-
-include::jekylltest/refguide/CharFilterFactories.adoc[]
-
-include::jekylltest/refguide/Language-Analysis.adoc[]
-
-include::jekylltest/refguide/Phonetic-Matching.adoc[]
-
-include::jekylltest/refguide/Running-Your-Analyzer.adoc[]
-
-<<<
-
-= Scaling Solr
-
-This section describes index replication in the master/slave architecture.
-
-include::jekylltest/refguide/Index-Replication.adoc[]
+include::confluence-export/converted-asciidoc/_data/pdf-main-body.adoc[]

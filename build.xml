@@ -51,6 +51,34 @@
       <arg value="${main-page}"/>
     </java>
   </target>
+  <target name="hoss-pdf"
+          depends="build-nav"
+          description="Builds a PDF against all converted-asciidoc files">
+    <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
+             classpath="lib/asciidoctor-ant.jar"/>
+    <!-- TODO: the scrapper code needs to copy/move the images -->
+    <asciidoctor:convert
+                 sourceDirectory="pdf"
+                 sourceDocumentName="SolrRefGuide-all.adoc"
+                 outputDirectory="build"
+                 backend="pdf"
+                 extensions="adoc"
+                 sourceHighlighter="coderay"
+                 embedAssets="true"
+                 imagesDir="confluence-export/raw-export/"
+                 doctype="book"
+                 safemode="unsafe">
+      <attribute key="icons" value="font" />
+      <attribute key="icon-set" value="fa" />
+      <attribute key="docinfo!" value='' />
+      <attribute key="pdf-stylesDir" value="pdf/themes"/>
+      <attribute key="pdf-style" value="refguide"/>
+      <attribute key="pdf-fontsDir" value="pdf/fonts"/>
+      <attribute key="pagenums" value='' />
+      <attribute key="figure-caption!" value='' />
+    </asciidoctor:convert>
+    <echo>Finished Building ${basedir}/build/SolrRefGuide-all.pdf</echo>
+  </target>
 
 <!-- ======= Asciidoctor HTML conversion ========
    Uses pure Asciidoctor build task-->
@@ -149,7 +177,6 @@
   <property name="asciidoctor-ant.snapshot.jar" value="asciidoctor-ant.jar"/>
 
   <target name="pdf2"
-          depends="build-nav"
           description="Builds a PDF using downloaded copy of asciidoctorj">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
              classpath="lib/asciidoctor-ant.jar"/>
