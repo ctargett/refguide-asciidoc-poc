@@ -149,6 +149,7 @@
   <property name="asciidoctor-ant.snapshot.jar" value="asciidoctor-ant.jar"/>
 
   <target name="pdf2"
+          depends="build-nav"
           description="Builds a PDF using downloaded copy of asciidoctorj">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
              classpath="lib/asciidoctor-ant.jar"/>
