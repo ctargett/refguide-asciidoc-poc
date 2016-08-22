@@ -10,7 +10,7 @@ The EnumField type allows defining a field whose values are a closed set, and th
 
 The EnumField type definition is quite simple, as in this example defining field types for "priorityLevel" and "riskLevel" enumerations:
 
-[source,html/xml]
+[source,xml]
 ----
 <fieldType name="priorityLevel" class="solr.EnumField" enumsConfig="enumsConfig.xml" enumName="priority"/>
 <fieldType name="riskLevel"     class="solr.EnumField" enumsConfig="enumsConfig.xml" enumName="risk"    />
@@ -28,7 +28,7 @@ The file named with the `enumsConfig` parameter can contain multiple enumeration
 
 In this example, there are two value lists defined. Each list is between `enum` opening and closing tags:
 
-[source,html/xml]
+[source,xml]
 ----
 <?xml version="1.0" ?>
 <enumsConfig>

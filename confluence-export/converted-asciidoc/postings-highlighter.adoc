@@ -14,7 +14,7 @@ The configuration for the Postings Highlighter is done in `solrconfig.xml`.
 
 First, define the search component:
 
-[source,html/xml]
+[source,xml]
 ----
 <searchComponent class="solr.HighlightComponent" name="highlight">
   <highlighting class="org.apache.solr.highlight.PostingsSolrHighlighter"/>
@@ -25,7 +25,7 @@ Note in this example, we have named the search component "highlight". If you sta
 
 Then in the request handler, you can define the defaults, as in this example:
 
-[source,html/xml]
+[source,xml]
 ----
 <requestHandler name="standard" class="solr.StandardRequestHandler">
   <lst name="defaults">

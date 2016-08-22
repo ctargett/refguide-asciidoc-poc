@@ -74,7 +74,7 @@ This parser takes a query that matches some parent documents and returns their c
 
 Using the example documents above, we can construct a query such as `q={!child of="content_type:parentDocument"}title:lucene`. We only get one document in response:
 
-[source,html/xml]
+[source,xml]
 ----
 <result name="response" numFound="1" start="0">
   <doc>
@@ -91,7 +91,7 @@ This parser takes a query that matches child documents and returns their parents
 
 Again using the example documents above, we can construct a query such as `q={!parent which="content_type:parentDocument"}comments:SolrCloud`. We get this document in response:
 
-[source,html/xml]
+[source,xml]
 ----
 <result name="response" numFound="1" start="0">
   <doc>

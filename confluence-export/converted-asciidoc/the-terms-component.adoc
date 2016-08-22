@@ -17,7 +17,7 @@ By default, the Terms Component is already configured in `solrconfig.xml` for ea
 
 Defining the Terms search component is straightforward: simply give it a name and use the class `solr.TermsComponent`.
 
-[source,html/xml]
+[source,xml]
 ----
 <searchComponent name="terms" class="solr.TermsComponent"/>
 ----
@@ -29,7 +29,7 @@ This makes the component available for use, but by itself will not be useable un
 
 The `/terms` request handler is also defined in `solrConfig.xml` by default.
 
-[source,html/xml]
+[source,xml]
 ----
 <requestHandler name="/terms" class="solr.SearchHandler" startup="lazy">
   <lst name="defaults">
@@ -149,7 +149,7 @@ This query requests the first ten terms in the name field: ` http://localhost:89
 
 Results:
 
-[source,html/xml]
+[source,xml]
 ----
 <response>
   <lst name="responseHeader">
@@ -180,7 +180,7 @@ This query requests the first ten terms in the name field, in index order (inste
 
 Results:
 
-[source,html/xml]
+[source,xml]
 ----
 <response>
   <lst name="responseHeader">
@@ -213,7 +213,7 @@ If the link:suggester.html[Suggester] doesn't suit your needs, you can use the T
 
 Result:
 
-[source,html/xml]
+[source,xml]
 ----
 <response>
   <lst name="responseHeader">

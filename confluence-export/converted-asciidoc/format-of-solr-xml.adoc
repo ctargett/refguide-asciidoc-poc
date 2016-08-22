@@ -13,7 +13,7 @@ toc::[]
 
 You can find `solr.xml` in your Solr Home directory or in Zookeeper. The default `solr.xml` file looks like this:
 
-[source,html/xml]
+[source,xml]
 ----
 <solr>
 
@@ -120,7 +120,7 @@ This element defines several parameters that relate so SolrCloud. This section i
 
 Custom shard handlers can be defined in `solr.xml` if you wish to create a custom shard handler.
 
-[source,html/xml]
+[source,xml]
 ----
 <shardHandlerFactory name="ShardHandlerFactory" class="qualified.class.name">
 ----
@@ -151,7 +151,7 @@ Any JVM system properties usually specified using the -D flag when starting the 
 
 For example, in the `solr.xml` file shown below, the `socketTimeout` and `connTimeout` values are each set to "0". However, if you start Solr using '`bin/solr -DsocketTimeout=1000`', the `socketTimeout` option of the `HttpShardHandlerFactory` to be overridden using a value of 1000ms, while the `connTimeout` option will continue to use the default property value of "0".
 
-[source,html/xml]
+[source,xml]
 ----
 <solr>
   <shardHandlerFactory name="shardHandlerFactory" 

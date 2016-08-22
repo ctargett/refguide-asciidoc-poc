@@ -45,7 +45,7 @@ You can now try out the clustering handler by opening the following URL in a bro
 
 The output XML should include search hits and an array of automatically discovered clusters at the end, resembling the output shown here:
 
-[source,html/xml]
+[source,xml]
 ----
 <response>
   <lst name="responseHeader">
@@ -139,14 +139,14 @@ An example configuration could look as shown below.
 ________________________________________________________________________________________________________________________________________________________________________________________________________________
 1.  Include the required contrib JARs. Note that by default paths are relative to the Solr core so they may need adjustments to your configuration, or an explicit specification of the `$solr.install.dir`.
 +
-[source,html/xml]
+[source,xml]
 ----
 <lib dir="${solr.install.dir:../../..}/contrib/clustering/lib/" regex=".*\.jar" />
 <lib dir="${solr.install.dir:../../..}/dist/" regex="solr-clustering-\d.*\.jar" />
 ----
 2.  Declaration of the search component. Each component can also declare multiple clustering pipelines ("engines"), which can be selected at runtime by passing `clustering.engine=(engine name)` URL parameter.
 +
-[source,html/xml]
+[source,xml]
 ----
 <searchComponent name="clustering" class="solr.clustering.ClusteringComponent">
   <!-- Lingo clustering algorithm -->
@@ -164,7 +164,7 @@ ________________________________________________________________________________
 ----
 3.  A request handler to which we append the clustering component declared above.
 +
-[source,html/xml]
+[source,xml]
 ----
 <requestHandler name="/clustering"
                 class="solr.SearchHandler">
@@ -285,7 +285,7 @@ The default attributes for all engines (algorithms) declared in the clustering c
 
 An example XML file changing the default language of documents to Polish is shown below.
 
-[source,html/xml]
+[source,xml]
 ----
 <attribute-sets default="attributes">
   <attribute-set id="attributes">

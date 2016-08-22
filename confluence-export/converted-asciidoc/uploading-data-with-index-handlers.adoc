@@ -17,7 +17,7 @@ toc::[]
 
 The default configuration file has the update request handler configured by default.
 
-[source,html/xml]
+[source,xml]
 ----
 <requestHandler name="/update" class="solr.UpdateRequestHandler" />
 ----
@@ -40,7 +40,7 @@ The XML schema recognized by the update handler for adding documents is very str
 
 For example:
 
-[source,html/xml]
+[source,xml]
 ----
 <add>
   <doc>
@@ -100,7 +100,7 @@ The `<commit>` and `<optimize>` elements accept these optional attributes:
 
 Here are examples of <commit> and <optimize> using optional attributes:
 
-[source,html/xml]
+[source,xml]
 ----
 <commit waitSearcher="false"/>
 <commit waitSearcher="false" expungeDeletes="true"/>
@@ -112,7 +112,7 @@ Here are examples of <commit> and <optimize> using optional attributes:
 
 Documents can be deleted from the index in two ways. "Delete by ID" deletes the document with the specified ID, and can be used only if a UniqueID field has been defined in the schema. "Delete by Query" deletes all documents matching a specified query, although `commitWithin` is ignored for a Delete by Query. A single delete message can contain multiple delete operations.
 
-[source,html/xml]
+[source,xml]
 ----
 <delete>
   <id>0002166313</id>
@@ -134,7 +134,7 @@ The rollback command rolls back all add and deletes made to the index since the 
 
 You can use the `curl` utility to perform any of the above commands, using its `--data-binary` option to append the XML message to the `curl` command, and generating a HTTP POST request. For example:
 
-[source,html/xml]
+[source,xml]
 ----
 curl http://localhost:8983/solr/my_collection/update -H "Content-Type: text/xml" --data-binary '
 <add>
@@ -165,7 +165,7 @@ curl http://localhost:8983/solr/my_collection/update?stream.body=%3Ccommit/%3E
 
 Responses from Solr take the form shown here:
 
-[source,html/xml]
+[source,xml]
 ----
 <response>
   <lst name="responseHeader">
@@ -184,7 +184,7 @@ The UpdateRequestHandler allows you to index any arbitrary XML using the `<tr>` 
 
 Here is an example XSLT stylesheet:
 
-[source,html/xml]
+[source,xml]
 ----
 <xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform'>
   <xsl:output media-type="text/xml" method="xml" indent="yes"/>
@@ -655,7 +655,7 @@ the docs indexed would be,
 
 It is possible to send any json to the `/update/json/docs` endpoint and the default configuration of the component is as follows:
 
-[source,html/xml]
+[source,xml]
 ----
 <initParams path="/update/json/docs">
   <lst name="defaults">
@@ -762,7 +762,7 @@ Nested documents may be indexed via either the XML or JSON data syntax (or using
 
 For example, here are two documents and their child documents:
 
-[source,html/xml]
+[source,xml]
 ----
 <add>
   <doc> 

@@ -242,7 +242,12 @@ public class ScrapeConfluence {
       if (element.hasAttr("class")) {
         Matcher codeType = PRE_CODE_CLASS_PATTERN.matcher(element.attr("class"));
         if (codeType.find()) {
-          element.attr("class", codeType.group(1));
+          String codeClass = codeType.group(1);
+          // some munging needed in some cases...
+          if (codeClass.equals("html/xml")) {
+            codeClass = "xml";
+          }
+          element.attr("class", codeClass);
         } else {
           element.removeAttr("class");
         }

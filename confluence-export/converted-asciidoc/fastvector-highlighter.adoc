@@ -47,7 +47,7 @@ Solr supports two boundary scanners: `breakIterator` and `simple`.
 
 The `breakIterator` boundary scanner offers excellent performance right out of the box by taking locale and boundary type into account. In most cases you will want to use the `breakIterator` boundary scanner. To implement the `breakIterator` boundary scanner, add this code to the `highlighting` section of your `solrconfig.xml` file, adjusting the type, language, and country values as appropriate to your application:
 
-[source,html/xml]
+[source,xml]
 ----
 <boundaryScanner name="breakIterator" class="solr.highlight.BreakIteratorBoundaryScanner">
   <lst name="defaults">
@@ -65,7 +65,7 @@ Possible values for the `hl.bs.type` parameter are WORD, LINE, SENTENCE, and CHA
 
 The `simple` boundary scanner scans term boundaries for a specified maximum character value (`hl.bs.maxScan`) and for common delimiters such as punctuation marks (`hl.bs.chars`). The `simple` boundary scanner may be useful for some custom To implement the `simple` boundary scanner, add this code to the `highlighting` section of your `solrconfig.xml` file, adjusting the values as appropriate to your application:
 
-[source,html/xml]
+[source,xml]
 ----
 <boundaryScanner name="simple" class="solr.highlight.SimpleBoundaryScanner" default="true">
   <lst name="defaults">
