@@ -2,6 +2,7 @@
 import java.io.*;
 import java.io.FilenameFilter;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.asciidoctor.Asciidoctor.Factory;
 import org.asciidoctor.Asciidoctor;
@@ -61,17 +62,27 @@ public class BuildNavAndPDFBody {
     try (Writer w = new OutputStreamWriter(new FileOutputStream(pdfFile), "UTF-8")) {
       // Note: not worrying about headers or anything like that ...
       // expecting this file to just be included by the main PDF file.
+
+      // track how deep we are so we can adjust headers accordingly
+      // start with a "negative" depth to treat all "top level" pages as same depth as main-page using Math.max
+      // (see below)
+      final AtomicInteger depth = new AtomicInteger(-1);
+      
       mainPage.depthFirstWalk(new Page.RecursiveAction() {
         public boolean act(Page page) {
           try {
             // HACK: where this file actually lives will determine what we need here...
             w.write("include::../");
             w.write(page.file.getName());
-            w.write("[]\n\n");
+            w.write("[leveloffset=+"+Math.max(0, depth.intValue())+"]\n\n");
+            depth.incrementAndGet();
             return true;
           } catch (IOException ioe) {
             throw new RuntimeException("IOE recursively acting on " + page.shortname, ioe);
           }
+        }
+        public void postKids(Page page) {
+          depth.decrementAndGet();
         }
       });
     }
