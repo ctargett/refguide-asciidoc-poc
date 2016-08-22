@@ -3,13 +3,13 @@ Collections / Core Admin
 :page-shortname: collections-core-admin
 :page-permalink: collections-core-admin.html
 
-The Collections screen provides some basic functionality for managing your Collections, powered by the <<collections-api.adoc,Collections API>>.
+The Collections screen provides some basic functionality for managing your Collections, powered by the <<collections-api.adoc#,Collections API>>.
 
 Note:
 
 If you are running a single node Solr instance, you will not see a Collections option in the left nav menu of the Admin UI.
 
-You will instead see a "Core Admin" screen that supports some comparable Core level information & manipulation via the <<coreadmin-api.adoc,CoreAdmin API>> instead.
+You will instead see a "Core Admin" screen that supports some comparable Core level information & manipulation via the <<coreadmin-api.adoc#,CoreAdmin API>> instead.
 
 The main display of this page provides a list of collections that exist in your cluster. Clicking on a collection name provides some basic metadata about how the collection is defined, and it's current shards & replicas, with options for adding and deleting individual replicas.
 

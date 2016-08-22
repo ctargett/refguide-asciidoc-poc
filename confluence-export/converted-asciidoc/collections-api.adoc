@@ -10,7 +10,7 @@ The Collections API is used to enable you to create, remove, or reload collectio
 
 The base URL for all API calls below is `http://<hostname>:<port>/solr`.
 
-`/admin/collections?action=CREATE`: <<#CollectionsAPI-api1,create>> a collection `/admin/collections?action=MODIFYCOLLECTION`: link:REL_LINK//#CollectionsAPI-modifycoll[Modify] certain attributes of a collection `/admin/collections?action=RELOAD`: link:REL_LINK//#CollectionsAPI-api2[reload] a collection `/admin/collections?action=SPLITSHARD`: link:REL_LINK//#CollectionsAPI-api3[split] a shard into two new shards `/admin/collections?action=CREATESHARD`: link:REL_LINK//#CollectionsAPI-api8[create] a new shard `/admin/collections?action=DELETESHARD`: link:REL_LINK//#CollectionsAPI-api7[delete] an inactive shard `/admin/collections?action=CREATEALIAS`: link:REL_LINK//#CollectionsAPI-api4[create or modify an alias] for a collection `/admin/collections?action=DELETEALIAS`: link:REL_LINK//#CollectionsAPI-api5[delete an alias] for a collection `/admin/collections?action=DELETE`: link:REL_LINK//#CollectionsAPI-api6[delete] a collection `/admin/collections?action=DELETEREPLICA`: link:REL_LINK//#CollectionsAPI-api9[delete a replica] of a shard `/admin/collections?action=ADDREPLICA`: link:REL_LINK//#CollectionsAPI-api_addreplica[add a replica] of a shard `/admin/collections?action=CLUSTERPROP`: link:REL_LINK//#CollectionsAPI-api11[Add/edit/delete a cluster-wide property] `/admin/collections?action=MIGRATE`: link:REL_LINK//#CollectionsAPI-api12[Migrate documents to another collection] `/admin/collections?action=ADDROLE`: link:REL_LINK//#CollectionsAPI-api15AddRole[Add a specific role] to a node in the cluster `/admin/collections?action=REMOVEROLE`: link:REL_LINK//#CollectionsAPI-api16RemoveRole[Remove an assigned role] `/admin/collections?action=OVERSEERSTATUS`: link:REL_LINK//#CollectionsAPI-api17[Get status and statistics of the overseer] `/admin/collections?action=CLUSTERSTATUS`: link:REL_LINK//#CollectionsAPI-api18[Get cluster status] `/admin/collections?action=REQUESTSTATUS`: link:REL_LINK//#CollectionsAPI-RequestStatus[Get the status] of a previous asynchronous request `/admin/collections?action=DELETESTATUS`: link:REL_LINK//#CollectionsAPI-DeleteStatus[Delete the stored response] of a previous asynchronous request `/admin/collections?action=LIST`: link:REL_LINK//#CollectionsAPI-List[List all collections] `/admin/collections?action=ADDREPLICAPROP`: link:REL_LINK//#CollectionsAPI-AddReplicaProp[Add an arbitrary property] to a replica specified by collection/shard/replica `/admin/collections?action=DELETEREPLICAPROP`: link:REL_LINK//#CollectionsAPI-DeleteReplicaProp[Delete an arbitrary property] from a replica specified by collection/shard/replica `/admin/collections?action=BALANCESHARDUNIQUE`: link:REL_LINK//#CollectionsAPI-BalanceSliceUnique[Distribute an arbitrary property], one per shard, across the nodes in a collection `/admin/collections?action=REBALANCELEADERS`: link:REL_LINK//#CollectionsAPI-RebalanceLeaders[Distribute leader role] based on the "preferredLeader" assignments `/admin/collections?action=FORCELEADER`: link:REL_LINK//#CollectionsAPI-ForceLeader[Force a leader election] in a shard if leader is lost `/admin/collections?action=MIGRATESTATEFORMAT`: link:REL_LINK//#CollectionsAPI-MigrateClusterState[Migrate a collection from shared clusterstate.json] to per-collection state.json `/admin/collections?action=BACKUP`:link:REL_LINK//#CollectionsAPI-Backup[Backup] Solr indexes and configurations for a specifc collection `/admin/collections?action=RESTORE`: link:REL_LINK//#CollectionsAPI-Restore[Restore] Solr indexes and configurations for a specific collection
+`/admin/collections?action=CREATE`: <<CollectionsAPI-api1,create>> a collection `/admin/collections?action=MODIFYCOLLECTION`: <<CollectionsAPI-modifycoll,Modify>> certain attributes of a collection `/admin/collections?action=RELOAD`: <<CollectionsAPI-api2,reload>> a collection `/admin/collections?action=SPLITSHARD`: <<CollectionsAPI-api3,split>> a shard into two new shards `/admin/collections?action=CREATESHARD`: <<CollectionsAPI-api8,create>> a new shard `/admin/collections?action=DELETESHARD`: <<CollectionsAPI-api7,delete>> an inactive shard `/admin/collections?action=CREATEALIAS`: <<CollectionsAPI-api4,create or modify an alias>> for a collection `/admin/collections?action=DELETEALIAS`: <<CollectionsAPI-api5,delete an alias>> for a collection `/admin/collections?action=DELETE`: <<CollectionsAPI-api6,delete>> a collection `/admin/collections?action=DELETEREPLICA`: <<CollectionsAPI-api9,delete a replica>> of a shard `/admin/collections?action=ADDREPLICA`: <<CollectionsAPI-api_addreplica,add a replica>> of a shard `/admin/collections?action=CLUSTERPROP`: <<CollectionsAPI-api11,Add/edit/delete a cluster-wide property>> `/admin/collections?action=MIGRATE`: <<CollectionsAPI-api12,Migrate documents to another collection>> `/admin/collections?action=ADDROLE`: <<CollectionsAPI-api15AddRole,Add a specific role>> to a node in the cluster `/admin/collections?action=REMOVEROLE`: <<CollectionsAPI-api16RemoveRole,Remove an assigned role>> `/admin/collections?action=OVERSEERSTATUS`: <<CollectionsAPI-api17,Get status and statistics of the overseer>> `/admin/collections?action=CLUSTERSTATUS`: <<CollectionsAPI-api18,Get cluster status>> `/admin/collections?action=REQUESTSTATUS`: <<CollectionsAPI-RequestStatus,Get the status>> of a previous asynchronous request `/admin/collections?action=DELETESTATUS`: <<CollectionsAPI-DeleteStatus,Delete the stored response>> of a previous asynchronous request `/admin/collections?action=LIST`: <<CollectionsAPI-List,List all collections>> `/admin/collections?action=ADDREPLICAPROP`: <<CollectionsAPI-AddReplicaProp,Add an arbitrary property>> to a replica specified by collection/shard/replica `/admin/collections?action=DELETEREPLICAPROP`: <<CollectionsAPI-DeleteReplicaProp,Delete an arbitrary property>> from a replica specified by collection/shard/replica `/admin/collections?action=BALANCESHARDUNIQUE`: <<CollectionsAPI-BalanceSliceUnique,Distribute an arbitrary property>>, one per shard, across the nodes in a collection `/admin/collections?action=REBALANCELEADERS`: <<CollectionsAPI-RebalanceLeaders,Distribute leader role>> based on the "preferredLeader" assignments `/admin/collections?action=FORCELEADER`: <<CollectionsAPI-ForceLeader,Force a leader election>> in a shard if leader is lost `/admin/collections?action=MIGRATESTATEFORMAT`: <<CollectionsAPI-MigrateClusterState,Migrate a collection from shared clusterstate.json>> to per-collection state.json `/admin/collections?action=BACKUP`:<<CollectionsAPI-Backup,Backup>> Solr indexes and configurations for a specifc collection `/admin/collections?action=RESTORE`: <<CollectionsAPI-Restore,Restore>> Solr indexes and configurations for a specific collection
 
 [[CollectionsAPI-CreateaCollection]]
 == Create a Collection
@@ -30,19 +30,19 @@ The base URL for all API calls below is `http://<hostname>:<port>/solr`.
 |shards |string |No |empty |A comma separated list of shard names, e.g., shard-x,shard-y,shard-z . This is a required parameter when using the 'implicit' router.
 |replicationFactor |integer |No |1 |The number of replicas to be created for each shard.
 |maxShardsPerNode |integer |No |1 |When creating collections, the shards and/or replicas are spread across all available (i.e., live) nodes, and two replicas of the same shard will never be on the same node. If a node is not live when the CREATE operation is called, it will not get any parts of the new collection, which could lead to too many replicas being created on a single live node. Defining `maxShardsPerNode` sets a limit on the number of replicas CREATE will spread to each node. If the entire collection can not be fit into the live nodes, no collection will be created at all.
-|createNodeSet |string |No | |Allows defining the nodes to spread the new collection across. If not provided, the CREATE operation will create shard-replica spread across all live Solr nodes. The format is a comma-separated list of node_names, such as `localhost:8983_solr,` `localhost:8984_solr,` `localhost:8985_solr`. Alternatively, use the special value of `EMPTY` to initially create no shard-replica within the new collection and then later use the <<#CollectionsAPI-api_addreplica,ADDREPLICA>> operation to add shard-replica when and where required.
+|createNodeSet |string |No | |Allows defining the nodes to spread the new collection across. If not provided, the CREATE operation will create shard-replica spread across all live Solr nodes. The format is a comma-separated list of node_names, such as `localhost:8983_solr,` `localhost:8984_solr,` `localhost:8985_solr`. Alternatively, use the special value of `EMPTY` to initially create no shard-replica within the new collection and then later use the <<CollectionsAPI-api_addreplica,ADDREPLICA>> operation to add shard-replica when and where required.
 |createNodeSet.shuffle |boolean |No |true a|
 Controls wether or not the shard-replicas created for this collection will be assigned to the nodes specified by the createNodeSet in a sequential manner, or if the list of nodes should be shuffled prior to creating individual replicas. A 'false' value makes the results of a collection creation predictible and gives more exact control over the location of the individual shard-replicas, but 'true' can be a better choice for ensuring replicas are distributed evenly across nodes.
 
 Ignored if createNodeSet is not also specified.
 
 |collection.configName |string |No |empty |Defines the name of the configurations (which must already be stored in ZooKeeper) to use for this collection. If not provided, Solr will default to the collection name as the configuration name.
-|router.field |string |No |empty |If this field is specified, the router will look at the value of the field in an input document to compute the hash and identify a shard instead of looking at the `uniqueKey` field. If the field specified is null in the document, the document will be rejected. Please note that <<realtime-get.adoc,RealTime Get>> or retrieval by id would also require the parameter `_route_` (or `shard.keys`) to avoid a distributed search.
-|property.__name__=__value__ |string |No | |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc,Defining core.properties>> for details on supported properties and values.
+|router.field |string |No |empty |If this field is specified, the router will look at the value of the field in an input document to compute the hash and identify a shard instead of looking at the `uniqueKey` field. If the field specified is null in the document, the document will be rejected. Please note that <<realtime-get.adoc#,RealTime Get>> or retrieval by id would also require the parameter `_route_` (or `shard.keys`) to avoid a distributed search.
+|property.__name__=__value__ |string |No | |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#,Defining core.properties>> for details on supported properties and values.
 |autoAddReplicas |boolean |No |false |When set to true, enables auto addition of replicas on shared file systems. See the section <<running-solr-on-hdfs.adoc#RunningSolronHDFS-autoAddReplicasSettings,autoAddReplicas Settings>> for more details on settings and overrides.
-|async |string |No | |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>>.
-|rule |string |No | |Replica placement rules. See the section <<rule-based-replica-placement.adoc,Rule-based Replica Placement>> for details.
-|snitch |string |No | |Details of the snitch provider. See the section <<rule-based-replica-placement.adoc,Rule-based Replica Placement>> for details.
+|async |string |No | |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>>.
+|rule |string |No | |Replica placement rules. See the section <<rule-based-replica-placement.adoc#,Rule-based Replica Placement>> for details.
+|snitch |string |No | |Details of the snitch provider. See the section <<rule-based-replica-placement.adoc#,Rule-based Replica Placement>> for details.
 |============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
 *Output*
@@ -112,7 +112,7 @@ The attributes that can be modified are:
 * rule
 * snitch
 
-See the <<#CollectionsAPI-api1,CREATE>> section above for details on these attributes.
+See the <<CollectionsAPI-api1,CREATE>> section above for details on these attributes.
 
 |=================================================================================================
 
@@ -131,7 +131,7 @@ The RELOAD action is used when you have changed a configuration in ZooKeeper.
 |=============================================================================================================================================
 |Key |Type |Required |Description
 |name |string |Yes |The name of the collection to reload.
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
 |=============================================================================================================================================
 
 *Output*
@@ -190,22 +190,22 @@ One can also specify an optional 'ranges' parameter to divide the original shard
 
 Another optional parameter 'split.key' can be used to split a shard using a route key such that all documents of the specified route key end up in a single dedicated sub-shard. Providing the 'shard' parameter is not required in this case because the route key is enough to figure out the right shard. A route key which spans more than one shard is not supported. For example, suppose split.key=A! hashes to the range 12-15 and belongs to shard 'shard1' with range 0-20 then splitting by this route key would yield three sub-shards with ranges 0-11, 12-15 and 16-20. Note that the sub-shard with the hash range of the route key may also contain documents for other route keys whose hash ranges overlap.
 
-Shard splitting can be a long running process. In order to avoid timeouts, you should run this as an <<#CollectionsAPI-AsynchronousCalls,asynchronous call.>>
+Shard splitting can be a long running process. In order to avoid timeouts, you should run this as an <<CollectionsAPI-AsynchronousCalls,asynchronous call.>>
 
 *Input*
 
 *Query Parameters*
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|======================================================================================================================================================================================================================
+|=======================================================================================================================================================================================================================
 |Key |Type |Required |Description
 |collection |string |Yes |The name of the collection that includes the shard to be split.
 |shard |string |Yes |The name of the shard to be split.
 |ranges |string |No |A comma-separated list of hash ranges in hexadecimal e.g. ranges=0-1f4,1f5-3e8,3e9-5dc
 |split.key |string |No |The key to use for splitting the index
-|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc,Defining core.properties>> for details on supported properties and values.
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>>
-|======================================================================================================================================================================================================================
+|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#,Defining core.properties>> for details on supported properties and values.
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>>
+|=======================================================================================================================================================================================================================
 
 *Output*
 
@@ -301,8 +301,8 @@ Shards can only created with this API for collections that use the 'implicit' ro
 |collection |string |Yes |The name of the collection that includes the shard that will be splitted.
 |shard |string |Yes |The name of the shard to be created.
 |createNodeSet |string |No |Allows defining the nodes to spread the new collection across. If not provided, the CREATE operation will create shard-replica spread across all live Solr nodes. The format is a comma-separated list of node_names, such as `localhost:8983_solr,` `localhost:8984_solr,` `localhost:8985_solr`.
-|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc,Defining core.properties>> for details on supported properties and values.
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
+|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#,Defining core.properties>> for details on supported properties and values.
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
 |=============================================================================================================================================================================================================================================================================================================================
 
 *Output*
@@ -351,7 +351,7 @@ Deleting a shard will unload all replicas of the shard, remove them from `cluste
 |deleteInstanceDir |boolean |No |By default Solr will delete the entire instanceDir of each replica that is deleted. Set this to `false` to prevent the instance directory from being deleted.
 |deleteDataDir |boolean |No |By default Solr will delete the dataDir of each replica that is deleted. Set this to `false` to prevent the data directory from being deleted.
 |deleteIndex |boolean |No |By default Solr will delete the index of each replica that is deleted. Set this to `false` to prevent the index directory from being deleted.
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
 |=============================================================================================================================================================================================
 
 *Output*
@@ -405,7 +405,7 @@ The `CREATEALIAS` action will create a new alias pointing to one or more collect
 |Key |Type |Required |Description
 |name |string |Yes |The alias name to be created.
 |collections |string |Yes |The list of collections to be aliased, separated by commas.
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
 |=============================================================================================================================================
 
 *Output*
@@ -448,7 +448,7 @@ http://localhost:8983/solr/admin/collections?action=CREATEALIAS&name=testalias&c
 |=============================================================================================================================================
 |Key |Type |Required |Description
 |name |string |Yes |The name of the alias to delete.
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
 |=============================================================================================================================================
 
 *Output*
@@ -491,7 +491,7 @@ http://localhost:8983/solr/admin/collections?action=DELETEALIAS&name=testalias
 |=============================================================================================================================================
 |Key |Type |Required |Description
 |name |string |Yes |The name of the collection to delete.
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
 |=============================================================================================================================================
 
 *Output*
@@ -556,7 +556,7 @@ Delete a named replica from the specified collection and shard. If the correspon
 |deleteDataDir |boolean |No |By default Solr will delete the dataDir of the replica that is deleted. Set this to `false` to prevent the data directory from being deleted.
 |deleteIndex |boolean |No |By default Solr will delete the index of the replica that is deleted. Set this to `false` to prevent the index directory from being deleted.
 |onlyIfDown |boolean |No |When set to 'true' will not take any action if the replica is active. Default 'false'
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
 |============================================================================================================================================================================================
 
 *Examples*
@@ -591,7 +591,7 @@ Add a replica to a shard in a collection. The node name can be specified if the 
 *Query Parameters*
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|===========================================================================================================================================================
+|============================================================================================================================================================
 |Key |Type |Required |Description
 |collection |string |Yes |The name of the collection.
 |shard |string |Yes* a|
@@ -607,9 +607,9 @@ Ignored if the shard param is also specified.
 |node |string |No |The name of the node where the replica should be created
 |instanceDir |string |No |The instanceDir for the core that will be created
 |dataDir |string |No |The directory in which the core should be created
-|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See <<defining-core-properties.adoc,Defining core.properties>>.
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>>
-|===========================================================================================================================================================
+|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See <<defining-core-properties.adoc#,Defining core.properties>>.
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>>
+|============================================================================================================================================================
 
 *Examples*
 
@@ -708,15 +708,15 @@ Please note that the migrate API does not perform any de-duplication on the docu
 *Query Parameters*
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|======================================================================================================================================================================================================================
+|=======================================================================================================================================================================================================================
 |Key |Type |Required |Description
 |collection |string |Yes |The name of the source collection from which documents will be split.
 |target.collection |string |Yes |The name of the target collection to which documents will be migrated.
 |split.key |string |Yes |The routing key prefix. For example, if uniqueKey is a!123, then you would use `split.key=a!`.
 |forward.timeout |int |No |The timeout, in seconds, until which write requests made to the source collection for the given `split.key` will be forwarded to the target shard. The default is 60 seconds.
-|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc,Defining core.properties>> for details on supported properties and values.
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>>.
-|======================================================================================================================================================================================================================
+|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#,Defining core.properties>> for details on supported properties and values.
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>>.
+|=======================================================================================================================================================================================================================
 
 *Output*
 
@@ -1152,7 +1152,7 @@ http://localhost:8983/solr/admin/collections?action=clusterstatus&wt=json
 
 `/admin/collections?action=REQUESTSTATUS&requestid=request-id `
 
-Request the status and response of an already submitted <<#CollectionsAPI-AsynchronousCalls,Asynchronous Collection API>> call. This call is also used to clear up the stored statuses (See below).
+Request the status and response of an already submitted <<CollectionsAPI-AsynchronousCalls,Asynchronous Collection API>> call. This call is also used to clear up the stored statuses (See below).
 
 *Input*
 
@@ -1217,7 +1217,7 @@ http://localhost:8983/solr/admin/collections?action=REQUESTSTATUS&requestid=1004
 
 `/admin/collections?action=DELETESTATUS&requestid=request-id `
 
-Delete the stored response of an already failed or completed <<#CollectionsAPI-AsynchronousCalls,Asynchronous Collection API>> call.
+Delete the stored response of an already failed or completed <<CollectionsAPI-AsynchronousCalls,Asynchronous Collection API>> call.
 
 *Input*
 
@@ -1630,7 +1630,7 @@ A Expert level utility API to move a collection from shared `clusterstate.json` 
 |=============================================================================================================================================
 |Key |Type |Required |Description
 |collection |string |Yes |The name of the collection to be migrated from `clusterstate.json` to its own `state.json` zookeeper node
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
 |=============================================================================================================================================
 
 This API is useful in migrating any collections created prior to Solr 5.0 the more scalable cluster state format now used by default. If a collection was created in any Solr 5.x version or higher, then executing this command is not necessary.
@@ -1650,8 +1650,8 @@ The backup command will backup Solr indexes and configurations for a specified c
 |================================================================================================================================================================================
 |Key |Type |Required |Description
 |collection |string |Yes |The name of the collection that needs to be backed up
-|location |string |No |The location on the shared drive for the backup command to write to. Alternately it can be set as a <<#CollectionsAPI-api11,cluster property>>
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>>
+|location |string |No |The location on the shared drive for the backup command to write to. Alternately it can be set as a <<CollectionsAPI-api11,cluster property>>
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>>
 |================================================================================================================================================================================
 
 [[CollectionsAPI-RestoreCollection]]
@@ -1665,7 +1665,7 @@ The restore operation will create a collection with the specified name in the co
 
 The collection created will be of the same number of shards and replicas as the original collection, preserving routing information, etc. Optionally, you can override some parameters documented below. While restoring, if a configSet with the same name exists in ZooKeeper then Solr will reuse that, or else it will upload the backed up configSet in ZooKeeper and use that.
 
-You can use the collection <<#CollectionsAPI-api4,alias>> API to make sure client's don't need to change the endpoint to query or index against the newly restored collection.
+You can use the collection <<CollectionsAPI-api4,alias>> API to make sure client's don't need to change the endpoint to query or index against the newly restored collection.
 
 *Query Parameters*
 
@@ -1673,8 +1673,8 @@ You can use the collection <<#CollectionsAPI-api4,alias>> API to make sure clien
 |===================================================================================================================================================================================
 |Key |Type |Required |Description
 |collection |string |Yes |The collection where the indexes will be restored into.
-|location |string |No |The location on the shared drive for the restore command to read from. Alternately it can be set as a <<#CollectionsAPI-api11,cluster property>>.
-|async |string |No |Request ID to track this action which will be <<#CollectionsAPI-AsynchronousCalls,processed asynchronously>>.
+|location |string |No |The location on the shared drive for the restore command to read from. Alternately it can be set as a <<CollectionsAPI-api11,cluster property>>.
+|async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>>.
 |===================================================================================================================================================================================
 
 Additionally, there are several parameters that can be overridden:
@@ -1688,13 +1688,13 @@ Additionally, there are several parameters that can be overridden:
 |replicationFactor |Integer |No |The number of replicas to be created for each shard.
 |maxShardsPerNode |Integer |No |When creating collections, the shards and/or replicas are spread across all available (i.e., live) nodes, and two replicas of the same shard will never be on the same node. If a node is not live when the CREATE operation is called, it will not get any parts of the new collection, which could lead to too many replicas being created on a single live node. Defining `maxShardsPerNode` sets a limit on the number of replicas CREATE will spread to each node. If the entire collection can not be fit into the live nodes, no collection will be created at all.
 |autoAddReplicas |Boolean |No |When set to true, enables auto addition of replicas on shared file systems. See the section <<running-solr-on-hdfs.adoc#RunningSolronHDFS-AutomaticallyAddReplicasinSolrCloud,Automatically Add Replicas in SolrCloud>> for more details on settings and overrides.
-|property.__name__=__value__ |String |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc,Defining core.properties>> for details on supported properties and values.
+|property.__name__=__value__ |String |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#,Defining core.properties>> for details on supported properties and values.
 |=========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
 [[CollectionsAPI-AsynchronousCalls]]
 == Asynchronous Calls
 
-Since some collection API calls can be long running tasks e.g. Shard Split, you can optionally have the calls run asynchronously. Specifying `async=<request-id>` enables you to make an asynchronous call, the status of which can be requested using the <<#CollectionsAPI-RequestStatus,REQUESTSTATUS>> call at any time.
+Since some collection API calls can be long running tasks e.g. Shard Split, you can optionally have the calls run asynchronously. Specifying `async=<request-id>` enables you to make an asynchronous call, the status of which can be requested using the <<CollectionsAPI-RequestStatus,REQUESTSTATUS>> call at any time.
 
 As of now, REQUESTSTATUS does not automatically clean up the tracking data structures, meaning the status of completed or failed tasks stays stored in ZooKeeper unless cleared manually. DELETESTATUScan be used to clear the stored statuses. However, there is a limit of 10,000 on the number of async call responses stored in a cluster.
 

@@ -45,4 +45,4 @@ These are set in `solr.xml`, but by default the `host` and `hostContext` paramet
 
 `shard` can be specified in the `core.properties` for each core.
 
-Additional cloud related parameters are discussed in <<format-of-solr-xml.adoc,Format of solr.xml>>
+Additional cloud related parameters are discussed in <<format-of-solr-xml.adoc#,Format of solr.xml>>

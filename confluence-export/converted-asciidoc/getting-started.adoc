@@ -10,12 +10,12 @@ The Lucene search library currently ranks among the top 15 open source projects 
 
 This section helps you get Solr up and running quickly, and introduces you to the basic Solr architecture and features. It covers the following topics:
 
-<<installing-solr.adoc,Installing Solr>>: A walkthrough of the Solr installation process.
+<<installing-solr.adoc#,Installing Solr>>: A walkthrough of the Solr installation process.
 
-<<running-solr.adoc,Running Solr>>: An introduction to running Solr. Includes information on starting up the servers, adding documents, and running queries.
+<<running-solr.adoc#,Running Solr>>: An introduction to running Solr. Includes information on starting up the servers, adding documents, and running queries.
 
-<<a-quick-overview.adoc,A Quick Overview>>: A high-level overview of how Solr works.
+<<a-quick-overview.adoc#,A Quick Overview>>: A high-level overview of how Solr works.
 
-<<a-step-closer.adoc,A Step Closer>>: An introduction to Solr's home directory and configuration options.
+<<a-step-closer.adoc#,A Step Closer>>: An introduction to Solr's home directory and configuration options.
 
-<<solr-start-script-reference.adoc,Solr Start Script Reference>>: a complete reference of all of the commands and options available with the bin/solr script.
+<<solr-start-script-reference.adoc#,Solr Start Script Reference>>: a complete reference of all of the commands and options available with the bin/solr script.

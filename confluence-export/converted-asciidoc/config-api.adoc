@@ -15,7 +15,7 @@ toc::[]
 
 * `/config`: retrieve or modify the config. GET to retrieve and POST for executing commands
 * `/config/overlay`: retrieve the details in the `configoverlay.json` alone
-* `/config/params` : allows creating parameter sets that can override or take the place of parameters defined in `solrconfig.xml`. See the <<request-parameters-api.adoc,Request Parameters API>> section for more details.
+* `/config/params` : allows creating parameter sets that can override or take the place of parameters defined in `solrconfig.xml`. See the <<request-parameters-api.adoc#,Request Parameters API>> section for more details.
 
 [[ConfigAPI-Commands]]
 == Commands
@@ -24,9 +24,9 @@ This API uses specific commands to tell Solr what property or type of property t
 
 The config commands are categorized into 3 different sections which manipulate various data structures in `solrconfig.xml`. Each of these is described below.
 
-* <<#ConfigAPI-CommandsforCommonProperties,Common Properties>>
-* <<#ConfigAPI-CommandsforCustomHandlersandLocalComponents,Components>>
-* <<#ConfigAPI-CommandsforUser-DefinedProperties,User-defined properties>>
+* <<ConfigAPI-CommandsforCommonProperties,Common Properties>>
+* <<ConfigAPI-CommandsforCustomHandlersandLocalComponents,Components>>
+* <<ConfigAPI-CommandsforUser-DefinedProperties,User-defined properties>>
 
 [[ConfigAPI-CommandsforCommonProperties]]
 === Commands for Common Properties
@@ -136,7 +136,7 @@ These commands allow registering more advanced customizations to Solr:
 * `update-runtimelib`
 * `delete-runtimelib`
 
-See the section <<#ConfigAPI-CreatingandUpdatingRequestHandlers,Creating and Updating Request Handlers>> below for examples of using these commands.
+See the section <<ConfigAPI-CreatingandUpdatingRequestHandlers,Creating and Updating Request Handlers>> below for examples of using these commands.
 
 [[ConfigAPI-Whatabout<updateRequestProcessorChain>?]]
 ==== What about <`updateRequestProcessorChain>`?
@@ -165,7 +165,7 @@ Solr lets users templatize the `solrconfig.xml` using the place holder format `$
 
 The structure of the request is similar to the structure of requests using other commands, in the format of `"command":{"variable_name":"property_value"}`. You can add more than one variable at a time if necessary.
 
-For more information about user-defined properties, see the section <<configuring-solrconfig-xml.adoc#Configuringsolrconfig.xml-Userdefinedpropertiesfromcore.properties,User defined properties from core.properties>>. See also the section link:REL_LINK//#ConfigAPI-CreatingandUpdatingUser-DefinedProperties[Creating and Updating User-Defined Properties] below for examples of how to use this type of command.
+For more information about user-defined properties, see the section <<configuring-solrconfig-xml.adoc#Configuringsolrconfig.xml-Userdefinedpropertiesfromcore.properties,User defined properties from core.properties>>. See also the section <<ConfigAPI-CreatingandUpdatingUser-DefinedProperties,Creating and Updating User-Defined Properties>> below for examples of how to use this type of command.
 
 [[ConfigAPI-HowtoMapsolrconfig.xmlPropertiestoJSON]]
 == How to Map `solrconfig.xml` Properties to JSON
@@ -469,7 +469,7 @@ curl http://localhost:8983/solr/techproducts/config -H'Content-type:application/
 
 Every core watches the ZooKeeper directory for the configset being used with that core. In standalone mode, however, there is no watch (because ZooKeeper is not running). If there are multiple cores in the same node using the same configset, only one ZooKeeper watch is used. For instance, if the configset 'myconf' is used by a core, the node would watch `/configs/myconf`. Every write operation performed through the API would 'touch' the directory (sets an empty byte[] to trigger watches) and all watchers are notified. Every core would check if the Schema file, `solrconfig.xml` or `configoverlay.json` is modified by comparing the `znode` versions and if modified, the core is reloaded.
 
-If `params.json` is modified, the params object is just updated without a core reload (see the section <<request-parameters-api.adoc,Request Parameters API>> for more information about `params.json`).
+If `params.json` is modified, the params object is just updated without a core reload (see the section <<request-parameters-api.adoc#,Request Parameters API>> for more information about `params.json`).
 
 [[ConfigAPI-EmptyCommand]]
 === Empty Command

@@ -8,19 +8,19 @@ The field type defines how Solr should interpret data in a field and how the fie
 
 Topics covered in this section:
 
-* <<field-type-definitions-and-properties.adoc,Field Type Definitions and Properties>>
+* <<field-type-definitions-and-properties.adoc#,Field Type Definitions and Properties>>
 
-* <<field-types-included-with-solr.adoc,Field Types Included with Solr>>
+* <<field-types-included-with-solr.adoc#,Field Types Included with Solr>>
 
-* <<working-with-currencies-and-exchange-rates.adoc,Working with Currencies and Exchange Rates>>
+* <<working-with-currencies-and-exchange-rates.adoc#,Working with Currencies and Exchange Rates>>
 
-* <<working-with-dates.adoc,Working with Dates>>
+* <<working-with-dates.adoc#,Working with Dates>>
 
-* <<working-with-enum-fields.adoc,Working with Enum Fields>>
+* <<working-with-enum-fields.adoc#,Working with Enum Fields>>
 
-* <<working-with-external-files-and-processes.adoc,Working with External Files and Processes>>
+* <<working-with-external-files-and-processes.adoc#,Working with External Files and Processes>>
 
-* <<field-properties-by-use-case.adoc,Field Properties by Use Case>>
+* <<field-properties-by-use-case.adoc#,Field Properties by Use Case>>
 
 [[SolrFieldTypes-RelatedTopics]]
 == Related Topics

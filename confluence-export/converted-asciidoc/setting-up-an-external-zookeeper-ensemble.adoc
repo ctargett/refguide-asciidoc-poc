@@ -175,4 +175,4 @@ For more information on getting the most power from your ZooKeeper installation,
 
 You may also want to secure the communication between ZooKeeper and Solr.
 
-To setup ACL protection of znodes, see <<zookeeper-access-control.adoc,ZooKeeper Access Control>>.
+To setup ACL protection of znodes, see <<zookeeper-access-control.adoc#,ZooKeeper Access Control>>.

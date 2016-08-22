@@ -60,7 +60,7 @@ openssl pkcs12 -nokeys -in solr-ssl.keystore.p12 -out solr-ssl.cacert.pem
 [[EnablingSSL-SetcommonSSLrelatedsystemproperties]]
 === Set common SSL related system properties
 
-The Solr start script is already setup to pass SSL-related Java system properties to the JVM. To activate the SSL settings, uncomment and update the set of properties beginning with SOLR_SSL_* in `bin/solr.in.sh`. (or `bin\solr.in.cmd` on Windows). Note, if you setup Solr as a service on Linux using the steps outlined in <<taking-solr-to-production.adoc,Taking Solr to Production>>, then make these changes in `/var/solr/solr.in.sh` instead.
+The Solr start script is already setup to pass SSL-related Java system properties to the JVM. To activate the SSL settings, uncomment and update the set of properties beginning with SOLR_SSL_* in `bin/solr.in.sh`. (or `bin\solr.in.cmd` on Windows). Note, if you setup Solr as a service on Linux using the steps outlined in <<taking-solr-to-production.adoc#,Taking Solr to Production>>, then make these changes in `/var/solr/solr.in.sh` instead.
 
 *bin/solr.in.sh example SOLR_SSL_* configuration*
 
@@ -133,7 +133,7 @@ ZooKeeper does not support encrypted communication with clients like Solr. There
 
 Before you start any SolrCloud nodes, you must configure your solr cluster properties in ZooKeeper, so that Solr nodes know to communicate via SSL.
 
-This section assumes you have created and started a single-node external ZooKeeper on port 2181 on localhost - see <<setting-up-an-external-zookeeper-ensemble.adoc,Setting Up an External ZooKeeper Ensemble>>
+This section assumes you have created and started a single-node external ZooKeeper on port 2181 on localhost - see <<setting-up-an-external-zookeeper-ensemble.adoc#,Setting Up an External ZooKeeper Ensemble>>
 
 The `urlScheme` cluster-wide property needs to be set to `https` before any Solr node starts up. The example below uses the `zkcli` tool that comes with the binary Solr distribution to do this:
 
@@ -242,7 +242,7 @@ Note:
 
 cURL on OS X Mavericks (10.9) has degraded SSL support. For more information and workarounds to allow 1-way SSL, see http://curl.haxx.se/mail/archive-2013-10/0036.html . cURL on OS X Yosemite (10.10) is improved - 2-way SSL is possible - see http://curl.haxx.se/mail/archive-2014-10/0053.html .
 
-The cURL commands in the following sections will not work with the system `curl` on OS X Yosemite (10.10). Instead, the certificate supplied with the `-E` param must be in PKCS12 format, and the file supplied with the `--cacert` param must contain only the CA certificate, and no key (see <<#EnablingSSL-ConvertthecertificateandkeytoPEMformatforusewithcURL,above>> for instructions on creating this file):
+The cURL commands in the following sections will not work with the system `curl` on OS X Yosemite (10.10). Instead, the certificate supplied with the `-E` param must be in PKCS12 format, and the file supplied with the `--cacert` param must contain only the CA certificate, and no key (see <<EnablingSSL-ConvertthecertificateandkeytoPEMformatforusewithcURL,above>> for instructions on creating this file):
 
 [source,text]
 ----

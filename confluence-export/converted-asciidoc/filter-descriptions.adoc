@@ -78,7 +78,7 @@ This filter converts alphabetic, numeric, and symbolic Unicode characters which 
 [[FilterDescriptions-Beider-MorseFilter]]
 == Beider-Morse Filter
 
-Implements the Beider-Morse Phonetic Matching (BMPM) algorithm, which allows identification of similar names, even if they are spelled differently or in different languages. More information about how this works is available in the section on <<phonetic-matching.adoc,Phonetic Matching>>.
+Implements the Beider-Morse Phonetic Matching (BMPM) algorithm, which allows identification of similar names, even if they are spelled differently or in different languages. More information about how this works is available in the section on <<phonetic-matching.adoc#,Phonetic Matching>>.
 
 Note:
 
@@ -172,7 +172,7 @@ Collation allows sorting of text in a language-sensitive way. It is usually used
 [[FilterDescriptions-Daitch-MokotoffSoundexFilter]]
 == Daitch-Mokotoff Soundex Filter
 
-Implements the Daitch-Mokotoff Soundex algorithm, which allows identification of similar names, even if they are spelled differently. More information about how this works is available in the section on <<phonetic-matching.adoc,Phonetic Matching>>.
+Implements the Daitch-Mokotoff Soundex algorithm, which allows identification of similar names, even if they are spelled differently. More information about how this works is available in the section on <<phonetic-matching.adoc#,Phonetic Matching>>.
 
 *Factory class:* `solr.DaitchMokotoffSoundexFilterFactory`
 
@@ -193,7 +193,7 @@ Implements the Daitch-Mokotoff Soundex algorithm, which allows identification of
 [[FilterDescriptions-DoubleMetaphoneFilter]]
 == Double Metaphone Filter
 
-This filter creates tokens using the ` DoubleMetaphone ` encoding algorithm from commons-codec. For more information, see the <<phonetic-matching.adoc,Phonetic Matching>> section.
+This filter creates tokens using the ` DoubleMetaphone ` encoding algorithm from commons-codec. For more information, see the <<phonetic-matching.adoc#,Phonetic Matching>> section.
 
 *Factory class:* `solr.DoubleMetaphoneFilterFactory`
 
@@ -429,7 +429,7 @@ This filter reconstructs hyphenated words that have been tokenized as two tokens
 [[FilterDescriptions-ICUFoldingFilter]]
 == ICU Folding Filter
 
-This filter is a custom Unicode normalization form that applies the foldings specified in http://www.unicode.org/reports/tr30/tr30-4.html[Unicode Technical Report 30] in addition to the `NFKC_Casefold` normalization form as described in <<#FilterDescriptions-ICUNormalizer2Filter,ICU Normalizer 2 Filter>>. This filter is a better substitute for the combined behavior of the link:REL_LINK//#FilterDescriptions-ASCIIFoldingFilter[ASCII Folding Filter], link:REL_LINK//#FilterDescriptions-LowerCaseFilter[Lower Case Filter], and link:REL_LINK//#FilterDescriptions-ICUNormalizer2Filter[ICU Normalizer 2 Filter].
+This filter is a custom Unicode normalization form that applies the foldings specified in http://www.unicode.org/reports/tr30/tr30-4.html[Unicode Technical Report 30] in addition to the `NFKC_Casefold` normalization form as described in <<FilterDescriptions-ICUNormalizer2Filter,ICU Normalizer 2 Filter>>. This filter is a better substitute for the combined behavior of the <<FilterDescriptions-ASCIIFoldingFilter,ASCII Folding Filter>>, <<FilterDescriptions-LowerCaseFilter,Lower Case Filter>>, and <<FilterDescriptions-ICUNormalizer2Filter,ICU Normalizer 2 Filter>>.
 
 To use this filter, see `solr/contrib/analysis-extras/README.txt` for instructions on which jars you need to add to your `solr_home/lib`.
 
@@ -458,7 +458,7 @@ This filter factory normalizes text according to one of five Unicode Normalizati
 * NFD: (name="nfc" mode="decompose") Normalization Form D, canonical decomposition, followed by canonical composition
 * NFKC: (name="nfkc" mode="compose") Normalization Form KC, compatibility decomposition
 * NFKD: (name="nfkc" mode="decompose") Normalization Form KD, compatibility decomposition, followed by canonical composition
-* NFKC_Casefold: (name="nfkc_cf" mode="compose") Normalization Form KC, with additional Unicode case folding. Using the ICU Normalizer 2 Filter is a better-performing substitution for the <<#FilterDescriptions-LowerCaseFilter,Lower Case Filter>> and NFKC normalization.
+* NFKC_Casefold: (name="nfkc_cf" mode="compose") Normalization Form KC, with additional Unicode case folding. Using the ICU Normalizer 2 Filter is a better-performing substitution for the <<FilterDescriptions-LowerCaseFilter,Lower Case Filter>> and NFKC normalization.
 
 *Factory class:* `solr.ICUNormalizer2FilterFactory`
 
@@ -665,7 +665,7 @@ Converts any uppercase letters in a token to the equivalent lowercase token. All
 [[FilterDescriptions-ManagedStopFilter]]
 == Managed Stop Filter
 
-This is specialized version of the <<#FilterDescriptions-StopFilter,Stop Words Filter Factory>> that uses a set of stop words that are link:REL_LINK//managed-resources.adoc[managed from a REST API.]
+This is specialized version of the <<FilterDescriptions-StopFilter,Stop Words Filter Factory>> that uses a set of stop words that are <<managed-resources.adoc#,managed from a REST API.>>
 
 *Arguments:*
 
@@ -683,12 +683,12 @@ With this configuration the set of words is named "english" and can be managed v
 </analyzer>
 ----
 
-See <<#FilterDescriptions-StopFilter,Stop Filter>> for example input/output.
+See <<FilterDescriptions-StopFilter,Stop Filter>> for example input/output.
 
 [[FilterDescriptions-ManagedSynonymFilter]]
 == Managed Synonym Filter
 
-This is specialized version of the <<#FilterDescriptions-SynonymFilter,Synonym Filter Factory>> that uses a mapping on synonyms that is link:REL_LINK//managed-resources.adoc[managed from a REST API.]
+This is specialized version of the <<FilterDescriptions-SynonymFilter,Synonym Filter Factory>> that uses a mapping on synonyms that is <<managed-resources.adoc#,managed from a REST API.>>
 
 *Arguments:*
 
@@ -706,7 +706,7 @@ With this configuration the set of mappings is named "english" and can be manage
 </analyzer>
 ----
 
-See <<#FilterDescriptions-SynonymFilter,Synonym Filter>> for example input/output.
+See <<FilterDescriptions-SynonymFilter,Synonym Filter>> for example input/output.
 
 [[FilterDescriptions-N-GramFilter]]
 == N-Gram Filter
@@ -1238,7 +1238,7 @@ Case-sensitive matching, capitalized words not stopped. Token positions skip sto
 [[FilterDescriptions-SuggestStopFilter]]
 == Suggest Stop Filter
 
-Like <<#FilterDescriptions-StopFilter,Stop Filter>>, this filter discards, or _stops_ analysis of, tokens that are on the given stop words list. Suggest Stop Filter differs from Stop Filter in that it will not remove the last token unless it is followed by a token separator. For example, a query "`find the`" would preserve the '`the`' since it was not followed by a space, punctuation etc., and mark it as a `KEYWORD` so that following filters will not change or remove it. By contrast, a query like "`find the popsicle`" would remove "`the`" as a stopword, since it's followed by a space. When using one of the analyzing suggesters, you would normally use the ordinary `StopFilterFactory` in your index analyzer and then SuggestStopFilter in your query analyzer.
+Like <<FilterDescriptions-StopFilter,Stop Filter>>, this filter discards, or _stops_ analysis of, tokens that are on the given stop words list. Suggest Stop Filter differs from Stop Filter in that it will not remove the last token unless it is followed by a token separator. For example, a query "`find the`" would preserve the '`the`' since it was not followed by a space, punctuation etc., and mark it as a `KEYWORD` so that following filters will not change or remove it. By contrast, a query like "`find the popsicle`" would remove "`the`" as a stopword, since it's followed by a space. When using one of the analyzing suggesters, you would normally use the ordinary `StopFilterFactory` in your index analyzer and then SuggestStopFilter in your query analyzer.
 
 *Factory class:* `solr.SuggestStopFilterFactory`
 

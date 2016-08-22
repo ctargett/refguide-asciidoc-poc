@@ -5,7 +5,7 @@ FastVector Highlighter
 
 The FastVectorHighlighter is a TermVector-based highlighter that offers higher performance than the standard highlighter in many cases. To use the FastVectorHighlighter, set the `hl.useFastVectorHighlighter` parameter to `true`.
 
-You must also turn on `termVectors`, `termPositions`, and `termOffsets` for each field that will be highlighted. Lastly, you should use a boundary scanner to prevent the FastVectorHighlighter from truncating your terms. In most cases, using the `breakIterator` boundary scanner will give you excellent results. See the section <<#FastVectorHighlighter-UsingBoundaryScannerswiththeFastVectorHighlighter,Using Boundary Scanners with the Fast Vector Highlighter>> for more details about boundary scanners.
+You must also turn on `termVectors`, `termPositions`, and `termOffsets` for each field that will be highlighted. Lastly, you should use a boundary scanner to prevent the FastVectorHighlighter from truncating your terms. In most cases, using the `breakIterator` boundary scanner will give you excellent results. See the section <<FastVectorHighlighter-UsingBoundaryScannerswiththeFastVectorHighlighter,Using Boundary Scanners with the Fast Vector Highlighter>> for more details about boundary scanners.
 
 [[FastVectorHighlighter-FastVectorHighlighterParameters]]
 == FastVector Highlighter Parameters

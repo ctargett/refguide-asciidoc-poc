@@ -28,9 +28,9 @@ You can also explicitly upload a configuration directory when creating a collect
 $ bin/solr create -c mycollection -d data_driven_schema_configs
 ----
 
-The create command will upload a copy of the `data_driven_schema_configs` configuration directory to ZooKeeper under `/configs/mycollection`. Refer to the <<solr-start-script-reference.adoc,Solr Start Script Reference>> page for more details about the create command for creating collections.
+The create command will upload a copy of the `data_driven_schema_configs` configuration directory to ZooKeeper under `/configs/mycollection`. Refer to the <<solr-start-script-reference.adoc#,Solr Start Script Reference>> page for more details about the create command for creating collections.
 
-Once a configuration directory has been uploaded to ZooKeeper, you can update them using the <<command-line-utilities.adoc,ZooKeeper Command Line Interface (zkCLI)>>.
+Once a configuration directory has been uploaded to ZooKeeper, you can update them using the <<command-line-utilities.adoc#,ZooKeeper Command Line Interface (zkCLI)>>.
 
 Note:
 
@@ -39,7 +39,7 @@ It's a good idea to keep these files under version control.
 [[UsingZooKeepertoManageConfigurationFiles-UploadingconfigsusingzkcliorSolrJ]]
 == Uploading configs using zkcli or SolrJ
 
-In production situations, <<config-sets.adoc,Config Sets>> can also be uploaded to ZooKeeper independent of collection creation using either Solr's link:REL_LINK//command-line-utilities.adoc[zkcli.sh script,] or the http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/impl/CloudSolrClient.html#uploadConfig(java.nio.file.Path,java.lang.String)[CloudSolrClient.uploadConfig] java method.
+In production situations, <<config-sets.adoc#,Config Sets>> can also be uploaded to ZooKeeper independent of collection creation using either Solr's <<command-line-utilities.adoc#,zkcli.sh script,>> or the http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/impl/CloudSolrClient.html#uploadConfig(java.nio.file.Path,java.lang.String)[CloudSolrClient.uploadConfig] java method.
 
 The below command can be used to upload a new configset using the zkcli script.
 
@@ -48,7 +48,7 @@ The below command can be used to upload a new configset using the zkcli script.
 $  sh zkcli.sh -cmd upconfig -zkhost  <host:port> -confname <name for configset> -solrhome <solrhome> -confdir <path to directory with configset>
 ----
 
-More information about the ZooKeeper Command Line Utility to help manage changes to configuration files, can be found in the section on <<command-line-utilities.adoc,Command Line Utilities>>.
+More information about the ZooKeeper Command Line Utility to help manage changes to configuration files, can be found in the section on <<command-line-utilities.adoc#,Command Line Utilities>>.
 
 [[UsingZooKeepertoManageConfigurationFiles-ManagingYourSolrCloudConfigurationFiles]]
 == Managing Your SolrCloud Configuration Files

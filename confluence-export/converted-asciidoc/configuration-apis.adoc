@@ -6,7 +6,7 @@ Configuration APIs
 
 Solr includes several APIs that can be used to modify settings in `solrconfig.xml`.
 
-* <<blob-store-api.adoc,Blob Store API>>
-* <<config-api.adoc,Config API>>
-* <<request-parameters-api.adoc,Request Parameters API>>
-* <<managed-resources.adoc,Managed Resources>>
+* <<blob-store-api.adoc#,Blob Store API>>
+* <<config-api.adoc#,Config API>>
+* <<request-parameters-api.adoc#,Request Parameters API>>
+* <<managed-resources.adoc#,Managed Resources>>

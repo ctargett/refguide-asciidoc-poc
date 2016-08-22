@@ -13,7 +13,7 @@ By default, Solr stores its index data in a directory called `/data` under the S
 <dataDir>/var/data/solr/</dataDir>
 ----
 
-If you are using replication to replicate the Solr index (as described in <<legacy-scaling-and-distribution.adoc,Legacy Scaling and Distribution>>), then the `<dataDir>` directory should correspond to the index directory used in the replication configuration.
+If you are using replication to replicate the Solr index (as described in <<legacy-scaling-and-distribution.adoc#,Legacy Scaling and Distribution>>), then the `<dataDir>` directory should correspond to the index directory used in the replication configuration.
 
 [[DataDirandDirectoryFactoryinSolrConfig-SpecifyingtheDirectoryFactoryForYourIndex]]
 == Specifying the DirectoryFactory For Your Index
@@ -35,4 +35,4 @@ The `solr.RAMDirectoryFactory` is memory based, not persistent, and does not wor
 
 Note:
 
-If you are using Hadoop and would like to store your indexes in HDFS, you should use the `solr.HdfsDirectoryFactory` instead of either of the above implementations. For more details, see the section <<running-solr-on-hdfs.adoc,Running Solr on HDFS>>.
+If you are using Hadoop and would like to store your indexes in HDFS, you should use the `solr.HdfsDirectoryFactory` instead of either of the above implementations. For more details, see the section <<running-solr-on-hdfs.adoc#,Running Solr on HDFS>>.

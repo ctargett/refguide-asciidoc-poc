@@ -21,7 +21,7 @@ The CollapsingQParser accepts the following local parameters:
 |Parameter |Description |Default
 |field |The field that is being collapsed on. The field must be a single valued String, Int or Float |none
 |min | max a|
-Selects the group head document for each group based on which document has the min or max value of the specified numeric field or <<function-queries.adoc,function query>>.
+Selects the group head document for each group based on which document has the min or max value of the specified numeric field or <<function-queries.adoc#,function query>>.
 
 At most only one of the min, max, or sort (see below) parameters may be specified.
 

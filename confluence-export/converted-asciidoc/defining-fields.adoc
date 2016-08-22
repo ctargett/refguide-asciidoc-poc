@@ -29,7 +29,7 @@ The following example defines a field named `price` with a type named `float` an
 [[DefiningFields-OptionalFieldTypeOverrideProperties]]
 === Optional Field Type Override Properties
 
-Fields can have many of the same properties as field types. Properties from the table below which are specified on an individual field will override any explicit value for that property specified on the the `<fieldType/>` of the field, or any implicit default property value provided by the underlying `FieldType` implementation. The table below is reproduced from <<field-type-definitions-and-properties.adoc,Field Type Definitions and Properties>>, which has more details:
+Fields can have many of the same properties as field types. Properties from the table below which are specified on an individual field will override any explicit value for that property specified on the the `<fieldType/>` of the field, or any implicit default property value provided by the underlying `FieldType` implementation. The table below is reproduced from <<field-type-definitions-and-properties.adoc#,Field Type Definitions and Properties>>, which has more details:
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
 |=========================================================================================================================================================================================================================================================================================================================================================================================================================================================================

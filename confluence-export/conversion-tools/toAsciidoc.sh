@@ -33,7 +33,7 @@ fi
 HTML_DIR="$WORK_DIR/cleaned-export"
 ASCII_DIR="$WORK_DIR/converted-asciidoc"
 
-rm -rf $ASCII_DIR
+rm $ASCII_DIR/*.adoc
 
 for x in `find $HTML_DIR -name "*.html"`
 do
@@ -45,6 +45,6 @@ do
     # convert to .asciidoc format using pandoc
     pandoc $HTML_DIR/$FNAME -f html -t asciidoc -i --parse-raw --wrap=none --standalone --atx-headers --template=$PANDOC_TEMPLATE -o ${ASCII_DIR}/${FNAME%.*}.adoc
 
-    # fix up relative links (in place edit)
-    perl -i -pe 's{link:REL_LINK//(.*?)\[(.*?)\]}{\<\<$1,$2\>\>}' ${ASCII_DIR}/${FNAME%.*}.adoc
+    # fix up relative links (in place edit) -- NOTE: links to anchor in same page get '#' stripped
+    perl -i -pe 's{link:REL_LINK//#?(.*?)\[(.*?)\]}{\<\<$1,$2\>\>}g' ${ASCII_DIR}/${FNAME%.*}.adoc
 done;

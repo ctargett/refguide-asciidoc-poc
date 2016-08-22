@@ -10,7 +10,7 @@ Solr provides two approaches to backing up and restoring Solr cores or collectio
 [[MakingandRestoringBackups-SolrCloud]]
 == SolrCloud
 
-Support for backups when running SolrCloud is provided with the <<collections-api.adoc,Collections API>>. This allows the backups to be generated across multiple shards, and restored to the same number of shards and replicas as the original collection.
+Support for backups when running SolrCloud is provided with the <<collections-api.adoc#,Collections API>>. This allows the backups to be generated across multiple shards, and restored to the same number of shards and replicas as the original collection.
 
 Two commands are available:
 

@@ -30,7 +30,7 @@ If you have another request handler defined, you would send your request with th
 
 Request handlers can also process requests for nested paths of their names, for example, a request using `/myhandler/extrapath` may be processed by a request handler registered with the name `/myhandler`. If a request handler is explicitly defined by the name `/myhandler/extrapath`, that would take precedence over the nested path. This assumes you are using the request handler classes included with Solr; if you create your own request handler, you should make sure it includes the ability to handle nested paths if you want to use them with your custom request handler.
 
-It is also possible to configure defaults for request handlers with a section called `initParams`. These defaults can be used when you want to have common properties that will be used by each separate handler. For example, if you intend to create several request handlers that will all request the same list of fields in the response, you can configure an `initParams` section with your list of fields. For more information about `initParams`, see the section <<initparams-in-solrconfig.adoc,InitParams in SolrConfig>>.
+It is also possible to configure defaults for request handlers with a section called `initParams`. These defaults can be used when you want to have common properties that will be used by each separate handler. For example, if you intend to create several request handlers that will all request the same list of fields in the response, you can configure an `initParams` section with your list of fields. For more information about `initParams`, see the section <<initparams-in-solrconfig.adoc#,InitParams in SolrConfig>>.
 
 [[RequestHandlersandSearchComponentsinSolrConfig-SearchHandlers]]
 === SearchHandlers
@@ -51,7 +51,7 @@ For example, in the default `solrconfig.xml`, the first request handler defined 
 
 This example defines the `rows` parameter, which defines how many search results to return, to "10". The `echoParams` parameter defines that the parameters defined in the query should be returned when debug information is returned. Note also that the way the defaults are defined in the list varies if the parameter is a string, an integer, or another type.
 
-All of the parameters described in the section on <<searching.adoc,searching>> can be defined as defaults for any of the SearchHandlers.
+All of the parameters described in the section on <<searching.adoc#,searching>> can be defined as defaults for any of the SearchHandlers.
 
 Besides `defaults`, there are other options for the SearchHandler, which are:
 
@@ -79,7 +79,7 @@ In this example, the filter query "inStock:true" will always be added to every q
 +
 In this example, facet fields have been defined which limits the facets that will be returned by Solr. If the client requests facets, the facets defined with a configuration like this are the only facets they will see.
 
-The final section of a request handler definition is `components`, which defines a list of search components that can be used with a request handler. They are only registered with the request handler. How to define a search component is discussed further on in the section on <<#RequestHandlersandSearchComponentsinSolrConfig-SearchComponents,Search Components>>. The `components` element can only be used with a request handler that is a SearchHandler.
+The final section of a request handler definition is `components`, which defines a list of search components that can be used with a request handler. They are only registered with the request handler. How to define a search component is discussed further on in the section on <<RequestHandlersandSearchComponentsinSolrConfig-SearchComponents,Search Components>>. The `components` element can only be used with a request handler that is a SearchHandler.
 
 The `solrconfig.xml` file includes many other examples of SearchHandlers that can be used or modified as needed.
 
@@ -88,21 +88,21 @@ The `solrconfig.xml` file includes many other examples of SearchHandlers that ca
 
 The UpdateRequestHandlers are request handlers which process updates to the index.
 
-In this guide, we've covered these handlers in detail in the section <<uploading-data-with-index-handlers.adoc,Uploading Data with Index Handlers>>.
+In this guide, we've covered these handlers in detail in the section <<uploading-data-with-index-handlers.adoc#,Uploading Data with Index Handlers>>.
 
 [[RequestHandlersandSearchComponentsinSolrConfig-ShardHandlers]]
 === ShardHandlers
 
-It is possible to configure a request handler to search across shards of a cluster, used with distributed search. More information about distributed search and how to configure the shardHandler is in the section <<distributed-search-with-index-sharding.adoc,Distributed Search with Index Sharding>>.
+It is possible to configure a request handler to search across shards of a cluster, used with distributed search. More information about distributed search and how to configure the shardHandler is in the section <<distributed-search-with-index-sharding.adoc#,Distributed Search with Index Sharding>>.
 
 [[RequestHandlersandSearchComponentsinSolrConfig-OtherRequestHandlers]]
 === Other Request Handlers
 
 There are other request handlers defined in `solrconfig.xml`, covered in other sections of this guide:
 
-* <<realtime-get.adoc,RealTime Get>>
-* <<index-replication.adoc,Index Replication>>
-* <<ping.adoc,Ping>>
+* <<realtime-get.adoc#,RealTime Get>>
+* <<index-replication.adoc#,Index Replication>>
+* <<ping.adoc#,Ping>>
 
 [[RequestHandlersandSearchComponentsinSolrConfig-SearchComponents]]
 == Search Components
@@ -117,13 +117,13 @@ There are several default search components that work with all SearchHandlers wi
 [width="100%",cols="34%,33%,33%",options="header",]
 |=====================================================================================================================================================================
 |Component Name |Class Name |More Information
-|query |solr.QueryComponent |Described in the section <<query-syntax-and-parsing.adoc,Query Syntax and Parsing>>.
-|facet |solr.FacetComponent |Described in the section <<faceting.adoc,Faceting>>.
-|mlt |solr.MoreLikeThisComponent |Described in the section <<morelikethis.adoc,MoreLikeThis>>.
-|highlight |solr.HighlightComponent |Described in the section <<highlighting.adoc,Highlighting>>.
-|stats |solr.StatsComponent |Described in the section <<the-stats-component.adoc,The Stats Component>>.
+|query |solr.QueryComponent |Described in the section <<query-syntax-and-parsing.adoc#,Query Syntax and Parsing>>.
+|facet |solr.FacetComponent |Described in the section <<faceting.adoc#,Faceting>>.
+|mlt |solr.MoreLikeThisComponent |Described in the section <<morelikethis.adoc#,MoreLikeThis>>.
+|highlight |solr.HighlightComponent |Described in the section <<highlighting.adoc#,Highlighting>>.
+|stats |solr.StatsComponent |Described in the section <<the-stats-component.adoc#,The Stats Component>>.
 |debug |solr.DebugComponent |Described in the section on <<common-query-parameters.adoc#CommonQueryParameters-ThedebugParameter,Common Query Parameters>>.
-|expand |solr.ExpandComponent |Described in the section <<collapse-and-expand-results.adoc,Collapse and Expand Results>>.
+|expand |solr.ExpandComponent |Described in the section <<collapse-and-expand-results.adoc#,Collapse and Expand Results>>.
 |=====================================================================================================================================================================
 
 If you register a new search component with one of these default names, the newly defined component will be used instead of the default.
@@ -166,7 +166,7 @@ If you define `components`, the default components (see above) will not be execu
 
 Many of the other useful components are described in sections of this Guide for the features they support. These are:
 
-* `SpellCheckComponent`, described in the section <<spell-checking.adoc,Spell Checking>>.
-* `TermVectorComponent`, described in the section <<the-term-vector-component.adoc,The Term Vector Component>>.
-* `QueryElevationComponent`, described in the section <<the-query-elevation-component.adoc,The Query Elevation Component>>.
-* `TermsComponent`, described in the section <<the-terms-component.adoc,The Terms Component>>.
+* `SpellCheckComponent`, described in the section <<spell-checking.adoc#,Spell Checking>>.
+* `TermVectorComponent`, described in the section <<the-term-vector-component.adoc#,The Term Vector Component>>.
+* `QueryElevationComponent`, described in the section <<the-query-elevation-component.adoc#,The Query Elevation Component>>.
+* `TermsComponent`, described in the section <<the-terms-component.adoc#,The Terms Component>>.

@@ -3,7 +3,7 @@ MBean Request Handler
 :page-shortname: mbean-request-handler
 :page-permalink: mbean-request-handler.html
 
-The MBean Request Handler offers programmatic access to the information provided on the <<plugins-stats-screen.adoc,Plugin/Stats>> page of the Admin UI.
+The MBean Request Handler offers programmatic access to the information provided on the <<plugins-stats-screen.adoc#,Plugin/Stats>> page of the Admin UI.
 
 The MBean Request Handler accepts the following parameters:
 
@@ -13,7 +13,7 @@ The MBean Request Handler accepts the following parameters:
 |key |multivalued |all |Restricts results by object key.
 |cat |multivalued |all |Restricts results by category name.
 |stats |boolean |false |Specifies whether statistics are returned with results. You can override the `stats` parameter on a per-field basis.
-|wt |multivalued |xml |The output format. This operates the same as the <<response-writers.adoc,`wt` parameter in a query>>.
+|wt |multivalued |xml |The output format. This operates the same as the <<response-writers.adoc#,`wt` parameter in a query>>.
 |===========================================================================================================================================
 
 [[MBeanRequestHandler-Examples]]

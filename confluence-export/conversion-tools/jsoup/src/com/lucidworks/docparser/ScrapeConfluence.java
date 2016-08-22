@@ -132,22 +132,37 @@ public class ScrapeConfluence {
         // TODO: look for lucene/solr javadoc URLs and replace them with some macro?
         return href;
       }
-      //  else: not an absoulte URL...
-      String path = uri.getPath(); // could be fragment only URL
+      // else: not an absoulte URL...
+      
+      // any relative URL will get 'REL_LINK//' prepended so we can post-process
+      // the .adoc files to convert from the "link:xxx" syntax to the <<xxx>> syntax
+      // since pandoc doesn't have native support for that.
+      final String PRE = "REL_LINK//";
+      
+      String path = uri.getPath(); 
       Element linkedPage = pageTree.getPageIfMatch(path);
-      if (null != path && null != linkedPage) {
-        
-        // TODO: use .adoc suffix in links
-        // TODO: prepend with some macro we can use in post-processing to get <<LINK>> relative link syntax
+      
+      if ("".equals(path)) { // fragment only URL (ie: same page)
+        return PRE + href;
+      } else if (null != linkedPage) {
         path = pageTree.getPageShortName(linkedPage) + ".adoc";
+
+        String frag = uri.getFragment();
+        if (null == frag) {
+          // we have to have a fragment for intra-page links to work correctly in asciidoc
+          frag = "";
+        }
         
         // HACKish, to ensure we get clean path + ?query? + fragement
-        String fixed = new URI(null, null, path, uri.getQuery(), uri.getFragment()).toString();
-        return "REL_LINK//" + fixed;
+        // (assuming we have any query parts in our realtive urls to worry about)
+        String fixed = new URI(null, null, path, uri.getQuery(), frag).toString();
+        return PRE + fixed;
         
-      } // else...
-      System.err.println("found odd rel link to " + href + " in " + page.toString());
-      return "REL_LINK//" + href;
+      } // else: no idea what this is...
+
+      System.err.println("found odd rel link: " + href + " in " + page.toString());
+      return PRE + href;
+
       
     } catch (URISyntaxException se) {
       System.err.println("found malformed URI " + href + " in " + page.toString());

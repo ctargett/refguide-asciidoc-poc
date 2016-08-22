@@ -8,7 +8,7 @@ Solr includes a script known as "`bin/solr`" that allows you to start and stop S
 
 In this section, the headings below correspond to available commands. For each command, the available options are described with examples.
 
-More examples of bin/solr in use are available throughout the Solr Reference Guide, but particularly in the sections <<running-solr.adoc,Running Solr>> and link:REL_LINK//getting-started-with-solrcloud.adoc[Getting Started with SolrCloud].
+More examples of bin/solr in use are available throughout the Solr Reference Guide, but particularly in the sections <<running-solr.adoc#,Running Solr>> and <<getting-started-with-solrcloud.adoc#,Getting Started with SolrCloud>>.
 
 toc::[]
 
@@ -48,7 +48,7 @@ This option can be shortened to simply `-c`.
 
 If you are already running a ZooKeeper ensemble that you want to use instead of the embedded (single-node) ZooKeeper, you should also pass the -z parameter.
 
-For more details, see the section <<#SolrStartScriptReference-SolrCloudMode,SolrCloud Mode>> below.
+For more details, see the section <<SolrStartScriptReference-SolrCloudMode,SolrCloud Mode>> below.
 
  |`bin/solr start -c`
 |-d <dir> |Define a server directory, defaults to `server` (as in, `$SOLR_HOME/server`). It is uncommon to override this option. When running multiple instances of Solr on the same host, it is more common to use the same server directory for each instance and use a unique Solr home directory using the -s option. |`bin/solr start -d newServerDir`
@@ -62,7 +62,7 @@ The available options are:
 * dih
 * schemaless
 
-See the section <<#SolrStartScriptReference-RunningwithExampleConfigurations,Running with Example Configurations>> below for more details on the example configurations.
+See the section <<SolrStartScriptReference-RunningwithExampleConfigurations,Running with Example Configurations>> below for more details on the example configurations.
 
  |`bin/solr start -e schemaless`
 |-f |Start Solr in the foreground; you cannot use this option when running examples with the -e option. |`bin/solr start -f`
@@ -117,7 +117,7 @@ IMPORTANT: If your ZooKeeper connection string uses a chroot, such as `localhost
 
 When starting in SolrCloud mode, the interactive script session will prompt you to choose a configset to use.
 
-For more information about starting Solr in SolrCloud mode, see also the section <<getting-started-with-solrcloud.adoc,Getting Started with SolrCloud>>.
+For more information about starting Solr in SolrCloud mode, see also the section <<getting-started-with-solrcloud.adoc#,Getting Started with SolrCloud>>.
 
 [[SolrStartScriptReference-RunningwithExampleConfigurations]]
 ==== Running with Example Configurations
@@ -126,16 +126,16 @@ For more information about starting Solr in SolrCloud mode, see also the section
 
 The example configurations allow you to get started quickly with a configuration that mirrors what you hope to accomplish with Solr.
 
-Each example launches Solr in with a managed schema, which allows use of the <<schema-api.adoc,Schema API>> to make schema edits, but does not allow manual editing of a Schema file If you would prefer to manually modify a `schema.xml` file directly, you can change this default as described in the section link:REL_LINK//schema-factory-definition-in-solrconfig.adoc[Schema Factory Definition in SolrConfig].
+Each example launches Solr in with a managed schema, which allows use of the <<schema-api.adoc#,Schema API>> to make schema edits, but does not allow manual editing of a Schema file If you would prefer to manually modify a `schema.xml` file directly, you can change this default as described in the section <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory Definition in SolrConfig>>.
 
-Unless otherwise noted in the descriptions below, the examples do not enable <<solrcloud.adoc,SolrCloud>> nor link:REL_LINK//schemaless-mode.adoc[schemaless mode].
+Unless otherwise noted in the descriptions below, the examples do not enable <<solrcloud.adoc#,SolrCloud>> nor <<schemaless-mode.adoc#,schemaless mode>>.
 
 The following examples are provided:
 
 * **cloud**: This example starts a 1-4 node SolrCloud cluster on a single machine. When chosen, an interactive session will start to guide you through options to select the initial configset to use, the number of nodes for your example cluster, the ports to use, and name of the collection to be created. When using this example, you can choose from any of the available configsets found in `$SOLR_HOME/server/solr/configsets`.
 * **techproducts**: This example starts Solr in standalone mode with a schema designed for the sample documents included in the `$SOLR_HOME/example/exampledocs` directory. The configset used can be found in `$SOLR_HOME/server/solr/configsets/sample_techproducts_configs`.
-* **dih**: This example starts Solr in standalone mode with the DataImportHandler (DIH) enabled and several example `dataconfig.xml` files pre-configured for different types of data supported with DIH (such as, database contents, email, RSS feeds, etc.). The configset used is customized for DIH, and is found in `$SOLR_HOME/example/example-DIH/solr/conf`. For more information about DIH, see the section <<uploading-structured-data-store-data-with-the-data-import-handler.adoc,Uploading Structured Data Store Data with the Data Import Handler>>.
-* **schemaless**: This example starts Solr in standalone mode using a managed schema, as described in the section <<schema-factory-definition-in-solrconfig.adoc,Schema Factory Definition in SolrConfig>>, and provides a very minimal pre-defined schema. Solr will run in link:REL_LINK//schemaless-mode.adoc[Schemaless Mode] with this configuration, where Solr will create fields in the schema on the fly and will guess field types used in incoming documents. The configset used can be found in `$SOLR_HOME/server/solr/configsets/data_driven_schema_configs`.
+* **dih**: This example starts Solr in standalone mode with the DataImportHandler (DIH) enabled and several example `dataconfig.xml` files pre-configured for different types of data supported with DIH (such as, database contents, email, RSS feeds, etc.). The configset used is customized for DIH, and is found in `$SOLR_HOME/example/example-DIH/solr/conf`. For more information about DIH, see the section <<uploading-structured-data-store-data-with-the-data-import-handler.adoc#,Uploading Structured Data Store Data with the Data Import Handler>>.
+* **schemaless**: This example starts Solr in standalone mode using a managed schema, as described in the section <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory Definition in SolrConfig>>, and provides a very minimal pre-defined schema. Solr will run in <<schemaless-mode.adoc#,Schemaless Mode>> with this configuration, where Solr will create fields in the schema on the fly and will guess field types used in incoming documents. The configset used can be found in `$SOLR_HOME/server/solr/configsets/data_driven_schema_configs`.
 
 Note:
 
@@ -316,7 +316,7 @@ The create command detects the mode that Solr is running in (standalone or SolrC
 |-d <confdir> a|
 The configuration directory. This defaults to `data_driven_schema_configs`.
 
-See the section <<#SolrStartScriptReference-ConfigurationDirectoriesandSolrCloud,Configuration Directories and SolrCloud>> below for more details about this option when running in SolrCloud mode.
+See the section <<SolrStartScriptReference-ConfigurationDirectoriesandSolrCloud,Configuration Directories and SolrCloud>> below for more details about this option when running in SolrCloud mode.
 
  |`bin/solr create -d basic_configs`
 |-n <configName> |The configuration name. This defaults to the same name as the core or collection. |`bin/solr create -n basic`
@@ -438,7 +438,7 @@ An example of this command with these parameters is:
 
 `bin/solr zk upconfig -z 111.222.333.444:2181 -n mynewconfig -d /path/to/configset`
 
-This command does *not* automatically make changes effective! It simply uploads the configuration sets to Zookeeper. You can use the <<collections-api.adoc,Collections API>> to issue a RELOAD command for any collections that uses this configuration set.
+This command does *not* automatically make changes effective! It simply uploads the configuration sets to Zookeeper. You can use the <<collections-api.adoc#,Collections API>> to issue a RELOAD command for any collections that uses this configuration set.
 
 [[SolrStartScriptReference-DownloadingaConfigurationSet]]
 === Downloading a Configuration Set

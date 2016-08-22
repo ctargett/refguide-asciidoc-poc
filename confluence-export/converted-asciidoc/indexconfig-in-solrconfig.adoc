@@ -41,7 +41,7 @@ Sets the number of document updates to buffer in memory before they are flushed 
 [[IndexConfiginSolrConfig-useCompoundFile]]
 === useCompoundFile
 
-Controls whether newly written (and not yet merged) index segments should use the <<#IndexConfiginSolrConfig-CompoundFileSegments,Compound File Segment>> format. The default is false.
+Controls whether newly written (and not yet merged) index segments should use the <<IndexConfiginSolrConfig-CompoundFileSegments,Compound File Segment>> format. The default is false.
 
 [source,xml]
 ----
@@ -108,7 +108,7 @@ The merge scheduler controls how merges are performed. The default `ConcurrentMe
 [[IndexConfiginSolrConfig-mergedSegmentWarmer]]
 === `mergedSegmentWarmer`
 
-When using Solr in for <<near-real-time-searching.adoc,Near Real Time Searching>> a merged segment warmer can be configured to warm the reader on the newly merged segment, before the merge commits. This is not required for near real-time search, but will reduce search latency on opening a new near real-time reader after a merge completes.
+When using Solr in for <<near-real-time-searching.adoc#,Near Real Time Searching>> a merged segment warmer can be configured to warm the reader on the newly merged segment, before the merge commits. This is not required for near real-time search, but will reduce search latency on opening a new near real-time reader after a merge completes.
 
 [source,xml]
 ----
@@ -124,9 +124,9 @@ CFS: New Segments vs Merged Segments
 
 Note:
 
-To configure whether _newly written segments_ should use CFS, see the <<#IndexConfiginSolrConfig-useCompoundFile,`useCompoundFile`>> setting described above. To configure whether _merged segments_ use CFS, review the Javadocs for your `mergePolicyFactory`.
+To configure whether _newly written segments_ should use CFS, see the <<IndexConfiginSolrConfig-useCompoundFile,`useCompoundFile`>> setting described above. To configure whether _merged segments_ use CFS, review the Javadocs for your `mergePolicyFactory`.
 
-Many <<#IndexConfiginSolrConfig-MergingIndexSegments,Merge Policy>> implementations support `noCFSRatio` and `maxCFSSegmentSizeMB` settings with default values that prevent compound files from being used for large segments, but do use compound files for small segments.
+Many <<IndexConfiginSolrConfig-MergingIndexSegments,Merge Policy>> implementations support `noCFSRatio` and `maxCFSSegmentSizeMB` settings with default values that prevent compound files from being used for large segments, but do use compound files for small segments.
 
 [[IndexConfiginSolrConfig-IndexLocks]]
 == Index Locks
@@ -136,12 +136,12 @@ Many <<#IndexConfiginSolrConfig-MergingIndexSegments,Merge Policy>> implementati
 
 The LockFactory options specify the locking implementation to use.
 
-The set of valid lock type options depends on the <<datadir-and-directoryfactory-in-solrconfig.adoc,DirectoryFactory>> you have configured. The values listed below are are supported by `StandardDirectoryFactory` (the default):
+The set of valid lock type options depends on the <<datadir-and-directoryfactory-in-solrconfig.adoc#,DirectoryFactory>> you have configured. The values listed below are are supported by `StandardDirectoryFactory` (the default):
 
 * `native` (default) uses NativeFSLockFactory to specify native OS file locking. If a second Solr process attempts to access the directory, it will fail. Do not use when multiple Solr web applications are attempting to share a single index.
 * `simple` uses SimpleFSLockFactory to specify a plain file for locking.
 * `single` (expert) uses SingleInstanceLockFactory. Use for special situations of a read-only index directory, or when there is no possibility of more than one process trying to modify the index (even sequentially). This type will protect against multiple cores within the _same_ JVM attempting to access the same index. WARNING! If multiple Solr instances in different JVMs modify an index, this type will _not_ protect against index corruption.
-* `hdfs` uses HdfsLockFactory to support reading and writing index and transaction log files to a HDFS filesystem. See the section <<running-solr-on-hdfs.adoc,Running Solr on HDFS>> for more details on using this feature.
+* `hdfs` uses HdfsLockFactory to support reading and writing index and transaction log files to a HDFS filesystem. See the section <<running-solr-on-hdfs.adoc#,Running Solr on HDFS>> for more details on using this feature.
 
 For more information on the nuances of each LockFactory, see http://wiki.apache.org/lucene-java/AvailableLockFactories.
 

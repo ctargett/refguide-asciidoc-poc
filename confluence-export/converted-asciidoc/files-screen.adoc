@@ -5,7 +5,7 @@ Files Screen
 
 The Files screen lets you browse & view the various configuration files (such `solrconfig.xml` and the schema file) for the collection you selected.
 
-If you are using <<solrcloud.adoc,SolrCloud>>, the files displayed are the configuration files for this collection stored in ZooKeeper (using `upconfig`), for single node Solr installations, all files in the `./conf` directory are displayed.
+If you are using <<solrcloud.adoc#,SolrCloud>>, the files displayed are the configuration files for this collection stored in ZooKeeper (using `upconfig`), for single node Solr installations, all files in the `./conf` directory are displayed.
 
 While `solrconfig.xml` defines the behaviour of Solr as it indexes content and responds to queries, the Schema allows you to define the types of data in your content (field types), the fields your documents will be broken into, and any dynamic fields that should be generated based on patterns of field names in the incoming documents. Any other configuration files are used depending on how they are referenced in either `solrconfig.xml` or your schema.
 
@@ -15,7 +15,7 @@ This screen is related to the https://cwiki.apache.org/confluence/display/solr/S
 
 Many of the options defined in these configuration files are described throughout the rest of this Guide. In particular, you will want to review these sections:
 
-* <<indexing-and-basic-data-operations.adoc,Indexing and Basic Data Operations>>
-* <<searching.adoc,Searching>>
-* <<the-well-configured-solr-instance.adoc,The Well-Configured Solr Instance>>
+* <<indexing-and-basic-data-operations.adoc#,Indexing and Basic Data Operations>>
+* <<searching.adoc#,Searching>>
+* <<the-well-configured-solr-instance.adoc#,The Well-Configured Solr Instance>>
 * https://cwiki.apache.org/confluence/display/solr/Documents%2C+Fields%2C+and+Schema+Design[Documents, Fields, and Schema Design]

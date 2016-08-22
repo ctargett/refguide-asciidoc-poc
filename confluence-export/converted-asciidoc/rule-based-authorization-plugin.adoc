@@ -18,7 +18,7 @@ This file has two parts, the `authentication` part and the `authorization` part.
 
 The `authorization` part is not related to Basic authentication, but is a separate authorization plugin designed to support fine-grained user access control. When creating `security.json` you can add the permissions to the file, or you can use the Authorization API described below to add them as needed.
 
-This example `security.json` shows how the <<basic-authentication-plugin.adoc,Basic authentication plugin>> can work with this authorization plugin:
+This example `security.json` shows how the <<basic-authentication-plugin.adoc#,Basic authentication plugin>> can work with this authorization plugin:
 
 [source,js]
 ----
@@ -60,13 +60,13 @@ The pre-defined permissions are:
 
 * *security-edit:* this permission is allowed to edit the security configuration, meaning any update action that modifies `security.json` through the APIs will be allowed.
 * **security-read**: this permission is allowed to read the security configuration, meaning any action that reads `security.json` settings through the APIs will be allowed.
-* **schema-edit**: this permission is allowed to edit a collection's schema using the <<schema-api.adoc,Schema API>>. Note that this allows schema edit permissions for _all_ collections. If edit permissions should only be applied to specific collections, a custom permission would need to be created.
-* **schema-read**: this permission is allowed to read a collection's schema using the <<schema-api.adoc,Schema API>>. Note that this allows schema read permissions for _all_ collections. If read permissions should only be applied to specific collections, a custom permission would need to be created.
-* **config-edit**: this permission is allowed to edit a collection's configuration using the <<config-api.adoc,Config API>>, the link:REL_LINK//request-parameters-api.adoc[Request Parameters API], and other APIs which modify `configoverlay.json`. Note that this allows configuration edit permissions for _all_ collections. If edit permissions should only be applied to specific collections, a custom permission would need to be created.
+* **schema-edit**: this permission is allowed to edit a collection's schema using the <<schema-api.adoc#,Schema API>>. Note that this allows schema edit permissions for _all_ collections. If edit permissions should only be applied to specific collections, a custom permission would need to be created.
+* **schema-read**: this permission is allowed to read a collection's schema using the <<schema-api.adoc#,Schema API>>. Note that this allows schema read permissions for _all_ collections. If read permissions should only be applied to specific collections, a custom permission would need to be created.
+* **config-edit**: this permission is allowed to edit a collection's configuration using the <<config-api.adoc#,Config API>>, the <<request-parameters-api.adoc#,Request Parameters API>>, and other APIs which modify `configoverlay.json`. Note that this allows configuration edit permissions for _all_ collections. If edit permissions should only be applied to specific collections, a custom permission would need to be created.
 * *core-admin-read* : Read operations on the core admin API
 * **core-admin-edit**: Core admin commands that can mutate the system state.
-* **config-read**: this permission is allowed to read a collection's configuration using the <<config-api.adoc,Config API>>, the link:REL_LINK//request-parameters-api.adoc[Request Parameters API], and other APIs which modify `configoverlay.json`. Note that this allows configuration read permissions for _all_ collections. If read permissions should only be applied to specific collections, a custom permission would need to be created.
-* **collection-admin-edit**: this permission is allowed to edit a collection's configuration using the <<collections-api.adoc,Collections API>>. Note that this allows configuration edit permissions for _all_ collections. If edit permissions should only be applied to specific collections, a custom permission would need to be created. Specifically, the following actions of the Collections API would be allowed:
+* **config-read**: this permission is allowed to read a collection's configuration using the <<config-api.adoc#,Config API>>, the <<request-parameters-api.adoc#,Request Parameters API>>, and other APIs which modify `configoverlay.json`. Note that this allows configuration read permissions for _all_ collections. If read permissions should only be applied to specific collections, a custom permission would need to be created.
+* **collection-admin-edit**: this permission is allowed to edit a collection's configuration using the <<collections-api.adoc#,Collections API>>. Note that this allows configuration edit permissions for _all_ collections. If edit permissions should only be applied to specific collections, a custom permission would need to be created. Specifically, the following actions of the Collections API would be allowed:
 ** CREATE
 ** RELOAD
 ** SPLITSHARD
@@ -85,7 +85,7 @@ The pre-defined permissions are:
 ** DELETEREPLICAPROP
 ** BALANCESHARDUNIQUE
 ** REBALANCELEADERS
-* **collection-admin-read**: this permission is allowed to read a collection's configuration using the <<collections-api.adoc,Collections API>>. Note that this allows configuration read permissions for _all_ collections. If read permissions should only be applied to specific collections, a custom permission would need to be created. Specifically, the following actions of the Collections API would be allowed:
+* **collection-admin-read**: this permission is allowed to read a collection's configuration using the <<collections-api.adoc#,Collections API>>. Note that this allows configuration read permissions for _all_ collections. If read permissions should only be applied to specific collections, a custom permission would need to be created. Specifically, the following actions of the Collections API would be allowed:
 ** LIST
 ** OVERSEERSTATUS
 ** CLUSTERSTATUS

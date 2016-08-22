@@ -3,7 +3,7 @@ Distributed Search with Index Sharding
 :page-shortname: distributed-search-with-index-sharding
 :page-permalink: distributed-search-with-index-sharding.html
 
-It is highly recommended that you use <<solrcloud.adoc,SolrCloud>> when needing to scale up or scale out. The setup described below is legacy and was used prior to the existence of SolrCloud. SolrCloud provides for a truly distributed set of features with support for things like automatic routing, leader election, optimistic concurrency and other sanity checks that are expected out of a distributed system.
+It is highly recommended that you use <<solrcloud.adoc#,SolrCloud>> when needing to scale up or scale out. The setup described below is legacy and was used prior to the existence of SolrCloud. SolrCloud provides for a truly distributed set of features with support for things like automatic routing, leader election, optimistic concurrency and other sanity checks that are expected out of a distributed system.
 
 Everything on this page is specific to legacy setup of distributed search. Users trying out SolrCloud should not follow any of the steps or information below.
 
@@ -63,7 +63,7 @@ Formerly a limitation was that TF/IDF relevancy computations only used shard-loc
 [[DistributedSearchwithIndexSharding-AvoidingDistributedDeadlock]]
 == Avoiding Distributed Deadlock
 
-Like in SolrCloud mode, inter-shard requests could lead to a distributed deadlock. It can be avoided by following the instructions <<distributed-requests.adoc,here>>.
+Like in SolrCloud mode, inter-shard requests could lead to a distributed deadlock. It can be avoided by following the instructions <<distributed-requests.adoc#,here>>.
 
 [[DistributedSearchwithIndexSharding-TestingIndexShardingonTwoLocalServers]]
 == Testing Index Sharding on Two Local Servers

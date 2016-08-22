@@ -5,7 +5,7 @@ BlockJoin Faceting
 
 It's a common requirement to aggregate children facet counts by their parents, i.e., if a parent document has several children documents, all of them need to increment facet value count only once. This functionality is provided by two search components with slightly different performance: the `BlockJoinFacetComponent`, and the `BlockJoinDocSetFacetComponent`.
 
-These components are considered experimental, and must be explicitly enabled for a request handler in `solrconfig.xml`, in the same way as any other <<requesthandlers-and-searchcomponents-in-solrconfig.adoc,search component>>.
+These components are considered experimental, and must be explicitly enabled for a request handler in `solrconfig.xml`, in the same way as any other <<requesthandlers-and-searchcomponents-in-solrconfig.adoc#,search component>>.
 
 This example shows how you could add both search components to `solrconfig.xml` and define them in two different request handlers:
 

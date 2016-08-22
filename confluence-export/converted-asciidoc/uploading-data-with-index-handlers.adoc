@@ -4,11 +4,11 @@ Uploading Data with Index Handlers
 :page-shortname: uploading-data-with-index-handlers
 :page-permalink: uploading-data-with-index-handlers.html
 
-Index Handlers are Request Handlers designed to add, delete and update documents to the index. In addition to having plugins for importing rich documents <<uploading-data-with-solr-cell-using-apache-tika.adoc,using Tika>> or from structured data sources using the link:REL_LINK//uploading-structured-data-store-data-with-the-data-import-handler.adoc[Data Import Handler], Solr natively supports indexing structured documents in XML, CSV and JSON.
+Index Handlers are Request Handlers designed to add, delete and update documents to the index. In addition to having plugins for importing rich documents <<uploading-data-with-solr-cell-using-apache-tika.adoc#,using Tika>> or from structured data sources using the <<uploading-structured-data-store-data-with-the-data-import-handler.adoc#,Data Import Handler>>, Solr natively supports indexing structured documents in XML, CSV and JSON.
 
 The recommended way to configure and use request handlers is with path based names that map to paths in the request url. However, request handlers can also be specified with the `qt` (query type) parameter if the ` requestDispatcher ` is appropriately configured. It is possible to access the same handler using more than one name, which can be useful if you wish to specify different sets of default options.
 
-A single unified update request handler supports XML, CSV, JSON, and javabin update requests, delegating to the appropriate `ContentStreamLoader` based on the `Content-Type` of the <<content-streams.adoc,ContentStream>>.
+A single unified update request handler supports XML, CSV, JSON, and javabin update requests, delegating to the appropriate `ContentStreamLoader` based on the `Content-Type` of the <<content-streams.adoc#,ContentStream>>.
 
 toc::[]
 
@@ -22,7 +22,7 @@ The default configuration file has the update request handler configured by defa
 <requestHandler name="/update" class="solr.UpdateRequestHandler" />
 ----
 
-<<#main,Back to Top>>
+<<main,Back to Top>>
 
 [[UploadingDatawithIndexHandlers-XMLFormattedIndexUpdates]]
 == XML Formatted Index Updates
@@ -68,7 +68,7 @@ Each element has certain optional attributes which may be specified.
 |Command |Optional Parameter |Parameter Description
 |<add> |commitWithin=__number__ |Add the document within the specified number of milliseconds
 |<add> |overwrite=__boolean__ |Default is true. Indicates if the unique key constraints should be checked to overwrite previous versions of the same document (see below)
-|<doc> |boost=__float__ |Default is 1.0. Sets a boost value for the document.To learn more about boosting, see <<searching.adoc,Searching>>.
+|<doc> |boost=__float__ |Default is 1.0. Sets a boost value for the document.To learn more about boosting, see <<searching.adoc#,Searching>>.
 |<field> |boost=__float__ |Default is 1.0. Sets a boost value for the field.
 |========================================================================================================================================================================
 
@@ -122,7 +122,7 @@ Documents can be deleted from the index in two ways. "Delete by ID" deletes the 
 </delete>
 ----
 
-Note:When using the Join query parser in a Delete By Query, you should use the `score` parameter with a value of " `none`" to avoid a `ClassCastException`. See the section on the <<other-parsers.adoc,Join Query Parser>> for more details on the `score` parameter.
+Note:When using the Join query parser in a Delete By Query, you should use the `score` parameter with a value of " `none`" to avoid a `ClassCastException`. See the section on the <<other-parsers.adoc#,Join Query Parser>> for more details on the `score` parameter.
 
 [[UploadingDatawithIndexHandlers-RollbackOperations]]
 ==== Rollback Operations
@@ -180,7 +180,7 @@ The status field will be non-zero in case of failure.
 [[UploadingDatawithIndexHandlers-UsingXSLTtoTransformXMLIndexUpdates]]
 === Using XSLT to Transform XML Index Updates
 
-The UpdateRequestHandler allows you to index any arbitrary XML using the `<tr>` parameter to apply an https://en.wikipedia.org/wiki/XSLT[XSL transformation]. You must have an XSLT stylesheet in the `conf/xslt` directory of your <<config-sets.adoc,config set>> that can transform the incoming data to the expected `<add><doc/></add>` format, and use the `tr` parameter to specify the name of that stylesheet.
+The UpdateRequestHandler allows you to index any arbitrary XML using the `<tr>` parameter to apply an https://en.wikipedia.org/wiki/XSLT[XSL transformation]. You must have an XSLT stylesheet in the `conf/xslt` directory of your <<config-sets.adoc#,config set>> that can transform the incoming data to the expected `<add><doc/></add>` format, and use the `tr` parameter to specify the name of that stylesheet.
 
 Here is an example XSLT stylesheet:
 
@@ -240,12 +240,12 @@ curl "http://localhost:8983/solr/my_collection/update?commit=true&tr=updateXml.x
 
 For more information about the XML Update Request Handler, see https://wiki.apache.org/solr/UpdateXmlMessages.
 
-<<#main,Back to Top>>
+<<main,Back to Top>>
 
 [[UploadingDatawithIndexHandlers-JSONFormattedIndexUpdates]]
 == JSON Formatted Index Updates
 
-Solr can accept JSON that conforms to a defined structure, or can accept arbitrary JSON-formatted documents. If sending arbitrarily formatted JSON, there are some additional parameters that need to be sent with the update request, described below in the section <<#UploadingDatawithIndexHandlers-TransformingandIndexingCustomJSON,Transforming and Indexing Custom JSON>>.
+Solr can accept JSON that conforms to a defined structure, or can accept arbitrary JSON-formatted documents. If sending arbitrarily formatted JSON, there are some additional parameters that need to be sent with the update request, described below in the section <<UploadingDatawithIndexHandlers-TransformingandIndexingCustomJSON,Transforming and Indexing Custom JSON>>.
 
 [[UploadingDatawithIndexHandlers-Solr-StyleJSON]]
 === Solr-Style JSON
@@ -254,9 +254,9 @@ JSON formatted update requests may be sent to Solr's `/update` handler using `Co
 
 JSON formatted updates can take 3 basic forms, described in depth below:
 
-* <<#UploadingDatawithIndexHandlers-AddingaSingleJSONDocument,A single document to add>>, expressed as a top level JSON Object. To differentiate this from a set of commands, the `json.command=false` request parameter is required.
-* <<#UploadingDatawithIndexHandlers-AddingMultipleJSONDocuments,A list of documents to add>>, expressed as a top level JSON Array containing a JSON Object per document.
-* <<#UploadingDatawithIndexHandlers-SendingJSONUpdateCommands,A sequence of update commands>>, expressed as a top level JSON Object (aka: Map).
+* <<UploadingDatawithIndexHandlers-AddingaSingleJSONDocument,A single document to add>>, expressed as a top level JSON Object. To differentiate this from a set of commands, the `json.command=false` request parameter is required.
+* <<UploadingDatawithIndexHandlers-AddingMultipleJSONDocuments,A list of documents to add>>, expressed as a top level JSON Array containing a JSON Object per document.
+* <<UploadingDatawithIndexHandlers-SendingJSONUpdateCommands,A sequence of update commands>>, expressed as a top level JSON Object (aka: Map).
 
 [[UploadingDatawithIndexHandlers-AddingaSingleJSONDocument]]
 ==== Adding a Single JSON Document
@@ -390,7 +390,7 @@ In addition to the `/update` handler, there are a few additional JSON specific r
 
 The `/update/json` path may be useful for clients sending in JSON formatted update commands from applications where setting the Content-Type proves difficult, while the `/update/json/docs` path can be particularly convenient for clients that always want to send in documents – either individually or as a list – with out needing to worry about the full JSON command syntax.
 
-<<#main,Back to Top>>
+<<main,Back to Top>>
 
 [[UploadingDatawithIndexHandlers-TransformingandIndexingCustomJSON]]
 === Transforming and Indexing Custom JSON
@@ -402,8 +402,8 @@ If you have JSON documents that you would like to index without transforming the
 
 These parameters allow you to define how a JSON file should be read for multiple Solr documents.
 
-* **split**: Defines the path at which to split the input JSON into multiple Solr documents and is required if you have multiple documents in a single JSON file. If the entire JSON makes a single solr document, the path must be “`/`”. It is possible to pass multiple split paths by separating them with a pipe `(|)` example : `split=/|/foo|/foo/bar` . If one path is a child of another, they automatically become a child document**f**: This is a multivalued mapping parameter. The format of the parameter is` target-field-name:json-path`. The `json-path` is required. The `target-field-name` is the Solr document field name, and is optional. If not specified, it is automatically derived from the input JSON.The default target field name is the fully qualified name of the field. Wildcards can be used here, see the section <<#UploadingDatawithIndexHandlers-Wildcards,Wildcards>> below for more information.
-* *mapUniqueKeyOnly* (boolean): This parameter is particularly convenient when the fields in the input JSON are not available in the schema and <<schemaless-mode.adoc,schemaless mode>> is not enabled. This will index all the fields into the default search field (using the `df` parameter, below) and only the `uniqueKey` field is mapped to the corresponding field in the schema. If the input JSON does not have a value for the `uniqueKey` field then a UUID is generated for the same.
+* **split**: Defines the path at which to split the input JSON into multiple Solr documents and is required if you have multiple documents in a single JSON file. If the entire JSON makes a single solr document, the path must be “`/`”. It is possible to pass multiple split paths by separating them with a pipe `(|)` example : `split=/|/foo|/foo/bar` . If one path is a child of another, they automatically become a child document**f**: This is a multivalued mapping parameter. The format of the parameter is` target-field-name:json-path`. The `json-path` is required. The `target-field-name` is the Solr document field name, and is optional. If not specified, it is automatically derived from the input JSON.The default target field name is the fully qualified name of the field. Wildcards can be used here, see the section <<UploadingDatawithIndexHandlers-Wildcards,Wildcards>> below for more information.
+* *mapUniqueKeyOnly* (boolean): This parameter is particularly convenient when the fields in the input JSON are not available in the schema and <<schemaless-mode.adoc#,schemaless mode>> is not enabled. This will index all the fields into the default search field (using the `df` parameter, below) and only the `uniqueKey` field is mapped to the corresponding field in the schema. If the input JSON does not have a value for the `uniqueKey` field then a UUID is generated for the same.
 * **df**: If the `mapUniqueKeyOnly` flag is used, the update handler needs a field where the data should be indexed to. This is the same field that other handlers use as a default search field.
 * **srcField**: This is the name of the field to which the JSON source will be stored into. This can only be used if `split=/` (i.e., you want your JSON input file to be indexed as a single Solr document). Note that atomic updates will cause the field to be out-of-sync with the document.
 * **echo**: This is for debugging purpose only. Set it to true if you want the docs to be returned as a response. Nothing will be indexed.
@@ -496,7 +496,7 @@ In this example, we simply named the field paths (such as `/exams/test`). Solr w
 
 Note:
 
-Note that if you are not working in <<schemaless-mode.adoc,Schemaless Mode>>, where fields that don't exist will be created on the fly with Solr's best guess for the field type, documents may get rejected if the fields do not exist in the schema before indexing.
+Note that if you are not working in <<schemaless-mode.adoc#,Schemaless Mode>>, where fields that don't exist will be created on the fly with Solr's best guess for the field type, documents may get rejected if the fields do not exist in the schema before indexing.
 
 [[UploadingDatawithIndexHandlers-Wildcards]]
 ==== Wildcards
@@ -673,7 +673,7 @@ It is possible to send any json to the `/update/json/docs` endpoint and the defa
 
 So, if no params are passed, the entire json file would get indexed to the `_src_` field and all the values in the input JSON would go to a field named `text`. If there is a value for the uniqueKey it is stored and if no value could be obtained from the input JSON, a UUID is created and used as the uniqueKey field value.
 
-<<#main,Back to Top>>
+<<main,Back to Top>>
 
 [[UploadingDatawithIndexHandlers-CSVFormattedIndexUpdates]]
 == CSV Formatted Index Updates
@@ -755,7 +755,7 @@ For more information on the CSV Update Request Handler, see https://wiki.apache.
 
 Solr indexes nested documents in blocks as a way to model documents containing other documents, such as a blog post parent document and comments as child documents -- or products as parent documents and sizes, colors, or other variations as child documents. At query time, the <<other-parsers.adoc#OtherParsers-BlockJoinQueryParsers,Block Join Query Parsers>> can search these relationships. In terms of performance, indexing the relationships between documents may be more efficient than attempting to do joins only at query time, since the relationships are already stored in the index and do not need to be computed.
 
-Nested documents may be indexed via either the XML or JSON data syntax (or using <<using-solrj.adoc,SolrJ)>> - but regardless of syntax, you must include a field that identifies the parent document as a parent; it can be any field that suits this purpose, and it will be used as input for the link:REL_LINK//other-parsers.adoc#OtherParsers-BlockJoinQueryParsers[block join query parsers].
+Nested documents may be indexed via either the XML or JSON data syntax (or using <<using-solrj.adoc#,SolrJ)>> - but regardless of syntax, you must include a field that identifies the parent document as a parent; it can be any field that suits this purpose, and it will be used as input for the <<other-parsers.adoc#OtherParsers-BlockJoinQueryParsers,block join query parsers>>.
 
 [[UploadingDatawithIndexHandlers-XMLExamples]]
 ==== XML Examples
@@ -827,4 +827,4 @@ Note:
 
 One limitation of indexing nested documents is that the whole block of parent-children documents must be updated together whenever any changes are required. In other words, even if a single child document or the parent document is changed, the whole block of parent-child documents must be indexed together.
 
-<<#main,Back to Top>>
+<<main,Back to Top>>

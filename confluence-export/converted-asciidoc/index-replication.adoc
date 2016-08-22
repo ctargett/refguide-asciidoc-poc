@@ -28,7 +28,7 @@ Replication In SolrCloud
 
 Note:
 
-Although there is no explicit concept of "master/slave" nodes in a <<solrcloud.adoc,SolrCloud>> cluster, the `ReplicationHandler` discussed on this page is still used by SolrCloud as needed to support "shard recovery" – but this is done in a peer to peer manner. When using SolrCloud, the `ReplicationHandler` must be available via the `/replication` path. Solr does this implicitly unless overridden explicitly in your `solrconfig.xml`, but If you wish to override the default behavior, make certain that you do not explicitly set any of the "master" or "slave" configuration options mentioned below, or they will interfere with normal SolrCloud operation.
+Although there is no explicit concept of "master/slave" nodes in a <<solrcloud.adoc#,SolrCloud>> cluster, the `ReplicationHandler` discussed on this page is still used by SolrCloud as needed to support "shard recovery" – but this is done in a peer to peer manner. When using SolrCloud, the `ReplicationHandler` must be available via the `/replication` path. Solr does this implicitly unless overridden explicitly in your `solrconfig.xml`, but If you wish to override the default behavior, make certain that you do not explicitly set any of the "master" or "slave" configuration options mentioned below, or they will interfere with normal SolrCloud operation.
 
 [[IndexReplication-ReplicationTerminology]]
 == Replication Terminology
@@ -55,7 +55,7 @@ The table below defines the key terms associated with Solr replication.
 In addition to `ReplicationHandler` configuration options specific to the master/slave roles, there are a few special configuration options that are generally supported (even when using SolrCloud).
 
 * `maxNumberOfBackups` an integer value dictating the maximum number of backups this node will keep on disk as it receives `backup` commands.
-* Similar to most other request handlers in Solr you may configure a set of "<<requesthandlers-and-searchcomponents-in-solrconfig.adoc#RequestHandlersandSearchComponentsinSolrConfig-SearchHandlers,defaults, invariants, and/or appends>>" parameters corresponding with any request parameters supported by the `ReplicationHandler` when link:REL_LINK//#IndexReplication-HTTPAPICommandsfortheReplicationHandler[processing commands].
+* Similar to most other request handlers in Solr you may configure a set of "<<requesthandlers-and-searchcomponents-in-solrconfig.adoc#RequestHandlersandSearchComponentsinSolrConfig-SearchHandlers,defaults, invariants, and/or appends>>" parameters corresponding with any request parameters supported by the `ReplicationHandler` when <<IndexReplication-HTTPAPICommandsfortheReplicationHandler,processing commands>>.
 
 [[IndexReplication-ConfiguringtheReplicationRequestHandleronaMasterServer]]
 === Configuring the Replication RequestHandler on a Master Server

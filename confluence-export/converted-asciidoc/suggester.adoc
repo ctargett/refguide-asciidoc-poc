@@ -6,7 +6,7 @@ Suggester
 
 The SuggestComponent in Solr provides users with automatic suggestions for query terms. You can use this to implement a powerful auto-suggest feature in your search application.
 
-Although it is possible to use the <<spell-checking.adoc,Spell Checking>> functionality to power autosuggest behavior, Solr has a dedicated http://lucene.apache.org/solr/api/solr-core/org/apache/solr/handler/component/SuggestComponent.html[SuggestComponent] designed for this functionality. This approach utilizes Lucene's Suggester implementation and supports all of the lookup implementations available in Lucene.
+Although it is possible to use the <<spell-checking.adoc#,Spell Checking>> functionality to power autosuggest behavior, Solr has a dedicated http://lucene.apache.org/solr/api/solr-core/org/apache/solr/handler/component/SuggestComponent.html[SuggestComponent] designed for this functionality. This approach utilizes Lucene's Suggester implementation and supports all of the lookup implementations available in Lucene.
 
 The main features of this Suggester are:
 
@@ -14,7 +14,7 @@ The main features of this Suggester are:
 * Term dictionary pluggability, giving you the flexibility to choose the dictionary implementation
 * Distributed support
 
-The `solrconfig.xml` found in Solr's "`techproducts`" example has the new Suggester implementation configured already. For more on search components, see the section <<requesthandlers-and-searchcomponents-in-solrconfig.adoc,RequestHandlers and SearchComponents in SolrConfig>>.
+The `solrconfig.xml` found in Solr's "`techproducts`" example has the new Suggester implementation configured already. For more on search components, see the section <<requesthandlers-and-searchcomponents-in-solrconfig.adoc#,RequestHandlers and SearchComponents in SolrConfig>>.
 
 toc::[]
 
@@ -53,12 +53,12 @@ The Suggester search component takes several configuration parameters. The choic
 |Parameter |Description
 |searchComponent name |Arbitrary name for the search component.
 |name |A symbolic name for this suggester. You can refer to this name in the URL parameters and in the SearchHandler configuration. It is possible to have mutiples of these
-|lookupImpl |Lookup implementation. There are several possible implementations, described below in the section <<#Suggester-LookupImplementations,Lookup Implementations>>. If not set, the default lookup is JaspellLookupFactory.
-|dictionaryImpl |The dictionary implementation to use. There are several possible implementations, described below in the section <<#Suggester-DictionaryImplementations,Dictionary Implementations>>. If not set, the default dictionary implementation is HighFrequencyDictionaryFactory unless a `sourceLocation` is used, in which case, the dictionary implementation will be FileDictionaryFactory
+|lookupImpl |Lookup implementation. There are several possible implementations, described below in the section <<Suggester-LookupImplementations,Lookup Implementations>>. If not set, the default lookup is JaspellLookupFactory.
+|dictionaryImpl |The dictionary implementation to use. There are several possible implementations, described below in the section <<Suggester-DictionaryImplementations,Dictionary Implementations>>. If not set, the default dictionary implementation is HighFrequencyDictionaryFactory unless a `sourceLocation` is used, in which case, the dictionary implementation will be FileDictionaryFactory
 |field a|
 A field from the index to use as the basis of suggestion terms. If `sourceLocation` is empty (meaning any dictionary implementation other than FileDictionaryFactory) then terms from this field in the index will be used.
 
-To be used as the basis for a suggestion, the field must be stored. You may want to <<copying-fields.adoc,use copyField rules>> to create a special 'suggest' field comprised of terms from other fields in documents. In any event, you likely want a minimal amount of analysis on the field, so an additional option is to create a field type in your schema that only uses basic tokenizers or filters. One option for such a field type is shown here:
+To be used as the basis for a suggestion, the field must be stored. You may want to <<copying-fields.adoc#,use copyField rules>> to create a special 'suggest' field comprised of terms from other fields in documents. In any event, you likely want a minimal amount of analysis on the field, so an additional option is to create a field type in your schema that only uses basic tokenizers or filters. One option for such a field type is shown here:
 
 [source,xml]
 ----
@@ -126,7 +126,7 @@ This implementation uses the following additional properties.
 * allTermsRequired: Boolean option for multiple terms. Default is true - all terms required.
 * highlight: Highlight suggest terms. Default is true.
 
-This implementation supports <<#Suggester-ContextFiltering,Context Filtering>>.
+This implementation supports <<Suggester-ContextFiltering,Context Filtering>>.
 
 [[Suggester-BlendedInfixLookupFactory]]
 ===== BlendedInfixLookupFactory
@@ -143,7 +143,7 @@ This implementation uses the following additional properties:
 * indexPath: When using BlendedInfixSuggester you can provide your own path where the index will get built. The default directory name is blendedInfixSuggesterIndexDir and will be created in your collections data directory.
 * minPrefixChars: Minimum number of leading characters before PrefixQuery is used (default 4). Prefixes shorter than this are indexed as character ngrams (increasing index size but making lookups faster).
 
-This implementation supports <<#Suggester-ContextFiltering,Context Filtering>>.
+This implementation supports <<Suggester-ContextFiltering,Context Filtering>>.
 
 [[Suggester-FreeTextLookupFactory]]
 ===== FreeTextLookupFactory
@@ -268,12 +268,12 @@ To do this, simply define separate suggesters, as in this example:
 </searchComponent>
 ----
 
-When using these Suggesters in a query, you would define multiple 'suggest.dictionary' parameters in the request, referring to the names given for each Suggester in the search component definition. The response will include the terms in sections for each Suggester. See the <<#Suggester-ExampleUsages,Examples>> section below for an example request and response.
+When using these Suggesters in a query, you would define multiple 'suggest.dictionary' parameters in the request, referring to the names given for each Suggester in the search component definition. The response will include the terms in sections for each Suggester. See the <<Suggester-ExampleUsages,Examples>> section below for an example request and response.
 
 [[Suggester-AddingtheSuggestRequestHandler]]
 === Adding the Suggest Request Handler
 
-After adding the search component, a request handler must be added to `solrconfig.xml`. This request handler works the <<requesthandlers-and-searchcomponents-in-solrconfig.adoc,same as any other request handler>>, and allows you to configure default parameters for serving suggestion requests. The request handler definition must incorporate the "suggest" search component defined previously.
+After adding the search component, a request handler must be added to `solrconfig.xml`. This request handler works the <<requesthandlers-and-searchcomponents-in-solrconfig.adoc#,same as any other request handler>>, and allows you to configure default parameters for serving suggestion requests. The request handler definition must incorporate the "suggest" search component defined previously.
 
 [source,xml]
 ----

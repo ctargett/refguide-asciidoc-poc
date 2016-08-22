@@ -49,7 +49,7 @@ When you create a collection in SolrCloud, you decide on the initial number shar
 
 The ability to split shards is in the Collections API. It currently allows splitting a shard into two pieces. The existing shard is left as-is, so the split action effectively makes two copies of the data as new shards. You can delete the old shard at a later time when you're ready.
 
-More details on how to use shard splitting is in the section on the <<collections-api.adoc,Collections API>>.
+More details on how to use shard splitting is in the section on the <<collections-api.adoc#,Collections API>>.
 
 [[ShardsandIndexingDatainSolrCloud-IgnoringCommitsfromClientApplicationsinSolrCloud]]
 == Ignoring Commits from Client Applications in SolrCloud

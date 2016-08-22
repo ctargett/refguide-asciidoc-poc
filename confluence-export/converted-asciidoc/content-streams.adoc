@@ -36,7 +36,7 @@ The default behavior, when `enableRemoteStreaming` is not specified in `solrconf
 
 Note:
 
-If you `enableRemoteStreaming="true"` is used, be aware that this allows _anyone_ to send a request to any URL or local file. If <<#ContentStreams-DebuggingRequests,DumpRequestHandler>> is enabled, it will allow anyone to view any file on your system.
+If you `enableRemoteStreaming="true"` is used, be aware that this allows _anyone_ to send a request to any URL or local file. If <<ContentStreams-DebuggingRequests,DumpRequestHandler>> is enabled, it will allow anyone to view any file on your system.
 
 [[ContentStreams-DebuggingRequests]]
 == Debugging Requests

@@ -131,7 +131,7 @@ The spellchecker can be configured with a traditional checker (ie: `DirectSolrSp
 [[SpellChecking-AddIttoaRequestHandler]]
 === Add It to a Request Handler
 
-Queries will be sent to a <<query-syntax-and-parsing.adoc,RequestHandler>>. If every request should generate a suggestion, then you would add the following to the `requestHandler` that you are using:
+Queries will be sent to a <<query-syntax-and-parsing.adoc#,RequestHandler>>. If every request should generate a suggestion, then you would add the following to the `requestHandler` that you are using:
 
 [source,java]
 ----
@@ -164,24 +164,24 @@ The SpellCheck component accepts the parameters described in the table below.
 [width="100%",cols="50%,50%",options="header",]
 |==================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 |Parameter |Description
-|<<#SpellChecking-ThespellcheckParameter,spellcheck>> |Turns on or off SpellCheck suggestions for the request. If **true**, then spelling suggestions will be generated.
-|<<#SpellChecking-Thespellcheck.qorqParameter,spellcheck.q or q>> |Selects the query to be spellchecked.
-|<<#SpellChecking-Thespellcheck.buildParameter,spellcheck.build>> |Instructs Solr to build a dictionary for use in spellchecking.
-|<<#SpellChecking-Thespellcheck.collateParameter,spellcheck.collate>> |Causes Solr to build a new query based on the best suggestion for each term in the submitted query.
-|<<#SpellChecking-Thespellcheck.maxCollationsParameter,spellcheck.maxCollations>> |This parameter specifies the maximum number of collations to return.
-|<<#SpellChecking-Thespellcheck.maxCollationTriesParameter,spellcheck.maxCollationTries>> |This parameter specifies the number of collation possibilities for Solr to try before giving up.
-|<<#SpellChecking-Thespellcheck.maxCollationEvaluationsParameter,spellcheck.maxCollationEvaluations>> |This parameter specifies the maximum number of word correction combinations to rank and evaluate prior to deciding which collation candidates to test against the index.
-|<<#SpellChecking-Thespellcheck.collateExtendedResultsParameter,spellcheck.collateExtendedResults>> |If true, returns an expanded response detailing the collations found. If `spellcheck.collate` is false, this parameter will be ignored.
-|<<#SpellChecking-Thespellcheck.collateMaxCollectDocsParameter,spellcheck.collateMaxCollectDocs>> |The maximum number of documents to collect when testing potential Collations
-|<<#SpellChecking-Thespellcheck.collateParam.*ParameterPrefix,spellcheck.collateParam.*>> |Specifies param=value pairs that can be used to override normal query params when validating collations
-|<<#SpellChecking-Thespellcheck.countParameter,spellcheck.count>> |Specifies the maximum number of spelling suggestions to be returned.
-|<<#SpellChecking-Thespellcheck.dictionaryParameter,spellcheck.dictionary>> |Specifies the dictionary that should be used for spellchecking.
-|<<#SpellChecking-Thespellcheck.extendedResultsParameter,spellcheck.extendedResults>> |Causes Solr to return additional information about spellcheck results, such as the frequency of each original term in the index (origFreq) as well as the frequency of each suggestion in the index (frequency). Note that this result format differs from the non-extended one as the returned suggestion for a word is actually an array of lists, where each list holds the suggested term and its frequency.
-|<<#SpellChecking-Thespellcheck.onlyMorePopularParameter,spellcheck.onlyMorePopular>> |Limits spellcheck responses to queries that are more popular than the original query.
-|<<#SpellChecking-Thespellcheck.maxResultsForSuggestParameter,spellcheck.maxResultsForSuggest>> |The maximum number of hits the request can return in order to both generate spelling suggestions and set the "correctlySpelled" element to "false".
-|<<#SpellChecking-Thespellcheck.alternativeTermCountParameter,spellcheck.alternativeTermCount>> |The count of suggestions to return for each query term existing in the index and/or dictionary.
-|<<#SpellChecking-Thespellcheck.reloadParameter,spellcheck.reload>> |Reloads the spellchecker.
-|<<#SpellChecking-Thespellcheck.accuracyParameter,spellcheck.accuracy>> |Specifies an accuracy value to help decide whether a result is worthwhile.
+|<<SpellChecking-ThespellcheckParameter,spellcheck>> |Turns on or off SpellCheck suggestions for the request. If **true**, then spelling suggestions will be generated.
+|<<SpellChecking-Thespellcheck.qorqParameter,spellcheck.q or q>> |Selects the query to be spellchecked.
+|<<SpellChecking-Thespellcheck.buildParameter,spellcheck.build>> |Instructs Solr to build a dictionary for use in spellchecking.
+|<<SpellChecking-Thespellcheck.collateParameter,spellcheck.collate>> |Causes Solr to build a new query based on the best suggestion for each term in the submitted query.
+|<<SpellChecking-Thespellcheck.maxCollationsParameter,spellcheck.maxCollations>> |This parameter specifies the maximum number of collations to return.
+|<<SpellChecking-Thespellcheck.maxCollationTriesParameter,spellcheck.maxCollationTries>> |This parameter specifies the number of collation possibilities for Solr to try before giving up.
+|<<SpellChecking-Thespellcheck.maxCollationEvaluationsParameter,spellcheck.maxCollationEvaluations>> |This parameter specifies the maximum number of word correction combinations to rank and evaluate prior to deciding which collation candidates to test against the index.
+|<<SpellChecking-Thespellcheck.collateExtendedResultsParameter,spellcheck.collateExtendedResults>> |If true, returns an expanded response detailing the collations found. If `spellcheck.collate` is false, this parameter will be ignored.
+|<<SpellChecking-Thespellcheck.collateMaxCollectDocsParameter,spellcheck.collateMaxCollectDocs>> |The maximum number of documents to collect when testing potential Collations
+|<<SpellChecking-Thespellcheck.collateParam.*ParameterPrefix,spellcheck.collateParam.*>> |Specifies param=value pairs that can be used to override normal query params when validating collations
+|<<SpellChecking-Thespellcheck.countParameter,spellcheck.count>> |Specifies the maximum number of spelling suggestions to be returned.
+|<<SpellChecking-Thespellcheck.dictionaryParameter,spellcheck.dictionary>> |Specifies the dictionary that should be used for spellchecking.
+|<<SpellChecking-Thespellcheck.extendedResultsParameter,spellcheck.extendedResults>> |Causes Solr to return additional information about spellcheck results, such as the frequency of each original term in the index (origFreq) as well as the frequency of each suggestion in the index (frequency). Note that this result format differs from the non-extended one as the returned suggestion for a word is actually an array of lists, where each list holds the suggested term and its frequency.
+|<<SpellChecking-Thespellcheck.onlyMorePopularParameter,spellcheck.onlyMorePopular>> |Limits spellcheck responses to queries that are more popular than the original query.
+|<<SpellChecking-Thespellcheck.maxResultsForSuggestParameter,spellcheck.maxResultsForSuggest>> |The maximum number of hits the request can return in order to both generate spelling suggestions and set the "correctlySpelled" element to "false".
+|<<SpellChecking-Thespellcheck.alternativeTermCountParameter,spellcheck.alternativeTermCount>> |The count of suggestions to return for each query term existing in the index and/or dictionary.
+|<<SpellChecking-Thespellcheck.reloadParameter,spellcheck.reload>> |Reloads the spellchecker.
+|<<SpellChecking-Thespellcheck.accuracyParameter,spellcheck.accuracy>> |Specifies an accuracy value to help decide whether a result is worthwhile.
 |link:#SpellChecking-Thespellcheck.%3CDICT_NAME%3E.keyParameter[spellcheck.<DICT_NAME>.key] |Specifies a key/value pair for the implementation handling a given dictionary.
 |==================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
 
@@ -354,11 +354,11 @@ Results:
 The `SpellCheckComponent` also supports spellchecking on distributed indexes. If you are using the SpellCheckComponent on a request handler other than "/select", you must provide the following two parameters:
 
 [width="100%",cols="50%,50%",options="header",]
-|================================================================================================================================================================================================================================
+|=================================================================================================================================================================================================================================
 |Parameter |Description
-|shards |Specifies the shards in your distributed indexing configuration. For more information about distributed indexing, see <<distributed-search-with-index-sharding.adoc,Distributed Search with Index Sharding>>
+|shards |Specifies the shards in your distributed indexing configuration. For more information about distributed indexing, see <<distributed-search-with-index-sharding.adoc#,Distributed Search with Index Sharding>>
 |shards.qt |Specifies the request handler Solr uses for requests to shards. This parameter is not required for the `/select` request handler.
-|================================================================================================================================================================================================================================
+|=================================================================================================================================================================================================================================
 
 For example: ` http://localhost:8983/solr/techproducts/spell?spellcheck=true&spellcheck.build=true&spellcheck.q=toyata&shards.qt=/spell&shards=solr-shard1:8983/solr/techproducts,solr-shard2:8983/solr/techproducts`
 

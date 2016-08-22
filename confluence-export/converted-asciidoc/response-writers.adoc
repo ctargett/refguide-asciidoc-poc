@@ -11,17 +11,17 @@ The `wt` parameter selects the Response Writer to be used. The table below lists
 [width="100%",cols="50%,50%",options="header",]
 |==================================================================================================================
 |`wt` Parameter Setting |Response Writer Selected
-|csv |<<#ResponseWriters-CSVResponseWriter,CSVResponseWriter>>
-|geojson |<<#ResponseWriters-GeoJSONResponseWriter,GeoJSONResponseWriter>>
-|json |<<#ResponseWriters-JSONResponseWriter,JSONResponseWriter>>
-|php |<<#ResponseWriters-PHPResponseWriterandPHPSerializedResponseWriter,PHPResponseWriter>>
-|phps |<<#ResponseWriters-PHPResponseWriterandPHPSerializedResponseWriter,PHPSerializedResponseWriter>>
-|python |<<#ResponseWriters-PythonResponseWriter,PythonResponseWriter>>
-|ruby |<<#ResponseWriters-RubyResponseWriter,RubyResponseWriter>>
-|smile |<<#ResponseWriters-SmileResponseWriter,SmileResponseWriter>>
-|velocity |<<#ResponseWriters-VelocityResponseWriter,VelocityResponseWriter>>
-|xml |<<#ResponseWriters-TheStandardXMLResponseWriter,XMLResponseWriter>>
-|xslt |<<#ResponseWriters-TheXSLTResponseWriter,XSLTResponseWriter>>
+|csv |<<ResponseWriters-CSVResponseWriter,CSVResponseWriter>>
+|geojson |<<ResponseWriters-GeoJSONResponseWriter,GeoJSONResponseWriter>>
+|json |<<ResponseWriters-JSONResponseWriter,JSONResponseWriter>>
+|php |<<ResponseWriters-PHPResponseWriterandPHPSerializedResponseWriter,PHPResponseWriter>>
+|phps |<<ResponseWriters-PHPResponseWriterandPHPSerializedResponseWriter,PHPSerializedResponseWriter>>
+|python |<<ResponseWriters-PythonResponseWriter,PythonResponseWriter>>
+|ruby |<<ResponseWriters-RubyResponseWriter,RubyResponseWriter>>
+|smile |<<ResponseWriters-SmileResponseWriter,SmileResponseWriter>>
+|velocity |<<ResponseWriters-VelocityResponseWriter,VelocityResponseWriter>>
+|xml |<<ResponseWriters-TheStandardXMLResponseWriter,XMLResponseWriter>>
+|xslt |<<ResponseWriters-TheXSLTResponseWriter,XSLTResponseWriter>>
 |==================================================================================================================
 
 [[ResponseWriters-TheStandardXMLResponseWriter]]
@@ -81,7 +81,7 @@ The Content-Type of the response is set according to the `<xsl:output>` statemen
 [[ResponseWriters-Configuration]]
 === Configuration
 
-The example below, from the `sample_techproducts_configs` <<response-writers.adoc,config set>> in the Solr distribution, shows how the XSLT Response Writer is configured.
+The example below, from the `sample_techproducts_configs` <<response-writers.adoc#,config set>> in the Solr distribution, shows how the XSLT Response Writer is configured.
 
 [source,xml]
 ----
@@ -186,7 +186,7 @@ rsp['response']['docs'].each { |doc| puts 'name field = ' + doc['name'\] }
 
 The CSV response writer returns a list of documents in comma-separated values (CSV) format. Other information that would normally be included in a response, such as facet information, is excluded.
 
-The CSV response writer supports multi-valued fields, as well as<<transforming-result-documents.adoc,psuedo-fields>>, and the output of this CSV format is compatible with Solr's https://wiki.apache.org/solr/UpdateCSV[CSV update format].
+The CSV response writer supports multi-valued fields, as well as<<transforming-result-documents.adoc#,psuedo-fields>>, and the output of this CSV format is compatible with Solr's https://wiki.apache.org/solr/UpdateCSV[CSV update format].
 
 [[ResponseWriters-CSVParameters]]
 === CSV Parameters
@@ -235,12 +235,12 @@ MA147LL/A,"electronics,music",Apple 60 GB iPod with Video Playback Black,10,399.
 
 The `VelocityResponseWriter` processes the Solr response and request context through Apache Velocity templating.
 
-See <<velocity-response-writer.adoc,Velocity Response Writer>> section for details.
+See <<velocity-response-writer.adoc#,Velocity Response Writer>> section for details.
 
 [[ResponseWriters-BinaryResponseWriter]]
 == Binary Response Writer
 
-Solr also includes a Response Writer that outputs binary format for use with a Java client. See <<client-apis.adoc,Client APIs>> for more details.
+Solr also includes a Response Writer that outputs binary format for use with a Java client. See <<client-apis.adoc#,Client APIs>> for more details.
 
 [[ResponseWriters-SmileResponseWriter]]
 == Smile Response Writer
