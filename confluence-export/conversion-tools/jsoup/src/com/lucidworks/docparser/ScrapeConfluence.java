@@ -247,6 +247,7 @@ public class ScrapeConfluence {
           if (codeClass.equals("html/xml")) {
             codeClass = "xml";
           }
+          // TODO: other values we should also change here? "powershell" ? "js" ?
           element.attr("class", codeClass);
         } else {
           element.removeAttr("class");
