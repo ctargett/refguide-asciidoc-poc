@@ -1,5 +1,6 @@
 <html>
 <head>
+   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
    <link rel="stylesheet" href="jekyll/css/modern-business.css">
    <link rel="stylesheet" href="jekyll/css/lavish-bootstrap.css">
    <link rel="stylesheet" href="jekyll/css/theme-solr.css">
@@ -9,14 +10,24 @@
 <body>
    <div class="container">
 <h1>Apache Solr Ref Guide Proof of Concept</h1>
-<p>This site provides demos of the raw content of the Solr Reference Guide converted to Asciidoc format and published with various options.</p>
+<p>As part of the proposal to move the Ref Guide from Confluence, this site provides demos of a small section of the Solr Reference Guide converted to Asciidoc format and published with various options.</p>
 <p>The source for these examples is available in the GitHub repo <a href="https://github.com/ctargett/refguide-asciidoc-poc">refguide-asciidoc-poc</a>. See the README in particular for information about the methodologies used to produce these examples.</p>
 <ul>
-   <li><a href="jekyll/index.html">Example using Jekyll</a></li>
-   <li><a href="jbake/index.html">Example using JBake</a></li>
-   <li><a href="pdf/SolrRefGuide-0.0-DRAFT.pdf">Sample PDF</a></li>
+   <li><a href="jekyll/index.html">Example using Jekyll</a>: Uses Jekyll to generate HTML pages, including a comments section on each page, and a sidebar navigation.</li>
+   <li><a href="jbake/index.html">Example using JBake</a>: Uses JBake to generate HTML pages, including a comments section on each page. This is available for comparison with the Jekyll-generated pages, but I don't intend to take this example further than this.</li>
+   <li><a href="pdf/SolrRefGuide-0.0-DRAFT.pdf">Sample PDF</a>: Uses Asciidoctor tools to create a PDF. The PDF is created from the same set of pages used to generate the Jekyll HTML pages for direct comparison.</li>
    </ul>
-<p><strong>DISLAIMER</strong>: Each example above is meant as a demonstration of capabilities, not as a final product ready for publication. Each needs further effort before being complete.</p>
+<p><strong>NOTE</strong>: Each example above is a demonstration of capabilities, not a final product ready for publication. Further effort is required before it is ready to replace Confluence.</p>
+<h2>Known Issues and ToDos</h2>
+<p>There are several remaining issues to be resolved that you may notice in these pages. See also the README in the in the GitHub repo <a href="https://github.com/ctargett/refguide-asciidoc-poc">refguide-asciidoc-poc</a> for more details, and additional To Do items.</p>
+<ul>
+   <li>Demonstrate the full Solr Ref Guide in HTML (using Jekyll) and PDF.</li>
+   <li>Fix broken "tag" pages in Jekyll site.</li>
+   <li>The PDF has some issues with heading levels and page breaks.</li>
+   <li>Possibly auto-generate Jekyll sidebar and pages to be included in the PDF. Each of these today require maintaining separate data files, requiring extra coordination pre-publication.</li>
+   <li>The PDF may need to be compressed. Check this and investigate solutions once full Guide has been converted.</li>
+   <li>Finalize stylings of HTML and PDF outputs.</li>
+</ul>
 </div>
 </body>
 </html>

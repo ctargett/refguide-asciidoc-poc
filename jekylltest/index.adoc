@@ -11,6 +11,8 @@ This example is based on Tom Johnson's https://github.com/tomjohnson1492/documen
 
 The https://github.com/asciidoctor/jekyll-asciidoc[jekyll-asciidoc] gem is also used to render the pages from `.adoc` format to `.html`.
 
+See the Ref Guide POC https://github.com/ctargett/refguide-asciidoc-poc#jekyll[project README] for more details about this example.
+
 == Sample Homepage
 
 [.lead]
