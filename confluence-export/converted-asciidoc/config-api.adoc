@@ -58,7 +58,7 @@ The properties that are configured with these commands are predefined and listed
 * `query.documentCache.class`
 * `query.documentCache.size`
 * `query.documentCache.initialSize`
-* `query.documentCache.autowarmCount```
+* `query.documentCache.autowarmCount`
 
 * `query.documentCache.regenerator`
 * `query.fieldValueCache.class`

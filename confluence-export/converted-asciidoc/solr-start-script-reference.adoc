@@ -552,8 +552,6 @@ An example of this command with the parameters is:
 bin/solr zk rm /configs/myconfigset/schema.xml
 ....
 
-``
-
 [[SolrStartScriptReference-MoveoneZookeeperznodetoanother(rename)]]
 === Move one Zookeeper znode to another (rename)
 
@@ -599,5 +597,3 @@ An example of this command with the parameters is:
 ....
 bin/solr zk ls /collections
 ....
-
-``

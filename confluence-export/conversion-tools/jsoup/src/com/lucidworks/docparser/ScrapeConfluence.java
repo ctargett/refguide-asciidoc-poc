@@ -227,7 +227,7 @@ public class ScrapeConfluence {
     }
 
     // unwrap various formatting tags if they are empty
-    for (String tag : Arrays.asList("strong", "em", "p")) {
+    for (String tag : Arrays.asList("strong", "em", "p", "code", "pre")) {
       elements = docOut.getElementsByTag(tag);
       for (Element element : elements) {
         if (!element.hasText()) {

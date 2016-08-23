@@ -58,19 +58,19 @@ When you are not running SolrCloud, if you have <<config-sets.adoc#,Config Sets>
 ***Query Parameters***
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|===========================================================================================================================================================================================================================================================================================================================================================================================================================================
+|=========================================================================================================================================================================================================================================================================================================================================================================================================================================
 |Parameter |Type |Required |Default |Description
 |name |string |Yes |N/A |The name of the new core. Same as "name" on the `<core>` element.
 |instanceDir |string |No |whatever is specified for "name" parameter |The directory where files for this SolrCore should be stored. Same as `instanceDir` on the `<core>` element.
 |config |string |No | |Name of the config file (i.e., `solrconfig.xml`) relative to `instanceDir`.
-|schema |string |No | |Name of the schema file to use for the core. Please note that if you are using a "managed schema" (the default behavior) then any value for this property which does not match the effective `managedSchemaResourceName` will be read once, backed up, and converted for managed schema use. See <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory Definition in SolrConfig>> for details.``
+|schema |string |No | |Name of the schema file to use for the core. Please note that if you are using a "managed schema" (the default behavior) then any value for this property which does not match the effective `managedSchemaResourceName` will be read once, backed up, and converted for managed schema use. See <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory Definition in SolrConfig>> for details.
 |dataDir |string |No | |Name of the data directory relative to `instanceDir`.
 |configSet |string |No | |Name of the configset to use for this core. For more information, see the section <<config-sets.adoc#,Config Sets>>.
 |collection |string |No | |The name of the collection to which this core belongs. The default is the name of the core. `collection.<param>=<value>` causes a property of `<param>=<value>` to be set if a new collection is being created. Use `collection.configName=<configname>` to point to the configuration for a new collection.
 |shard |string |No | |The shard id this core represents. Normally you want to be auto-assigned a shard id.
 |property.__name__=__value__ |string |No | |Sets the core property _name_ to __value__. See the section on defining <<defining-core-properties.adoc#Definingcore.properties-core.properties_files,core.properties file contents>>.
 |async |string |No | |Request ID to track this action which will be processed asynchronously
-|===========================================================================================================================================================================================================================================================================================================================================================================================================================================
+|=========================================================================================================================================================================================================================================================================================================================================================================================================================================
 
 Use `collection.configName=<configname>` to point to the config for a new collection.
 

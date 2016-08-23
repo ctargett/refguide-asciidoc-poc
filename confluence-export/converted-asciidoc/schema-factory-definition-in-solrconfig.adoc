@@ -59,7 +59,7 @@ If you have started Solr with managed schema enabled and you would like to switc
 
 1.  Rename the `managed-schema` file to `schema.xml`.
 2.  Modify `solrconfig.xml` to replace the `schemaFactory` class.
-1.  Remove any `ManagedIndexSchemaFactory` definition if it exists.``
+1.  Remove any `ManagedIndexSchemaFactory` definition if it exists.
 2.  Add a `ClassicIndexSchemaFactory` definition as shown above
 3.  Reload the core(s).
 
