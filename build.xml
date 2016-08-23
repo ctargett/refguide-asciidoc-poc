@@ -14,6 +14,7 @@
 
 <!-- TODO: this should be same as what jekyll uses -->
 <property name="asciidoc.dir" location="confluence-export/converted-asciidoc/" />
+<property name="hoss.jekyll.dir" location="build/jekyll" />
 <property name="main-page" value="apache-solr-reference-guide" />
 
 <!-- ====== TOOLS FOR GENERATING/VALIDATING BITS OF THE SITE / PDF ======= -->
@@ -84,7 +85,36 @@
     </asciidoctor:convert>
     <echo>Finished Building ${basedir}/build/SolrRefGuide-all.pdf</echo>
   </target>
+  <target name="hoss-jekyll"
+          depends="build-nav"
+          description="Builds a Jekyll Site using the converted-asciidoc files">
+    <delete dir="${hoss.jekyll.dir}" />
+    <mkdir dir="${hoss.jekyll.dir}" />
+    <echo>Copying all non adoc files from jekylltest ...</echo>
+    <copy todir="${hoss.jekyll.dir}">
+      <fileset dir="jekylltest">
+        <exclude name="**/*.adoc"/>
+        <exclude name="_site/**"/>
+      </fileset>
+      </copy>
+    <echo>Copying all source files from converted-asciidoc ...</echo>
+    <copy todir="${hoss.jekyll.dir}" overwrite="true">
+      <fileset dir="${asciidoc.dir}" />
+    </copy>
+    <echo>Running Jekyll...</echo>
+    <exec executable="jekyll" dir="${hoss.jekyll.dir}">
+      <arg value="build"/>
+    </exec>
+    <echo>Ready to browse site: ${hoss.jekyll.dir}/_site/${main-page}.html</echo>
+  </target>
+  <target name="hoss"
+          depends="hoss-pdf,hoss-jekyll">
+    <echo>PDF: ${basedir}/build/SolrRefGuide-all.pdf</echo>
+    <echo>SITE: ${hoss.jekyll.dir}/_site/${main-page}.html</echo>
+  </target>
 
+
+  
 <!-- ======= Asciidoctor HTML conversion ========
    Uses pure Asciidoctor build task-->
   <target name="asciidoctor"
