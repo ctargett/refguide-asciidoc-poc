@@ -3,6 +3,7 @@ package com.lucidworks.docparser;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -224,28 +225,17 @@ public class ScrapeConfluence {
         System.exit(-1);
       }
     }
-    
-    // remove empty bolds
-    elements = docOut.getElementsByTag("strong");
-    for (Element element : elements) {
-      if (!element.hasText()) {
-        element.unwrap(); // unwrap not remove! (even w/o text might be inner nodes, ex: img)
+
+    // unwrap various formatting tags if they are empty
+    for (String tag : Arrays.asList("strong", "em", "p")) {
+      elements = docOut.getElementsByTag(tag);
+      for (Element element : elements) {
+        if (!element.hasText()) {
+          element.unwrap(); // unwrap not remove! (even w/o text might be inner nodes, ex: img)
+        }
       }
     }
-    elements = docOut.getElementsByTag("em");
-    for (Element element : elements) {
-      if (!element.hasText()) {
-        element.unwrap(); // unwrap not remove! (even w/o text might be inner nodes, ex: img)
-      }
-    }
-    
-    // remove empty pars
-    elements = docOut.getElementsByTag("p");
-    for (Element element : elements) {
-      if (!element.hasText()) {
-        element.unwrap(); // unwrap not remove! (even w/o text might be inner nodes, ex: img)
-      }
-    }
+
     // remove confluence styles
     elements = docOut.select("[style]");
     for (Element element : elements) {
@@ -269,22 +259,21 @@ public class ScrapeConfluence {
         }
       }
     }
+    
     // replace icon text
     elements = docOut.getElementsByClass("aui-icon");
     for (Element element : elements) {
+      // TODO: replace with something better so we can preserve the "note box" type asciidoc formatting?
       //                System.out.println(title + ": replaced Icon");
       element.text("Note:");
     }
-    
-    // remove divs
-    elements = docOut.getElementsByTag("div");
-    for (Element element : elements) {
-      element.unwrap(); // unwrap not remove! (might be inner nodes, ex: img)
-    }
-    
-    elements = docOut.getElementsByTag("tbody");
-    for (Element element : elements) {
-      element.unwrap(); // unwrap not remove! (might be inner nodes, ex: img)
+
+    // unwrap various block tags if they are empty
+    for (String tag : Arrays.asList("div","tbody")) {
+      elements = docOut.getElementsByTag(tag);
+      for (Element element : elements) {
+        element.unwrap(); // unwrap not remove! (might be inner nodes, ex: img)
+      }
     }
     
     // remove breaks -- TODO: why?
