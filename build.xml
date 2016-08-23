@@ -3,7 +3,10 @@
   <mkdir dir="lib"/>
   <property name="asciidoctor-ant.jar.path" location="lib/asciidoctor-ant.jar" />
   <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctor-ant/1.5.3/asciidoctor-ant-1.5.3.jar"
-    dest="${asciidoctor-ant.jar.path}" usetimestamp="true"/>
+       dest="${asciidoctor-ant.jar.path}" usetimestamp="true"/>
+  <property name="org-json.jar.path" location="lib/org-json.jar" />
+  <get src="http://repo1.maven.org/maven2/org/json/json/20160810/json-20160810.jar"
+       dest="${org-json.jar.path}" usetimestamp="true"/>
 
 <!--  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj-pdf/1.5.0-alpha.11/asciidoctorj-pdf-1.5.0-alpha.11.jar" dest="lib/asciidoctorj-pdf.jar" usetimestamp="true" /> -->
 
@@ -19,6 +22,7 @@
   <path id="classpath">
     <pathelement location="${jar}"/>
     <pathelement location="${asciidoctor-ant.jar.path}"/>
+    <pathelement location="${org-json.jar.path}"/>
   </path>
   <target name="clean">
     <delete dir="build"/>
@@ -44,6 +48,7 @@
     -->
     <mkdir dir="${asciidoc.dir}/_data"/>
     <delete file="${asciidoc.dir}/_data/pdf-main-body.adoc" />
+    <delete file="${asciidoc.dir}/_data/sidebar.json" />
     <java classname="BuildNavAndPDFBody"
           fork="true">
       <classpath refid="classpath"/>

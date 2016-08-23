@@ -3,6 +3,9 @@ import java.io.*;
 import java.io.FilenameFilter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+
+import org.json.*;
 
 import org.asciidoctor.Asciidoctor.Factory;
 import org.asciidoctor.Asciidoctor;
@@ -85,6 +88,63 @@ public class BuildNavAndPDFBody {
           depth.decrementAndGet();
         }
       });
+    }
+    
+    // Build up the sidebar file for jekyll
+    File sidebarFile = new File(new File(adocDir, "_data"), "sidebar.json");
+    if (sidebarFile.exists()) {
+      throw new RuntimeException(sidebarFile.toString() + " already exists");
+    }
+    System.out.println("Creating " + sidebarFile.toString());
+    try (Writer w = new OutputStreamWriter(new FileOutputStream(sidebarFile), "UTF-8")) {
+      final JSONArray folders = new JSONArray();
+      final JSONObject sidebar = new JSONObject()
+        .put("title","sidebar")
+        .put("product","Solr Reference Guide")
+        .put("version", 6.2)
+        .put("folders", folders);
+
+      // track how deep we are so we can adjust folder vs folderitem accordingly
+      final AtomicInteger depth = new AtomicInteger(0);
+      final AtomicReference<JSONArray> currentFolderitems = new AtomicReference<JSONArray>(null);
+      
+      mainPage.depthFirstWalk(new Page.RecursiveAction() {
+        public boolean act(Page page) {
+
+          // NOTE: current jekyll theme only supports 2 level sidebar, ...
+          // and "folders" can't link to pages, just expand/collapse, ...
+          // so for now: each level1 page is a folder, and it & all decendents are items in that folder
+          //
+          // TODO: can we improve the jekyll theme to supports something closer to confluence???
+          
+          // create a folder for every level 1 page
+          if (1 == depth.intValue()) {
+            JSONArray folderitems = new JSONArray();
+            currentFolderitems.set(folderitems);
+            folders.put(new JSONObject()
+                        .put("title",page.title)
+                        .put("output","pdf,web")
+                        .put("folderitems", folderitems));
+          }
+          if (1 <= depth.intValue()) {
+            // add every page with level >= 1 to the current folder
+            JSONArray folderitems = currentFolderitems.get();
+            folderitems.put(new JSONObject()
+                            .put("title", page.title)
+                            .put("output","pdf,web")
+                            .put("url", page.permalink));
+            
+          }
+          
+          depth.incrementAndGet();
+          return true;
+        }
+        public void postKids(Page page) {
+          depth.decrementAndGet();
+        }
+      });
+
+      (new JSONObject()).put("entries", (new JSONArray()).put(sidebar)).write(w);
     }
     
   }
