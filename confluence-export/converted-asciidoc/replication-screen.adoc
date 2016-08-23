@@ -15,4 +15,6 @@ Note:
 
 When using <<getting-started-with-solrcloud.adoc#,SolrCloud>>, do not attempt to disable replication via this screen.
 
+image:attachments/32604177/32702484.png[image,width=412,height=250]
+
 More details on how to configure replication is available in the section called <<index-replication.adoc#,Index Replication>>.

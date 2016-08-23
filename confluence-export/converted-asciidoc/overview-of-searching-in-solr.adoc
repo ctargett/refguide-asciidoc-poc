@@ -31,6 +31,8 @@ To help users zero in on the content they're looking for, Solr supports two spec
 
 The screen shot below shows an example of faceting from the CNET Web site (CBS Interactive Inc.) , which was the first site to use Solr.
 
+image:attachments/32604233/32702513.png[image,width=600,height=300]
+
 Faceting makes use of fields defined when the search applications were indexed. In the example above, these fields include categories of information that are useful for describing digital cameras: manufacturer, resolution, and zoom range.
 
 *Clustering* groups search results by similarities discovered when a search is executed, rather than when content is indexed. The results of clustering often lack the neat hierarchical organization found in faceted search results, but clustering can be useful nonetheless. It can reveal unexpected commonalities among search results, and it can help users rule out content that isn't pertinent to what they're really searching for.
@@ -40,3 +42,5 @@ Solr also supports a feature called <<morelikethis.adoc#,MoreLikeThis>>, which e
 A Solr component called a <<response-writers.adoc#,*response writer*>> manages the final presentation of the query response. Solr includes a variety of response writers, including an <<response-writers.adoc#ResponseWriters-TheStandardXMLResponseWriter,XML Response Writer>> and a <<response-writers.adoc#ResponseWriters-JSONResponseWriter,JSON Response Writer>>.
 
 The diagram below summarizes some key elements of the search process.
+
+image:attachments/32604233/32702512.png[image,width=624,height=401]

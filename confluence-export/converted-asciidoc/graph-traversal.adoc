@@ -388,7 +388,7 @@ This is very similar to the previous example, so let's break down exactly what t
 2.  The outer `gatherNodes` expression finds all records in the `logs` collection for the sessionIDs generated in step 1. It also filters out `contentID` "ABC" so it doesn't show up in the result. It then gathers and counts the contentIDs across these sessions.
 3.  The outer `top` expression ranks the contentIDs emitted in step 2 by the count and selects the top 5.
 
-In a nutshell, this expression finds the contentIDs that most frequentlyco-occur with contentID "ABC" in past sessions.
+In a nutshell, this expression finds the contentIDs that most frequently co-occur with contentID "ABC" in past sessions.
 
 [[GraphTraversal-RecommendContentBasedonCollaborativeFilter]]
 === Recommend Content Based on Collaborative Filter

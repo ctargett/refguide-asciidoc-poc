@@ -304,7 +304,7 @@ These processors are included in Solr releases as "contribs", and require additi
 * The http://lucene.apache.org/solr/6_1_0/solr-langid/index.html[ `langid` ] contrib provides**:**
 ** *http://lucene.apache.org/solr/6_1_0/solr-langid/org/apache/solr/update/processor/LangDetectLanguageIdentifierUpdateProcessorFactory.html[ LangDetectLanguageIdentifierUpdateProcessorFactory ]:* Identifies the language of a set of input fields using http://code.google.com/p/language-detection
 ** *http://lucene.apache.org/solr/6_1_0/solr-langid/org/apache/solr/update/processor/TikaLanguageIdentifierUpdateProcessorFactory.html[TikaLanguageIdentifierUpdateProcessorFactory]:* Identifies the language of a set of input fields using Tika's LanguageIdentifier.
-* The http://lucene.apache.org/solr/6_1_0/solr-uima/index.html[`uima`] contrib provides:
+* The http://lucene.apache.org/solr/6_1_0/solr-uima/index.html[`uima`] contrib provides: http://lucene.apache.org/solr/6_1_0/solr-uima/org/apache/solr/uima/processor/UIMAUpdateRequestProcessorFactory.html[ ]
 ** *http://lucene.apache.org/solr/6_1_0/solr-uima/org/apache/solr/uima/processor/UIMAUpdateRequestProcessorFactory.html[UIMAUpdateRequestProcessorFactory]:* Update document(s) to be indexed with UIMA extracted information.
 
 [[UpdateRequestProcessors-UpdateProcessorfactoriesyoushouldnotmodifyorremove.]]

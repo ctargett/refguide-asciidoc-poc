@@ -47,6 +47,8 @@ Terms used in this document include:
 
 Here is a picture of the data flow.
 
+image:attachments/62687462/62688637.png[image,width=700,height=525]
+
 Updates and deletes are first written to the Source cluster, then forwarded to the Target cluster. The data flow sequence is:
 
 1.  A shard leader receives a new data update that is processed by its Update Processor.
@@ -298,6 +300,8 @@ Currently, none of the CDCR API calls have parameters.
 [[CrossDataCenterReplication(CDCR)-ControlCommands]]
 === Control Commands
 
+[[CrossDataCenterReplication(CDCR)-STATUS]]
+
 `/collection/cdcr?action=STATUS`
 
 *Input*
@@ -334,6 +338,8 @@ The current state of the CDCR, which includes the state of the replication proce
   }
 }  
 ----
+
+[[CrossDataCenterReplication(CDCR)-ENABLEBUFFER]]
 
 `/collection/cdcr?action=ENABLEBUFFER`
 
@@ -372,6 +378,8 @@ The status of the process and an indication of whether the buffer is enabled
 }
 ----
 
+[[CrossDataCenterReplication(CDCR)-DISABLEBUFFER]]
+
 `/collection/cdcr?action=DISABLEBUFFER`
 
 *Input*
@@ -407,6 +415,8 @@ http://localhost:8983/solr/collection/cdcr?action=DISABLEBUFFER
 }
 ----
 
+[[CrossDataCenterReplication(CDCR)-START]]
+
 `/collection/cdcr?action=START`
 
 *Input*
@@ -441,6 +451,8 @@ http://localhost:8983/solr/collection/cdcr?action=START
   }
 }
 ----
+
+[[CrossDataCenterReplication(CDCR)-STOPPED]]
 
 `/collection/cdcr?action=STOPPED`
 
@@ -479,6 +491,8 @@ http://localhost:8983/solr/collection/cdcr?action=START
 
 [[CrossDataCenterReplication(CDCR)-Monitoringcommands]]
 === Monitoring commands
+
+[[CrossDataCenterReplication(CDCR)-QUEUES]]
 
 `/core/cdcr?action=QUEUES`
 
@@ -526,6 +540,8 @@ The “queues” object also contains information about the updates log, such as
 }
 ----
 
+[[CrossDataCenterReplication(CDCR)-OPS]]
+
 `/core/cdcr?action=OPS`
 
 *Input*
@@ -565,6 +581,8 @@ The “queues” object also contains information about the updates log, such as
   }
 }
 ----
+
+[[CrossDataCenterReplication(CDCR)-ERRORS]]
 
 `/core/cdcr?action=ERRORS`
 
@@ -610,6 +628,8 @@ The “queues” object also contains information about the updates log, such as
   }
 }
 ----
+
+[[CrossDataCenterReplication(CDCR)-FirstTime]]
 
 [[CrossDataCenterReplication(CDCR)-InitialStartup]]
 == Initial Startup

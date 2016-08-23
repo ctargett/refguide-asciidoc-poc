@@ -19,21 +19,31 @@ Once the driver has been created, you can create a connection to Solr with the c
 [[SolrJDBC-SQuirreLSQL-OpenDrivers]]
 === Open Drivers
 
+image:attachments/62695765/62695750.png[image,width=900,height=400]
+
 [[SolrJDBC-SQuirreLSQL-AddDriver]]
 === Add Driver
+
+image:attachments/62695765/62695751.png[image,width=892,height=400]
 
 [[SolrJDBC-SQuirreLSQL-NametheDriver]]
 === Name the Driver
 
 Provide a name for the driver, and provide the URL format: `jdbc:solr://<zk_connection_string>/?collection=<collection>`. Do not fill in values for the variables "`zk_connection_string`" and "`collection`", those will be defined later when the connection to Solr is configured.
 
+image:attachments/62695765/62695752.png[image,width=467,height=400]
+
 [[SolrJDBC-SQuirreLSQL-AddSolrJDBCjarstoClasspath]]
 === Add Solr JDBC jars to Classpath
+
+image:attachments/62695765/62695753.png[image,width=467,height=400] image:attachments/62695765/62695758.png[image,width=469,height=400] image:attachments/62695765/62695754.png[image,width=469,height=400] image:attachments/62695765/62695756.png[image,width=467,height=400]
 
 [[SolrJDBC-SQuirreLSQL-AddtheSolrJDBCdriverclassname]]
 === Add the Solr JDBC driver class name
 
 After adding the .jars, you will need to additionally define the Class Name `org.apache.solr.client.solrj.io.sql.DriverImpl`.
+
+image:attachments/62695765/62695760.png[image,width=470,height=400]
 
 [[SolrJDBC-SQuirreLSQL-CreateanAlias]]
 == Create an Alias
@@ -43,16 +53,26 @@ To define a JDBC connection, you must define an alias.
 [[SolrJDBC-SQuirreLSQL-OpenAliases]]
 === Open Aliases
 
+image:attachments/62695765/62695759.png[image,width=840,height=400]
+
 [[SolrJDBC-SQuirreLSQL-AddanAlias]]
 === Add an Alias
+
+image:attachments/62695765/62695761.png[image,width=959,height=400]
 
 [[SolrJDBC-SQuirreLSQL-ConfiguretheAlias]]
 === Configure the Alias
 
+image:attachments/62695765/62695763.png[image,width=470,height=400]
+
 [[SolrJDBC-SQuirreLSQL-ConnecttotheAlias]]
 === Connect to the Alias
+
+image:attachments/62695765/62695762.png[image,width=522,height=400]
 
 [[SolrJDBC-SQuirreLSQL-Querying]]
 == Querying
 
 Once you've successfully connected to Solr, you can use the SQL interface to enter queries and work with data.
+
+image:attachments/62695765/62695764.png[image,width=655,height=400]

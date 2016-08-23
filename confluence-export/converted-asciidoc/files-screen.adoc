@@ -5,6 +5,8 @@ Files Screen
 
 The Files screen lets you browse & view the various configuration files (such `solrconfig.xml` and the schema file) for the collection you selected.
 
+image:attachments/32604179/40009745.png[image,height=400]
+
 If you are using <<solrcloud.adoc#,SolrCloud>>, the files displayed are the configuration files for this collection stored in ZooKeeper (using `upconfig`), for single node Solr installations, all files in the `./conf` directory are displayed.
 
 While `solrconfig.xml` defines the behaviour of Solr as it indexes content and responds to queries, the Schema allows you to define the types of data in your content (field types), the fields your documents will be broken into, and any dynamic fields that should be generated based on patterns of field names in the incoming documents. Any other configuration files are used depending on how they are referenced in either `solrconfig.xml` or your schema.

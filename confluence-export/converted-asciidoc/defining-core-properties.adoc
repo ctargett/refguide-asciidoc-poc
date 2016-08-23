@@ -46,6 +46,8 @@ You can run Solr without configuring any cores.
 [[Definingcore.properties-Definingcore.propertiesFiles]]
 == Defining core.properties Files
 
+[[Definingcore.properties-core.properties_files]]
+
 The minimal `core.properties` file is an empty file, in which case all of the properties are defaulted appropriately.
 
 Java properties files allow the hash ("#") or bang ("!") characters to specify comment-to-end-of-line.

@@ -7,6 +7,8 @@ The Plugins screen shows information and statistics about the status and perform
 
 Choose an area of interest on the right, and then drill down into more specifics by clicking on one of the names that appear in the central part of the window. In this example, we've chosen to look at the Searcher stats, from the Core area:
 
+image:attachments/32604180/32702482.png[image,width=462,height=250]
+
 _Searcher Statistics_
 
 The display is a snapshot taken when the page is loaded. You can get updated status by choosing to either *Watch Changes* or **Refresh Values**. Watching the changes will highlight those areas that have changed, while refreshing the values will reload the page with updated information.

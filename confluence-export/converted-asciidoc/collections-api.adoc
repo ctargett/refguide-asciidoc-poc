@@ -12,6 +12,8 @@ The base URL for all API calls below is `http://<hostname>:<port>/solr`.
 
 `/admin/collections?action=CREATE`: <<CollectionsAPI-api1,create>> a collection `/admin/collections?action=MODIFYCOLLECTION`: <<CollectionsAPI-modifycoll,Modify>> certain attributes of a collection `/admin/collections?action=RELOAD`: <<CollectionsAPI-api2,reload>> a collection `/admin/collections?action=SPLITSHARD`: <<CollectionsAPI-api3,split>> a shard into two new shards `/admin/collections?action=CREATESHARD`: <<CollectionsAPI-api8,create>> a new shard `/admin/collections?action=DELETESHARD`: <<CollectionsAPI-api7,delete>> an inactive shard `/admin/collections?action=CREATEALIAS`: <<CollectionsAPI-api4,create or modify an alias>> for a collection `/admin/collections?action=DELETEALIAS`: <<CollectionsAPI-api5,delete an alias>> for a collection `/admin/collections?action=DELETE`: <<CollectionsAPI-api6,delete>> a collection `/admin/collections?action=DELETEREPLICA`: <<CollectionsAPI-api9,delete a replica>> of a shard `/admin/collections?action=ADDREPLICA`: <<CollectionsAPI-api_addreplica,add a replica>> of a shard `/admin/collections?action=CLUSTERPROP`: <<CollectionsAPI-api11,Add/edit/delete a cluster-wide property>> `/admin/collections?action=MIGRATE`: <<CollectionsAPI-api12,Migrate documents to another collection>> `/admin/collections?action=ADDROLE`: <<CollectionsAPI-api15AddRole,Add a specific role>> to a node in the cluster `/admin/collections?action=REMOVEROLE`: <<CollectionsAPI-api16RemoveRole,Remove an assigned role>> `/admin/collections?action=OVERSEERSTATUS`: <<CollectionsAPI-api17,Get status and statistics of the overseer>> `/admin/collections?action=CLUSTERSTATUS`: <<CollectionsAPI-api18,Get cluster status>> `/admin/collections?action=REQUESTSTATUS`: <<CollectionsAPI-RequestStatus,Get the status>> of a previous asynchronous request `/admin/collections?action=DELETESTATUS`: <<CollectionsAPI-DeleteStatus,Delete the stored response>> of a previous asynchronous request `/admin/collections?action=LIST`: <<CollectionsAPI-List,List all collections>> `/admin/collections?action=ADDREPLICAPROP`: <<CollectionsAPI-AddReplicaProp,Add an arbitrary property>> to a replica specified by collection/shard/replica `/admin/collections?action=DELETEREPLICAPROP`: <<CollectionsAPI-DeleteReplicaProp,Delete an arbitrary property>> from a replica specified by collection/shard/replica `/admin/collections?action=BALANCESHARDUNIQUE`: <<CollectionsAPI-BalanceSliceUnique,Distribute an arbitrary property>>, one per shard, across the nodes in a collection `/admin/collections?action=REBALANCELEADERS`: <<CollectionsAPI-RebalanceLeaders,Distribute leader role>> based on the "preferredLeader" assignments `/admin/collections?action=FORCELEADER`: <<CollectionsAPI-ForceLeader,Force a leader election>> in a shard if leader is lost `/admin/collections?action=MIGRATESTATEFORMAT`: <<CollectionsAPI-MigrateClusterState,Migrate a collection from shared clusterstate.json>> to per-collection state.json `/admin/collections?action=BACKUP`:<<CollectionsAPI-Backup,Backup>> Solr indexes and configurations for a specifc collection `/admin/collections?action=RESTORE`: <<CollectionsAPI-Restore,Restore>> Solr indexes and configurations for a specific collection
 
+[[CollectionsAPI-api1]]
+
 [[CollectionsAPI-CreateaCollection]]
 == Create a Collection
 
@@ -87,6 +89,8 @@ http://localhost:8983/solr/admin/collections?action=CREATE&name=newCollection&nu
   </lst>
 </response>
 ----
+
+[[CollectionsAPI-modifycoll]]
 
 [[CollectionsAPI-ModifyattributesofaCollection]]
 == Modify attributes of a Collection
@@ -174,6 +178,8 @@ http://localhost:8983/solr/admin/collections?action=RELOAD&name=newCollection
   </lst>
 </response>
 ----
+
+[[CollectionsAPI-api3]]
 
 [[CollectionsAPI-SplitaShard]]
 == Split a Shard
@@ -284,6 +290,8 @@ http://localhost:8983/solr/admin/collections?action=SPLITSHARD&collection=anothe
 </response>
 ----
 
+[[CollectionsAPI-api8]]
+
 [[CollectionsAPI-CreateaShard]]
 == Create a Shard
 
@@ -331,6 +339,8 @@ http://localhost:8983/solr/admin/collections?action=CREATESHARD&collection=anImp
   </lst>
 </response>
 ----
+
+[[CollectionsAPI-api7]]
 
 [[CollectionsAPI-DeleteaShard]]
 == Delete a Shard
@@ -389,6 +399,8 @@ http://localhost:8983/solr/admin/collections?action=DELETESHARD&collection=anoth
 </response>
 ----
 
+[[CollectionsAPI-api4]]
+
 [[CollectionsAPI-CreateormodifyanAliasforaCollection]]
 == Create or modify an Alias for a Collection
 
@@ -435,6 +447,8 @@ http://localhost:8983/solr/admin/collections?action=CREATEALIAS&name=testalias&c
 </response>
 ----
 
+[[CollectionsAPI-api5]]
+
 [[CollectionsAPI-DeleteaCollectionAlias]]
 == Delete a Collection Alias
 
@@ -477,6 +491,8 @@ http://localhost:8983/solr/admin/collections?action=DELETEALIAS&name=testalias
   </lst>
 </response>
 ----
+
+[[CollectionsAPI-api6]]
 
 [[CollectionsAPI-DeleteaCollection]]
 == Delete a Collection
@@ -534,6 +550,8 @@ http://localhost:8983/solr/admin/collections?action=DELETE&name=newCollection
   </lst>
 </response>
 ----
+
+[[CollectionsAPI-api9]]
 
 [[CollectionsAPI-DeleteaReplica]]
 == Delete a Replica
@@ -1292,6 +1310,8 @@ http://localhost:8983/solr/admin/collections?action=DELETESTATUS&flush=true
 </response>
 ----
 
+[[CollectionsAPI-List]]
+
 [[CollectionsAPI-ListCollections]]
 == *List Collections*
 
@@ -1635,6 +1655,8 @@ A Expert level utility API to move a collection from shared `clusterstate.json` 
 
 This API is useful in migrating any collections created prior to Solr 5.0 the more scalable cluster state format now used by default. If a collection was created in any Solr 5.x version or higher, then executing this command is not necessary.
 
+[[CollectionsAPI-Backup]]
+
 [[CollectionsAPI-BackupCollection]]
 == Backup Collection
 
@@ -1653,6 +1675,8 @@ The backup command will backup Solr indexes and configurations for a specified c
 |location |string |No |The location on the shared drive for the backup command to write to. Alternately it can be set as a <<CollectionsAPI-api11,cluster property>>
 |async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>>
 |================================================================================================================================================================================
+
+[[CollectionsAPI-Restore]]
 
 [[CollectionsAPI-RestoreCollection]]
 == Restore Collection
@@ -1696,7 +1720,7 @@ Additionally, there are several parameters that can be overridden:
 
 Since some collection API calls can be long running tasks e.g. Shard Split, you can optionally have the calls run asynchronously. Specifying `async=<request-id>` enables you to make an asynchronous call, the status of which can be requested using the <<CollectionsAPI-RequestStatus,REQUESTSTATUS>> call at any time.
 
-As of now, REQUESTSTATUS does not automatically clean up the tracking data structures, meaning the status of completed or failed tasks stays stored in ZooKeeper unless cleared manually. DELETESTATUScan be used to clear the stored statuses. However, there is a limit of 10,000 on the number of async call responses stored in a cluster.
+As of now, REQUESTSTATUS does not automatically clean up the tracking data structures, meaning the status of completed or failed tasks stays stored in ZooKeeper unless cleared manually. DELETESTATUS can be used to clear the stored statuses. However, there is a limit of 10,000 on the number of async call responses stored in a cluster.
 
 *Example*
 

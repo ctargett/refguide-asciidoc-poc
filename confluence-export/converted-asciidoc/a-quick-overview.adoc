@@ -7,6 +7,8 @@ Having had some fun with Solr, you will now learn about all the cool things it c
 
 Here is a example of how Solr might be integrated into an application:
 
+image:attachments/32604162/52035806.png[image,width=500,height=379]
+
 _In the scenario above, Solr runs along side other server applications. For example, an online store application would provide a user interface, a shopping cart, and a way to make purchases for end users; while an inventory management application would allow store employees to edit product information. The product metadata would be kept in some kind of database, as well as in Solr._
 
 Solr makes it easy to add the capability to search through the online store through the following steps:

@@ -13,8 +13,14 @@ For http://zeppelin.apache.org[Apache Zeppelin], you will need to create a JDBC 
 [[SolrJDBC-ApacheZeppelin-CreatetheApacheSolrJDBCInterpreter]]
 == Create the Apache Solr JDBC Interpreter
 
+image:attachments/63406991/63406985.png[image,height=400] image:attachments/63406991/63406986.png[image,height=400] image:attachments/63406991/63406987.png[image,height=400]
+
 [[SolrJDBC-ApacheZeppelin-CreateaNotebook]]
 == Create a Notebook
 
+image:attachments/63406991/63406988.png[image,width=517,height=400] image:attachments/63406991/63406989.png[image,width=839,height=400]
+
 [[SolrJDBC-ApacheZeppelin-QuerywiththeNotebook]]
 == Query with the Notebook
+
+image:attachments/63406991/63406990.png[image,width=481,height=400]

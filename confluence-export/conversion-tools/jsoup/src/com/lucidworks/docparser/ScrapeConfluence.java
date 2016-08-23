@@ -229,13 +229,13 @@ public class ScrapeConfluence {
     elements = docOut.getElementsByTag("strong");
     for (Element element : elements) {
       if (!element.hasText()) {
-        element.remove();
+        element.unwrap(); // unwrap not remove! (even w/o text might be inner nodes, ex: img)
       }
     }
     elements = docOut.getElementsByTag("em");
     for (Element element : elements) {
       if (!element.hasText()) {
-        element.remove();
+        element.unwrap(); // unwrap not remove! (even w/o text might be inner nodes, ex: img)
       }
     }
     
@@ -243,7 +243,7 @@ public class ScrapeConfluence {
     elements = docOut.getElementsByTag("p");
     for (Element element : elements) {
       if (!element.hasText()) {
-        element.remove();
+        element.unwrap(); // unwrap not remove! (even w/o text might be inner nodes, ex: img)
       }
     }
     // remove confluence styles
@@ -279,15 +279,15 @@ public class ScrapeConfluence {
     // remove divs
     elements = docOut.getElementsByTag("div");
     for (Element element : elements) {
-      element.unwrap();
+      element.unwrap(); // unwrap not remove! (might be inner nodes, ex: img)
     }
     
     elements = docOut.getElementsByTag("tbody");
     for (Element element : elements) {
-      element.unwrap();
+      element.unwrap(); // unwrap not remove! (might be inner nodes, ex: img)
     }
     
-    // remove breaks
+    // remove breaks -- TODO: why?
     elements = docOut.getElementsByTag("br");
     for (Element element : elements) {
       element.remove();
