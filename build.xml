@@ -115,7 +115,15 @@
     <echo>SITE: ${hoss.jekyll.dir}/_site/${main-page}.html</echo>
   </target>
 
-
+  <target name="convert-raw-confluence-exports"
+          description="Convinience target for running the one time conversion needed to build confluence-export/converted-asciidoc">
+    <ant dir="confluence-export/conversion-tools/jsoup"
+         target="scrape"
+         inheritAll="false"
+         useNativeBasedir="true" />
+    <exec executable="confluence-export/conversion-tools/toAsciidoc.sh" />
+  </target>
+    
   
 <!-- ======= Asciidoctor HTML conversion ========
    Uses pure Asciidoctor build task-->

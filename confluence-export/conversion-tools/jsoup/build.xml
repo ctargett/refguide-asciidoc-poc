@@ -55,21 +55,21 @@
     </fail>
   </target>
   
+  <target name="-page-tree-check">
+    <uptodate property="page-tree.xml.uptodate"
+              srcfile="${entities.xml.path}"
+              targetfile="${page-tree.xml.path}"/>
+  </target>
+  
   <target name="page-tree"
-          depends="-dir-check">
+          depends="-dir-check,-page-tree-check"
+          unless="${page-tree.xml.uptodate}">
     <xslt in="${entities.xml.path}" out="${page-tree.xml.path}"
           style="../page-hierarchy.xsl" />
   </target>
   
   <target name="scrape"
-          depends="-dir-check,jar">
-    <fail message="Can't find page-tree.xml in work.dir! ... run 'ant page-tree'">
-      <condition>
-        <not>
-          <available file="${page-tree.xml.path}" />
-        </not>
-      </condition>
-    </fail>
+          depends="-dir-check,jar,page-tree">
     <delete dir="${cleaned.dir}" />
     <mkdir dir="${cleaned.dir}"/>
     <mkdir dir="${cleaned.dir}/images"/>
