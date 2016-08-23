@@ -357,7 +357,7 @@ The workers in the worker tier receive the query plan from the `/sql` handler an
 
 The Data Table tier is where the tables reside. Each table is it's own SolrCloud collection. The Data Table layer receives queries from the worker nodes and emits tuples (search results). The Data Table tier also handles the initial sorting and partitioning of tuples sent to the workers. This means the tuples are always sorted and partitioned before they hit the network. The partitioned tuples are sent directly to the correct worker nodes in the proper sort order, ready to be reduced.
 
-image::attachments/61311194/61328550.png[image,width=492,height=250]
+image::images/parallel-sql-interface/cluster.png[image,width=492,height=250]
 
 
 The image above shows the three tiers broken out into different SolrCloud collections for clarity. In practice the `/sql` handler and worker collection by default share the same collection.

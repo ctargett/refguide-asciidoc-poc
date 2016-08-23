@@ -16,7 +16,7 @@ Single node or master/slave replication instances of Solr will not display this 
 
 Clicking on the Collection Selector pull-down menu will show a list of the collections in your Solr cluster, with a search box that can be used to find a specific collection by name. When you select a collection from the pull-down, the main display of the page will display some basic metadata about the collection, and a secondary menu will appear in the left nav with links to additional collection specific administration screens.
 
-image::attachments/62692268/62692258.png[image,width=482,height=250]
+image::images/collection-specific-tools/collection_dashboard.png[image,width=482,height=250]
 
 
 The collection-specific UI screens are listed below, with a link to the section of this guide to find out more:

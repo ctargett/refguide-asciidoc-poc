@@ -15,5 +15,5 @@ The main display of this page provides a list of collections that exist in your 
 
 The buttons at the top of the screen let you make various collection level changes to your cluster, from add new collections or aliases to reloading or deleting a single collection.
 
-image::attachments/32604191/62692250.png[image,width=653,height=250]
+image::images/collections-core-admin/collection-admin.png[image,width=653,height=250]
 

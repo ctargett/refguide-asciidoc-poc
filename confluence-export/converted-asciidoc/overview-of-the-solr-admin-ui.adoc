@@ -5,7 +5,7 @@ Overview of the Solr Admin UI
 
 Solr features a Web interface that makes it easy for Solr administrators and programmers to view <<files-screen.adoc#,Solr configuration>> details, run <<query-screen.adoc#,queries and analyze>> document fields in order to fine-tune a Solr configuration and access <<getting-assistance.adoc#,online documentation>> and other help.
 
-image::attachments/32604190/32702501.png[image,height=400]
+image::images/overview-of-the-solr-admin-ui/dashboard.png[image,height=400]
 
 
 Accessing the URL `http://hostname:8983/solr/` will show the main dashboard, which is divided into two parts.

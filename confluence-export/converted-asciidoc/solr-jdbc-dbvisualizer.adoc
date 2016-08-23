@@ -21,13 +21,13 @@ Once the driver has been created, you can create a connection to Solr with the c
 
 From the Tools menu, choose Driver Manager to add a driver.
 
-image::attachments/62695745/62695725.png[image,width=673,height=400]
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_1.png[image,width=673,height=400]
 
 
 [[SolrJDBC-DbVisualizer-CreateaNewDriver]]
 === Create a New Driver
 
-image::attachments/62695745/62695726.png[image,width=532,height=400]
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_2.png[image,width=532,height=400]
 
 
 [[SolrJDBC-DbVisualizer-NametheDriver]]
@@ -35,7 +35,7 @@ image::attachments/62695745/62695726.png[image,width=532,height=400]
 
 Provide a name for the driver, and provide the URL format: `jdbc:solr://<zk_connection_string>/?collection=<collection>`. Do not fill in values for the variables "`zk_connection_string`" and "`collection`", those will be provided later when the connection to Solr is configured. The Driver Class will also be automatically added when the driver .jars are added.
 
-image::attachments/62695745/62695727.png[image,width=532,height=400]
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_3.png[image,width=532,height=400]
 
 
 [[SolrJDBC-DbVisualizer-AddDriverFilestoClasspath]]
@@ -46,11 +46,11 @@ The driver files to be added are:
 * all .jars in `$SOLR_HOME/dist/solrj-lib`
 * the SolrJ .jar found in `$SOLR_HOME/dist/solr-solrj-<version>.jar`
 
-image::attachments/62695745/62695728.png[image,width=535,height=400]
- image::attachments/62695745/62695729.png[image,width=664,height=400]
- image::attachments/62695745/62695730.png[image,width=653,height=400]
- image::attachments/62695745/62695731.png[image,width=655,height=400]
- image::attachments/62695745/62695733.png[image,width=651,height=400]
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_4.png[image,width=535,height=400]
+ image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_5.png[image,width=664,height=400]
+ image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_6.png[image,width=653,height=400]
+ image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_7.png[image,width=655,height=400]
+ image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_9.png[image,width=651,height=400]
 
 
 [[SolrJDBC-DbVisualizer-ReviewandCloseDriverManager]]
@@ -66,20 +66,20 @@ Next, create a connection to Solr using the driver just created.
 [[SolrJDBC-DbVisualizer-UsetheConnectionWizard]]
 === Use the Connection Wizard
 
-image::attachments/62695745/62695735.png[image,width=763,height=400]
- image::attachments/62695745/62695736.png[image,width=807,height=400]
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_11.png[image,width=763,height=400]
+ image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_12.png[image,width=807,height=400]
 
 
 [[SolrJDBC-DbVisualizer-NametheConnection]]
 === Name the Connection
 
-image::attachments/62695745/62695737.png[image,width=402,height=400]
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_13.png[image,width=402,height=400]
 
 
 [[SolrJDBC-DbVisualizer-SelecttheSolrdriver]]
 === Select the Solr driver
 
-image::attachments/62695745/62695738.png[image,width=399,height=400]
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_14.png[image,width=399,height=400]
 
 
 [[SolrJDBC-DbVisualizer-SpecifytheSolrURL]]
@@ -87,7 +87,7 @@ image::attachments/62695745/62695738.png[image,width=399,height=400]
 
 Provide the Solr URL, using the ZooKeeper host and port and the collection. For example, `jdbc:solr://localhost:9983?collection=test`
 
-image::attachments/62695745/62695739.png[image,width=401,height=400]
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_15.png[image,width=401,height=400]
 
 
 [[SolrJDBC-DbVisualizer-OpenandConnecttoSolr]]
@@ -95,8 +95,8 @@ image::attachments/62695745/62695739.png[image,width=401,height=400]
 
 Once the connection has been created, double-click on it to open the connection details screen and connect to Solr.
 
-image::attachments/62695745/62695740.png[image,width=625,height=400]
- image::attachments/62695745/62695741.png[image,width=592,height=400]
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_16.png[image,width=625,height=400]
+ image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_17.png[image,width=592,height=400]
 
 
 [[SolrJDBC-DbVisualizer-OpenSQLCommandertoEnterQueries]]
@@ -104,6 +104,6 @@ image::attachments/62695745/62695740.png[image,width=625,height=400]
 
 When the connection is established, you can use the SQL Commander to issue queries and view data.
 
-image::attachments/62695745/62695743.png[image,width=577,height=400]
- image::attachments/62695745/62695744.png[image,width=556,height=400]
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_19.png[image,width=577,height=400]
+ image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_20.png[image,width=556,height=400]
 

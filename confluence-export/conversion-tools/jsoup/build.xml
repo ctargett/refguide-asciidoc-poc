@@ -72,7 +72,14 @@
     </fail>
     <delete dir="${cleaned.dir}" />
     <mkdir dir="${cleaned.dir}"/>
+    <mkdir dir="${cleaned.dir}/images"/>
+    <!-- any "images" in the raw dump are icons that are definitely used by some page
+         (the export code already filtered from the set of all images in confluence) -->
+    <copy todir="${cleaned.dir}/images">
+      <fileset dir="${from.dir}/images" />
+    </copy>
     <java classname="com.lucidworks.docparser.ScrapeConfluence"
+          failonerror="true"
           fork="true">
       <classpath refid="classpath"/>
       <arg value="${from.dir}"/>

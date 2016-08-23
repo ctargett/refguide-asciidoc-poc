@@ -5,7 +5,7 @@ Thread Dump
 
 The Thread Dump screen lets you inspect the currently active threads on your server. Each thread is listed and access to the stacktraces is available where applicable. Icons to the left indicate the state of the thread: for example, threads with a green check-mark in a green circle are in a "RUNNABLE" state. On the right of the thread name, a down-arrow means you can expand to see the stacktrace for that thread.
 
-image::attachments/32604186/32702503.png[image,width=484,height=250]
+image::images/thread-dump/thread_dump_1.png[image,width=484,height=250]
 
 
 When you move your cursor over a thread name, a box floats over the name with the state for that thread. Thread states can be:
@@ -23,7 +23,7 @@ When you move your cursor over a thread name, a box floats over the name with th
 
 When you click on one of the threads that can be expanded, you'll see the stacktrace, as in the example below:
 
-image::attachments/32604186/32702508.png[image,width=453,height=250]
+image::images/thread-dump/thread_dump_2.png[image,width=453,height=250]
 
 
 _Inspecting a thread_

@@ -5,7 +5,7 @@ Query Screen
 
 You can use the *Query* screen to submit a search query to a Solr collection and analyze the results. In the example in the screenshot, a query has been submitted, and the screen shows the query results sent to the browser as JSON.
 
-image::attachments/32604188/32702506.png[image,height=400]
+image::images/query-screen/query-top.png[image,height=400]
 
 
 In this example a query for `genre:Fantasy` was sent to a "films" collection. Defaults were used for all other options in the form, which are explained briefly in the table below, and covered in detail in later parts of this Guide.

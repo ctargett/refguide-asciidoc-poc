@@ -35,6 +35,9 @@ ASCII_DIR="$WORK_DIR/converted-asciidoc"
 
 rm $ASCII_DIR/*.adoc
 
+echo "Coping images..."
+cp -r $HTML_DIR/images $ASCII_DIR/images
+
 for x in `find $HTML_DIR -name "*.html"`
 do
     echo $x;

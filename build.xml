@@ -62,7 +62,6 @@
           description="Builds a PDF against all converted-asciidoc files">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
              classpath="lib/asciidoctor-ant.jar"/>
-    <!-- TODO: the scrapper code needs to copy/move the images -->
     <asciidoctor:convert
                  sourceDirectory="pdf"
                  sourceDocumentName="SolrRefGuide-all.adoc"
@@ -71,7 +70,7 @@
                  extensions="adoc"
                  sourceHighlighter="coderay"
                  embedAssets="true"
-                 imagesDir="confluence-export/raw-export/"
+                 imagesDir="${asciidoc.dir}"
                  doctype="book"
                  safemode="unsafe">
       <attribute key="icons" value="font" />
@@ -101,6 +100,9 @@
     <copy todir="${hoss.jekyll.dir}" overwrite="true">
       <fileset dir="${asciidoc.dir}" />
     </copy>
+    <echo>Moving images so we don't have to change _config.yml (I'm lazy)</echo> <!-- TODO: HACK -->
+    <mkdir dir="${hoss.jekyll.dir}/refguide/images" />
+    <move file="${hoss.jekyll.dir}/images" todir="${hoss.jekyll.dir}/refguide/images/" />
     <echo>Running Jekyll...</echo>
     <exec executable="jekyll" dir="${hoss.jekyll.dir}">
       <arg value="build"/>

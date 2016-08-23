@@ -6,7 +6,7 @@ Core-Specific Tools
 
 In the left-hand navigation bar, you will see a pull-down menu titled "Core Selector". Clicking on the menu will show a list of Solr cores hosted on this Solr node, with a search box that can be used to find a specific core by name. When you select a core from the pull-down, the main display of the page will display some basic metadata about the core, and a secondary menu will appear in the left nav with links to additional core specific administration screens. You can also define a configuration file called `admin-extra.html` that includes links or other information you would like to display in the "Admin Extra" part of this main screen.
 
-image::attachments/32604187/62692272.png[image,width=515,height=250]
+image::images/core-specific-tools/core_dashboard.png[image,width=515,height=250]
 
 
 The core-specific UI screens are listed below, with a link to the section of this guide to find out more:

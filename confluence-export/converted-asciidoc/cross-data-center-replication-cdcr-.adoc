@@ -47,7 +47,7 @@ Terms used in this document include:
 
 Here is a picture of the data flow.
 
-image::attachments/62687462/62688637.png[image,width=700,height=525]
+image::images/cross-data-center-replication-cdcr-/CDCR_arch.png[image,width=700,height=525]
 
 
 Updates and deletes are first written to the Source cluster, then forwarded to the Target cluster. The data flow sequence is:

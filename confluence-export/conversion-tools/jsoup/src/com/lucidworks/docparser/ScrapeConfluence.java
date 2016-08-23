@@ -3,6 +3,7 @@ package com.lucidworks.docparser;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +41,11 @@ public class ScrapeConfluence {
         File pageTreeXmlFile = new File(args[1]);
         PageTree pageTree = new PageTree(pageTreeXmlFile);
         File outputDir = new File(args[2]);
+        File imagesDir = new File(outputDir, "images");
+        if (! (imagesDir.exists() || imagesDir.mkdirs() ) ) {
+          throw new RuntimeException("Unable to create images dir: " + imagesDir.toString());
+        }
+        
         HtmlFileFilter htmlFilter = new HtmlFileFilter();
         File[] pages = inputDir.listFiles(htmlFilter);
         for (File page : pages) {
@@ -95,7 +101,45 @@ public class ScrapeConfluence {
             for (Element element : elements) {
               element.attr("href", fixLink(page, pageTree, element.attr("href")));
             }
+            
+            // fix (and copy) images
+            for (Element element : docOut.select("img")) {
+              String src = element.attr("src");
+              // attachments can be referenced by other pages
+              String imagePageId = element.attr("data-linked-resource-container-id");
+              String filename = element.attr("data-linked-resource-default-alias");
+              if (null == imagePageId || null == filename ||
+                  "".equals(imagePageId) || "".equals(filename)) {
+                // this some standard comfluence image, not an attacment
+                // assume it's already been copied into place, and leave the src attr alone
+                continue;
+              }
+              String imagePageShortName = pageTree.getPageShortName(pageTree.getPage
+                                                                    (Integer.valueOf(imagePageId)));
+              
+              // copy the file to the desired path if we haven't already...
+              File imagePageDir = new File(imagesDir, imagePageShortName);
+              File imageFile = new File(imagePageDir, filename);
+              if (! imageFile.exists()) {
+                File origImageFile = new File(inputDir, src);
+                if (! origImageFile.exists()) {
+                  throw new RuntimeException("unable to find image: " + origImageFile + " for img in " +
+                                             page.toString());
+                }
+                if (! (imagePageDir.exists() || imagePageDir.mkdirs() ) ) {
+                  throw new RuntimeException("unable to makedirs: " + imagePageDir + " for img: " + src +
+                                             " in " + page.toString());
+                }
+                Files.copy(origImageFile.toPath(), imageFile.toPath());
+              }
+              
+              // rewrite the src attribute
+              element.attr("src", "images/" + imagePageShortName + "/" + filename);
+            }
 
+            // TODO: need to look for non image attachments and copy them as well
+            // ie: SVG files used to create some of these images
+            
             docOut.normalise();
             OutputStream out = new FileOutputStream(outPage);
             Writer writer = new OutputStreamWriter(out,"UTF-8");
@@ -225,7 +269,7 @@ public class ScrapeConfluence {
         System.exit(-1);
       }
     }
-
+    
     // unwrap various formatting tags if they are empty
     for (String tag : Arrays.asList("strong", "em", "p", "code", "pre")) {
       elements = docOut.getElementsByTag(tag);

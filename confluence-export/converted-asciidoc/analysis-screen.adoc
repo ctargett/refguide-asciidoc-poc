@@ -7,12 +7,12 @@ The Analysis screen lets you inspect how data will be handled according to the f
 
 Enter content in one or both boxes at the top of the screen, and then choose the field or field type definitions to use for analysis.
 
-image::attachments/32604182/32702480.png[image,height=400]
+image::images/analysis-screen/analysis_normal.png[image,height=400]
 
 
 If you click the *Verbose Output* check box, you see more information, including more details on the transformations to the input (such as, convert to lower case, strip extra characters, etc.) including the raw bytes, type and detailed position information at each stage. The information displayed will vary depending on the settings of the field or field type. Each step of the process is displayed in a separate section, with an abbreviation for the tokenizer or filter that is applied in that step. Hover or click on the abbreviation, and you'll see the name and path of the tokenizer or filter.
 
-image::attachments/32604182/32702481.png[image,height=400]
+image::images/analysis-screen/analysis_verbose.png[image,height=400]
 
 
 In the example screenshot above, several transformations are applied to the input "Running is a sport." The words "is" and "a" have been removed and the word "running" has been changed to its basic form, "run". This is because we are using the field type `text_en` in this scenario, which is configured to remove stop words (small words that usually do not provide a great deal of context) and "stem" terms when possible to find more possible matches (this is particularly helpful with plural forms of words). If you click the question mark next to the *Analyze Fieldname/Field Type* pull-down menu, the <<schema-browser-screen.adoc#,Schema Browser window>> will open, showing you the settings for the field specified.
