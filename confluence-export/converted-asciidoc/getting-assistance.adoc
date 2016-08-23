@@ -5,7 +5,8 @@ Getting Assistance
 
 At the bottom of each screen of the Admin UI is a set of links that can be used to get more assistance with configuring and using Solr.
 
-image:attachments/32604189/32702500.png[image] _Assistance icons_
+image::attachments/32604189/32702500.png[image]
+ _Assistance icons_
 
 These icons include the following links.
 

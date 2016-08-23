@@ -5,7 +5,8 @@ Files Screen
 
 The Files screen lets you browse & view the various configuration files (such `solrconfig.xml` and the schema file) for the collection you selected.
 
-image:attachments/32604179/40009745.png[image,height=400]
+image::attachments/32604179/40009745.png[image,height=400]
+
 
 If you are using <<solrcloud.adoc#,SolrCloud>>, the files displayed are the configuration files for this collection stored in ZooKeeper (using `upconfig`), for single node Solr installations, all files in the `./conf` directory are displayed.
 

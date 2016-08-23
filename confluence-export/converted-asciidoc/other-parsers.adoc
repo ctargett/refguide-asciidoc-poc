@@ -304,7 +304,8 @@ The `graph` parser only works in single node Solr installations, or with <<solrc
 
 To understand how the graph parser works, consider the following Directed Cyclic Graph, containing 8 nodes (A to H) and 9 edges (1 to 9):
 
-image:attachments/32604257/62692024.png[image,height=400]
+image::attachments/32604257/62692024.png[image,height=400]
+
 
 One way to model this graph as Solr documents, would be to create one document per node, with mutivalued fields identifying the incoming and outgoing edges for each node:
 

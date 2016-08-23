@@ -9,7 +9,8 @@ The idea is to combine distributed search with replication. As shown in the figu
 
 Query requests should be load balanced across each of the shard slaves. This gives you both increased query handling capacity and fail-over backup if a server goes down.
 
-image:attachments/32604222/32702468.png[image,width=312,height=344] _A Solr configuration combining both replication and master-slave distribution._
+image::attachments/32604222/32702468.png[image,width=312,height=344]
+ _A Solr configuration combining both replication and master-slave distribution._
 
 None of the master shards in this configuration know about each other. You index to each master, the index is replicated to each slave, and then searches are distributed across the slaves, using one slave from each master/slave shard.
 

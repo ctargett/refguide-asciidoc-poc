@@ -68,14 +68,16 @@ When used with `BBoxField`,additional options are supported:
 
 The `geofilt` filter allows you to retrieve results based on the geospatial distance (AKA the "great circle distance") from a given point. Another way of looking at it is that it creates a circular shape filter. For example, to find all documents within five kilometers of a given lat/lon point, you could enter `&q=*:*&fq={!geofilt sfield=store}&pt=45.15,-93.85&d=5`. This filter returns all results within a circle of the given radius around the initial point:
 
-image:attachments/32604261/32702524.png[image]
+image::attachments/32604261/32702524.png[image]
+
 
 [[SpatialSearch-bbox]]
 === `bbox`
 
 The `bbox` filter is very similar to `geofilt` except it uses the _bounding box_ of the calculated circle. See the blue box in the diagram below. It takes the same parameters as geofilt. Here's a sample query: `&q=*:*&fq={!bbox sfield=store}&pt=45.15,-93.85&d=5`. The rectangular shape is faster to compute and so it's sometimes used as an alternative to geofilt when it's acceptable to return points outside of the radius. However, if the ideal goal is a circle but you want it to run faster, then instead consider using the RPT field and try a large "distErrPct" value like `0.1` (10% radius). This will return results outside the radius but it will do so somewhat uniformly around the shape.
 
-image:attachments/32604261/32702521.png[image] Note:
+image::attachments/32604261/32702521.png[image]
+ Note:
 
 When a bounding box includes a pole, the bounding box ends up being a "bounding bowl" (a __spherical cap__) that includes all values north of the lowest latitude of the circle if it touches the north pole (or south of the highest latitude if it touches the south pole).
 

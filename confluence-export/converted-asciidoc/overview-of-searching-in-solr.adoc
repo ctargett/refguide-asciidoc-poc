@@ -31,7 +31,8 @@ To help users zero in on the content they're looking for, Solr supports two spec
 
 The screen shot below shows an example of faceting from the CNET Web site (CBS Interactive Inc.) , which was the first site to use Solr.
 
-image:attachments/32604233/32702513.png[image,width=600,height=300]
+image::attachments/32604233/32702513.png[image,width=600,height=300]
+
 
 Faceting makes use of fields defined when the search applications were indexed. In the example above, these fields include categories of information that are useful for describing digital cameras: manufacturer, resolution, and zoom range.
 
@@ -43,4 +44,5 @@ A Solr component called a <<response-writers.adoc#,*response writer*>> manages t
 
 The diagram below summarizes some key elements of the search process.
 
-image:attachments/32604233/32702512.png[image,width=624,height=401]
+image::attachments/32604233/32702512.png[image,width=624,height=401]
+

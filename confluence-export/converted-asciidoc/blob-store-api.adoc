@@ -27,7 +27,8 @@ You can create the `.system` collection with the <<collections-api.adoc#,Collect
 curl "http://localhost:8983/solr/admin/collections?action=CREATE&name=.system&replicationFactor=2"
 ----
 
-image:images/icons/emoticons/warning.png[(warning)] Note that the `bin/solr` script cannot be used to create the `.system ` collection at this time. Also, please ensure that there is at least one collection created before creating the `.system` collection.
+image::images/icons/emoticons/warning.png[(warning)]
+ Note that the `bin/solr` script cannot be used to create the `.system ` collection at this time. Also, please ensure that there is at least one collection created before creating the `.system` collection.
 
 [[BlobStoreAPI-UploadFilestoBlobStore]]
 === Upload Files to Blob Store

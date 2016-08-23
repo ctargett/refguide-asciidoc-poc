@@ -8,7 +8,8 @@ The *clustering* (or **cluster analysis**) plugin attempts to automatically disc
 
 Clusters discovered for a given query can be perceived as __dynamic facets__. This is beneficial when regular faceting is difficult (field values are not known in advance) or when the queries are exploratory in nature. Take a look at the http://search.carrot2.org/stable/search?query=solr&results=100&source=web&view=foamtree[Carrot2] project's demo page to see an example of search results clustering in action (the groups in the visualization have been discovered automatically in search results to the right, there is no external information involved).
 
-image:attachments/34836344/61315983.png[image,width=900]
+image::attachments/34836344/61315983.png[image,width=900]
+
 
 The query issued to the system was __Solr__. It seems clear that faceting could not yield a similar set of groups, although the goals of both techniques are similar—to let the user explore the set of search results and either rephrase the query or narrow the focus to a subset of current documents. Clustering is also similar to <<result-grouping.adoc#,Result Grouping>> in that it can help to look deeper into search results, beyond the top few hits.
 
@@ -280,7 +281,8 @@ The default language can also be set using Carrot2-specific algorithm attributes
 
 The algorithms that come with Solr are using their default settings which may be inadequate for all data sets. All algorithms have lexical resources and resources (stop words, stemmers, parameters) that may require tweaking to get better clusters (and cluster labels). For Carrot2-based algorithms it is probably best to refer to a dedicated tuning application called Carrot2 Workbench (screenshot below). From this application one can export a set of algorithm attributes as an XML file, which can be then placed under the location pointed to by `carrot.resourcesDir`.
 
-image:attachments/34836344/35192995.png[image,scaledwidth=75.0%]
+image::attachments/34836344/35192995.png[image,scaledwidth=75.0%]
+
 
 [[ResultClustering-ProvidingDefaults]]
 === Providing Defaults

@@ -123,7 +123,8 @@ That's it! Solr is running. If you need convincing, use a Web browser to see the
 
 ` http://localhost:8983/solr/ `
 
-image:attachments/32604161/51183846.png[image,width=900,height=456] _The Solr Admin interface._
+image::attachments/32604161/51183846.png[image,width=900,height=456]
+ _The Solr Admin interface._
 
 If Solr is not running, your browser will complain that it cannot connect to the server. Check your port number and try again.
 
@@ -203,7 +204,8 @@ The results are contained in an XML document, which you can examine directly by 
 
 Just in case you are not running Solr as you read, the following screen shot shows the result of a query (the next example, actually) as viewed in Mozilla Firefox. The top-level response contains a `lst` named `responseHeader` and a result named response. Inside result, you can see the three docs that represent the search results.
 
-image:attachments/32604161/32702494.png[image,width=600,height=634] _An XML response to a query._
+image::attachments/32604161/32702494.png[image,width=600,height=634]
+ _An XML response to a query._
 
 Once you have mastered the basic idea of a query, it is easy to add enhancements to explore the query syntax. This one is the same as before but the results only contain the ID, name, and price for each returned document. If you don't specify which fields you want, all of them are returned.
 
