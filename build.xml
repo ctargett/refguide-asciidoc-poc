@@ -65,6 +65,7 @@
     <asciidoctor:convert
                  sourceDirectory="pdf"
                  sourceDocumentName="SolrRefGuide-all.adoc"
+                 baseDir="confluence-export/converted-asciidoc/"
                  outputDirectory="build"
                  backend="pdf"
                  extensions="adoc"
@@ -76,9 +77,9 @@
       <attribute key="icons" value="font" />
       <attribute key="icon-set" value="fa" />
       <attribute key="docinfo!" value='' />
-      <attribute key="pdf-stylesDir" value="pdf/themes"/>
+      <attribute key="pdf-stylesDir" value="../../pdf/themes"/>
       <attribute key="pdf-style" value="refguide"/>
-      <attribute key="pdf-fontsDir" value="pdf/fonts"/>
+      <attribute key="pdf-fontsDir" value="../../pdf/fonts"/>
       <attribute key="pagenums" value='' />
       <attribute key="figure-caption!" value='' />
     </asciidoctor:convert>

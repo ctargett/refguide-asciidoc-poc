@@ -14,4 +14,4 @@ Fonts used in the Apache Solr Reference Guide include https://www.theleagueofmov
 
 <<<
 
-include::confluence-export/converted-asciidoc/_data/pdf-main-body.adoc[]
+include::_data/pdf-main-body.adoc[]
