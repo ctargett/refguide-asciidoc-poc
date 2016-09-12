@@ -55,7 +55,7 @@ curl http://localhost:8983/solr/.system/blob?omitHeader=true
 
 Output:
 
-[source,js]
+[source,json]
 ----
 {
   "response":{"numFound":1,"start":0,"docs":[
@@ -86,7 +86,7 @@ curl http://localhost:8983/solr/.system/blob/test?omitHeader=true
 
 Output:
 
-[source,js]
+[source,json]
 ----
 {
   "response":{"numFound":1,"start":0,"docs":[

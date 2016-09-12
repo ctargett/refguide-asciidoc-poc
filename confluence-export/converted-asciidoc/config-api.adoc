@@ -183,7 +183,7 @@ Here is what a request handler looks like in `solrconfig.xml`:
 
 The same request handler defined with the Config API would look like this:
 
-[source,js]
+[source,json]
 ----
 {
   "add-requesthandler":{
@@ -210,7 +210,7 @@ The QueryElevationComponent searchComponent in `solrconfig.xml `looks like this:
 
 And the same searchComponent with the Config API:
 
-[source,js]
+[source,json]
 ----
 {
   "add-searchcomponent":{
@@ -224,7 +224,7 @@ And the same searchComponent with the Config API:
 
 Removing the searchComponent with the Config API:
 
-[source,js]
+[source,json]
 ----
 {
   "delete-searchcomponent":"elevator"
@@ -307,7 +307,7 @@ Set autoCommit properties in `solrconfig.xml`:
 
 Define the same properties with the Config API:
 
-[source,js]
+[source,json]
 ----
 {
   "set-property": {
@@ -346,7 +346,7 @@ curl http://localhost:8983/solr/gettingstarted/config/overlay?omitHeader=true
 
 And you should get a response like this:
 
-[source,js]
+[source,json]
 ----
 {
   "overlay":{
@@ -429,7 +429,7 @@ curl http://localhost:8983/solr/techproducts/config -H 'Content-type:application
 
 This command sets a user property.
 
-[source,javascript]
+[source,bash]
 ----
 curl http://localhost:8983/solr/techproducts/config -H'Content-type:application/json' -d '{
     "set-user-property" : {"variable_name":"some_value"}}'
@@ -455,7 +455,7 @@ And we would expect to see output like this:
 
 To unset the variable, issue a command like this:
 
-[source,javascript]
+[source,bash]
 ----
 curl http://localhost:8983/solr/techproducts/config -H'Content-type:application/json' -d '{"unset-user-property" : "variable_name"}'
 ----
@@ -472,7 +472,7 @@ If `params.json` is modified, the params object is just updated without a core r
 
 If an empty command is sent to the `/config` endpoint, the watch is triggered on all cores using this configset. For example:
 
-[source,javascript]
+[source,bash]
 ----
 curl http://localhost:8983/solr/techproducts/config -H'Content-type:application/json' -d '{}'
 ----

@@ -85,14 +85,14 @@ http://localhost:8983/solr/my_collection/update?stream.body=<optimize/>
 
 This example causes the index to be optimized down to at most 10 segments, but won't wait around until it's done (`waitFlush=false`):
 
-[source,xml]
+[source,bash]
 ----
 curl 'http://localhost:8983/solr/my_collection/update?optimize=true&maxSegments=10&waitFlush=false'
 ----
 
 This example adds a small test document with a `commitWithin` instruction that tells Solr to make sure the document is committed no later than 10 seconds later (this method is generally preferred over explicit commits):
 
-[source,xml]
+[source,bash]
 ----
 curl http://localhost:8983/solr/my_collection/update?commitWithin=10000
   -H "Content-Type: text/xml" --data-binary

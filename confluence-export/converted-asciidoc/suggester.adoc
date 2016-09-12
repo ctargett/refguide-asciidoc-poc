@@ -330,7 +330,7 @@ In this example, we've simply requested the string 'elec' with the suggest.q par
 
 Example response:
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader": {
@@ -382,7 +382,7 @@ In this example we have sent the string 'elec' as the suggest.q parameter and na
 
 Example response:
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader": {

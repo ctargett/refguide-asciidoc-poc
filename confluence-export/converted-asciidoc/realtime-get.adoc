@@ -28,7 +28,7 @@ Real Time Get requests can be performed using the `/get` handler which exists im
 
 For example, if you started Solr using the `bin/solr -e techproducts` example command, you could then index a new document (with out committing it) like so:
 
-[source,xml]
+[source,bash]
 ----
 curl 'http://localhost:8983/solr/techproducts/update/json?commitWithin=10000000'
   -H 'Content-type:application/json' -d '[{"id":"mydoc","name":"realtime-get test!"}]'

@@ -36,7 +36,7 @@ Solr has a `/stream` request handler that takes streaming expression requests an
 
 The `/stream` request handler takes one parameter, `expr`, which is used to specify the streaming expression. For example, this curl command encodes and POSTs a simple `search()` expression to the `/stream` handler:
 
-[source,java]
+[source,bash]
 ----
 curl --data-urlencode 'expr=search(enron_emails, 
                                    q="from:1800flowers*", 

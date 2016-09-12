@@ -240,7 +240,7 @@ cURL on OS X Mavericks (10.9) has degraded SSL support. For more information and
 
 The cURL commands in the following sections will not work with the system `curl` on OS X Yosemite (10.10). Instead, the certificate supplied with the `-E` param must be in PKCS12 format, and the file supplied with the `--cacert` param must contain only the CA certificate, and no key (see <<EnablingSSL-ConvertthecertificateandkeytoPEMformatforusewithcURL,above>> for instructions on creating this file):
 
-[source,text]
+[source,bash]
 ----
 curl -E solr-ssl.keystore.p12:secret --cacert solr-ssl.cacert.pem ...
 ----
@@ -275,14 +275,14 @@ The `create` action will pass the `SOLR_SSL_*` properties set in your include fi
 
 To get the resulting cluster status (again, if you have not enabled client authentication, remove the `-E solr-ssl.pem:secret` option):
 
-[source,text]
+[source,bash]
 ----
 curl -E solr-ssl.pem:secret --cacert solr-ssl.pem "https://localhost:8984/solr/admin/collections?action=CLUSTERSTATUS&wt=json&indent=on"
 ----
 
 You should get a response that looks like this:
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader":{
@@ -332,7 +332,7 @@ java -Djavax.net.ssl.keyStorePassword=secret -Djavax.net.ssl.keyStore=../../serv
 
 Use cURL to query the SolrCloud collection created above, from a directory containing the PEM formatted certificate and key created above (e.g. `example/etc/`) - if you have not enabled client authentication (system property `-Djetty.ssl.clientAuth=true)`, then you can remove the `-E solr-ssl.pem:secret` option:
 
-[source,text]
+[source,bash]
 ----
 curl -E solr-ssl.pem:secret --cacert solr-ssl.pem "https://localhost:8984/solr/mycollection/select?q=*:*&wt=json&indent=on"
 ----

@@ -109,7 +109,7 @@ bin/post -c core1 example/exampledocs/monitor2.xml -port 8984
 ----
 5.  Search on the node on port 8983:
 +
-[source,java]
+[source,bash]
 ----
 curl http://localhost:8983/solr/core1/select?q=*:*&wt=xml&indent=true
 ----
@@ -118,7 +118,7 @@ This should bring back one document.
 +
 Search on the node on port 8984:
 +
-[source,java]
+[source,bash]
 ----
 curl http://localhost:8984/solr/core1/select?q=*:*&wt=xml&indent=true
 ----
@@ -127,7 +127,7 @@ This should also bring back a single document.
 +
 Now do a distributed search across both servers with your browser or `curl.` In the example below, an extra parameter 'fl' is passed to restrict the returned fields to id and name.
 +
-[source,java]
+[source,bash]
 ----
 curl http://localhost:8983/solr/core1/select?q=*:*&indent=true&shards=localhost:8983/solr/core1,localhost:8984/solr/core1&fl=id,name
 ----

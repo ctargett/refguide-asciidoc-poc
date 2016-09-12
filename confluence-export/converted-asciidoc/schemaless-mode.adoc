@@ -174,7 +174,7 @@ Once the schemaless mode has been enabled (whether you configured it manually or
 
 For example, adding a CSV document will cause its fields that are not in the schema to be added, with fieldTypes based on values:
 
-[source,plain]
+[source,bash]
 ----
 curl "http://localhost:8983/solr/gettingstarted/update?commit=true" -H "Content-type:application/csv" -d '
 id,Artist,Album,Released,Rating,FromDistributor,Sold
@@ -240,7 +240,7 @@ Internally, the Schema API and the Schemaless Update Processors both use the sam
 
 Once a field has been added to the schema, its field type is fixed. As a consequence, adding documents with field value(s) that conflict with the previously guessed field type will fail. For example, after adding the above document, the "`Sold`" field has the fieldType `tlongs`, but the document below has a non-integral decimal value in this field:
 
-[source,plain]
+[source,bash]
 ----
 curl "http://localhost:8983/solr/gettingstarted/update?commit=true" -H "Content-type:application/csv" -d '
 id,Description,Sold

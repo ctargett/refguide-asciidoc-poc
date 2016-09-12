@@ -293,7 +293,7 @@ The table explains how Solr responds to various settings of the `echoParams` par
 
 Here is an example of a JSON response where the echoParams parameter was not included, so the default of `explicit` is active. The request URL that created this response included three parameters - `q`, `wt`, and `indent`:
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader": {
@@ -316,7 +316,7 @@ Here is an example of a JSON response where the echoParams parameter was not inc
 
 This is what happens if a similar request is sent that adds `echoParams=all` to the three parameters used in the previous example:
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader": {

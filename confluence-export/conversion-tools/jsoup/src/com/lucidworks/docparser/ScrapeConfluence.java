@@ -303,7 +303,16 @@ public class ScrapeConfluence {
           if (codeClass.equals("html/xml")) {
             codeClass = "xml";
           }
-          // TODO: other values we should also change here? "powershell" ? "js" ?
+          if (codeClass.equals("js")) {
+            // almost no javascript in ref guide, assume it should really be json
+            codeClass = "json";
+          }
+          if (element.text().startsWith("curl ")) {
+            // if this looks like a curl command, then ignore whatever class might have been in
+            // confluence and treat it as bash
+            codeClass = "bash";
+          }
+          // TODO: other values we should also change here? "powershell" ?
           element.attr("class", codeClass);
         } else {
           element.removeAttr("class");

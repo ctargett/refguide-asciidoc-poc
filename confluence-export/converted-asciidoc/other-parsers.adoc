@@ -308,7 +308,7 @@ image::images/other-parsers/graph_qparser_example.png[image,height=400]
 
 One way to model this graph as Solr documents, would be to create one document per node, with mutivalued fields identifying the incoming and outgoing edges for each node:
 
-[source,java]
+[source,bash]
 ----
 curl -H 'Content-Type: application/json' 'http://localhost:8983/solr/my_graph/update?commit=true' --data-binary '[
   {"id":"A","foo":  7, "out_edge":["1","9"],  "in_edge":["4","2"]  },
@@ -376,7 +376,7 @@ But in many cases it can also be possible to drastically simplify the model used
 
 For Example: The same graph shown in the diagram above can be modelled by Solr Documents that represent each node and know only the ids of the nodes they link to, with out knowing anything about the incoming links:
 
-[source,java]
+[source,bash]
 ----
 curl -H 'Content-Type: application/json' 'http://localhost:8983/solr/alt_graph/update?commit=true' --data-binary '[
   {"id":"A","foo":  7, "out_edge":["B","C"] },

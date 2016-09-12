@@ -37,7 +37,7 @@ Each map must include a name so it can be referenced later, either in a direct r
 
 In the following example, we are setting 2 sets of parameters named 'myFacets' and 'myQueries'.
 
-[source,javascript]
+[source,bash]
 ----
 curl http://localhost:8983/solr/techproducts/config/params -H 'Content-type:application/json'  -d '{
   "set":{
@@ -54,7 +54,7 @@ curl http://localhost:8983/solr/techproducts/config/params -H 'Content-type:appl
 
 In the above example all the parameters are equivalent to the "defaults" in solrconfig.xml. It is possible to add invariants and appends as follows
 
-[source,javascript]
+[source,bash]
 ----
 curl http://localhost:8983/solr/techproducts/config/params -H 'Content-type:application/json'  -d '{
   "set":{
@@ -100,7 +100,7 @@ It will be equivalent to a requesthandler definition as follows,
 
 Update example,
 
-[source,javascript]
+[source,bash]
 ----
 curl http://localhost:8983/solr/techproducts/config/params -H 'Content-type:application/json'  -d '{
   "update":{

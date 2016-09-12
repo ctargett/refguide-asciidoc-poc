@@ -17,7 +17,7 @@ The `authorization` part is not related to Basic authentication, but is a separa
 
 An example `security.json` showing both sections is shown below to show how these plugins can work together:
 
-[source,js]
+[source,json]
 ----
 {
 "authentication":{
@@ -74,7 +74,7 @@ This endpoint is not collection-specific, so users are created for the entire So
 
 The `set-user` command allows you to add users and change their passwords. For example, the following defines two users and their passwords:
 
-[source,js]
+[source,bash]
 ----
 curl --user solr:SolrRocks http://localhost:8983/solr/admin/authentication -H 'Content-type:application/json' -d '{ 
   "set-user": {"tom" : "TomIsCool" , 
@@ -86,7 +86,7 @@ curl --user solr:SolrRocks http://localhost:8983/solr/admin/authentication -H 'C
 
 The `delete-user` command allows you to remove a user. The user password does not need to be sent to remove a user. In the following example, we've asked that user IDs 'tom' and 'harry' be removed from the system.
 
-[source,js]
+[source,bash]
 ----
 curl --user solr:SolrRocks http://localhost:8983/solr/admin/authentication -H 'Content-type:application/json' -d  '{
  "delete-user": ["tom","harry"]}'
@@ -97,7 +97,7 @@ curl --user solr:SolrRocks http://localhost:8983/solr/admin/authentication -H 'C
 
 Set arbitrary properties for authentication plugin. The only supported property is `'blockUnknown'`
 
-[source,js]
+[source,bash]
 ----
 curl --user solr:SolrRocks http://localhost:8983/solr/admin/authentication -H 'Content-type:application/json' -d  '{
  "set-property": {"blockUnknown":false}}'

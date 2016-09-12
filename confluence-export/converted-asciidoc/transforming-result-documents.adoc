@@ -88,7 +88,7 @@ q=features:cache&wt=json&fl=id,[explain style=nl]
 
 Supported values for "`style`" are "`text`", and "`html`", and "nl" which returns the information as structured data:
 
-[source,js]
+[source,json]
 ----
   "response":{"numFound":2,"start":0,"docs":[
       {
@@ -154,7 +154,7 @@ These transformers are available only when using the <<the-query-elevation-compo
 fl=id,[elevated],[excluded]&excludeIds=GB18030TEST&elevateIds=6H500F0&markExcludes=true
 ----
 
-[source,js]
+[source,json]
 ----
   "response":{"numFound":32,"start":0,"docs":[
       {
@@ -213,7 +213,7 @@ Here is how it looks like in various formats:
   ...
 ----
 
-[source,js]
+[source,json]
 ----
 "response":{
   "numFound":2, "start":0,

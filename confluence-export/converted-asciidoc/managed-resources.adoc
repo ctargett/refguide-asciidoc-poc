@@ -48,14 +48,14 @@ would resolve to path: `/solr/techproducts/schema/analysis/stopwords/french`.
 
 So now let’s see this API in action, starting with a simple GET request:
 
-[source,java]
+[source,bash]
 ----
 curl "http://localhost:8983/solr/techproducts/schema/analysis/stopwords/english"
 ----
 
 Assuming you sent this request to Solr, the response body is a JSON document:
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader":{
@@ -81,7 +81,7 @@ One thing that should stand out to you in this response is that it contains a *`
 
 Now, let’s add a new word to the English stop word list using an HTTP PUT:
 
-[source,java]
+[source,bash]
 ----
 curl -X PUT -H 'Content-type:application/json' --data-binary '["foo"]' "http://localhost:8983/solr/techproducts/schema/analysis/stopwords/english"
 ----
@@ -90,7 +90,7 @@ Here we’re using cURL to PUT a JSON list containing a single word “foo” to
 
 You can test to see if a specific word exists by sending a GET request for that word as a child resource of the set, such as:
 
-[source,java]
+[source,bash]
 ----
 curl "http://localhost:8983/solr/techproducts/schema/analysis/stopwords/english/foo"
 ----
@@ -99,7 +99,7 @@ This request will return a status code of 200 if the child resource (foo) exists
 
 To delete a stop word, you would do:
 
-[source,java]
+[source,bash]
 ----
 curl -X DELETE "http://localhost:8983/solr/techproducts/schema/analysis/stopwords/english/foo"
 ----
@@ -128,14 +128,14 @@ For the most part, the API for managing synonyms behaves similar to the API for 
 
 To get the map of managed synonyms, send a GET request to:
 
-[source,java]
+[source,bash]
 ----
 curl "http://localhost:8983/solr/techproducts/schema/analysis/synonyms/english"
 ----
 
 This request will return a response that looks like:
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader":{
@@ -161,7 +161,7 @@ Managed synonyms are returned under the *managedMap* property which contains a J
 
 To add a new synonym mapping, you can PUT/POST a single mapping such as:
 
-[source,java]
+[source,bash]
 ----
 curl -X PUT -H 'Content-type:application/json' --data-binary '{"mad":["angry","upset"]}' "http://localhost:8983/solr/techproducts/schema/analysis/synonyms/english"
 ----
@@ -170,7 +170,7 @@ The API will return status code 200 if the PUT request was successful. To determ
 
 You can also PUT a list of symmetric synonyms, which will be expanded into a mapping for each term in the list. For example, you could PUT the following list of symmetric synonyms using the JSON list syntax instead of a map:
 
-[source,java]
+[source,bash]
 ----
 curl -X PUT -H 'Content-type:application/json' --data-binary '["funny", "entertaining", "whimiscal", "jocular"]' "http://localhost:8983/solr/techproducts/schema/analysis/synonyms/english"
 ----
@@ -197,14 +197,14 @@ Changing things like stop words and synonym mappings typically require re-indexi
 
 Metadata about registered ManagedResources is available using the */schema/managed* and */config/managed* endpoints for each collection. Assuming you have the *managed_en* field type shown above defined in your schema.xml, sending a GET request to the following resource will return metadata about which schema-related resources are being managed by the RestManager:
 
-[source,java]
+[source,bash]
 ----
 curl "http://localhost:8983/solr/techproducts/schema/managed"
 ----
 
 The response body is a JSON document containing metadata about managed resources under the /schema root:
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader":{
@@ -234,7 +234,7 @@ For example: imagine we want to build up a set of German stop words. Before we c
 
 To create this endpoint, send the following PUT/POST request to the endpoint we wish to create:
 
-[source,java]
+[source,bash]
 ----
 curl -X PUT -H 'Content-type:application/json' --data-binary \
 '{"class":"org.apache.solr.rest.schema.analysis.ManagedWordSetResource"}' \
@@ -243,7 +243,7 @@ curl -X PUT -H 'Content-type:application/json' --data-binary \
 
 Solr will respond with status code 200 if the request is successful. Effectively, this action registers a new endpoint for a managed resource in the RestManager. From here you can start adding German stop words as we saw above:
 
-[source,java]
+[source,bash]
 ----
 curl -X PUT -H 'Content-type:application/json' --data-binary '["die"]' \
 "http://localhost:8983/solr/techproducts/schema/analysis/stopwords/german"
@@ -255,7 +255,7 @@ However: You may want to explicitly delete managed resources if they are no long
 
 For instance, the managed resource for German that we created above can be deleted because there are no Solr components that are using it, whereas the managed resource for English stop words cannot be deleted because there is a token filter declared in schema.xml that is using it.
 
-[source,java]
+[source,bash]
 ----
 curl -X DELETE "http://localhost:8983/solr/techproducts/schema/analysis/stopwords/german"
 ----

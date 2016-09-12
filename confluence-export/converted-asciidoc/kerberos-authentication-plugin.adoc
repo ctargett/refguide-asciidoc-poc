@@ -254,7 +254,7 @@ bin/solr -c -z server1:2181,server2:2181,server3:2181/solr
 1.  Do a `kinit` with your username. For example, "kinit user@EXAMPLE.COM"
 2.  Try to access Solr using `curl`. You should get a successful response.
 +
-[source,java]
+[source,bash]
 ----
 curl --negotiate -u : "http://192.168.0.107:8983/solr/"
 ----

@@ -112,7 +112,7 @@ Any other key is silently ignored.
 [[WorkingwithExternalFilesandProcesses-Example]]
 ==== Example
 
-[source,js]
+[source,json]
 ----
 {
   "v":"1",

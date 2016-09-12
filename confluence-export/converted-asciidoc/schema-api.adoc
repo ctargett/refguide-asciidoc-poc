@@ -67,7 +67,7 @@ All of the properties available when defining a field with manual `schema.xml` e
 
 For example, to define a new stored field named "sell-by", of type "tdate", you would POST the following request:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "add-field":{ 
@@ -84,7 +84,7 @@ The `delete-field` command removes a field definition from your schema. If the f
 
 For example, to delete a field named "sell-by", you would POST the following request:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "delete-field" : { "name":"sell-by" }
@@ -100,7 +100,7 @@ All of the properties available when defining a field with manual `schema.xml` e
 
 For example, to replace the definition of an existing field "sell-by", to make it be of type "date" and to not be stored, you would POST the following request:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "replace-field":{ 
@@ -119,7 +119,7 @@ All of the properties available when editing `schema.xml` can be passed with the
 
 For example, to create a new dynamic field rule where all incoming fields ending with "_s" would be stored and have field type "string", you can POST a request like this:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "add-dynamic-field":{ 
@@ -136,7 +136,7 @@ The `delete-dynamic-field` command deletes a dynamic field rule from your schema
 
 For example, to delete a dynamic field rule matching "*_s", you can POST a request like this:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "delete-dynamic-field":{ "name":"*_s" }
@@ -152,7 +152,7 @@ All of the properties available when editing `schema.xml` can be passed with the
 
 For example, to replace the definition of the "*_s" dynamic field rule with one where the field type is "text_general" and it's not stored, you can POST a request like this:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "replace-dynamic-field":{ 
@@ -171,7 +171,7 @@ All of the field type properties available when editing `schema.xml` by hand are
 
 For example, to create a new field type named "myNewTxtField", you can POST a request as follows:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "add-field-type" : {
@@ -193,7 +193,7 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
 
 Note in this example that we have only defined a single analyzer section that will apply to index analysis and query analysis. If we wanted to define separate analysis, we would replace the `analyzer` section in the above example with separate sections for `indexAnalyzer` and `queryAnalyzer`. As in this example:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "add-field-type":{
@@ -216,7 +216,7 @@ The `delete-field-type` command removes a field type from your schema. If the fi
 
 For example, to delete the field type named "myNewTxtField", you can make a POST request as follows:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "delete-field-type":{ "name":"myNewTxtField" }
@@ -232,7 +232,7 @@ All of the field type properties available when editing `schema.xml` by hand are
 
 For example, to replace the definition of a field type named "myNewTxtField", you can make a POST request as follows:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "replace-field-type":{
@@ -262,7 +262,7 @@ The attributes supported by the command are the same as when creating copy field
 
 For example, to define a rule to copy the field "shelf" to the "location" and "catchall" fields, you would POST the following request:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "add-copy-field":{
@@ -280,7 +280,7 @@ The `source` and `dest` attributes are required by this command.
 
 For example, to delete a rule to copy the field "shelf" to the "location" field, you would POST the following request:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "delete-copy-field":{ "source":"shelf", "dest":"location" }
@@ -296,7 +296,7 @@ The commands are executed in the order in which they are specified. This means t
 
 The syntax for making multiple requests supports several approaches. First, the commands can simply be made serially, as in this request to create a new field type and then a field that uses that type:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "add-field-type":{
@@ -322,7 +322,7 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
 
 Or, the same command can be repeated, as in this example:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "add-field":{ 
@@ -341,7 +341,7 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
 
 Finally, repeated commands can be sent as an array:
 
-[source,js]
+[source,bash]
 ----
 curl -X POST -H 'Content-type:application/json' --data-binary '{
   "add-field":[
@@ -406,12 +406,12 @@ The output will include all fields, field types, dynamic rules and copy field ru
 
 Get the entire schema in JSON.
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema?wt=json
 ----
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader":{
@@ -473,7 +473,7 @@ curl http://localhost:8983/solr/gettingstarted/schema?wt=json
 
 Get the entire schema in XML.
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema?wt=xml
 ----
@@ -527,7 +527,7 @@ curl http://localhost:8983/solr/gettingstarted/schema?wt=xml
 
 Get the entire schema in "schema.xml" format.
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema?wt=schema.xml
 ----
@@ -598,7 +598,7 @@ The output will include each field and any defined configuration for each field.
 
 Get a list of all fields.
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema/fields?wt=json
 ----
@@ -681,7 +681,7 @@ The output will include each dynamic field rule and the defined configuration fo
 
 Get a list of all dynamic field declarations:
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema/dynamicfields?wt=json
 ----
@@ -774,7 +774,7 @@ The output will include each field type and any defined configuration for the ty
 
 Get a list of all field types.
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema/fieldtypes?wt=json
 ----
@@ -874,7 +874,7 @@ The output will include the `source` and `dest`ination of each copy field rule d
 
 Get a list of all copyfields.
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema/copyfields?wt=json
 ----
@@ -948,7 +948,7 @@ The query parameters can be added to the API request after a '?'.
 
 Get the schema name.
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema/name?wt=json
 ----
@@ -1002,7 +1002,7 @@ The output will simply be the schema version in use.
 
 Get the schema version
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema/version?wt=json
 ----
@@ -1056,7 +1056,7 @@ The output will include simply the field name that is defined as the uniqueKey f
 
 List the uniqueKey.
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema/uniquekey?wt=json
 ----
@@ -1110,7 +1110,7 @@ The output will include the class name of the global similarity defined (if any)
 
 Get the similarity implementation.
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema/similarity?wt=json
 ----
@@ -1165,7 +1165,7 @@ The output will include simply the default operator if none is defined by the us
 
 Get the default operator.
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/gettingstarted/schema/solrqueryparser/defaultoperator?wt=json
 ----

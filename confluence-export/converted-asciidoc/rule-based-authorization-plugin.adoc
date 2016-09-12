@@ -19,7 +19,7 @@ The `authorization` part is not related to Basic authentication, but is a separa
 
 This example `security.json` shows how the <<basic-authentication-plugin.adoc#,Basic authentication plugin>> can work with this authorization plugin:
 
-[source,js]
+[source,json]
 ----
 {
 "authentication":{
@@ -130,7 +130,7 @@ The names and values of request parameters. This property can be omitted if all 
 
 For example, this property could be used to limit the actions a role is allowed to perform with the Collections API. If the role should only be allowed to perform the LIST or CLUSTERSTATUS requests, you would define this as follows:
 
-[source,js]
+[source,json]
 ----
 "params": {
    "action": [LIST, CLUSTERSTATUS]
@@ -141,7 +141,7 @@ The value of the parameter can be a simple string or it could be a regular expre
 
 If the commands LIST and CLUSTERSTATUS are case insensitive, the above example should be as follows
 
-[source,js]
+[source,json]
 ----
 "params": {
    "action": ["REGEX:(?i)LIST", "REGEX:(?i)CLUSTERSTATUS"]
@@ -154,7 +154,7 @@ If the commands LIST and CLUSTERSTATUS are case insensitive, the above example s
 
 The following would create a new permission named "collection-mgr" that is allowed to create and list collections. The permission will be placed before the "read" permission. Note also that we have defined "collection as `null`, this is because requests to the Collections API are never collection-specific.
 
-[source,js]
+[source,bash]
 ----
 curl --user solr:SolrRocks -H 'Content-type:application/json' -d '{ 
   "set-permission": {"collection": null,
@@ -172,7 +172,7 @@ Permissions can be accessed using their index in the list. Use the GET /security
 
 the following example updates the `'role'` attribute of permission at index `'3'`
 
-[source,js]
+[source,bash]
 ----
 curl --user solr:SolrRocks -H 'Content-type:application/json' -d '{ 
   "update-permission": {"index": 3,
@@ -182,7 +182,7 @@ curl --user solr:SolrRocks -H 'Content-type:application/json' -d '{
 
 the following example deletes permission at index `'3'`
 
-[source,js]
+[source,bash]
 ----
 curl --user solr:SolrRocks -H 'Content-type:application/json' -d '{ 
   "delete-permission": 3
@@ -202,7 +202,7 @@ The values supplied to the command are simply a user ID and one or more roles th
 
 For example, the following would grant a user "solr" the "admin" and "dev" roles, and remove all roles from the user ID "harry":
 
-[source,js]
+[source,bash]
 ----
 curl -u solr:SolrRocks -H 'Content-type:application/json' -d '{
    "set-user-role" : {"solr": ["admin","dev"],

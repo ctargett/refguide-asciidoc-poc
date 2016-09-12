@@ -45,7 +45,7 @@ The `gatherNodes` function above finds all the edges with "johndoe@apache.org" o
 
 Like all <<streaming-expressions.adoc#,Streaming Expressions>>, you can execute a `gatherNodes` expression by sending it to the `/stream` handler. For example:
 
-[source,java]
+[source,bash]
 ----
 curl --data-urlencode 'expr=gatherNodes(emails, 
                                         walk="johndoe@apache.org, janesmith@apache.org->from", 
@@ -462,7 +462,7 @@ There are a few things to keep mind when exporting a graph in GraphML
 [[GraphTraversal-SampleRequest]]
 === Sample Request
 
-[source,java]
+[source,bash]
 ----
 curl --data-urlencode 'expr=gatherNodes(enron_emails,
                                         gatherNodes(enron_emails, 

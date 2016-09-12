@@ -149,7 +149,7 @@ The update.chain parameter can be used in any update request to choose a custom 
 
 *update.chain*
 
-[source,java]
+[source,bash]
 ----
 curl "http://localhost:8983/solr/gettingstarted/update/json?update.chain=dedupe&commit=true" -H 'Content-type: application/json' -d '
 [

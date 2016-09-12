@@ -130,7 +130,7 @@ The rollback command rolls back all add and deletes made to the index since the 
 
 You can use the `curl` utility to perform any of the above commands, using its `--data-binary` option to append the XML message to the `curl` command, and generating a HTTP POST request. For example:
 
-[source,xml]
+[source,bash]
 ----
 curl http://localhost:8983/solr/my_collection/update -H "Content-Type: text/xml" --data-binary '
 <add>
@@ -147,14 +147,14 @@ curl http://localhost:8983/solr/my_collection/update -H "Content-Type: text/xml"
 
 For posting XML messages contained in a file, you can use the alternative form:
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/my_collection/update -H "Content-Type: text/xml" --data-binary @myfile.xml
 ----
 
 Short requests can also be sent using a HTTP GET command, URL-encoding the request, as in the following. Note the escaping of "<" and ">":
 
-[source,plain]
+[source,bash]
 ----
 curl http://localhost:8983/solr/my_collection/update?stream.body=%3Ccommit/%3E
 ----
@@ -229,7 +229,7 @@ http://localhost:8983/solr/my_collection/select?q=*:*&wt=xslt&tr=updateXml.xsl&r
 
 You can also use the stylesheet in `XsltUpdateRequestHandler` to transform an index when updating:
 
-[source,plain]
+[source,bash]
 ----
 curl "http://localhost:8983/solr/my_collection/update?commit=true&tr=updateXml.xsl" -H "Content-Type: text/xml" --data-binary @myexporteddata.xml
 ----
@@ -259,7 +259,7 @@ JSON formatted updates can take 3 basic forms, described in depth below:
 
 The simplest way to add Documents via JSON is to send each document individually as a JSON Object, using the `/update/json/docs` path:
 
-[source,plain]
+[source,bash]
 ----
 curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/my_collection/update/json/docs' --data-binary '
 {
@@ -273,7 +273,7 @@ curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/my_
 
 Adding multiple documents at one time via JSON can be done via a JSON Array of JSON Objects, where each object represents a document:
 
-[source,plain]
+[source,bash]
 ----
 curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/my_collection/update' --data-binary '
 [
@@ -290,7 +290,7 @@ curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/my_
 
 A sample JSON file is provided at `example/exampledocs/books.json` and contains an array of objects that you can add to the Solr `techproducts` example:
 
-[source,plain]
+[source,bash]
 ----
 curl 'http://localhost:8983/solr/techproducts/update?commit=true' --data-binary @example/exampledocs/books.json -H 'Content-type:application/json'
 ----
@@ -300,7 +300,7 @@ curl 'http://localhost:8983/solr/techproducts/update?commit=true' --data-binary 
 
 In general, the JSON update syntax supports all of the update commands that the XML update handler supports, through a straightforward mapping. Multiple commands, adding and deleting documents, may be contained in one message:
 
-[source,plain]
+[source,bash]
 ----
 curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/my_collection/update' --data-binary '
 {
@@ -438,7 +438,7 @@ With this request, we have defined that "exams" contains multiple documents. In 
 
 When the update request is complete, the following two documents will be added to the index:
 
-[source,js]
+[source,json]
 ----
 {
   "first":"John",
@@ -789,7 +789,7 @@ In this example, we have indexed the parent documents with the field `content_ty
 
 This example is equivalent to the XML example above, note the special `_childDocuments_` key need to indicate the nested documents in JSON.
 
-[source,js]
+[source,json]
 ----
 [
   {

@@ -339,7 +339,7 @@ http://localhost:8983/solr/techproducts/select?q=*:*&facet.pivot=cat,popularity,
    &rows=0&wt=json&indent=true&facet.pivot.mincount=2
 ----
 
-[source,js]
+[source,json]
 ----
   "facet_counts":{
     "facet_queries":{},

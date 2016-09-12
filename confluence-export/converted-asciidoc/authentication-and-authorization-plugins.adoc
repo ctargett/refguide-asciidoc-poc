@@ -38,7 +38,7 @@ Depending on the plugin(s) in use, other information will be stored in `security
 
 Here is a more detailed `security.json` example. In this, the Basic authentication and rule-based authorization plugins are enabled, and some data has been added:
 
-[source,js]
+[source,json]
 ----
 {
 "authentication":{

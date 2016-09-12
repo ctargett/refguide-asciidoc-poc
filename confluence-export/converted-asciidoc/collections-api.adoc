@@ -1002,7 +1002,7 @@ Returns the current status of the overseer, performance statistics of various ov
 http://localhost:8983/solr/admin/collections?action=OVERSEERSTATUS&wt=json
 ----
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader":{
@@ -1097,7 +1097,7 @@ http://localhost:8983/solr/admin/collections?action=clusterstatus&wt=json
 
 *Output*
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader":{
@@ -1192,7 +1192,7 @@ http://localhost:8983/solr/admin/collections?action=REQUESTSTATUS&requestid=1000
 
 *Output*
 
-[source,js]
+[source,json]
 ----
 <response>
   <lst name="responseHeader">
@@ -1215,7 +1215,7 @@ http://localhost:8983/solr/admin/collections?action=REQUESTSTATUS&requestid=1004
 
 *Output*
 
-[source,js]
+[source,json]
 ----
 <response>
   <lst name="responseHeader">
@@ -1258,7 +1258,7 @@ http://localhost:8983/solr/admin/collections?action=DELETESTATUS&requestid=foo
 
 *Output*
 
-[source,js]
+[source,json]
 ----
 <response>
   <lst name="responseHeader">
@@ -1278,7 +1278,7 @@ http://localhost:8983/solr/admin/collections?action=DELETESTATUS&requestid=bar
 
 *Output*
 
-[source,js]
+[source,json]
 ----
 <response>
   <lst name="responseHeader">
@@ -1298,7 +1298,7 @@ http://localhost:8983/solr/admin/collections?action=DELETESTATUS&flush=true
 
 *Output*
 
-[source,js]
+[source,json]
 ----
 <response>
   <lst name="responseHeader">
@@ -1329,7 +1329,7 @@ http://localhost:8983/solr/admin/collections?action=LIST&wt=json
 
 *Output*
 
-[source,js]
+[source,json]
 ----
 {
   "responseHeader":{
@@ -1732,7 +1732,7 @@ http://localhost:8983/solr/admin/collections?action=SPLITSHARD&collection=collec
 
 *Output*
 
-[source,js]
+[source,json]
 ----
 <response>
   <lst name="responseHeader">

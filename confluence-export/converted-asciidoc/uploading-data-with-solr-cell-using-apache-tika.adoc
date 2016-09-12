@@ -42,7 +42,7 @@ bin/solr -e techproducts
 
 You can now use curl to send a sample PDF file via HTTP POST:
 
-[source,plain]
+[source,bash]
 ----
 curl 'http://localhost:8983/solr/techproducts/update/extract?literal.id=doc1&commit=true' -F "myfile=@example/exampledocs/solr-word.pdf"
 ----
@@ -276,7 +276,7 @@ Solr allows you to extract data without indexing. You might want to do this if y
 
 The example below sets the `extractOnly=true` parameter to extract data without indexing it.
 
-[source,xml]
+[source,bash]
 ----
 curl "http://localhost:8983/solr/techproducts/update/extract?&extractOnly=true" --data-binary @example/exampledocs/sample.html -H 'Content-type:text/html'
 ----
@@ -293,7 +293,7 @@ bin/post -c techproducts -params "extractOnly=true&wt=ruby&indent=true" -out yes
 
 The example below streams the file as the body of the POST, which does not, then, provide information to Solr about the name of the file.
 
-[source,xml]
+[source,bash]
 ----
 curl "http://localhost:8983/solr/techproducts/update/extract?literal.id=doc6&defaultField=text&commit=true" --data-binary @example/exampledocs/sample.html -H 'Content-type:text/html'
 ----
