@@ -1,5 +1,4 @@
-Streaming Expressions
-=====================
+= Streaming Expressions
 :page-shortname: streaming-expressions
 :page-permalink: streaming-expressions.html
 :page-children: graph-traversal

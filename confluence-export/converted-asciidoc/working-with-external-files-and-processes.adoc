@@ -1,5 +1,4 @@
-Working with External Files and Processes
-=========================================
+= Working with External Files and Processes
 :page-shortname: working-with-external-files-and-processes
 :page-permalink: working-with-external-files-and-processes.html
 

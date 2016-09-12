@@ -1,5 +1,4 @@
-Collections API
-===============
+= Collections API
 :page-shortname: collections-api
 :page-permalink: collections-api.html
 

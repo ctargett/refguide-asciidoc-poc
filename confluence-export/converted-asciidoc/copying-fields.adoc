@@ -1,5 +1,4 @@
-Copying Fields
-==============
+= Copying Fields
 :page-shortname: copying-fields
 :page-permalink: copying-fields.html
 

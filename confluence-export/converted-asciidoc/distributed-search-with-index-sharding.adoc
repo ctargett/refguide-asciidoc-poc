@@ -1,5 +1,4 @@
-Distributed Search with Index Sharding
-======================================
+= Distributed Search with Index Sharding
 :page-shortname: distributed-search-with-index-sharding
 :page-permalink: distributed-search-with-index-sharding.html
 

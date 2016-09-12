@@ -1,5 +1,4 @@
-Graph Traversal
-===============
+= Graph Traversal
 :page-shortname: graph-traversal
 :page-permalink: graph-traversal.html
 

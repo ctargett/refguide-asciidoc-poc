@@ -1,5 +1,4 @@
-IndexConfig in SolrConfig
-=========================
+= IndexConfig in SolrConfig
 :page-shortname: indexconfig-in-solrconfig
 :page-permalink: indexconfig-in-solrconfig.html
 

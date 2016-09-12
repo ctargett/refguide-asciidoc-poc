@@ -1,5 +1,4 @@
-Postings Highlighter
-====================
+= Postings Highlighter
 :page-shortname: postings-highlighter
 :page-permalink: postings-highlighter.html
 

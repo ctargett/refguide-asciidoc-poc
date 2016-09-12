@@ -1,5 +1,4 @@
-The Query Elevation Component
-=============================
+= The Query Elevation Component
 :page-shortname: the-query-elevation-component
 :page-permalink: the-query-elevation-component.html
 

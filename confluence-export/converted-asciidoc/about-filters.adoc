@@ -1,5 +1,4 @@
-About Filters
-=============
+= About Filters
 :page-shortname: about-filters
 :page-permalink: about-filters.html
 

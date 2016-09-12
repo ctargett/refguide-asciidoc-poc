@@ -1,5 +1,4 @@
-Analyzers
-=========
+= Analyzers
 :page-shortname: analyzers
 :page-permalink: analyzers.html
 

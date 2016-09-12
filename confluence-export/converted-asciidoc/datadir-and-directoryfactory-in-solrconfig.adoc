@@ -1,5 +1,4 @@
-DataDir and DirectoryFactory in SolrConfig
-==========================================
+= DataDir and DirectoryFactory in SolrConfig
 :page-shortname: datadir-and-directoryfactory-in-solrconfig
 :page-permalink: datadir-and-directoryfactory-in-solrconfig.html
 

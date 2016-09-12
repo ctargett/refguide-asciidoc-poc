@@ -1,5 +1,4 @@
-How SolrCloud Works
-===================
+= How SolrCloud Works
 :page-shortname: how-solrcloud-works
 :page-permalink: how-solrcloud-works.html
 :page-children: shards-and-indexing-data-in-solrcloud, distributed-requests, read-and-write-side-fault-tolerance

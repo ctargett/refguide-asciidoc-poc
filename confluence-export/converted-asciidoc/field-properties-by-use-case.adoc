@@ -1,5 +1,4 @@
-Field Properties by Use Case
-============================
+= Field Properties by Use Case
 :page-shortname: field-properties-by-use-case
 :page-permalink: field-properties-by-use-case.html
 

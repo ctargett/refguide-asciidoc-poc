@@ -1,5 +1,4 @@
-Schema Factory Definition in SolrConfig
-=======================================
+= Schema Factory Definition in SolrConfig
 :page-shortname: schema-factory-definition-in-solrconfig
 :page-permalink: schema-factory-definition-in-solrconfig.html
 

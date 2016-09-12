@@ -1,5 +1,4 @@
-Cloud Screens
-=============
+= Cloud Screens
 :page-shortname: cloud-screens
 :page-permalink: cloud-screens.html
 

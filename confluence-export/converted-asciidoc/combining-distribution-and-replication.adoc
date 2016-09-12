@@ -1,5 +1,4 @@
-Combining Distribution and Replication
-======================================
+= Combining Distribution and Replication
 :page-shortname: combining-distribution-and-replication
 :page-permalink: combining-distribution-and-replication.html
 

@@ -1,5 +1,4 @@
-Index Replication
-=================
+= Index Replication
 :page-shortname: index-replication
 :page-permalink: index-replication.html
 

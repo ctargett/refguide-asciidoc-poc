@@ -1,5 +1,4 @@
-Rule-based Replica Placement
-============================
+= Rule-based Replica Placement
 :page-shortname: rule-based-replica-placement
 :page-permalink: rule-based-replica-placement.html
 

@@ -1,5 +1,4 @@
-Content Streams
-===============
+= Content Streams
 :page-shortname: content-streams
 :page-permalink: content-streams.html
 

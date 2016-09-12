@@ -1,5 +1,4 @@
-Client API Lineup
-=================
+= Client API Lineup
 :page-shortname: client-api-lineup
 :page-permalink: client-api-lineup.html
 

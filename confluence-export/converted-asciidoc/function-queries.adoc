@@ -1,5 +1,4 @@
-Function Queries
-================
+= Function Queries
 :page-shortname: function-queries
 :page-permalink: function-queries.html
 

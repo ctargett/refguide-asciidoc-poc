@@ -1,5 +1,4 @@
-Using the Solr Administration User Interface
-============================================
+= Using the Solr Administration User Interface
 :page-shortname: using-the-solr-administration-user-interface
 :page-permalink: using-the-solr-administration-user-interface.html
 :page-children: overview-of-the-solr-admin-ui, getting-assistance, logging, cloud-screens, collections-core-admin, java-properties, thread-dump, collection-specific-tools, core-specific-tools

@@ -1,5 +1,4 @@
-Language Analysis
-=================
+= Language Analysis
 :page-shortname: language-analysis
 :page-permalink: language-analysis.html
 

@@ -1,5 +1,4 @@
-A Step Closer
-=============
+= A Step Closer
 :page-shortname: a-step-closer
 :page-permalink: a-step-closer.html
 

@@ -1,5 +1,4 @@
-Securing Solr
-=============
+= Securing Solr
 :page-shortname: securing-solr
 :page-permalink: securing-solr.html
 :page-children: authentication-and-authorization-plugins, enabling-ssl

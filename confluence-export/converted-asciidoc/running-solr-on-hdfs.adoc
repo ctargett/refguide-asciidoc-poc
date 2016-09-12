@@ -1,5 +1,4 @@
-Running Solr on HDFS
-====================
+= Running Solr on HDFS
 :page-shortname: running-solr-on-hdfs
 :page-permalink: running-solr-on-hdfs.html
 

@@ -1,5 +1,4 @@
-Schema API
-==========
+= Schema API
 :page-shortname: schema-api
 :page-permalink: schema-api.html
 

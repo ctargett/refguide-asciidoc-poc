@@ -1,5 +1,4 @@
-Using Solr From Ruby
-====================
+= Using Solr From Ruby
 :page-shortname: using-solr-from-ruby
 :page-permalink: using-solr-from-ruby.html
 

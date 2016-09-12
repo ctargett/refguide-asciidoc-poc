@@ -1,5 +1,4 @@
-Adding Custom Plugins in SolrCloud Mode
-=======================================
+= Adding Custom Plugins in SolrCloud Mode
 :page-shortname: adding-custom-plugins-in-solrcloud-mode
 :page-permalink: adding-custom-plugins-in-solrcloud-mode.html
 

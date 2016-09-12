@@ -1,5 +1,4 @@
-Replication Screen
-==================
+= Replication Screen
 :page-shortname: replication-screen
 :page-permalink: replication-screen.html
 

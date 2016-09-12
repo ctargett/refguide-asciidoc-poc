@@ -1,5 +1,4 @@
-The Well-Configured Solr Instance
-=================================
+= The Well-Configured Solr Instance
 :page-shortname: the-well-configured-solr-instance
 :page-permalink: the-well-configured-solr-instance.html
 :page-children: configuring-solrconfig-xml, solr-cores-and-solr-xml, configuration-apis, solr-plugins, jvm-settings

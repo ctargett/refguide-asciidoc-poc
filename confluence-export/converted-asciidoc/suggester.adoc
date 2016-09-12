@@ -1,5 +1,4 @@
-Suggester
-=========
+= Suggester
 :page-shortname: suggester
 :page-permalink: suggester.html
 

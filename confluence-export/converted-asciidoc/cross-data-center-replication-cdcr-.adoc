@@ -1,5 +1,4 @@
-Cross Data Center Replication (CDCR)
-====================================
+= Cross Data Center Replication (CDCR)
 :page-shortname: cross-data-center-replication-cdcr-
 :page-permalink: cross-data-center-replication-cdcr-.html
 

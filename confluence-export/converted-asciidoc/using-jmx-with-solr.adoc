@@ -1,5 +1,4 @@
-Using JMX with Solr
-===================
+= Using JMX with Solr
 :page-shortname: using-jmx-with-solr
 :page-permalink: using-jmx-with-solr.html
 

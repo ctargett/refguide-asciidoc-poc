@@ -1,5 +1,4 @@
-Post Tool
-=========
+= Post Tool
 :page-shortname: post-tool
 :page-permalink: post-tool.html
 

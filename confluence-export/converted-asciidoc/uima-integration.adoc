@@ -1,5 +1,4 @@
-UIMA Integration
-================
+= UIMA Integration
 :page-shortname: uima-integration
 :page-permalink: uima-integration.html
 

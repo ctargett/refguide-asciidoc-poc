@@ -1,5 +1,4 @@
-Result Clustering
-=================
+= Result Clustering
 :page-shortname: result-clustering
 :page-permalink: result-clustering.html
 

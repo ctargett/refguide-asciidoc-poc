@@ -1,5 +1,4 @@
-A Quick Overview
-================
+= A Quick Overview
 :page-shortname: a-quick-overview
 :page-permalink: a-quick-overview.html
 

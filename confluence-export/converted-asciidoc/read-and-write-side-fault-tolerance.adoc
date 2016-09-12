@@ -1,5 +1,4 @@
-Read and Write Side Fault Tolerance
-===================================
+= Read and Write Side Fault Tolerance
 :page-shortname: read-and-write-side-fault-tolerance
 :page-permalink: read-and-write-side-fault-tolerance.html
 

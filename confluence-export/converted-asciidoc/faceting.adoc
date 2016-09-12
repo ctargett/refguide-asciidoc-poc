@@ -1,5 +1,4 @@
-Faceting
-========
+= Faceting
 :page-shortname: faceting
 :page-permalink: faceting.html
 :page-children: blockjoin-faceting

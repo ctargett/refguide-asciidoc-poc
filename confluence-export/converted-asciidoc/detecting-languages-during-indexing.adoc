@@ -1,5 +1,4 @@
-Detecting Languages During Indexing
-===================================
+= Detecting Languages During Indexing
 :page-shortname: detecting-languages-during-indexing
 :page-permalink: detecting-languages-during-indexing.html
 

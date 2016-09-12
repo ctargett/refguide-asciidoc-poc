@@ -1,5 +1,4 @@
-The Term Vector Component
-=========================
+= The Term Vector Component
 :page-shortname: the-term-vector-component
 :page-permalink: the-term-vector-component.html
 

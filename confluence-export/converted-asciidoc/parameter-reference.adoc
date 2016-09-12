@@ -1,5 +1,4 @@
-Parameter Reference
-===================
+= Parameter Reference
 :page-shortname: parameter-reference
 :page-permalink: parameter-reference.html
 

@@ -1,5 +1,4 @@
-Getting Started
-===============
+= Getting Started
 :page-shortname: getting-started
 :page-permalink: getting-started.html
 :page-children: installing-solr, running-solr, a-quick-overview, a-step-closer, solr-start-script-reference

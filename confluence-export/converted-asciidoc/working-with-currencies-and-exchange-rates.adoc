@@ -1,5 +1,4 @@
-Working with Currencies and Exchange Rates
-==========================================
+= Working with Currencies and Exchange Rates
 :page-shortname: working-with-currencies-and-exchange-rates
 :page-permalink: working-with-currencies-and-exchange-rates.html
 

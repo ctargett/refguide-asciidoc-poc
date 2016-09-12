@@ -1,5 +1,4 @@
-Uploading Structured Data Store Data with the Data Import Handler
-=================================================================
+= Uploading Structured Data Store Data with the Data Import Handler
 :page-shortname: uploading-structured-data-store-data-with-the-data-import-handler
 :page-permalink: uploading-structured-data-store-data-with-the-data-import-handler.html
 

@@ -1,5 +1,4 @@
-Relevance
-=========
+= Relevance
 :page-shortname: relevance
 :page-permalink: relevance.html
 

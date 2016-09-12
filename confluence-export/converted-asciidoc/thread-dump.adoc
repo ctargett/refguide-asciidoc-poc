@@ -1,5 +1,4 @@
-Thread Dump
-===========
+= Thread Dump
 :page-shortname: thread-dump
 :page-permalink: thread-dump.html
 

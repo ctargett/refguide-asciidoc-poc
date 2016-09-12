@@ -1,5 +1,4 @@
-Authentication and Authorization Plugins
-========================================
+= Authentication and Authorization Plugins
 :page-shortname: authentication-and-authorization-plugins
 :page-permalink: authentication-and-authorization-plugins.html
 :page-children: basic-authentication-plugin, kerberos-authentication-plugin, rule-based-authorization-plugin

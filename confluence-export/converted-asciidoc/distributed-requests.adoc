@@ -1,5 +1,4 @@
-Distributed Requests
-====================
+= Distributed Requests
 :page-shortname: distributed-requests
 :page-permalink: distributed-requests.html
 

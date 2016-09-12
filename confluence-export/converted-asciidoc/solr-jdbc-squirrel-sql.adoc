@@ -1,5 +1,4 @@
-Solr JDBC - SQuirreL SQL
-========================
+= Solr JDBC - SQuirreL SQL
 :page-shortname: solr-jdbc-squirrel-sql
 :page-permalink: solr-jdbc-squirrel-sql.html
 

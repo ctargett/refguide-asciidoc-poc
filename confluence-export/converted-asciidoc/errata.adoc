@@ -1,5 +1,4 @@
-Errata
-======
+= Errata
 :page-shortname: errata
 :page-permalink: errata.html
 

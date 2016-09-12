@@ -1,5 +1,4 @@
-Configuring Logging
-===================
+= Configuring Logging
 :page-shortname: configuring-logging
 :page-permalink: configuring-logging.html
 

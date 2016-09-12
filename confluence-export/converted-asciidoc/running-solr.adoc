@@ -1,5 +1,4 @@
-Running Solr
-============
+= Running Solr
 :page-shortname: running-solr
 :page-permalink: running-solr.html
 

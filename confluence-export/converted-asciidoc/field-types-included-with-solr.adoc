@@ -1,5 +1,4 @@
-Field Types Included with Solr
-==============================
+= Field Types Included with Solr
 :page-shortname: field-types-included-with-solr
 :page-permalink: field-types-included-with-solr.html
 

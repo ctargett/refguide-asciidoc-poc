@@ -1,5 +1,4 @@
-Stream Screen
-=============
+= Stream Screen
 :page-shortname: stream-screen
 :page-permalink: stream-screen.html
 

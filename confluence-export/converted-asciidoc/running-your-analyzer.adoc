@@ -1,5 +1,4 @@
-Running Your Analyzer
-=====================
+= Running Your Analyzer
 :page-shortname: running-your-analyzer
 :page-permalink: running-your-analyzer.html
 

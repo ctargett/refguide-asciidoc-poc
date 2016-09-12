@@ -1,5 +1,4 @@
-Using Python
-============
+= Using Python
 :page-shortname: using-python
 :page-permalink: using-python.html
 

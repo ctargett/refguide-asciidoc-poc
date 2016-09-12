@@ -1,5 +1,4 @@
-BlockJoin Faceting
-==================
+= BlockJoin Faceting
 :page-shortname: blockjoin-faceting
 :page-permalink: blockjoin-faceting.html
 

@@ -1,5 +1,4 @@
-Performance Statistics Reference
-================================
+= Performance Statistics Reference
 :page-shortname: performance-statistics-reference
 :page-permalink: performance-statistics-reference.html
 

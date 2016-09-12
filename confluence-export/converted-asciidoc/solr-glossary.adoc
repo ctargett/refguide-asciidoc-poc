@@ -1,5 +1,4 @@
-Solr Glossary
-=============
+= Solr Glossary
 :page-shortname: solr-glossary
 :page-permalink: solr-glossary.html
 

@@ -1,5 +1,4 @@
-Velocity Response Writer
-========================
+= Velocity Response Writer
 :page-shortname: velocity-response-writer
 :page-permalink: velocity-response-writer.html
 

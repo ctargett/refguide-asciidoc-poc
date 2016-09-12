@@ -1,5 +1,4 @@
-IndexUpgrader Tool
-==================
+= IndexUpgrader Tool
 :page-shortname: indexupgrader-tool
 :page-permalink: indexupgrader-tool.html
 

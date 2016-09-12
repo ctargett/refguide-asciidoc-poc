@@ -1,5 +1,4 @@
-Pagination of Results
-=====================
+= Pagination of Results
 :page-shortname: pagination-of-results
 :page-permalink: pagination-of-results.html
 

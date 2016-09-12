@@ -1,5 +1,4 @@
-MBean Request Handler
-=====================
+= MBean Request Handler
 :page-shortname: mbean-request-handler
 :page-permalink: mbean-request-handler.html
 

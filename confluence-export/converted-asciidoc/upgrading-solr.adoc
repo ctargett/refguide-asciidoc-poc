@@ -1,5 +1,4 @@
-Upgrading Solr
-==============
+= Upgrading Solr
 :page-shortname: upgrading-solr
 :page-permalink: upgrading-solr.html
 

@@ -1,5 +1,4 @@
-The Stats Component
-===================
+= The Stats Component
 :page-shortname: the-stats-component
 :page-permalink: the-stats-component.html
 

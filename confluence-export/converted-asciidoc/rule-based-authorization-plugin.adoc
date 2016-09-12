@@ -1,5 +1,4 @@
-Rule-Based Authorization Plugin
-===============================
+= Rule-Based Authorization Plugin
 :page-shortname: rule-based-authorization-plugin
 :page-permalink: rule-based-authorization-plugin.html
 

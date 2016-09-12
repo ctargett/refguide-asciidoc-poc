@@ -1,5 +1,4 @@
-Schema Browser Screen
-=====================
+= Schema Browser Screen
 :page-shortname: schema-browser-screen
 :page-permalink: schema-browser-screen.html
 

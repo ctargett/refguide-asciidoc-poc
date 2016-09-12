@@ -1,5 +1,4 @@
-Uploading Data with Index Handlers
-==================================
+= Uploading Data with Index Handlers
 :page-shortname: uploading-data-with-index-handlers
 :page-permalink: uploading-data-with-index-handlers.html
 

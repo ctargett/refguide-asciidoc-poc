@@ -1,5 +1,4 @@
-Working with Enum Fields
-========================
+= Working with Enum Fields
 :page-shortname: working-with-enum-fields
 :page-permalink: working-with-enum-fields.html
 

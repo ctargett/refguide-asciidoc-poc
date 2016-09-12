@@ -1,5 +1,4 @@
-Parallel SQL Interface
-======================
+= Parallel SQL Interface
 :page-shortname: parallel-sql-interface
 :page-permalink: parallel-sql-interface.html
 :page-children: solr-jdbc-dbvisualizer, solr-jdbc-squirrel-sql, solr-jdbc-apache-zeppelin

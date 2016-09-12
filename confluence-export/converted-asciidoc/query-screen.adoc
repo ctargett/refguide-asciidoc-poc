@@ -1,5 +1,4 @@
-Query Screen
-============
+= Query Screen
 :page-shortname: query-screen
 :page-permalink: query-screen.html
 

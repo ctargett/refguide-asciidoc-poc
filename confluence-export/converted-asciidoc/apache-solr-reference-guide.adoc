@@ -1,5 +1,4 @@
-Apache Solr Reference Guide
-===========================
+= Apache Solr Reference Guide
 :page-shortname: apache-solr-reference-guide
 :page-permalink: apache-solr-reference-guide.html
 :page-children: about-this-guide, getting-started, upgrading-solr, using-the-solr-administration-user-interface, documents-fields-and-schema-design, understanding-analyzers-tokenizers-and-filters, indexing-and-basic-data-operations, searching, the-well-configured-solr-instance, managing-solr, solrcloud, legacy-scaling-and-distribution, client-apis, major-changes-from-solr-5-to-solr-6, upgrading-a-solr-cluster, further-assistance, solr-glossary, errata

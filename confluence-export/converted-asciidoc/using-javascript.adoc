@@ -1,5 +1,4 @@
-Using JavaScript
-================
+= Using JavaScript
 :page-shortname: using-javascript
 :page-permalink: using-javascript.html
 

@@ -1,5 +1,4 @@
-Defining Fields
-===============
+= Defining Fields
 :page-shortname: defining-fields
 :page-permalink: defining-fields.html
 

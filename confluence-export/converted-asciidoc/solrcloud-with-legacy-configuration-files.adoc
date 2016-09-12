@@ -1,5 +1,4 @@
-SolrCloud with Legacy Configuration Files
-=========================================
+= SolrCloud with Legacy Configuration Files
 :page-shortname: solrcloud-with-legacy-configuration-files
 :page-permalink: solrcloud-with-legacy-configuration-files.html
 

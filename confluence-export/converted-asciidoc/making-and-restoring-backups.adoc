@@ -1,5 +1,4 @@
-Making and Restoring Backups
-============================
+= Making and Restoring Backups
 :page-shortname: making-and-restoring-backups
 :page-permalink: making-and-restoring-backups.html
 

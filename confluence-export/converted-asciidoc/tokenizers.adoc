@@ -1,5 +1,4 @@
-Tokenizers
-==========
+= Tokenizers
 :page-shortname: tokenizers
 :page-permalink: tokenizers.html
 

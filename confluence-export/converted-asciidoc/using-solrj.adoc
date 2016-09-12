@@ -1,5 +1,4 @@
-Using SolrJ
-===========
+= Using SolrJ
 :page-shortname: using-solrj
 :page-permalink: using-solrj.html
 

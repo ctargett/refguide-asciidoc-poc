@@ -1,5 +1,4 @@
-SolrCloud
-=========
+= SolrCloud
 :page-shortname: solrcloud
 :page-permalink: solrcloud.html
 :page-children: getting-started-with-solrcloud, how-solrcloud-works, solrcloud-configuration-and-parameters, rule-based-replica-placement, cross-data-center-replication-cdcr-

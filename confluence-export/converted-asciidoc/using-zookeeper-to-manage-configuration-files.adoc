@@ -1,5 +1,4 @@
-Using ZooKeeper to Manage Configuration Files
-=============================================
+= Using ZooKeeper to Manage Configuration Files
 :page-shortname: using-zookeeper-to-manage-configuration-files
 :page-permalink: using-zookeeper-to-manage-configuration-files.html
 

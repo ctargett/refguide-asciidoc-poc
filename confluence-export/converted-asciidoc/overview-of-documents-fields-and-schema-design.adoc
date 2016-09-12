@@ -1,5 +1,4 @@
-Overview of Documents, Fields, and Schema Design
-================================================
+= Overview of Documents, Fields, and Schema Design
 :page-shortname: overview-of-documents-fields-and-schema-design
 :page-permalink: overview-of-documents-fields-and-schema-design.html
 

@@ -1,5 +1,4 @@
-Files Screen
-============
+= Files Screen
 :page-shortname: files-screen
 :page-permalink: files-screen.html
 

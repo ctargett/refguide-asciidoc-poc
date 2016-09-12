@@ -1,5 +1,4 @@
-Standard Highlighter
-====================
+= Standard Highlighter
 :page-shortname: standard-highlighter
 :page-permalink: standard-highlighter.html
 

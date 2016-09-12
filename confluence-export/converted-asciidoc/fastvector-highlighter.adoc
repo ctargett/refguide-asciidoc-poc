@@ -1,5 +1,4 @@
-FastVector Highlighter
-======================
+= FastVector Highlighter
 :page-shortname: fastvector-highlighter
 :page-permalink: fastvector-highlighter.html
 

@@ -1,5 +1,4 @@
-Introduction to Client APIs
-===========================
+= Introduction to Client APIs
 :page-shortname: introduction-to-client-apis
 :page-permalink: introduction-to-client-apis.html
 

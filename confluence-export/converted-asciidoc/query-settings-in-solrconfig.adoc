@@ -1,5 +1,4 @@
-Query Settings in SolrConfig
-============================
+= Query Settings in SolrConfig
 :page-shortname: query-settings-in-solrconfig
 :page-permalink: query-settings-in-solrconfig.html
 

@@ -1,5 +1,4 @@
-Other Schema Elements
-=====================
+= Other Schema Elements
 :page-shortname: other-schema-elements
 :page-permalink: other-schema-elements.html
 

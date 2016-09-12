@@ -1,5 +1,4 @@
-Phonetic Matching
-=================
+= Phonetic Matching
 :page-shortname: phonetic-matching
 :page-permalink: phonetic-matching.html
 

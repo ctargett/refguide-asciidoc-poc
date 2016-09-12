@@ -1,5 +1,4 @@
-Query Syntax and Parsing
-========================
+= Query Syntax and Parsing
 :page-shortname: query-syntax-and-parsing
 :page-permalink: query-syntax-and-parsing.html
 :page-children: common-query-parameters, the-standard-query-parser, the-dismax-query-parser, the-extended-dismax-query-parser, function-queries, local-parameters-in-queries, other-parsers

@@ -1,5 +1,4 @@
-Solr Start Script Reference
-===========================
+= Solr Start Script Reference
 :page-shortname: solr-start-script-reference
 :page-permalink: solr-start-script-reference.html
 

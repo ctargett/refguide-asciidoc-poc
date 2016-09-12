@@ -1,5 +1,4 @@
-InitParams in SolrConfig
-========================
+= InitParams in SolrConfig
 :page-shortname: initparams-in-solrconfig
 :page-permalink: initparams-in-solrconfig.html
 

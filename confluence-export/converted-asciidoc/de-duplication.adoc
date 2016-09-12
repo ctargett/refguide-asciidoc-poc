@@ -1,5 +1,4 @@
-De-Duplication
-==============
+= De-Duplication
 :page-shortname: de-duplication
 :page-permalink: de-duplication.html
 

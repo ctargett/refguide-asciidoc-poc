@@ -1,5 +1,4 @@
-CharFilterFactories
-===================
+= CharFilterFactories
 :page-shortname: charfilterfactories
 :page-permalink: charfilterfactories.html
 

@@ -1,5 +1,4 @@
-Highlighting
-============
+= Highlighting
 :page-shortname: highlighting
 :page-permalink: highlighting.html
 :page-children: standard-highlighter, fastvector-highlighter, postings-highlighter

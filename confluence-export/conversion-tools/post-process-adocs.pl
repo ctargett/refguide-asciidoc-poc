@@ -4,6 +4,16 @@ use strict;
 use warnings;
 
 while (my $line = <>) {
+    # pandoc uses '=========...' syntax for doc title, we want shorter "= TITLE" syntax
+    if (1 == $.) {
+	$line = "= $line";
+    } elsif ((2 == $.) && $line =~ /^=+$/) {
+	next; # skip this line completley
+    }
+
+    
+    # TODO: purge ======= lines
+    
     # fix up relative links (in place edit) -- NOTE: links to anchor in same page get '#' stripped
     $line =~ s{link:REL_LINK//#?(.*?)\[(.*?)\]}{\<\<$1,$2\>\>}g;
 

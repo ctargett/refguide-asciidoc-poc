@@ -1,5 +1,4 @@
-Documents Screen
-================
+= Documents Screen
 :page-shortname: documents-screen
 :page-permalink: documents-screen.html
 

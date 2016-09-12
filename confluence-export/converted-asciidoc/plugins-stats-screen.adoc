@@ -1,5 +1,4 @@
-Plugins & Stats Screen
-======================
+= Plugins & Stats Screen
 :page-shortname: plugins-stats-screen
 :page-permalink: plugins-stats-screen.html
 

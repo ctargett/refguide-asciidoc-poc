@@ -1,5 +1,4 @@
-ZooKeeper Access Control
-========================
+= ZooKeeper Access Control
 :page-shortname: zookeeper-access-control
 :page-permalink: zookeeper-access-control.html
 

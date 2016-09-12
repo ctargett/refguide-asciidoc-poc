@@ -1,5 +1,4 @@
-The Terms Component
-===================
+= The Terms Component
 :page-shortname: the-terms-component
 :page-permalink: the-terms-component.html
 

@@ -1,5 +1,4 @@
-Putting the Pieces Together
-===========================
+= Putting the Pieces Together
 :page-shortname: putting-the-pieces-together
 :page-permalink: putting-the-pieces-together.html
 

@@ -1,5 +1,4 @@
-Working with Dates
-==================
+= Working with Dates
 :page-shortname: working-with-dates
 :page-permalink: working-with-dates.html
 

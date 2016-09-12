@@ -1,5 +1,4 @@
-Basic Authentication Plugin
-===========================
+= Basic Authentication Plugin
 :page-shortname: basic-authentication-plugin
 :page-permalink: basic-authentication-plugin.html
 

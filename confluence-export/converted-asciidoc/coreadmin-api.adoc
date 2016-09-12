@@ -1,5 +1,4 @@
-CoreAdmin API
-=============
+= CoreAdmin API
 :page-shortname: coreadmin-api
 :page-permalink: coreadmin-api.html
 

@@ -1,5 +1,4 @@
-Collapse and Expand Results
-===========================
+= Collapse and Expand Results
 :page-shortname: collapse-and-expand-results
 :page-permalink: collapse-and-expand-results.html
 

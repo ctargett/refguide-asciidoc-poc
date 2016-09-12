@@ -1,5 +1,4 @@
-RequestDispatcher in SolrConfig
-===============================
+= RequestDispatcher in SolrConfig
 :page-shortname: requestdispatcher-in-solrconfig
 :page-permalink: requestdispatcher-in-solrconfig.html
 

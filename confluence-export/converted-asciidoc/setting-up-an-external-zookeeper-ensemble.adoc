@@ -1,5 +1,4 @@
-Setting Up an External ZooKeeper Ensemble
-=========================================
+= Setting Up an External ZooKeeper Ensemble
 :page-shortname: setting-up-an-external-zookeeper-ensemble
 :page-permalink: setting-up-an-external-zookeeper-ensemble.html
 

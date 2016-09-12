@@ -1,5 +1,4 @@
-About This Guide
-================
+= About This Guide
 :page-shortname: about-this-guide
 :page-permalink: about-this-guide.html
 

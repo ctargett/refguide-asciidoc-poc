@@ -1,5 +1,4 @@
-Spatial Search
-==============
+= Spatial Search
 :page-shortname: spatial-search
 :page-permalink: spatial-search.html
 

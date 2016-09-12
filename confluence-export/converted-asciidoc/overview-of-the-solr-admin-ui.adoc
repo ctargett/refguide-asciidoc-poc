@@ -1,5 +1,4 @@
-Overview of the Solr Admin UI
-=============================
+= Overview of the Solr Admin UI
 :page-shortname: overview-of-the-solr-admin-ui
 :page-permalink: overview-of-the-solr-admin-ui.html
 

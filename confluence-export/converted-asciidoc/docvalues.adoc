@@ -1,5 +1,4 @@
-DocValues
-=========
+= DocValues
 :page-shortname: docvalues
 :page-permalink: docvalues.html
 

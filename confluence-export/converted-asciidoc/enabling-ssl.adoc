@@ -1,5 +1,4 @@
-Enabling SSL
-============
+= Enabling SSL
 :page-shortname: enabling-ssl
 :page-permalink: enabling-ssl.html
 

@@ -1,5 +1,4 @@
-Solr JDBC - DbVisualizer
-========================
+= Solr JDBC - DbVisualizer
 :page-shortname: solr-jdbc-dbvisualizer
 :page-permalink: solr-jdbc-dbvisualizer.html
 

@@ -1,5 +1,4 @@
-RealTime Get
-============
+= RealTime Get
 :page-shortname: realtime-get
 :page-permalink: realtime-get.html
 

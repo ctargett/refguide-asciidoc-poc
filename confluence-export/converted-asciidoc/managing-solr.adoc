@@ -1,5 +1,4 @@
-Managing Solr
-=============
+= Managing Solr
 :page-shortname: managing-solr
 :page-permalink: managing-solr.html
 :page-children: taking-solr-to-production, securing-solr, running-solr-on-hdfs, making-and-restoring-backups, configuring-logging, using-jmx-with-solr, mbean-request-handler, performance-statistics-reference

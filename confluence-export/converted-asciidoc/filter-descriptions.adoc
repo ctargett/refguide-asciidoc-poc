@@ -1,5 +1,4 @@
-Filter Descriptions
-===================
+= Filter Descriptions
 :page-shortname: filter-descriptions
 :page-permalink: filter-descriptions.html
 

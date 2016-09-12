@@ -1,5 +1,4 @@
-Query Re-Ranking
-================
+= Query Re-Ranking
 :page-shortname: query-re-ranking
 :page-permalink: query-re-ranking.html
 

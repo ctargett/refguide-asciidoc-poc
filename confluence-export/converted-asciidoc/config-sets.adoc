@@ -1,5 +1,4 @@
-Config Sets
-===========
+= Config Sets
 :page-shortname: config-sets
 :page-permalink: config-sets.html
 

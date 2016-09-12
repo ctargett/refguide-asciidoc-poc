@@ -1,5 +1,4 @@
-Config API
-==========
+= Config API
 :page-shortname: config-api
 :page-permalink: config-api.html
 

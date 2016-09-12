@@ -1,5 +1,4 @@
-Local Parameters in Queries
-===========================
+= Local Parameters in Queries
 :page-shortname: local-parameters-in-queries
 :page-permalink: local-parameters-in-queries.html
 

@@ -1,5 +1,4 @@
-Uploading Data with Solr Cell using Apache Tika
-===============================================
+= Uploading Data with Solr Cell using Apache Tika
 :page-shortname: uploading-data-with-solr-cell-using-apache-tika
 :page-permalink: uploading-data-with-solr-cell-using-apache-tika.html
 

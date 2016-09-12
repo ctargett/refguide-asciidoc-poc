@@ -1,5 +1,4 @@
-About Tokenizers
-================
+= About Tokenizers
 :page-shortname: about-tokenizers
 :page-permalink: about-tokenizers.html
 

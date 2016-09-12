@@ -1,5 +1,4 @@
-Response Writers
-================
+= Response Writers
 :page-shortname: response-writers
 :page-permalink: response-writers.html
 :page-children: velocity-response-writer

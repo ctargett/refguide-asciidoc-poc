@@ -1,5 +1,4 @@
-Choosing an Output Format
-=========================
+= Choosing an Output Format
 :page-shortname: choosing-an-output-format
 :page-permalink: choosing-an-output-format.html
 

@@ -1,5 +1,4 @@
-Getting Started with SolrCloud
-==============================
+= Getting Started with SolrCloud
 :page-shortname: getting-started-with-solrcloud
 :page-permalink: getting-started-with-solrcloud.html
 

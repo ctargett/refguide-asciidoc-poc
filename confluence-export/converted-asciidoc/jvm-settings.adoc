@@ -1,5 +1,4 @@
-JVM Settings
-============
+= JVM Settings
 :page-shortname: jvm-settings
 :page-permalink: jvm-settings.html
 

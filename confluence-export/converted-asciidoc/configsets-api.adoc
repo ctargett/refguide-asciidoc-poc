@@ -1,5 +1,4 @@
-ConfigSets API
-==============
+= ConfigSets API
 :page-shortname: configsets-api
 :page-permalink: configsets-api.html
 

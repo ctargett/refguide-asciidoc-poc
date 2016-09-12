@@ -1,5 +1,4 @@
-Logging
-=======
+= Logging
 :page-shortname: logging
 :page-permalink: logging.html
 

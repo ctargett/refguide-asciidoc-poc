@@ -1,5 +1,4 @@
-Ping
-====
+= Ping
 :page-shortname: ping
 :page-permalink: ping.html
 

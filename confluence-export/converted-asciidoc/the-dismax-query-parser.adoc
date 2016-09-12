@@ -1,5 +1,4 @@
-The DisMax Query Parser
-=======================
+= The DisMax Query Parser
 :page-shortname: the-dismax-query-parser
 :page-permalink: the-dismax-query-parser.html
 

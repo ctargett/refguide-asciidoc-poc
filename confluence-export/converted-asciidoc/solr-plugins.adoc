@@ -1,5 +1,4 @@
-Solr Plugins
-============
+= Solr Plugins
 :page-shortname: solr-plugins
 :page-permalink: solr-plugins.html
 :page-children: adding-custom-plugins-in-solrcloud-mode

@@ -1,5 +1,4 @@
-Solr JDBC - Apache Zeppelin
-===========================
+= Solr JDBC - Apache Zeppelin
 :page-shortname: solr-jdbc-apache-zeppelin
 :page-permalink: solr-jdbc-apache-zeppelin.html
 

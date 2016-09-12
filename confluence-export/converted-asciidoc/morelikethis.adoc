@@ -1,5 +1,4 @@
-MoreLikeThis
-============
+= MoreLikeThis
 :page-shortname: morelikethis
 :page-permalink: morelikethis.html
 

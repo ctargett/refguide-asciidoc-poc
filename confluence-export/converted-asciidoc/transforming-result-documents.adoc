@@ -1,5 +1,4 @@
-Transforming Result Documents
-=============================
+= Transforming Result Documents
 :page-shortname: transforming-result-documents
 :page-permalink: transforming-result-documents.html
 

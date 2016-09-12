@@ -1,5 +1,4 @@
-Defining core.properties
-========================
+= Defining core.properties
 :page-shortname: defining-core-properties
 :page-permalink: defining-core-properties.html
 

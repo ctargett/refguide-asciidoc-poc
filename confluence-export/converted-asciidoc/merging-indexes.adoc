@@ -1,5 +1,4 @@
-Merging Indexes
-===============
+= Merging Indexes
 :page-shortname: merging-indexes
 :page-permalink: merging-indexes.html
 

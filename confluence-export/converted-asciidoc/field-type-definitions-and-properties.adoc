@@ -1,5 +1,4 @@
-Field Type Definitions and Properties
-=====================================
+= Field Type Definitions and Properties
 :page-shortname: field-type-definitions-and-properties
 :page-permalink: field-type-definitions-and-properties.html
 

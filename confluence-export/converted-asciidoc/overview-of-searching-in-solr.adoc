@@ -1,5 +1,4 @@
-Overview of Searching in Solr
-=============================
+= Overview of Searching in Solr
 :page-shortname: overview-of-searching-in-solr
 :page-permalink: overview-of-searching-in-solr.html
 

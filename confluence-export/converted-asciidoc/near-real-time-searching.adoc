@@ -1,5 +1,4 @@
-Near Real Time Searching
-========================
+= Near Real Time Searching
 :page-shortname: near-real-time-searching
 :page-permalink: near-real-time-searching.html
 

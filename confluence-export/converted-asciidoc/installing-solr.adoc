@@ -1,5 +1,4 @@
-Installing Solr
-===============
+= Installing Solr
 :page-shortname: installing-solr
 :page-permalink: installing-solr.html
 

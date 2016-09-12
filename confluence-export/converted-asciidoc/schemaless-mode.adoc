@@ -1,5 +1,4 @@
-Schemaless Mode
-===============
+= Schemaless Mode
 :page-shortname: schemaless-mode
 :page-permalink: schemaless-mode.html
 

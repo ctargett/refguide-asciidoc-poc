@@ -1,5 +1,4 @@
-Further Assistance
-==================
+= Further Assistance
 :page-shortname: further-assistance
 :page-permalink: further-assistance.html
 

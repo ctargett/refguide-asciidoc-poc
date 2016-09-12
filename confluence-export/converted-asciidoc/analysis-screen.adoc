@@ -1,5 +1,4 @@
-Analysis Screen
-===============
+= Analysis Screen
 :page-shortname: analysis-screen
 :page-permalink: analysis-screen.html
 

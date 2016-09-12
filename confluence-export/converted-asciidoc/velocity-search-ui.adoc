@@ -1,5 +1,4 @@
-Velocity Search UI
-==================
+= Velocity Search UI
 :page-shortname: velocity-search-ui
 :page-permalink: velocity-search-ui.html
 

@@ -1,5 +1,4 @@
-Getting Assistance
-==================
+= Getting Assistance
 :page-shortname: getting-assistance
 :page-permalink: getting-assistance.html
 

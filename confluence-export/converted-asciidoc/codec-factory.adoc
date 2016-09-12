@@ -1,5 +1,4 @@
-Codec Factory
-=============
+= Codec Factory
 :page-shortname: codec-factory
 :page-permalink: codec-factory.html
 

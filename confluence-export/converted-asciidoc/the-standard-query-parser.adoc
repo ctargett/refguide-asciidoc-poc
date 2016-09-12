@@ -1,5 +1,4 @@
-The Standard Query Parser
-=========================
+= The Standard Query Parser
 :page-shortname: the-standard-query-parser
 :page-permalink: the-standard-query-parser.html
 

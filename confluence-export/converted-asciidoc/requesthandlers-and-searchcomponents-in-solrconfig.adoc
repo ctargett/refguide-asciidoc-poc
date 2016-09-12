@@ -1,5 +1,4 @@
-RequestHandlers and SearchComponents in SolrConfig
-==================================================
+= RequestHandlers and SearchComponents in SolrConfig
 :page-shortname: requesthandlers-and-searchcomponents-in-solrconfig
 :page-permalink: requesthandlers-and-searchcomponents-in-solrconfig.html
 

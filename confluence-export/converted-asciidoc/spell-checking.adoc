@@ -1,5 +1,4 @@
-Spell Checking
-==============
+= Spell Checking
 :page-shortname: spell-checking
 :page-permalink: spell-checking.html
 

@@ -1,5 +1,4 @@
-Request Parameters API
-======================
+= Request Parameters API
 :page-shortname: request-parameters-api
 :page-permalink: request-parameters-api.html
 

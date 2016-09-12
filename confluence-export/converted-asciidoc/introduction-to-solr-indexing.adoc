@@ -1,5 +1,4 @@
-Introduction to Solr Indexing
-=============================
+= Introduction to Solr Indexing
 :page-shortname: introduction-to-solr-indexing
 :page-permalink: introduction-to-solr-indexing.html
 

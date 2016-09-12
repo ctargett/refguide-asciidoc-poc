@@ -1,5 +1,4 @@
-Upgrading a Solr Cluster
-========================
+= Upgrading a Solr Cluster
 :page-shortname: upgrading-a-solr-cluster
 :page-permalink: upgrading-a-solr-cluster.html
 :page-children: indexupgrader-tool

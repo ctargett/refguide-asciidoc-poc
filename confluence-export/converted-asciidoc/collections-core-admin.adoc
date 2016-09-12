@@ -1,5 +1,4 @@
-Collections / Core Admin
-========================
+= Collections / Core Admin
 :page-shortname: collections-core-admin
 :page-permalink: collections-core-admin.html
 

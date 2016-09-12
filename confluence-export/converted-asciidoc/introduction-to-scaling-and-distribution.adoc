@@ -1,5 +1,4 @@
-Introduction to Scaling and Distribution
-========================================
+= Introduction to Scaling and Distribution
 :page-shortname: introduction-to-scaling-and-distribution
 :page-permalink: introduction-to-scaling-and-distribution.html
 
