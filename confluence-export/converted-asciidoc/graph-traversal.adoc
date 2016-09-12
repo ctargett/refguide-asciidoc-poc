@@ -1,12 +1,9 @@
 Graph Traversal
 ===============
-:toc:
 :page-shortname: graph-traversal
 :page-permalink: graph-traversal.html
 
 Graph traversal with streaming expressions uses the `gatherNodes` function for breadth-first graph traversal.
-
-toc::[]
 
 `gatherNodes` traversals are distributed within a SolrCloud collection and can span collections. The `gatherNodes` function can be combined with other streaming expressions to perform complex operations on the gathered node sets.
 

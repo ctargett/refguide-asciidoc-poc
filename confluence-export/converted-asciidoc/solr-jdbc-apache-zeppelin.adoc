@@ -1,10 +1,9 @@
 Solr JDBC - Apache Zeppelin
 ===========================
-:toc:
 :page-shortname: solr-jdbc-apache-zeppelin
 :page-permalink: solr-jdbc-apache-zeppelin.html
 
-toc::[] Note:
+Note:
 
 This requires Apache Zeppelin 0.6.0 or greater which contains the JDBC interpreter.
 

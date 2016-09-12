@@ -1,12 +1,9 @@
 ZooKeeper Access Control
 ========================
-:toc:
 :page-shortname: zookeeper-access-control
 :page-permalink: zookeeper-access-control.html
 
 This section describes using ZooKeeper access control lists (ACLs) with Solr. For information about ZooKeeper ACLs, see the ZooKeeper documentation at http://zookeeper.apache.org/doc/r3.4.6/zookeeperProgrammers.html#sc_ZooKeeperAccessControl.
-
-toc::[]
 
 [[ZooKeeperAccessControl-AboutZooKeeperACLs]]
 == About ZooKeeper ACLs

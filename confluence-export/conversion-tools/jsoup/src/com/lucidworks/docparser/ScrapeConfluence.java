@@ -252,8 +252,6 @@ public class ScrapeConfluence {
       }
     }
     if (sideBar != null) {
-      addMetadata(docOut, "toc", "true");
-      sideBar.replaceWith(new TextNode("toc::[]",""));
       // TODO: this currently replaces the entire aside/column/panel if there was one...
       // ...would it be better to leave the other panel text and only remove the div.toc-macro?
       //  examples:
@@ -261,6 +259,15 @@ public class ScrapeConfluence {
       //    Topics covered in this section:
       //    Filters discussed in this section:
       //    Algorithms discussed in this section:
+
+      // NOTE: conciously choosing to completely remove the TOC, instead of adding any metadata/macros to it
+      // let the page presentation decide if/when to use a TOC...
+      //
+      sideBar.remove();
+      // sideBar.replaceWith(new TextNode("toc::[]",""));
+      // addMetadata(docOut, "toc", "true");
+      
+
     } else {
       // sanity check if we missed any (multiple TOCs on a page?) ...
       elements = docOut.select("div.toc-macro");

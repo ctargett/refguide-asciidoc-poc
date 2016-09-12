@@ -1,6 +1,5 @@
 Suggester
 =========
-:toc:
 :page-shortname: suggester
 :page-permalink: suggester.html
 
@@ -15,8 +14,6 @@ The main features of this Suggester are:
 * Distributed support
 
 The `solrconfig.xml` found in Solr's "`techproducts`" example has the new Suggester implementation configured already. For more on search components, see the section <<requesthandlers-and-searchcomponents-in-solrconfig.adoc#,RequestHandlers and SearchComponents in SolrConfig>>.
-
-toc::[]
 
 [[Suggester-ConfiguringSuggesterinsolrconfig.xml]]
 == Configuring Suggester in solrconfig.xml

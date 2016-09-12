@@ -1,6 +1,5 @@
 Streaming Expressions
 =====================
-:toc:
 :page-shortname: streaming-expressions
 :page-permalink: streaming-expressions.html
 :page-children: graph-traversal
@@ -21,8 +20,6 @@ There are several available functions, including those that implement:
 Streams from outside systems can be joined with streams originating from Solr and users can add their own stream functions by following Solr's http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/io/stream/package-summary.html[Java streaming API].
 
 Note:Both streaming expressions and the streaming API are considered experimental, and the APIs are subject to change.
-
-toc::[]
 
 [[StreamingExpressions-StreamLanguageBasics]]
 == Stream Language Basics

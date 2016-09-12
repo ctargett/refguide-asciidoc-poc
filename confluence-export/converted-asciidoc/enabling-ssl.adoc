@@ -1,14 +1,11 @@
 Enabling SSL
 ============
-:toc:
 :page-shortname: enabling-ssl
 :page-permalink: enabling-ssl.html
 
 Both SolrCloud and single-node Solr can encrypt communications to and from clients, and in SolrCloud between nodes, with SSL. This section describes enabling SSL with the example Jetty server using a self-signed certificate.
 
 For background on SSL certificates and keys, see http://www.tldp.org/HOWTO/SSL-Certificates-HOWTO/.
-
-toc::[]
 
 [[EnablingSSL-BasicSSLSetup]]
 == Basic SSL Setup

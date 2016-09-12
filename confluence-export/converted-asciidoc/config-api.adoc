@@ -1,14 +1,11 @@
 Config API
 ==========
-:toc:
 :page-shortname: config-api
 :page-permalink: config-api.html
 
 The Config API enables manipulating various aspects of your `solrconfig.xml` using REST-like API calls. This feature is enabled by default and works similarly in both SolrCloud and standalone mode. Many commonly edited properties (such as cache sizes and commit settings) and request handler definitions can be changed with this API.
 
 When using this API, `solrconfig.xml` is is not changed. Instead, all edited configuration is stored in a file called `configoverlay.json`. The values in `configoverlay.json` override the values in `solrconfig.xml`.
-
-toc::[]
 
 [[ConfigAPI-APIEntryPoints]]
 == API Entry Points

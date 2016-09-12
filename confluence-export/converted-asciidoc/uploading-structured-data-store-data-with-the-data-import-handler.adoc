@@ -1,6 +1,5 @@
 Uploading Structured Data Store Data with the Data Import Handler
 =================================================================
-:toc:
 :page-shortname: uploading-structured-data-store-data-with-the-data-import-handler
 :page-permalink: uploading-structured-data-store-data-with-the-data-import-handler.html
 
@@ -14,8 +13,6 @@ bin/solr -e dih
 ----
 
 For more information about the Data Import Handler, see https://wiki.apache.org/solr/DataImportHandler.
-
-toc::[]
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-ConceptsandTerminology]]
 == Concepts and Terminology

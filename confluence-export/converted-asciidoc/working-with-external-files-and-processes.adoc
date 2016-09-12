@@ -1,10 +1,7 @@
 Working with External Files and Processes
 =========================================
-:toc:
 :page-shortname: working-with-external-files-and-processes
 :page-permalink: working-with-external-files-and-processes.html
-
-toc::[]
 
 [[WorkingwithExternalFilesandProcesses-TheExternalFileFieldType]]
 == The `ExternalFileField` Type

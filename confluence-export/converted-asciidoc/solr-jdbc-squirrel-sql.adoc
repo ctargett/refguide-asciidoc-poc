@@ -1,10 +1,7 @@
 Solr JDBC - SQuirreL SQL
 ========================
-:toc:
 :page-shortname: solr-jdbc-squirrel-sql
 :page-permalink: solr-jdbc-squirrel-sql.html
-
-toc::[]
 
 For http://squirrel-sql.sourceforge.net[SQuirreL SQL], you will need to create a new driver for Solr. This will add several SolrJ client .jars to the SQuirreL SQL classpath. The files required are:
 

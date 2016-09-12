@@ -1,12 +1,9 @@
 Transforming Result Documents
 =============================
-:toc:
 :page-shortname: transforming-result-documents
 :page-permalink: transforming-result-documents.html
 
 Document Transformers can be used to modify the information returned about each documents in the results of a query.
-
-toc::[]
 
 [[TransformingResultDocuments-UsingDocumentTransformers]]
 == Using Document Transformers

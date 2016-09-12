@@ -1,6 +1,5 @@
 UpdateHandlers in SolrConfig
 ============================
-:toc:
 :page-shortname: updatehandlers-in-solrconfig
 :page-permalink: updatehandlers-in-solrconfig.html
 
@@ -12,8 +11,6 @@ The settings in this section are configured in the `<updateHandler>` element in 
   ...
 </updateHandler>
 ----
-
-toc::[]
 
 [[UpdateHandlersinSolrConfig-Commits]]
 == Commits

@@ -1,6 +1,5 @@
 RequestHandlers and SearchComponents in SolrConfig
 ==================================================
-:toc:
 :page-shortname: requesthandlers-and-searchcomponents-in-solrconfig
 :page-permalink: requesthandlers-and-searchcomponents-in-solrconfig.html
 
@@ -11,8 +10,6 @@ A _request handler_ processes requests coming to Solr. These might be query requ
 A _search component_ is a feature of search, such as highlighting or faceting. The search component is defined in `solrconfig.xml` separate from the request handlers, and then registered with a request handler as needed.
 
 These are often referred to as "requestHandler" and "searchComponent", which is how they are defined in `solrconfig.xml`.
-
-toc::[]
 
 [[RequestHandlersandSearchComponentsinSolrConfig-RequestHandlers]]
 == Request Handlers

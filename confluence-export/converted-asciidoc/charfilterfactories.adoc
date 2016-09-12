@@ -1,10 +1,9 @@
 CharFilterFactories
 ===================
-:toc:
 :page-shortname: charfilterfactories
 :page-permalink: charfilterfactories.html
 
-Char Filter is a component that pre-processes input characters. Char Filters can be chained like Token Filters and placed in front of a Tokenizer. Char Filters can add, change, or remove characters while preserving the original character offsets to support features like highlighting.toc::[]
+Char Filter is a component that pre-processes input characters. Char Filters can be chained like Token Filters and placed in front of a Tokenizer. Char Filters can add, change, or remove characters while preserving the original character offsets to support features like highlighting.
 
 [[CharFilterFactories-solr.MappingCharFilterFactory]]
 == solr.MappingCharFilterFactory

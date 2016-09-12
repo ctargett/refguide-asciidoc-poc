@@ -1,12 +1,9 @@
 Format of solr.xml
 ==================
-:toc:
 :page-shortname: format-of-solr-xml
 :page-permalink: format-of-solr-xml.html
 
 This section will describe the default `solr.xml` file included with Solr and how to modify it for your needs. For details on how to configure `core.properties`, see the section <<defining-core-properties.adoc#,Defining core.properties>>.
-
-toc::[]
 
 [[Formatofsolr.xml-Definingsolr.xml]]
 == Defining solr.xml

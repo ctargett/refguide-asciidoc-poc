@@ -1,6 +1,5 @@
 Upgrading a Solr Cluster
 ========================
-:toc:
 :page-shortname: upgrading-a-solr-cluster
 :page-permalink: upgrading-a-solr-cluster.html
 :page-children: indexupgrader-tool
@@ -8,8 +7,6 @@ Upgrading a Solr Cluster
 This page covers how to upgrade an existing Solr cluster that was installed using the <<taking-solr-to-production.adoc#,service installation scripts>> .
 
 Note:The steps outlined on this page assume you use the default service name of " `solr`". If you use an alternate service name or Solr installation directory, some of the paths and commands mentioned below will have to be modified accordingly.
-
-toc::[]
 
 [[UpgradingaSolrCluster-PlanningYourUpgrade]]
 == Planning Your Upgrade

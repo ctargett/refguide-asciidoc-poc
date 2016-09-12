@@ -1,12 +1,9 @@
 Update Request Processors
 =========================
-:toc:
 :page-shortname: update-request-processors
 :page-permalink: update-request-processors.html
 
 Every update request received by Solr is run through a chain of plugins known as Update Request Processor. This can be useful, for example, to add a field to the document being indexed or to change the value of a particular field or to drop an update if the incoming document doesn't fulfill certain criteria. In fact, a surprisingly large number of features in Solr are implemented as Update Processors and therefore it is necessary to understand how such plugins work and where are they configured.
-
-toc::[]
 
 [[UpdateRequestProcessors-Anatomyandlifecycle]]
 == Anatomy and life cycle

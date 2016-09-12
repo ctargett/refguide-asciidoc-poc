@@ -1,13 +1,10 @@
 Parallel SQL Interface
 ======================
-:toc:
 :page-shortname: parallel-sql-interface
 :page-permalink: parallel-sql-interface.html
 :page-children: solr-jdbc-dbvisualizer, solr-jdbc-squirrel-sql, solr-jdbc-apache-zeppelin
 
 Solr's Parallel SQL Interface brings the power of SQL to SolrCloud. The SQL interface seamlessly combines SQL with Solr's full-text search capabilities. Two implementations for aggregations allow using either MapReduce-like shuffling or the JSON Facet API, depending on performance needs. These features allow Solr's SQL interface to be used for a wide variety of use cases.
-
-toc::[]
 
 [[ParallelSQLInterface-SQLArchitecture]]
 == SQL Architecture

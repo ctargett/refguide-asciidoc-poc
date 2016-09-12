@@ -1,6 +1,5 @@
 Query Settings in SolrConfig
 ============================
-:toc:
 :page-shortname: query-settings-in-solrconfig
 :page-permalink: query-settings-in-solrconfig.html
 
@@ -12,8 +11,6 @@ The settings in this section affect the way that Solr will process and respond t
   ...
 </query>
 ----
-
-toc::[]
 
 [[QuerySettingsinSolrConfig-Caches]]
 == Caches

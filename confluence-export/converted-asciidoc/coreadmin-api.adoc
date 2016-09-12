@@ -1,6 +1,5 @@
 CoreAdmin API
 =============
-:toc:
 :page-shortname: coreadmin-api
 :page-permalink: coreadmin-api.html
 
@@ -11,8 +10,6 @@ The CoreAdmin API is implemented by the CoreAdminHandler, which is a special pur
 CoreAdmin actions can be executed by via HTTP requests that specify an "`action`" request parameter, with additional action specific arguments provided as additional parameters.
 
 All action names are uppercase, and are defined in depth in the sections below.
-
-toc::[]
 
 [[CoreAdminAPI-STATUS]]
 == `STATUS`

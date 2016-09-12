@@ -1,10 +1,7 @@
 Solr JDBC - DbVisualizer
 ========================
-:toc:
 :page-shortname: solr-jdbc-dbvisualizer
 :page-permalink: solr-jdbc-dbvisualizer.html
-
-toc::[]
 
 For https://www.dbvis.com/[DbVisualizer], you will need to create a new driver for Solr using the DbVisualizer Driver Manager. This will add several SolrJ client .jars to the DbVisualizer classpath. The files required are:
 

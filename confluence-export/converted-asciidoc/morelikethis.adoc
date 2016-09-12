@@ -1,14 +1,11 @@
 MoreLikeThis
 ============
-:toc:
 :page-shortname: morelikethis
 :page-permalink: morelikethis.html
 
 The `MoreLikeThis` search component enables users to query for documents similar to a document in their result list. It does this by using terms from the original document to find similar documents in the index.
 
 There are three ways to use MoreLikeThis. The first, and most common, is to use it as a request handler. In this case, you would send text to the MoreLikeThis request handler as needed (as in when a user clicked on a "similar documents" link). The second is to use it as a search component. This is less desirable since it performs the MoreLikeThis analysis on every document returned. This may slow search results. The final approach is to use it as a request handler but with externally supplied text. This case, also referred to as the MoreLikeThisHandler, will supply information about similar documents in the index based on the text of the input document.
-
-toc::[]
 
 [[MoreLikeThis-HowMoreLikeThisWorks]]
 == How MoreLikeThis Works

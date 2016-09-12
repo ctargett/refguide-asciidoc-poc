@@ -1,12 +1,9 @@
 Taking Solr to Production
 =========================
-:toc:
 :page-shortname: taking-solr-to-production
 :page-permalink: taking-solr-to-production.html
 
 This section provides guidance on how to setup Solr to run in production on *nix platforms, such as Ubuntu. Specifically, we’ll walk through the process of setting up to run a single Solr instance on a Linux host and then provide tips on how to support multiple Solr nodes running on the same host.
-
-toc::[]
 
 [[TakingSolrtoProduction-ServiceInstallationScript]]
 == Service Installation Script

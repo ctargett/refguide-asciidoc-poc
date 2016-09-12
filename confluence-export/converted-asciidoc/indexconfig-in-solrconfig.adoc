@@ -1,6 +1,5 @@
 IndexConfig in SolrConfig
 =========================
-:toc:
 :page-shortname: indexconfig-in-solrconfig
 :page-permalink: indexconfig-in-solrconfig.html
 
@@ -12,8 +11,6 @@ The `<indexConfig>` section of `solrconfig.xml` defines low-level behavior of th
   ...
 </indexConfig>
 ----
-
-toc::[]
 
 [[IndexConfiginSolrConfig-WritingNewSegments]]
 == Writing New Segments

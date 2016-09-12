@@ -1,6 +1,5 @@
 Solr Start Script Reference
 ===========================
-:toc:
 :page-shortname: solr-start-script-reference
 :page-permalink: solr-start-script-reference.html
 
@@ -9,8 +8,6 @@ Solr includes a script known as "`bin/solr`" that allows you to start and stop S
 In this section, the headings below correspond to available commands. For each command, the available options are described with examples.
 
 More examples of bin/solr in use are available throughout the Solr Reference Guide, but particularly in the sections <<running-solr.adoc#,Running Solr>> and <<getting-started-with-solrcloud.adoc#,Getting Started with SolrCloud>>.
-
-toc::[]
 
 [[SolrStartScriptReference-StartingandStopping]]
 == Starting and Stopping

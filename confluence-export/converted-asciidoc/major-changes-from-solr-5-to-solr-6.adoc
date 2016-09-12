@@ -1,10 +1,9 @@
 Major Changes from Solr 5 to Solr 6
 ===================================
-:toc:
 :page-shortname: major-changes-from-solr-5-to-solr-6
 :page-permalink: major-changes-from-solr-5-to-solr-6.html
 
-There are some major changes in Solr 6 to consider before starting to migrate your configurations and indexes. There are many hundreds of changes, so a thorough review of the <<upgrading-solr.adoc#,Upgrading Solr>> section as well as the <<major-changes-from-solr-5-to-solr-6.adoc#,CHANGES.txt>> file in your Solr instance will help you plan your migration to Solr 6. This section attempts to highlight some of the major changes you should be aware of.toc::[]
+There are some major changes in Solr 6 to consider before starting to migrate your configurations and indexes. There are many hundreds of changes, so a thorough review of the <<upgrading-solr.adoc#,Upgrading Solr>> section as well as the <<major-changes-from-solr-5-to-solr-6.adoc#,CHANGES.txt>> file in your Solr instance will help you plan your migration to Solr 6. This section attempts to highlight some of the major changes you should be aware of.
 
 [[MajorChangesfromSolr5toSolr6-HighlightsofNewFeaturesinSolr6]]
 == Highlights of New Features in Solr 6

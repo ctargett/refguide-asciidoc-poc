@@ -1,6 +1,5 @@
 Uploading Data with Index Handlers
 ==================================
-:toc:
 :page-shortname: uploading-data-with-index-handlers
 :page-permalink: uploading-data-with-index-handlers.html
 
@@ -9,8 +8,6 @@ Index Handlers are Request Handlers designed to add, delete and update documents
 The recommended way to configure and use request handlers is with path based names that map to paths in the request url. However, request handlers can also be specified with the `qt` (query type) parameter if the ` requestDispatcher ` is appropriately configured. It is possible to access the same handler using more than one name, which can be useful if you wish to specify different sets of default options.
 
 A single unified update request handler supports XML, CSV, JSON, and javabin update requests, delegating to the appropriate `ContentStreamLoader` based on the `Content-Type` of the <<content-streams.adoc#,ContentStream>>.
-
-toc::[]
 
 [[UploadingDatawithIndexHandlers-UpdateRequestHandlerConfiguration]]
 == UpdateRequestHandler Configuration

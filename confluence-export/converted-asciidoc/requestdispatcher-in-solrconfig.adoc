@@ -1,12 +1,9 @@
 RequestDispatcher in SolrConfig
 ===============================
-:toc:
 :page-shortname: requestdispatcher-in-solrconfig
 :page-permalink: requestdispatcher-in-solrconfig.html
 
 The `requestDispatcher` element of `solrconfig.xml` controls the way the Solr HTTP `RequestDispatcher` implementation responds to requests. Included are parameters for defining if it should handle `/select` urls (for Solr 1.1 compatibility), if it will support remote streaming, the maximum size of file uploads and how it will respond to HTTP cache headers in requests.
-
-toc::[]
 
 [[RequestDispatcherinSolrConfig-handleSelectElement]]
 == `handleSelect` Element

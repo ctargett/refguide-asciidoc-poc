@@ -1,6 +1,5 @@
 Index Replication
 =================
-:toc:
 :page-shortname: index-replication
 :page-permalink: index-replication.html
 
@@ -10,8 +9,6 @@ The figure below shows a Solr configuration using index replication. The master 
 
 image::images/index-replication/worddav2b7e14725d898b4104cdd9c502fc77cd.png[image,width=159,height=235]
  _A Solr index can be replicated across multiple slave servers, which then process requests._
-
-toc::[]
 
 [[IndexReplication-IndexReplicationinSolr]]
 == Index Replication in Solr

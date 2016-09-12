@@ -1,6 +1,5 @@
 Filter Descriptions
 ===================
-:toc:
 :page-shortname: filter-descriptions
 :page-permalink: filter-descriptions.html
 
@@ -33,8 +32,6 @@ Arguments may be passed to tokenizer factories to modify their behavior by setti
 The following sections describe the filter factories that are included in this release of Solr.
 
 For user tips about Solr's filters, see http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters.
-
-toc::[]
 
 [[FilterDescriptions-ASCIIFoldingFilter]]
 == ASCII Folding Filter

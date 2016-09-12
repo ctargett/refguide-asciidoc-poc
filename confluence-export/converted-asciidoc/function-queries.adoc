@@ -1,14 +1,11 @@
 Function Queries
 ================
-:toc:
 :page-shortname: function-queries
 :page-permalink: function-queries.html
 
 Function queries enable you to generate a relevancy score using the actual value of one or more numeric fields. Function queries are supported by the <<the-dismax-query-parser.adoc#,DisMax>>, <<the-extended-dismax-query-parser.adoc#,Extended DisMax>>, and <<the-standard-query-parser.adoc#,standard>> query parsers.
 
 Function queries use __functions__. The functions can be a constant (numeric or string literal), a field, another function or a parameter substitution argument. You can use these functions to modify the ranking of results for users. These could be used to change the ranking of results based on a user's location, or some other calculation.
-
-toc::[]
 
 [[FunctionQueries-UsingFunctionQuery]]
 == Using Function Query

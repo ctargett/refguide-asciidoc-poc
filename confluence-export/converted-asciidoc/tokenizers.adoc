@@ -1,6 +1,5 @@
 Tokenizers
 ==========
-:toc:
 :page-shortname: tokenizers
 :page-permalink: tokenizers.html
 
@@ -17,8 +16,6 @@ You configure the tokenizer for a text field type in `schema.xml` with a `<token
 ----
 
 The class attribute names a factory class that will instantiate a tokenizer object when needed. Tokenizer factory classes implement the `org.apache.solr.analysis.TokenizerFactory`. A TokenizerFactory's `create()` method accepts a Reader and returns a TokenStream. When Solr creates the tokenizer it passes a Reader object that provides the content of the text field.
-
-toc::[]
 
 Arguments may be passed to tokenizer factories by setting attributes on the `<tokenizer>` element.
 

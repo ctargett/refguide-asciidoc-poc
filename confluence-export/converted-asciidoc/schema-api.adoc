@@ -1,6 +1,5 @@
 Schema API
 ==========
-:toc:
 :page-shortname: schema-api
 :page-permalink: schema-api.html
 
@@ -26,8 +25,6 @@ The base address for the API is `http://<host>:<port>/solr/<collection_name>`. I
 ----
 bin/solr -e cloud -noprompt
 ----
-
-toc::[]
 
 [[SchemaAPI-APIEntryPoints]]
 == API Entry Points
