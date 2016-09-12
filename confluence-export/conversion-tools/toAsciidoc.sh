@@ -48,10 +48,5 @@ do
     # convert to .asciidoc format using pandoc
     pandoc $HTML_DIR/$FNAME -f html -t asciidoc -i --parse-raw --wrap=none --standalone --atx-headers --template=$PANDOC_TEMPLATE -o ${ASCII_DIR}/${FNAME%.*}.adoc
 
-    # fix up relative links (in place edit) -- NOTE: links to anchor in same page get '#' stripped
-    perl -i -pe 's{link:REL_LINK//#?(.*?)\[(.*?)\]}{\<\<$1,$2\>\>}g' ${ASCII_DIR}/${FNAME%.*}.adoc
-
-    # switch all images from inline to 'block' (double colon) and put on their own line of the file
-    # TODO: any attributes we want to add to every image?
-    perl -i -pe 's{image:(.*?)\[(.*?)\]}{image::$1\[$2\]\n}g' ${ASCII_DIR}/${FNAME%.*}.adoc
+    perl "$WORK_DIR/conversion-tools/post-process-adocs.pl" ${ASCII_DIR}/${FNAME%.*}.adoc
 done;
