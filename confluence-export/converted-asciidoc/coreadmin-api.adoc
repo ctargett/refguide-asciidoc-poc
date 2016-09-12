@@ -23,11 +23,11 @@ The `STATUS` action returns the status of all running Solr cores, or status for 
 ***Query Parameters***
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|==========================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Type |Required |Default |Description
 |core |string |No | |The name of a core, as listed in the "name" attribute of a `<core>` element in `solr.xml`.
 |indexInfo |boolean |No |true |If **false**, information about the index will not be returned with a core STATUS request. In Solr implementations with a large number of cores (i.e., more than hundreds), retrieving the index information for each core can take a lot of time and isn't always required.
-|==========================================================================================================================================================================================================================================================================================================
+|===
 
 [[CoreAdminAPI-CREATE]]
 == `CREATE`
@@ -54,7 +54,7 @@ When you are not running SolrCloud, if you have <<config-sets.adoc#,Config Sets>
 ***Query Parameters***
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|=========================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Type |Required |Default |Description
 |name |string |Yes |N/A |The name of the new core. Same as "name" on the `<core>` element.
 |instanceDir |string |No |whatever is specified for "name" parameter |The directory where files for this SolrCore should be stored. Same as `instanceDir` on the `<core>` element.
@@ -66,7 +66,7 @@ When you are not running SolrCloud, if you have <<config-sets.adoc#,Config Sets>
 |shard |string |No | |The shard id this core represents. Normally you want to be auto-assigned a shard id.
 |property.__name__=__value__ |string |No | |Sets the core property _name_ to __value__. See the section on defining <<defining-core-properties.adoc#Definingcore.properties-core.properties_files,core.properties file contents>>.
 |async |string |No | |Request ID to track this action which will be processed asynchronously
-|=========================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 Use `collection.configName=<configname>` to point to the config for a new collection.
 
@@ -96,10 +96,10 @@ Note:RELOAD performs "live" reloads of SolrCore, reusing some existing objects. 
 *Query Parameters*
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|====================================================================================================================
+|===
 |Parameter |Type |Required |Default |Description
 |core |string |Yes |N/A |The name of the core, as listed in the "name" attribute of a `<core>` element in `solr.xml`.
-|====================================================================================================================
+|===
 
 [[CoreAdminAPI-RENAME]]
 == `RENAME`
@@ -114,12 +114,12 @@ The `RENAME` action changes the name of a Solr core.
 **Query Parameters**
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|======================================================================================================================================================================================================
+|===
 |Parameter |Type |Required |Default |Description
 |core |string |Yes | |The name of the Solr core to be renamed.
 |other |string |Yes | |The new name for the Solr core. If the persistent attribute of `<solr>` is `true`, the new name will be written to `solr.xml` as the `name` attribute of the `<core>` attribute.
 |async |string |No | |Request ID to track this action which will be processed asynchronously
-|======================================================================================================================================================================================================
+|===
 
 [[CoreAdminAPI-SWAP]]
 == `SWAP`
@@ -138,12 +138,12 @@ Do not use `SWAP` with a SolrCloud node. It is not supported and can result in t
 *Query Parameters*
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|===========================================================================================
+|===
 |Parameter |Type |Required |Default |Description
 |core |string |Yes | |The name of one of the cores to be swapped.
 |other |string |Yes | |The name of one of the cores to be swapped.
 |async |string |No | |Request ID to track this action which will be processed asynchronously
-|===========================================================================================
+|===
 
 [[CoreAdminAPI-UNLOAD]]
 == `UNLOAD`
@@ -164,14 +164,14 @@ Unloading all cores in a SolrCloud collection causes the removal of that collect
 *Query Parameters*
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|===================================================================================================================================================================
+|===
 |Parameter |Type |Required |Default |Description
 |core |string |Yes | |The name of one of the cores to be removed.
 |deleteIndex |boolean |No |false |If true, will remove the index when unloading the core.
 |deleteDataDir |boolean |No |false |If true, removes the `data` directory and all sub-directories.
 |deleteInstanceDir |boolean |No |false |If true, removes everything related to the core, including the index directory, configuration files and other related files.
 |async |string |No | |Request ID to track this action which will be processed asynchronously
-|===================================================================================================================================================================
+|===
 
 [[CoreAdminAPI-MERGEINDEXES]]
 == `MERGEINDEXES`
@@ -196,13 +196,13 @@ We can make this call run asynchronously by specifying the `async` parameter and
 *Query Parameters*
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|=========================================================================================
+|===
 |Parameter |Type |Required |Default |Description
 |core |string |Yes | |The name of the target core/index.
 |indexDir |string | | |Multi-valued, directories that would be merged.
 |srcCore |string | | |Multi-valued, source cores that would be merged.
 |async |string | | |Request ID to track this action which will be processed asynchronously
-|=========================================================================================
+|===
 
 [[CoreAdminAPI-SPLIT]]
 == `SPLIT`
@@ -217,7 +217,7 @@ The `SPLIT` action supports five parameters, which are described in the table be
 *Query Parameters*
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|=======================================================================================================
+|===
 |Parameter |Type |Required |Default |Description
 |core |string |Yes | |The name of the core to be split.
 |path |string | | |Multi-valued, the directory path in which a piece of the index will be written.
@@ -225,7 +225,7 @@ The `SPLIT` action supports five parameters, which are described in the table be
 |ranges |string |No | |A comma-separated list of hash ranges in hexadecimal format
 |split.key |string |No | |The key to be used for splitting the index
 |async |string |No | |Request ID to track this action which will be processed asynchronously
-|=======================================================================================================
+|===
 
 Note:
 
@@ -279,10 +279,10 @@ Request the status of an already submitted asynchronous CoreAdmin API call.
 *Query Parameters*
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|===================================================================================
+|===
 |Parameter |Type |Required |Default |Description
 |requestid |string |Yes | |The user defined request-id for the Asynchronous request.
-|===================================================================================
+|===
 
 The call below will return the status of an already submitted Asynchronous CoreAdmin call.
 

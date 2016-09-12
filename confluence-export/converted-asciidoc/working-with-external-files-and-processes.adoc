@@ -80,13 +80,13 @@ By default, the query-time analyzer for fields of this type will be the same as 
 This is the default serialization format used by PreAnalyzedField type. It uses a top-level JSON map with the following keys:
 
 [cols=",,",options="header",]
-|===========================================================================================
+|===
 |Key |Description |Required?
 |`v` |Version key. Currently the supported version is `1`. |required
 |`str` |Stored string value of a field. You can use at most one of `str` or `bin`. |optional
 |`bin` |Stored binary value of a field. The binary value has to be Base64 encoded. |optional
 |`tokens` |serialized token stream. This is a JSON list. |optional
-|===========================================================================================
+|===
 
 Any other top-level key is silently ignored.
 
@@ -96,7 +96,7 @@ Any other top-level key is silently ignored.
 The token stream is expressed as a JSON list of JSON maps. The map for each token consists of the following keys and values:
 
 [cols=",,,,",options="header",]
-|=========================================================================================================================================================================================================================
+|===
 |Key |Description |Lucene Attribute |Value |Required?
 |`t` |token |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/CharTermAttribute.html[CharTermAttribute] |UTF-8 string representing the current token |required
 |`s` |start offset |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/OffsetAttribute.html[OffsetAttribute] |Non-negative integer |optional
@@ -105,7 +105,7 @@ The token stream is expressed as a JSON list of JSON maps. The map for each toke
 |`p` |payload |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/PayloadAttribute.html[PayloadAttribute] |Base64 encoded payload |optional
 |`y` |lexical type |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/TypeAttribute.html[TypeAttribute] |UTF-8 string |optional
 |`f` |flags |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/FlagsAttribute.html[FlagsAttribute] |String representing an integer value in hexadecimal format |optional
-|=========================================================================================================================================================================================================================
+|===
 
 Any other key is silently ignored.
 
@@ -153,7 +153,7 @@ value ::= text
 Special characters in "text" values can be escaped using the escape character `\` . The following escape sequences are recognized:
 
 [cols=",",options="header",]
-|===============================
+|===
 |EscapeSequence |Description
 |"`\` " |literal space character
 |"`\,`" |literal `,` character
@@ -162,7 +162,7 @@ Special characters in "text" values can be escaped using the escape character `\
 |"`\n`" |newline
 |"`\r`" |carriage return
 |"`\t`" |horizontal tab
-|===============================
+|===
 
 Please note that Unicode sequences (e.g. `\u0001`) are not supported.
 
@@ -172,7 +172,7 @@ Please note that Unicode sequences (e.g. `\u0001`) are not supported.
 The following token attributes are supported, and identified with short symbolic names:
 
 [cols=",,,",options="header",]
-|=============================================================================================================================================================================================
+|===
 |Name |Description |Lucene attribute |Value format
 |`i` |position increment |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/PositionIncrementAttribute.html[PositionIncrementAttribute] |integer
 |`s` |start offset |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/OffsetAttribute.html[OffsetAttribute] |integer
@@ -180,7 +180,7 @@ The following token attributes are supported, and identified with short symbolic
 |`y` |lexical type |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/TypeAttribute.html[TypeAttribute] |string
 |`f` |flags |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/FlagsAttribute.html[FlagsAttribute] |hexadecimal integer
 |`p` |payload |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/PayloadAttribute.html[PayloadAttribute] |bytes in hexadecimal format; whitespace is ignored
-|=============================================================================================================================================================================================
+|===
 
 Token positions are tracked and implicitly added to the token stream - the start and end offsets consider only the term text and whitespace, and exclude the space taken by token attributes.
 

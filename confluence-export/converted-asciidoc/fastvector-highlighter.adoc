@@ -12,7 +12,7 @@ You must also turn on `termVectors`, `termPositions`, and `termOffsets` for each
 The table below describes Solr's parameters for this highlighter, many of which overlap with the standard highlighter. These parameters can be defined in the highlight search component, as defaults for the specific request handler, or passed to the request handler with the query.
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|===============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Default |Description
 |hl |blank (no highlighting) |When set to **true**, enables highlighted snippets to be generated in the query response. A *false* or blank value disables highlighting.
 |hl.useFastVectorHighlighter |false |When set to **true**, enables the FastVector Highlighter.
@@ -32,7 +32,7 @@ The table below describes Solr's parameters for this highlighter, many of which 
 |hl.preserveMulti |false |If **true**, multi-valued fields will return all values in the order they were saved in the index. If **false**, the default, only values that match the highlight request will be returned.
 |hl.fragListBuilder |weighted |The snippet fragmenting algorithm. The *weighted* fragListBuilder uses IDF-weights to order fragments. Other options are **single**, which returns the entire field contents as one snippet, or **simple**. You can select a fragListBuilder with this parameter, or modify an existing implementation in `solrconfig.xml` to be the default by adding "default=true".
 |hl.fragmentsBuilder |default |The fragments builder is responsible for formatting the fragments, which uses <em> and </em> markup (if `hl.tag.pre` and `hl.tag.post` are not defined). Another pre-configured choice is **colored**, which is an example of how to use the fragments builder to insert HTML into the snippets for colored highlights if you choose. You can also implement your own if you'd like. You can select a fragments builder with this parameter, or modify an existing implementation in `solrconfig.xml` to be the default by adding "default=true".
-|===============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[FastVectorHighlighter-UsingBoundaryScannerswiththeFastVectorHighlighter]]
 == Using Boundary Scanners with the Fast Vector Highlighter

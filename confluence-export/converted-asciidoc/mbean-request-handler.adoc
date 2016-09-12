@@ -7,13 +7,13 @@ The MBean Request Handler offers programmatic access to the information provided
 The MBean Request Handler accepts the following parameters:
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|===========================================================================================================================================
+|===
 |Parameter |Type |Default |Description
 |key |multivalued |all |Restricts results by object key.
 |cat |multivalued |all |Restricts results by category name.
 |stats |boolean |false |Specifies whether statistics are returned with results. You can override the `stats` parameter on a per-field basis.
 |wt |multivalued |xml |The output format. This operates the same as the <<response-writers.adoc#,`wt` parameter in a query>>.
-|===========================================================================================================================================
+|===
 
 [[MBeanRequestHandler-Examples]]
 === Examples

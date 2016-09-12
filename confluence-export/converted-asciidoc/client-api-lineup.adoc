@@ -7,7 +7,7 @@ The Solr Wiki contains a list of client APIs at http://wiki.apache.org/solr/Inte
 Here is the list of client APIs, current at this writing (November 2011):
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|=======================================================================================================
+|===
 |Name |Environment |URL
 |SolRuby |Ruby |https://github.com/rsolr/rsolr
 |DelSolr |Ruby |https://github.com/avvo/delsolr
@@ -24,4 +24,4 @@ Here is the list of client APIs, current at this writing (November 2011):
 |SolColdfusion |ColdFusion |http://solcoldfusion.riaforge.org/
 |SolrNet |.NET |https://github.com/mausch/SolrNet
 |AJAX Solr |AJAX |http://github.com/evolvingweb/ajax-solr/wiki
-|=======================================================================================================
+|===

@@ -60,13 +60,13 @@ For example:
 Each element has certain optional attributes which may be specified.
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|========================================================================================================================================================================
+|===
 |Command |Optional Parameter |Parameter Description
 |<add> |commitWithin=__number__ |Add the document within the specified number of milliseconds
 |<add> |overwrite=__boolean__ |Default is true. Indicates if the unique key constraints should be checked to overwrite previous versions of the same document (see below)
 |<doc> |boost=__float__ |Default is 1.0. Sets a boost value for the document.To learn more about boosting, see <<searching.adoc#,Searching>>.
 |<field> |boost=__float__ |Default is 1.0. Sets a boost value for the field.
-|========================================================================================================================================================================
+|===
 
 If the document schema defines a unique key, then by default an `/update` operation to add a document will overwrite (ie: replace) any document in the index with the same unique key. If no unique key has been defined, indexing performance is somewhat faster, as no check has to be made for an existing documents to replace.
 
@@ -87,12 +87,12 @@ The `<optimize>` operation requests Solr to merge internal data structures in or
 The `<commit>` and `<optimize>` elements accept these optional attributes:
 
 [width="100%",cols="50%,50%",options="header",]
-|===========================================================================================================================================
+|===
 |Optional Attribute |Description
 |waitSearcher |Default is true. Blocks until a new searcher is opened and registered as the main query searcher, making the changes visible.
 |expungeDeletes |(commit only) Default is false. Merges segments that have more than 10% deleted docs, expunging them in the process.
 |maxSegments |(optimize only) Default is 1. Merges the segments down to no more than this number of segments.
-|===========================================================================================================================================
+|===
 
 Here are examples of <commit> and <optimize> using optional attributes:
 
@@ -374,7 +374,7 @@ You can specify the version of deletes in the body of the update request as well
 In addition to the `/update` handler, there are a few additional JSON specific request handler paths available by default in Solr, that implicitly override the behavior of some request parameters:
 
 [width="100%",cols="50%,50%",options="header",]
-|=====================================================
+|===
 |Path |Default Parameters
 |`/update/json` |`stream.contentType=application/json`
 |`/update/json/docs` a|
@@ -382,7 +382,7 @@ In addition to the `/update` handler, there are a few additional JSON specific r
 
 `json.command=false`
 
-|=====================================================
+|===
 
 The `/update/json` path may be useful for clients sending in JSON formatted update commands from applications where setting the Content-Type proves difficult, while the `/update/json/docs` path can be particularly convenient for clients that always want to send in documents – either individually or as a list – with out needing to worry about the full JSON command syntax.
 
@@ -691,7 +691,7 @@ The CSV handler allows the specification of many parameters in the URL in the fo
 The table below describes the parameters for the update handler.
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|==========================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Usage |Global (g) or Per Field (f) |Example
 |separator |Character used as field separator; default is "," |g,(f: see split) |separator=%09
 |trim |If true, remove leading and trailing whitespace from values. Default=false. |g,f |f.isbn.trim=true trim=false
@@ -710,7 +710,7 @@ The table below describes the parameters for the update handler.
 |commitWithin |Add the document within the specified number of milliseconds. |g |commitWithin=10000
 |rowid |Map the rowid (line number) to a field specified by the value of the parameter, for instance if your CSV doesn't have a unique key and you want to use the row id as such. |g |rowid=id
 |rowidOffset |Add the given offset (as an int) to the rowid before adding it to the document. Default is 0 |g |rowidOffset=10
-|==========================================================================================================================================================================================================================================================================================
+|===
 
 [[UploadingDatawithIndexHandlers-IndexingTab-Delimitedfiles]]
 === Indexing Tab-Delimited files
@@ -737,10 +737,10 @@ curl 'http://localhost:8983/solr/update/csv?commit=true&separator=%09&escape=%5c
 In addition to the `/update` handler, there is an additional CSV specific request handler path available by default in Solr, that implicitly override the behavior of some request parameters:
 
 [cols=",",options="header",]
-|===================================================
+|===
 |Path |Default Parameters
 |`/update/csv` |`stream.contentType=application/csv`
-|===================================================
+|===
 
 The `/update/csv` path may be useful for clients sending in CSV formatted update commands from applications where setting the Content-Type proves difficult.
 

@@ -51,7 +51,7 @@ You could add this component to another handler if you wanted to, and pass "term
 The parameters below allow you to control what terms are returned. You can also any of these to the request handler if you'd like to set them permanently. Or, you can add them to the query request. These parameters are:
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|=========================================================================================================================================================================================================================================
+|===
 |Parameter |Required |Default |Description
 |terms |No |false a|
 If set to true, enables the Terms Component. By default, the Terms Component is off.
@@ -132,7 +132,7 @@ If set to true, the upper bound term is included in the result set. The default 
 
 Example: `terms.upper.incl=true`
 
-|=========================================================================================================================================================================================================================================
+|===
 
 The output is a list of the terms and their document frequency values. See below for examples.
 
@@ -252,11 +252,11 @@ Result:
 The TermsComponent also supports distributed indexes. For the `/terms` request handler, you must provide the following two parameters:
 
 [width="100%",cols="50%,50%",options="header",]
-|==================================================================================================================================================================================================================================
+|===
 |Parameter |Description
 |shards |Specifies the shards in your distributed indexing configuration. For more information about distributed indexing, see <<distributed-search-with-index-sharding.adoc#,Distributed Search with Index Sharding>>.
 |shards.qt |Specifies the request handler Solr uses for requests to shards.
-|==================================================================================================================================================================================================================================
+|===
 
 [[TheTermsComponent-MoreResources]]
 == More Resources

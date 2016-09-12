@@ -18,7 +18,7 @@ Solr supports several modifiers that atomically update values of a document. Thi
 To use atomic updates, add a modifier to the field that needs to be updated. The content can be updated, added to, or incrementally increased if a number.
 
 [width="100%",cols="50%,50%",options="header",]
-|=========================================================================================================================================
+|===
 |Modifier |Usage
 |set a|
 Set or replace the field value(s) with the specified value(s), or remove the values if 'null' or empty list is specified as the new value.
@@ -45,7 +45,7 @@ Increments a numeric value by a specific amount.
 
 Must be specified as a single numeric value.
 
-|=========================================================================================================================================
+|===
 
 [[UpdatingPartsofDocuments-FieldStorage]]
 === Field Storage

@@ -8,7 +8,7 @@ A Response Writer generates the formatted response of a search. Solr supports a 
 The `wt` parameter selects the Response Writer to be used. The table below lists the most common settings for the `wt` parameter.
 
 [width="100%",cols="50%,50%",options="header",]
-|==================================================================================================================
+|===
 |`wt` Parameter Setting |Response Writer Selected
 |csv |<<ResponseWriters-CSVResponseWriter,CSVResponseWriter>>
 |geojson |<<ResponseWriters-GeoJSONResponseWriter,GeoJSONResponseWriter>>
@@ -21,7 +21,7 @@ The `wt` parameter selects the Response Writer to be used. The table below lists
 |velocity |<<ResponseWriters-VelocityResponseWriter,VelocityResponseWriter>>
 |xml |<<ResponseWriters-TheStandardXMLResponseWriter,XMLResponseWriter>>
 |xslt |<<ResponseWriters-TheXSLTResponseWriter,XSLTResponseWriter>>
-|==================================================================================================================
+|===
 
 [[ResponseWriters-TheStandardXMLResponseWriter]]
 == The Standard XML Response Writer
@@ -40,10 +40,10 @@ The `version` parameter determines the XML protocol used in the response. Client
 Currently supported version values are:
 
 [width="100%",cols="50%,50%",options="header",]
-|============================================================================================================
+|===
 |XML Version |Notes
 |2.2 |The format of the responseHeader changed to use the same `<lst>` structure as the rest of the response.
-|============================================================================================================
+|===
 
 The default value is the latest supported.
 
@@ -193,7 +193,7 @@ The CSV response writer supports multi-valued fields, as well as<<transforming-r
 These parameters specify the CSV format that will be returned. You can accept the default values or specify your own.
 
 [width="100%",cols="50%,50%",options="header",]
-|===================================================================================================================
+|===
 |Parameter |Default Value
 |csv.encapsulator |"
 |csv.escape |None
@@ -201,7 +201,7 @@ These parameters specify the CSV format that will be returned. You can accept th
 |csv.header |Defaults to true. If false, Solr does not print the column headers
 |csv.newline |\n
 |csv.null |Defaults to a zero length string. Use this parameter when a document has no value for a particular field.
-|===================================================================================================================
+|===
 
 [[ResponseWriters-Multi-ValuedFieldCSVParameters]]
 === Multi-Valued Field CSV Parameters
@@ -209,12 +209,12 @@ These parameters specify the CSV format that will be returned. You can accept th
 These parameters specify how multi-valued fields are encoded. Per-field overrides for these values can be done using `f.<fieldname>.csv.separator=|`.
 
 [width="100%",cols="50%,50%",options="header",]
-|=======================================================
+|===
 |Parameter |Default Value
 |csv.mv.encapsulator |None
 |csv.mv.escape |\
 |csv.mv.separator |Defaults to the `csv.separator` value
-|=======================================================
+|===
 
 [[ResponseWriters-Example]]
 === Example

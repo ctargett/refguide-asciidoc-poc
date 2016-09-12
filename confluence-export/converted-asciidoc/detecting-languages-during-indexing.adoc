@@ -52,7 +52,7 @@ Here is an example of a minimal LangDetect `langid` configuration in `solrconfig
 As previously mentioned, both implementations of the `langid` UpdateRequestProcessor take the same parameters.
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|==========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Type |Default |Required |Description
 |langid |Boolean |true |no |Enables and disables language detection.
 |langid.fl |string |none |yes |A comma- or space-delimited list of fields to be processed by `langid`.
@@ -73,4 +73,4 @@ As previously mentioned, both implementations of the `langid` UpdateRequestProce
 |langid.map.pattern |Java regular expression |none |no |By default, fields are mapped as <field>_<language>. To change this pattern, you can specify a Java regular expression in this parameter.
 |langid.map.replace |Java replace |none |no |By default, fields are mapped as <field>_<language>. To change this pattern, you can specify a Java replace in this parameter.
 |langid.enforceSchema |Boolean |true |no |If false, the `langid` processor does not validate field names against your schema. This may be useful if you plan to rename or delete fields later in the UpdateChain.
-|==========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===

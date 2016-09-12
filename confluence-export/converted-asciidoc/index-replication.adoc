@@ -33,7 +33,7 @@ Although there is no explicit concept of "master/slave" nodes in a <<solrcloud.a
 The table below defines the key terms associated with Solr replication.
 
 [width="100%",cols="50%,50%",options="header",]
-|=================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Term |Definition
 |Index |A Lucene index is a directory of files. These files make up the searchable and returnable data of a Solr Core.
 |Distribution |The copying of an index from the master server to all slaves. The distribution process takes advantage of Lucene's index file structure.
@@ -44,7 +44,7 @@ The table below defines the key terms associated with Solr replication.
 |Segments |A self contained subset of an index consisting of some documents and data structures related to the inverted index of terms in those documents.
 |mergeFactor |A parameter that controls the number of segments in an index. For example, when mergeFactor is set to 3, Solr will fill one segment with documents until the limit maxBufferedDocs is met, then it will start a new segment. When the number of segments specified by mergeFactor is reached (in this example, 3) then Solr will merge all the segments into a single index file, then begin writing new documents to a new segment.
 |Snapshot |A directory containing hard links to the data files of an index. Snapshots are distributed from the master nodes when the slaves pull them, "smart copying" any segments the slave node does not have in snapshot directory that contains the hard links to the most recent index data files.
-|=================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[IndexReplication-ConfiguringtheReplicationHandler]]
 == Configuring the ReplicationHandler
@@ -60,14 +60,14 @@ In addition to `ReplicationHandler` configuration options specific to the master
 Before running a replication, you should set the following parameters on initialization of the handler:
 
 [width="100%",cols="50%,50%",options="header",]
-|================================================================================================================================================================================================================================================================================================================================
+|===
 |Name |Description
 |replicateAfter |String specifying action after which replication should occur. Valid values are commit, optimize, or startup. There can be multiple values for this parameter. If you use "startup", you need to have a "commit" and/or "optimize" entry also if you want to trigger replication on future commits or optimizes.
 |backupAfter |String specifying action after which a backup should occur. Valid values are commit, optimize, or startup. There can be multiple values for this parameter. It is not required for replication, it just makes a backup.
 |maxNumberOfBackups |Integer specifying how many backups to keep. This can be used to delete all but the most recent N backups.
 |confFiles |The configuration files to replicate, separated by a comma.
 |commitReserveDuration |If your commits are very frequent and your network is slow, you can tweak this parameter to increase the amount of time taken to download 5Mb from the master to a slave. The default is 10 seconds.
-|================================================================================================================================================================================================================================================================================================================================
+|===
 
 The example below shows a possible 'master' configuration for the `ReplicationHandler`, including a fixed number of backups and an invariant setting for the `maxWriteMBPerSec` request parameter to prevent slaves from saturating it's network interface
 
@@ -181,12 +181,12 @@ Here is an example of a ReplicationHandler configuration for a repeater:
 When a commit or optimize operation is performed on the master, the RequestHandler reads the list of file names which are associated with each commit point. This relies on the `replicateAfter` parameter in the configuration to decide which types of events should trigger replication.
 
 [width="100%",cols="50%,50%",options="header",]
-|================================================================================
+|===
 |Setting on the Master |Description
 |commit |Triggers replication whenever a commit is performed on the master index.
 |optimize |Triggers replication whenever the master index is optimized.
 |startup |Triggers replication whenever the master index starts up.
-|================================================================================
+|===
 
 The replicateAfter parameter can accept multiple arguments. For example:
 
@@ -232,7 +232,7 @@ If documents are added to the slave, then the slave is no longer in sync with it
 You can use the HTTP commands below to control the ReplicationHandler's operations.
 
 [width="100%",cols="50%,50%",options="header",]
-|============================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Command |Description
 |http://__master_host:port__/solr/__core_name__/replication?command=enablereplication |Enables replication on the master for all its slaves.
 |http://__master_host:port__/solr/__core_name__/replication?command=disablereplication |Disables replication on the master for all its slaves.
@@ -260,7 +260,7 @@ request parameters:
 * name: The name of the snapshot . A snapshot with the name snapshot.<name> must exist .If not, an error is thrown
 * location: Location where the snapshot is created
 
-|============================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[IndexReplication-DistributionandOptimization]]
 == Distribution and Optimization

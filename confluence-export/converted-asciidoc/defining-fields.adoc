@@ -18,12 +18,12 @@ The following example defines a field named `price` with a type named `float` an
 === Field Properties
 
 [cols=",",options="header",]
-|==================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Property |Description
 |name |The name of the field. Field names should consist of alphanumeric or underscore characters only and not start with a digit. This is not currently strictly enforced, but other field names will not have first class support from all components and back compatibility is not guaranteed. Names with both leading and trailing underscores (e.g. `_version_`) are reserved. Every field must have a `name`.
 |type |The name of the `fieldType` for this field. This will be found in the "`name`" attribute on the `fieldType` definition. Every field must have a `type`.
 |default |A default value that will be added automatically to any document that does not have a value in this field when it is indexed. If this property is not specified, there is no default.
-|==================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[DefiningFields-OptionalFieldTypeOverrideProperties]]
 === Optional Field Type Override Properties
@@ -31,7 +31,7 @@ The following example defines a field named `price` with a type named `float` an
 Fields can have many of the same properties as field types. Properties from the table below which are specified on an individual field will override any explicit value for that property specified on the the `<fieldType/>` of the field, or any implicit default property value provided by the underlying `FieldType` implementation. The table below is reproduced from <<field-type-definitions-and-properties.adoc#,Field Type Definitions and Properties>>, which has more details:
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|=========================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Property |Description |Values |Implicit Default
 |indexed |If true, the value of the field can be used in queries to retrieve matching documents. |true or false |true
 |stored |If true, the actual value of the field can be retrieved by queries. |true or false |true
@@ -44,7 +44,7 @@ Fields can have many of the same properties as field types. Properties from the 
 |termVectors termPositions termOffsets termPayloads |These options instruct Solr to maintain full term vectors for each document, optionally including position, offset and payload information for each term occurrence in those vectors. These can be used to accelerate highlighting and other ancillary functionality, but impose a substantial cost in terms of index size. They are not necessary for typical uses of Solr. |true or false |false
 |required |Instructs Solr to reject any attempts to add a document which does not have a value for this field. This property defaults to false. |true or false |false
 |useDocValuesAsStored |If the field has https://cwiki.apache.org/confluence/display/solr/DocValues[docValues] enabled, setting this to true would allow the field to be returned as if it were a stored field (even if it has `stored=false`) when matching "`*`" in an https://cwiki.apache.org/confluence/display/solr/Common+Query+Parameters#CommonQueryParameters-Thefl(FieldList)Parameter[fl parameter]. |true or false |true
-|=========================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[DefiningFields-RelatedTopics]]
 == Related Topics

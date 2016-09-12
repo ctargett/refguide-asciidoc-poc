@@ -18,7 +18,7 @@ The `response` includes the documents that matched the query, in `doc` sub-secti
 This screen allows you to experiment with different query options, and inspect how your documents were indexed. The query parameters available on the form are some basic options that most users want to have available, but there are dozens more available which could be simply added to the basic request by hand (if opened in a browser). The table below explains the parameters available:
 
 [width="100%",cols="50%,50%",options="header",]
-|======================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Field |Description
 |Request-handler (qt) |Specifies the query handler for the request. If a query handler is not specified, Solr processes the response with the standard query handler.
 |q |The query event. See <<searching.adoc#,Searching>> for an explanation of this parameter.
@@ -35,7 +35,7 @@ This screen allows you to experiment with different query options, and inspect h
 |facet |Enables faceting, the arrangement of search results into categories based on indexed terms. See <<faceting.adoc#,Faceting>> for more information.
 |spatial |Click to enable using location data for use in spatial or geospatial searches. See <<spatial-search.adoc#,Spatial Search>> for more information.
 |spellcheck |Click this button to enable the Spellchecker, which provides inline query suggestions based on other, similar, terms. See <<spell-checking.adoc#,Spell Checking>> for more information.
-|======================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[QueryScreen-RelatedTopics]]
 == Related Topics

@@ -5,7 +5,7 @@
 The table below summarizes Solr's common query parameters, which are supported by the <<the-standard-query-parser.adoc#,Standard>>, <<the-dismax-query-parser.adoc#,DisMax>>, and <<the-extended-dismax-query-parser.adoc#,eDisMax>> Request Handlers.
 
 [width="100%",cols="50%,50%",options="header",]
-|==========================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description
 |<<CommonQueryParameters-ThedefTypeParameter,defType>> |Selects the query parser to be used to process the query.
 |<<CommonQueryParameters-ThesortParameter,sort>> |Sorts the response to a query in either ascending or descending order based on the response's score or another specified characteristic.
@@ -21,7 +21,7 @@ The table below summarizes Solr's common query parameters, which are supported b
 |<<CommonQueryParameters-ThewtParameter,wt>> |Specifies the Response Writer to be used to format the query response.
 |<<CommonQueryParameters-ThelogParamsListParameter,logParamsList>> |By default, Solr logs all parameters. Set this parameter to restrict which parameters are logged. Valid entries are the parameters to be logged, separated by commas (i.e., `logParamsList=param1,param2`). An empty list will log no parameters, so if logging all parameters is desired, do not define this additional parameter at all.
 |<<CommonQueryParameters-TheechoParamsParameter,echoParams>> |The response header can include parameters sent with the query request. This parameter controls what is contained in that section of the response header. Valid values are `none`, `all`, and `explicit`. The default value is `explicit.`
-|==========================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 The following sections describe these parameters in detail.
 
@@ -50,13 +50,13 @@ If you want to be able to sort on a field whose contents you want to tokenize to
 The table explains how Solr responds to various settings of the `sort` parameter.
 
 [width="100%",cols="50%,50%",options="header",]
-|=================================================================================================================================================================================
+|===
 |Example |Result
 | |If the sort parameter is omitted, sorting is performed as though the parameter were set to score `desc`.
 |score desc |Sorts in descending order from the highest score to the lowest score.
 |price asc |Sorts in ascending order of the price field
 |inStock desc, price asc |Sorts by the contents of the `inStock` field in descending order, then within those results sorts in ascending order by the contents of the price field.
-|=================================================================================================================================================================================
+|===
 
 Regarding the sort parameter's arguments:
 
@@ -118,7 +118,7 @@ The field list can be specified as a space-separated or comma-separated list of 
 This table shows some basic examples of how to use `fl`:
 
 [width="100%",cols="50%,50%",options="header",]
-|=======================================================================================================================================================================================================================
+|===
 |Field List |Result
 |id name price |Return only the id, name, and price fields.
 |id,name,price |Return only the id, name, and price fields.
@@ -127,7 +127,7 @@ This table shows some basic examples of how to use `fl`:
 |* |Return all the `stored` fields in each document, as well as any `docValues` fields that have `useDocValuesAsStored="true"`. This is the default value of the fl parameter.
 |* score |Return all the fields in each document, along with each field's score.
 |*,dv_field_name |Return all the `stored` fields in each document, and any `docValues` fields that have `useDocValuesAsStored="true`" and the docValues from dv_field_name even if it has `useDocValuesAsStored="false`"
-|=======================================================================================================================================================================================================================
+|===
 
 [[CommonQueryParameters-FunctionValues]]
 === Function Values
@@ -284,12 +284,12 @@ The `echoParams` parameter controls what information about request parameters is
 The table explains how Solr responds to various settings of the `echoParams` parameter:
 
 [width="100%",cols="50%,50%",options="header",]
-|================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Value |Meaning
 |explicit |This is the default value. Only parameters included in the actual request, plus the `_` parameter (which is a 64-bit numeric timestamp) will be added to the params section of the response header.
 |all |Include all request parameters that contributed to the query. This will include everything defined in the request handler definition found in `solrconfig.xml` as well as parameters included with the request, plus the `_` parameter. If a parameter is included in the request handler definition AND the request, it will appear multiple times in the response header.
 |none |Entirely removes the "params" section of the response header. No information about the request parameters will be available in the response.
-|================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 Here is an example of a JSON response where the echoParams parameter was not included, so the default of `explicit` is active. The request URL that created this response included three parameters - `q`, `wt`, and `indent`:
 

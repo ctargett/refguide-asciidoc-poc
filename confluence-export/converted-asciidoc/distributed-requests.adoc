@@ -74,7 +74,7 @@ To configure the standard handler, provide a configuration like this in the solr
 The parameters that can be specified are as follows:
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|===========================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Default |Explanation
 |`socketTimeout` |0 (use OS default) |The amount of time in ms that a socket is allowed to wait.
 |`connTimeout` |0 (use OS default) |The amount of time in ms that is accepted for binding / connecting a socket
@@ -90,7 +90,7 @@ The parameters that can be specified are as follows:
 |`maxThreadIdleTime` |5 seconds |The amount of time to wait for before threads are scaled back in response to a reduction in load.
 |`sizeOfQueue` |-1 |If specified, the thread pool will use a backing queue instead of a direct handoff buffer. High throughput systems will want to configure this to be a direct hand off (with -1). Systems that desire better latency will want to configure a reasonable size of queue to handle variations in requests.
 |`fairnessPolicy` |false |Chooses the JVM specifics dealing with fair policy queuing, if enabled distributed searches will be handled in a First in First out fashion at a cost to throughput. If disabled throughput will be favored over latency.
-|===========================================================================================================================================================================================================================================================================================================================
+|===
 
 [[DistributedRequests-ConfiguringstatsCache(DistributedIDF)]]
 == Configuring statsCache (Distributed IDF)

@@ -54,7 +54,7 @@ Java properties files allow the hash ("#") or bang ("!") characters to specify c
 This table defines the recognized properties:
 
 [width="100%",cols="50%,50%",options="header",]
-|=======================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Property |Description
 |`name` |The name of the SolrCore. You'll use this name to reference the SolrCore when running commands with the CoreAdminHandler.
 |`config` |The configuration file name for a given core. The default is `solrconfig.xml`.
@@ -69,6 +69,6 @@ This table defines the recognized properties:
 |`shard` |The shard to assign this core to (SolrCloud).
 |`collection` |The name of the collection this core is part of (SolrCloud).
 |`roles` |Future param for SolrCloud or a way for users to mark nodes for their own use.
-|=======================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 Additional "user defined" properties may be specified for use as variables. For more information on how to define local properties, see the section <<configuring-solrconfig-xml.adoc#Configuringsolrconfig.xml-SubstitutingPropertiesinSolrConfigFiles,Substituting Properties in Solr Config Files>>.

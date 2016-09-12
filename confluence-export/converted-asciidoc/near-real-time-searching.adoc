@@ -18,11 +18,11 @@ An *optimize* is like a *hard commit* except that it forces all of the index seg
 Soft commit takes uses two parameters: `maxDocs` and `maxTime`.
 
 [width="100%",cols="50%,50%",options="header",]
-|=================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description
 |`maxDocs` |Integer. Defines the number of documents to queue before pushing them to the index. It works in conjunction with the `update_handler_autosoftcommit_max_time` parameter in that if either limit is reached, the documents will be pushed to the index.
 |`maxTime` |The number of milliseconds to wait before pushing documents to the index. It works in conjunction with the `update_handler_autosoftcommit_max_docs` parameter in that if either limit is reached, the documents will be pushed to the index.
-|=================================================================================================================================================================================================================================================================
+|===
 
 Use `maxDocs` and `maxTime` judiciously to fine-tune your commit strategies.
 
@@ -48,13 +48,13 @@ It's better to use `maxTime` rather than `maxDocs` to modify an `autoSoftCommit`
 === Optional Attributes for `commit` and `optimize`
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|==============================================================================================================================================================================
+|===
 |Parameter |Valid Attributes |Description
 |`waitSearcher` |true, false |Block until a new searcher is opened and registered as the main query searcher, making the changes visible. Default is true.
 |`softCommit` |true, false |Perform a soft commit. This will refresh the view of the index faster, but without guarantees that the document is stably stored. Default is false.
 |`expungeDeletes` |true, false |Valid for `commit` only. This parameter purges deleted data from segments. The default is false.
 |`maxSegments` |integer |Valid for `optimize` only. Optimize down to at most this number of segments. The default is 1.
-|==============================================================================================================================================================================
+|===
 
 Example of `commit` and `optimize` with optional attributes:
 

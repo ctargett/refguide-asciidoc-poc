@@ -41,7 +41,7 @@ As you can see, the discovery Solr configuration is "SolrCloud friendly". Howeve
 There are no attributes that you can specify in the `<solr>` tag, which is the root element of `solr.xml`. The tables below list the child nodes of each XML element in `solr.xml`.
 
 [width="100%",cols="50%,50%",options="header",]
-|==============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Node |Description
 |`adminHandler` |If used, this attribute should be set to the FQN (Fully qualified name) of a class that inherits from CoreAdminHandler. For example, `<str name="adminHandler">com.myorg.MyAdminHandler</str>` would configure the custom admin handler (MyAdminHandler) to handle admin requests. If this attribute isn't set, Solr uses the default admin handler, org.apache.solr.handler.admin.CoreAdminHandler. For more information on this parameter, see the Solr Wiki at http://wiki.apache.org/solr/CoreAdmin#cores.
 a|
@@ -68,7 +68,7 @@ configSetBaseDir
 ....
 
  |The directory under which configsets for solr cores can be found. Defaults to SOLR_HOME/configsets
-|==============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[Formatofsolr.xml-The<solrcloud>element]]
 ==== The `<solrcloud>` element
@@ -76,7 +76,7 @@ configSetBaseDir
 This element defines several parameters that relate so SolrCloud. This section is ignored unless the solr instance is started with either `-DzkRun` or `-DzkHost`
 
 [width="100%",cols="50%,50%",options="header",]
-|=================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Node |Description
 |`distribUpdateConnTimeout` |Used to set the underlying "connTimeout" for intra-cluster updates.
 |`distribUpdateSoTimeout` |Used to set the underlying "socketTimeout" for intra-cluster updates.
@@ -89,27 +89,27 @@ This element defines several parameters that relate so SolrCloud. This section i
 |`zkHost` |In SolrCloud mode, the URL of the ZooKeeper host that Solr should use for cluster state information.
 |`genericCoreNodeNames` |If `TRUE`, node names are not based on the address of the node, but on a generic name that identifies the core. When a different machine takes over serving that core things will be much easier to understand.
 |`zkCredentialsProvider` & ` zkACLProvider` |Optional parameters that can be specified if you are using <<zookeeper-access-control.adoc#,ZooKeeper Access Control>>.
-|=================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[Formatofsolr.xml-The<logging>element]]
 ==== The `<logging>` element
 
 [width="100%",cols="50%,50%",options="header",]
-|===================================================================================================================================================
+|===
 |Node |Description
 |`class` |The class to use for logging. The corresponding JAR file must be available to solr, perhaps through a `<lib>` directive in solrconfig.xml.
 |`enabled` |true/false - whether to enable logging or not.
-|===================================================================================================================================================
+|===
 
 [[Formatofsolr.xml-The<logging><watcher>element]]
 ===== The `<logging><watcher>` element
 
 [width="100%",cols="50%,50%",options="header",]
-|=====================================================================================================================================================================
+|===
 |Node |Description
 |`size` |The number of log events that are buffered.
 |`threshold` |The logging level above which your particular logging implementation will record. For example when using log4j one might specify DEBUG, WARN, INFO, etc.
-|=====================================================================================================================================================================
+|===
 
 [[Formatofsolr.xml-The<shardHandlerFactory>element]]
 ==== The `<shardHandlerFactory>` element
@@ -124,7 +124,7 @@ Custom shard handlers can be defined in `solr.xml` if you wish to create a custo
 Since this is a custom shard handler, sub-elements are specific to the implementation. The default and only shard handler provided by Solr is the HttpShardHandlerFactory in which case, the following sub-elements can be specified:
 
 [cols=",",options="header",]
-|==============================================================================================================================================================================
+|===
 |Node |Description
 |socketTimeout |The read timeout for intra-cluster query and administrative requests. The default is the same as the distribUpdateSoTimeout specified in the solrcloud section.
 |connTimeout |The connection timeout for intra-cluster query and administrative requests. Defaults to the distribUpdateConnTimeout specified in the solrcloud section
@@ -136,7 +136,7 @@ Since this is a custom shard handler, sub-elements are specific to the implement
 |maxThreadIdleTime |The amount of time in seconds that idle threads persist for in the queue, before being killed. Default is 5 seconds.
 |sizeOfQueue |If the threadpool uses a backing queue, what is its maximum size to use direct handoff. Default is to use a SynchronousQueue.
 |fairnessPolicy |A boolean to configure if the threadpool favours fairness over throughput. Default is false to favor throughput.
-|==============================================================================================================================================================================
+|===
 
 [[Formatofsolr.xml-SubstitutingJVMSystemPropertiesinsolr.xml]]
 == Substituting JVM System Properties in solr.xml

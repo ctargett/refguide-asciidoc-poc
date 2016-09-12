@@ -32,7 +32,7 @@ Mapping file syntax:
 * The following character escape sequences are recognized within source and target strings:
 +
 [cols=",,,",options="header",]
-|===================================================================================================================================================================
+|===
 |Escapesequence |Resulting character (http://www.ecma-international.org/publications/standards/Ecma-048.htm[ECMA-48] alias) |Unicode character |Example mapping line
 |`\\` |`\` |U+005C |`"\\" => "/"`
 |`\"` |`"` |U+0022 |`"\"and\"" => "'and'"`
@@ -42,7 +42,7 @@ Mapping file syntax:
 |`\f` |form feed (FF) |U+000C |`"\f" => "\n"`
 |`\r` |carriage return (CR) |U+000D |`"\r" => "/carriage-return/"`
 |`\uXXXX` |Unicode char referenced by the 4 hex digits |U+XXXX |`"\uFEFF" => ""`
-|===================================================================================================================================================================
+|===
 ** A backslash followed by any other character is interpreted as if the character were present without the backslash.
 
 [[CharFilterFactories-solr.HTMLStripCharFilterFactory]]
@@ -75,7 +75,7 @@ The input need not be an HTML document. The filter removes only constructs that 
 The table below presents examples of HTML stripping.
 
 [width="100%",cols="50%,50%",options="header",]
-|======================================================================
+|===
 |Input |Output
 |`my <a href="www.foo.bar">link</a>` |my link
 |`<br>hello<!--comment-->` |hello
@@ -83,7 +83,7 @@ The table below presents examples of HTML stripping.
 |`if a<b then print a;` |if a<b then print a;
 |`hello <td height=22 nowrap align="left">` |hello
 |`a<b &#65 Alpha&Omega Ω` |a<b A Alpha&Omega Ω
-|======================================================================
+|===
 
 Example:
 
@@ -146,13 +146,13 @@ You can configure this filter in `schema.xml` like this:
 The table below presents examples of regex-based pattern replacement:
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|===============================================================================================
+|===
 |Input |pattern |replacement |Output |Description
 |see-ing looking |`(\w+)(ing)` |`$1` |see-ing look |Removes "ing" from the end of word.
 |see-ing looking |`(\w+)ing` |`$1` |see-ing look |Same as above. 2nd parentheses can be omitted.
 |No.1 NO. no. 543 |`[nN][oO]\.\s*(\d+)` |`#$1` |#1 NO. #543 |Replace some string literals
 |abc=1234=5678 |`(\w+)=(\d+)=(\d+)` |`$3=$1=$2` |5678=abc=1234 |Change the order of the groups.
-|===============================================================================================
+|===
 
 [[CharFilterFactories-RelatedTopics]]
 == Related Topics

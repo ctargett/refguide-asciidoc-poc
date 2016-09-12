@@ -14,7 +14,7 @@ The material as presented assumes that you are familiar with some basic search c
 Special notes are included throughout these pages.
 
 [width="100%",cols="50%,50%",options="header",]
-|============================================================================================
+|===
 |Note Type |Look & Description
 |*Information* a|
 Note:
@@ -36,7 +36,7 @@ Note:
 
 Notes with a red background are warning messages.
 
-|============================================================================================
+|===
 
 [[AboutThisGuide-HostsandPortExamples]]
 === Hosts and Port Examples

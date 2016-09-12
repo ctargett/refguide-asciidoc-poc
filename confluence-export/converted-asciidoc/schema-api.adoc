@@ -253,12 +253,12 @@ The `add-copy-field` command adds a new copy field rule to your schema.
 The attributes supported by the command are the same as when creating copy field rules by manually editing the `schema.xml`, as below:
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|==========================================================================================================================================================
+|===
 |Name |Required |Description
 |source |Yes |The source field.
 |dest |Yes |A field or an array of fields to which the source field will be copied.
 |maxChars |No |The upper limit for the number of characters to be copied. The section <<copying-fields.adoc#,Copying Fields>> has more details.
-|==========================================================================================================================================================
+|===
 
 For example, to define a rule to copy the field "shelf" to the "location" and "catchall" fields, you would POST the following request:
 
@@ -379,20 +379,20 @@ To modify the schema, see the previous section <<SchemaAPI-ModifytheSchema,Modif
 *Path Parameters*
 
 [width="100%",cols="50%,50%",options="header",]
-|==========================================
+|===
 |Key |Description
 |collection |The collection (or core) name.
-|==========================================
+|===
 
 *Query Parameters*
 
 The query parameters should be added to the API request after '?'.
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|================================================================================================================================================================
+|===
 |Key |Type |Required |Default |Description
 |wt |string |No |json |Defines the format of the response. The options are **json**, *xml* or **schema.xml**. If not specified, JSON will be returned by default.
-|================================================================================================================================================================
+|===
 
 [[SchemaAPI-OUTPUT]]
 ==== OUTPUT
@@ -567,24 +567,24 @@ curl http://localhost:8983/solr/gettingstarted/schema?wt=schema.xml
 *Path Parameters*
 
 [width="100%",cols="50%,50%",options="header",]
-|==========================================================================
+|===
 |Key |Description
 |collection |The collection (or core) name.
 |fieldname |The specific fieldname (if limiting request to a single field).
-|==========================================================================
+|===
 
 *Query Parameters*
 
 The query parameters can be added to the API request after a '?'.
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|===============================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Key |Type |Required |Default |Description
 |wt |string |No |json |Defines the format of the response. The options are *json* or **xml**. If not specified, JSON will be returned by default.
 |fl |string |No |(all fields) |Comma- or space-separated list of one or more fields to return. If not specified, all fields will be returned by default.
 |includeDynamic |boolean |No |false |If **true**, and if the *fl* query parameter is specified or the *fieldname* path parameter is used, matching dynamic fields are included in the response and identified with the *dynamicBase* property. If neither the *fl* query parameter nor the *fieldname* path parameter is specified, the *includeDynamic* query parameter is ignored. If **false**, matching dynamic fields will not be returned.
 |showDefaults |boolean |No |false |If **true**, all default field properties from each field's field type will be included in the response (e.g. **tokenized** for **solr.TextField**). If **false**, only explicitly specified field properties will be included.
-|===============================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[SchemaAPI-OUTPUT.1]]
 ==== OUTPUT
@@ -652,22 +652,22 @@ The sample output below has been truncated to only show a few fields.
 *Path Parameters*
 
 [width="100%",cols="50%,50%",options="header",]
-|==============================================================================================
+|===
 |Key |Description
 |collection |The collection (or core) name.
 |name |The name of the dynamic field rule (if limiting request to a single dynamic field rule).
-|==============================================================================================
+|===
 
 *Query Parameters*
 
 The query parameters can be added to the API request after a '?'.
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|=======================================================================================================================================================================================================================================================================
+|===
 |Key |Type |Required |Default |Description
 |wt |string |No |json |Defines the format of the response. The options are *json,* **xml**. If not specified, JSON will be returned by default.
 |showDefaults |boolean |No |false |If **true**, all default field properties from each dynamic field's field type will be included in the response (e.g. *tokenized* for **solr.TextField**). If **false**, only explicitly specified field properties will be included.
-|=======================================================================================================================================================================================================================================================================
+|===
 
 [[SchemaAPI-OUTPUT.2]]
 ==== OUTPUT
@@ -745,22 +745,22 @@ The sample output below has been truncated.
 *Path Parameters*
 
 [width="100%",cols="50%,50%",options="header",]
-|==============================================================================
+|===
 |Key |Description
 |collection |The collection (or core) name.
 |name |The name of the field type (if limiting request to a single field type).
-|==============================================================================
+|===
 
 *Query Parameters*
 
 The query parameters can be added to the API request after a '?'.
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|=======================================================================================================================================================================================================================================================
+|===
 |Key |Type |Required |Default |Description
 |wt |string |No |json |Defines the format of the response. The options are *json* or **xml**. If not specified, JSON will be returned by default.
 |showDefaults |boolean |No |false |If **true**, all default field properties from each field type will be included in the response (e.g. *tokenized* for **solr.TextField**). If **false**, only explicitly specified field properties will be included.
-|=======================================================================================================================================================================================================================================================
+|===
 
 [[SchemaAPI-OUTPUT.3]]
 ==== OUTPUT
@@ -845,22 +845,22 @@ The sample output below has been truncated to show a few different field types f
 *Path Parameters*
 
 [width="100%",cols="50%,50%",options="header",]
-|==========================================
+|===
 |Key |Description
 |collection |The collection (or core) name.
-|==========================================
+|===
 
 *Query Parameters*
 
 The query parameters can be added to the API request after a '?'.
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|========================================================================================================================================================================================================================================================================================================
+|===
 |Key |Type |Required |Default |Description
 |wt |string |No |json |Defines the format of the response. The options are *json* or **xml**. If not specified, JSON will be returned by default.
 |source.fl |string |No |(all source fields) |Comma- or space-separated list of one or more copyField source fields to include in the response - copyField directives with all other source fields will be excluded from the response. If not specified, all copyField-s will be included in the response.
 |dest.fl |string |No |(all dest fields) |Comma- or space-separated list of one or more copyField dest fields to include in the response - copyField directives with all other dest fields will be excluded. If not specified, all copyField-s will be included in the response.
-|========================================================================================================================================================================================================================================================================================================
+|===
 
 [[SchemaAPI-OUTPUT.4]]
 ==== OUTPUT
@@ -923,20 +923,20 @@ The sample output below has been truncated to the first few copy definitions.
 *Path Parameters*
 
 [width="100%",cols="50%,50%",options="header",]
-|==========================================
+|===
 |Key |Description
 |collection |The collection (or core) name.
-|==========================================
+|===
 
 *Query Parameters*
 
 The query parameters can be added to the API request after a '?'.
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|================================================================================================================================================
+|===
 |Key |Type |Required |Default |Description
 |wt |string |No |json |Defines the format of the response. The options are *json* or **xml**. If not specified, JSON will be returned by default.
-|================================================================================================================================================
+|===
 
 [[SchemaAPI-OUTPUT.5]]
 ==== OUTPUT
@@ -975,20 +975,20 @@ curl http://localhost:8983/solr/gettingstarted/schema/name?wt=json
 *Path Parameters*
 
 [width="100%",cols="50%,50%",options="header",]
-|==========================================
+|===
 |Key |Description
 |collection |The collection (or core) name.
-|==========================================
+|===
 
 *Query Parameters*
 
 The query parameters can be added to the API request after a '?'.
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|================================================================================================================================================
+|===
 |Key |Type |Required |Default |Description
 |wt |string |No |json |Defines the format of the response. The options are *json* or **xml**. If not specified, JSON will be returned by default.
-|================================================================================================================================================
+|===
 
 [[SchemaAPI-OUTPUT.6]]
 ==== OUTPUT
@@ -1029,20 +1029,20 @@ curl http://localhost:8983/solr/gettingstarted/schema/version?wt=json
 *Path Parameters*
 
 [width="100%",cols="50%,50%",options="header",]
-|==========================================
+|===
 |Key |Description
 |collection |The collection (or core) name.
-|==========================================
+|===
 
 *Query Parameters*
 
 The query parameters can be added to the API request after a '?'.
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|================================================================================================================================================
+|===
 |Key |Type |Required |Default |Description
 |wt |string |No |json |Defines the format of the response. The options are *json* or **xml**. If not specified, JSON will be returned by default.
-|================================================================================================================================================
+|===
 
 [[SchemaAPI-OUTPUT.7]]
 ==== OUTPUT
@@ -1083,20 +1083,20 @@ curl http://localhost:8983/solr/gettingstarted/schema/uniquekey?wt=json
 *Path Parameters*
 
 [width="100%",cols="50%,50%",options="header",]
-|==========================================
+|===
 |Key |Description
 |collection |The collection (or core) name.
-|==========================================
+|===
 
 *Query Parameters*
 
 The query parameters can be added to the API request after a '?'.
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|================================================================================================================================================
+|===
 |Key |Type |Required |Default |Description
 |wt |string |No |json |Defines the format of the response. The options are *json* or **xml**. If not specified, JSON will be returned by default.
-|================================================================================================================================================
+|===
 
 [[SchemaAPI-OUTPUT.8]]
 ==== OUTPUT
@@ -1138,20 +1138,20 @@ curl http://localhost:8983/solr/gettingstarted/schema/similarity?wt=json
 *Path Parameters*
 
 [width="100%",cols="50%,50%",options="header",]
-|==========================================
+|===
 |Key |Description
 |collection |The collection (or core) name.
-|==========================================
+|===
 
 *Query Parameters*
 
 The query parameters can be added to the API request after a '?'.
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|================================================================================================================================================
+|===
 |Key |Type |Required |Default |Description
 |wt |string |No |json |Defines the format of the response. The options are *json* or **xml**. If not specified, JSON will be returned by default.
-|================================================================================================================================================
+|===
 
 [[SchemaAPI-OUTPUT.9]]
 ==== OUTPUT

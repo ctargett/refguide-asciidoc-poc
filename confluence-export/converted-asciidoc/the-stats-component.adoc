@@ -17,7 +17,7 @@ bin/solr -e techproducts
 The Stats Component accepts the following parameters:
 
 [width="100%",cols="50%,50%",options="header",]
-|=====================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description
 |stats |If **true**, then invokes the Stats component.
 |stats.field a|
@@ -35,7 +35,7 @@ If **true**, the "countDistinct" and "distinctValues" statistics will be compute
 
 This parameter can be specified using per-filed override (ie: `f.<field>.stats.calcdistinct=true`) but users are encouraged to instead the statistics desired <<TheStatsComponent-LocalParameters,as Local Parameter>> - As a top level request parameter, this option is deprecated.
 
-|=====================================================================================================================================================================================================================================================================================================================
+|===
 
 [[TheStatsComponent-Example]]
 === Example
@@ -91,7 +91,7 @@ The query below demonstrates computing stats against two different fields numeri
 The table below explains the statistics supported by the Stats component. Not all statistics are supported for all field types, and not all statistics are computed by default (See <<TheStatsComponent-LocalParameters,Local Parameters>> below for details)
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
-|========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Local Param |Sample Input |Description a|
 Supported
 
@@ -114,7 +114,7 @@ by Default
 |distinctValues |true |The set of all distinct values for the field/function in all of the documents in the set. This calculation can be very expensive for fields that do not have a tiny cardinality. |All |No
 |countDistinct |true |The exact number of distinct values in the field/function in all of the documents in the set. This calculation can be very expensive for fields that do not have a tiny cardinality. |All |No
 |cardinality |"true" or"0.3" |A statistical approximation (currently using the https://en.wikipedia.org/wiki/HyperLogLog[HyperLogLog] algorithm) of the number of distinct values in the field/function in all of the documents in the set. This calculation is much more efficient then using the 'countDistinct' option, but may not be 100% accurate. Input for this option can be floating point number between 0.0 and 1.0 indicating how aggressively the algorithm should try to be accurate: 0.0 means use as little memory as possible; 1.0 means use as much memory as needed to be as accurate as possible. 'true' is supported as an alias for "0.3" |All |No
-|========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[TheStatsComponent-LocalParameters]]
 == Local Parameters

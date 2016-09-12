@@ -29,7 +29,7 @@ This sets the default search field ("df") to be "_text_" for all of the request 
 The syntax and semantics are similar to that of a `<requestHandler>` . The following are the attributes
 
 [width="100%",cols="50%,50%",options="header",]
-|========================================================================================================================================================================================================================================================
+|===
 |property |Description
 |path |A comma-separated list of paths which will use the parameters. Wildcards can be used in paths to define nested paths, as described below.
 |name a|
@@ -42,7 +42,7 @@ For example, if an `<initParams>` section has the name "myParams", you can call 
 <requestHandler name="/dump1" class="DumpRequestHandler" initParams="myParams"/>
 ----
 
-|========================================================================================================================================================================================================================================================
+|===
 
 [[InitParamsinSolrConfig-Wildcards]]
 === Wildcards

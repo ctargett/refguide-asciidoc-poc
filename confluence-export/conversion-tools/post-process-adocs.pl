@@ -11,9 +11,9 @@ while (my $line = <>) {
 	next; # skip this line completley
     }
 
-    
-    # TODO: purge ======= lines
-    
+    # table syntax doesn't need to be so verbose
+    $line =~ s{^\|\={3,}+$}{|===};
+	
     # fix up relative links (in place edit) -- NOTE: links to anchor in same page get '#' stripped
     $line =~ s{link:REL_LINK//#?(.*?)\[(.*?)\]}{\<\<$1,$2\>\>}g;
 

@@ -152,11 +152,11 @@ Details about using the `CollapsingQParser` can be found in the section <<collap
 The `ComplexPhraseQParser` provides support for wildcards, ORs, etc., inside phrase queries using Lucene's ` ComplexPhraseQueryParser `. Under the covers, this query parser makes use of the Span group of queries, e.g., spanNear, spanOr, etc., and is subject to the same limitations as that family or parsers.
 
 [width="100%",cols="50%,50%",options="header",]
-|=====================================================================================================
+|===
 |Parameter |Description
 |`inOrder` |Set to true to force phrase queries to match terms in the order specified. Default: *true*
 |`df` |The default search field.
-|=====================================================================================================
+|===
 
 *Examples:*
 
@@ -249,13 +249,13 @@ The `FunctionRangeQParser` extends the `QParserPlugin` and creates a range query
 Other parameters:
 
 [width="100%",cols="50%,50%",options="header",]
-|=================================================================
+|===
 |Parameter |Description
 |l |The lower bound, optional
 |u |The upper bound, optional
 |incl |Include the lower bound: true/false, optional, default=true
 |incu |Include the upper bound: true/false, optional, default=true
-|=================================================================
+|===
 
 Examples:
 
@@ -282,7 +282,7 @@ The `graph` query parser does a breadth first, cyclic aware, graph traversal of 
 === Parameters
 
 [width="100%",cols="50%,50%",options="header",]
-|====================================================================================================================================================================================
+|===
 |Parameter |Description
 |to |The field name of matching documents to inspect to identify outgoing edges for graph traversal. Defaults to `edge_ids` .
 |from |The field name to of candidate documents to inspect to identify incoming graph edges. Defaults to `node_id` .
@@ -291,7 +291,7 @@ The `graph` query parser does a breadth first, cyclic aware, graph traversal of 
 |returnRoot |Boolean to indicate if the documents that matched the original query (to define the starting points for graph) should be included in the final results. Defaults to true
 |returnOnlyLeaf |Boolean that indicates if the results of the query should be filtered so that only documents with no outgoing edges are returned. Defaults to false
 |useAutn |Boolean that indicates if an Automatons should be compiled for each iteration of the breadth first search, which may be faster for some graphs. Defaults to false.
-|====================================================================================================================================================================================
+|===
 
 [[OtherParsers-Limitations.1]]
 === Limitations
@@ -513,7 +513,7 @@ Example:
 This query parser takes the following parameters:
 
 [width="100%",cols="50%,50%",options="header",]
-|=====================================================================================================================================================
+|===
 |Parameter |Description
 |qf |Specifies the fields to use for similarity.
 |mintf |Specifies the Minimum Term Frequency, the frequency below which terms will be ignored in the source document.
@@ -524,7 +524,7 @@ This query parser takes the following parameters:
 |maxqt |Sets the maximum number of query terms that will be included in any generated query.
 |maxntp |Sets the maximum number of tokens to parse in each example document field that is not stored with TermVector support.
 |boost |Specifies if the query will be boosted by the interesting term relevance. It can be either "true" or "false".
-|=====================================================================================================================================================
+|===
 
 Examples:
 
@@ -622,13 +622,13 @@ The Simple query parser in Solr is based on Lucene's SimpleQueryParser. This que
 This parser takes the following parameters:
 
 [width="100%",cols="50%,50%",options="header",]
-|==============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description
 |q.operators a|
 Comma-separated list of names of parsing operators to enable. By default, all operations are enabled, and this parameter can be used to effectively disable specific operators as needed, by excluding them from the list. Passing an empty string with this parameter disables all operators.
 
 [cols=",,,",options="header",]
-|==============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Name |Operator |Description |Example query
 |`AND` |`+` |Specifies AND |`token1+token2`
 |`OR` |`|` |Specifies OR |`token1|token2`
@@ -640,12 +640,12 @@ Comma-separated list of names of parsing operators to enable. By default, all op
 |`WHITESPACE` |space or` [\r\t\n]` |Delimits tokens on whitespace. If not enabled, whitespace splitting will not be performed prior to analysis – usually most desirable. Not splitting whitespace is a unique feature of this parser that enables multi-word synonyms to work. However, it probably actually won't unless synonyms are configured to normalize instead of expand to all that match a given synonym. Such a configuration requires normalizing synonyms at both index time and query time. Solr's analysis screen can help here. |`term1 term2`
 |`FUZZY` |`~N` |At the end of terms, specifies a fuzzy query |`term~1`
 |`NEAR` |`~N` |At the end of phrases, specifies a NEAR query |`"term1 term2"~5`
-|==============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 |q.op |Defines the default operator to use if none is defined by the user. Allowed values are `AND` and `OR`. `OR` is used if none is specified.
 |qf |A list of query fields and boosts to use when building the query.
 |df |Defines the default field if none is defined in the Schema, or overrides the default field if it is already defined.
-|==============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 Any errors in syntax are ignored and the query parser will interpret queries as best it can. However, this can lead to odd results in some cases.
 
@@ -754,12 +754,12 @@ If no analysis or transformation is desired for any type of field, see the <<Oth
 This query parser takes the following parameters:
 
 [width="100%",cols="50%,50%",options="header",]
-|===================================================================================================================================================================
+|===
 |Parameter |Description
 |f |The field on which to search. Required.
 |separator |Separator to use when parsing the input. If set to " " (a single blank space), will trim additional white space from the input terms. Defaults to "`,`".
 |method |The internal query-building implementation: `termsFilter`, `booleanQuery`, `automaton`, or `docValuesTermsFilter`. Defaults to "`termsFilter`".
-|===================================================================================================================================================================
+|===
 
 Examples:
 
@@ -779,16 +779,16 @@ Examples:
 The http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/search/XmlQParserPlugin.html[XmlQParserPlugin] extends the http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/search/QParserPlugin.html[QParserPlugin] and supports the creation of queries from XML. Example:
 
 [width="100%",cols="50%,50%",options="header",]
-|============================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Value
 |defType |xmlparser
 |q |<BooleanQuery fieldName="description"> <Clause occurs="must"> <TermQuery>shirt</TermQuery> </Clause> <Clause occurs="mustnot"> <TermQuery>plain</TermQuery> </Clause> <Clause occurs="should"> <TermQuery>cotton</TermQuery> </Clause> <Clause occurs="must"> <BooleanQuery fieldName="size"> <Clause occurs="should"> <TermsQuery>S M L</TermsQuery> </Clause> </BooleanQuery> </Clause> </BooleanQuery>
-|============================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 The XmlQParser implementation uses the http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/search/SolrCoreParser.html[SolrCoreParser] class which extends Lucene's http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/CoreParser.html[CoreParser] class. XML elements are mapped to http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/QueryBuilder.html[QueryBuilder] classes as follows:
 
 [width="100%",cols="50%,50%",options="header",]
-|=============================================================================================================================================================================
+|===
 |XML element |QueryBuilder class
 |<BooleanQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/BooleanQueryBuilder.html[BooleanQueryBuilder]
 |<BoostingTermQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/BoostingTermBuilder.html[BoostingTermBuilder]
@@ -806,4 +806,4 @@ The XmlQParser implementation uses the http://lucene.apache.org/solr/6_1_0/solr-
 |<TermsQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/TermsQueryBuilder.html[TermsQueryBuilder]
 |<UserQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/UserInputQueryBuilder.html[UserInputQueryBuilder]
 |<LegacyNumericRangeQuery> |LegacyNumericRangeQuery(Builder) is deprecated
-|=============================================================================================================================================================================
+|===

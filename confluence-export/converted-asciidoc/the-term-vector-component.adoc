@@ -116,7 +116,7 @@ The example below shows the available request parameters for this component:
 `http://localhost:8983/solr/techproducts/tvrh?q=includes:[* TO *]&rows=10&indent=true&tv=true&tv.tf=true&tv.df=true&tv.positions=true&tv.offsets=true&tv.payloads=true&tv.fl=includes`
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|==============================================================================================================================================================================================================
+|===
 |Boolean Parameters |Description |Type
 |tv |Should the component run or not |boolean
 |tv.docIds |Returns term vectors for the specified list of Lucene document IDs (not the Solr Unique Key). |comma seperated integers
@@ -133,7 +133,7 @@ Calculates TF / DF (ie: TF * IDF) for each term. Please note that this is a _lit
 Requires the parameters `tv.tf` and `tv.df` to be "true". This can be computationally expensive. (The results are not shown in example output)
 
  |boolean
-|==============================================================================================================================================================================================================
+|===
 
 To learn more about TermVector component output, see the Wiki page: http://wiki.apache.org/solr/TermVectorComponentExampleOptions
 

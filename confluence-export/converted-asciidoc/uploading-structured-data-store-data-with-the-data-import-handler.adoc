@@ -19,13 +19,13 @@ For more information about the Data Import Handler, see https://wiki.apache.org/
 Descriptions of the Data Import Handler use several familiar terms, such as entity and processor, in specific ways, as explained in the table below.
 
 [width="100%",cols="50%,50%",options="header",]
-|==============================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Term |Definition
 |Datasource |As its name suggests, a datasource defines the location of the data of interest. For a database, it's a DSN. For an HTTP datasource, it's the base URL.
 |Entity |Conceptually, an entity is processed to generate a set of documents, containing multiple fields, which (after optionally being transformed in various ways) are sent to Solr for indexing. For a RDBMS data source, an entity is a view or table, which would be processed by one or more SQL statements to generate a set of rows (documents) with one or more columns (fields).
 |Processor |An entity processor does the work of extracting content from a data source, transforming it, and adding it to the index. Custom entity processors can be written to extend or replace the ones supplied.
 |Transformer |Each set of fields fetched by the entity may optionally be transformed. This process can modify the fields, create new fields, or generate multiple rows/documents form a single row. There are several built-in transformers in the DIH, which perform functions such as modifying dates and stripping HTML. It is possible to write custom transformers using the publicly available interface.
-|==============================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-Configuration]]
 == Configuration
@@ -143,7 +143,7 @@ Then, these parameters can be passed to the full-import command or defined in th
 DIH commands are sent to Solr via an HTTP request. The following operations are supported.
 
 [width="100%",cols="50%,50%",options="header",]
-|===========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Command |Description
 |`abort` |Aborts an ongoing operation. The URL is `http://<host>:<port>/` `solr/` `<collection_name>/` `dataimport?` `command=abort`.
 |`delta-import` |For incremental imports and change detection. The command is of the form `http://<host>:<port>/` `solr/` `<collection_name>/` `dataimport?` `command=delta-import`. It supports the same clean, commit, optimize and debug parameters as full-import command. Only the SqlEntityProcessor supports delta imports.
@@ -155,7 +155,7 @@ If the configuration file has been changed and you wish to reload it without res
 
 |`status` |The URL is `http://<host>:<port>/` `solr/` `<collection_name>/` `dataimport?` `command=status`. It returns statistics on the number of documents created, deleted, queries run, rows fetched, status, and so on.
 |`show-config` |responds with configuration
-|===========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-Parametersforthefull-importCommand]]
 === Parameters for the `full-import` Command
@@ -163,7 +163,7 @@ If the configuration file has been changed and you wish to reload it without res
 The `full-import` command accepts the following parameters:
 
 [width="100%",cols="50%,50%",options="header",]
-|===================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description
 |clean |Default is true. Tells whether to clean up the index before the indexing is started.
 |commit |Default is true. Tells whether to commit after the operation.
@@ -171,7 +171,7 @@ The `full-import` command accepts the following parameters:
 |entity |The name of an entity directly under the `<document>` tag in the configuration file. Use this to execute one or more entities selectively. Multiple "entity" parameters can be passed on to run multiple entities at once. If nothing is passed, all entities are executed.
 |optimize |Default is true. Tells Solr whether to optimize after the operation.
 |synchronous |Blocks request until import is completed. Default is `false`.
-|===================================================================================================================================================================================================================================================================================
+|===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-PropertyWriter]]
 == Property Writer
@@ -186,14 +186,14 @@ The `propertyWriter` element defines the date format and locale for use with del
 The parameters available are:
 
 [width="100%",cols="50%,50%",options="header",]
-|=========================================================================================================================================================================================================================================================
+|===
 |Parameter |Description
 |dateFormat |A java.text.SimpleDateFormat to use when converting the date to text. The default is "yyyy-MM-dd HH:mm:ss".
 |type |The implementation class. Use `SimplePropertiesWriter` for non-SolrCloud installations. If using SolrCloud, use `ZKPropertiesWriter`. If this is not specified, it will default to the appropriate class depending on if SolrCloud mode is enabled.
 |directory |Used with the `SimplePropertiesWriter` only). The directory for the properties file. If not specified, the default is "conf".
 |filename |Used with the `SimplePropertiesWriter` only). The name of the properties file. If not specified, the default is the requestHandler name (as defined in `solrconfig.xml`, appended by ".properties" (i.e., "dataimport.properties").
 |locale |The locale. If not defined, the ROOT locale is used. It must be specified as language-country. For example, `en-US`.
-|=========================================================================================================================================================================================================================================================
+|===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-DataSources]]
 == Data Sources
@@ -249,11 +249,11 @@ This can be used like an <<UploadingStructuredDataStoreDatawiththeDataImportHand
 This data source accepts these optional attributes.
 
 [width="100%",cols="50%,50%",options="header",]
-|=======================================================================================
+|===
 |Optional Attribute |Description
 |basePath |The base path relative to which the value is evaluated if it is not absolute.
 |encoding |Defines the character encoding to use. If not defined, UTF-8 is used.
-|=======================================================================================
+|===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-JdbcDataSource]]
 === JdbcDataSource
@@ -278,13 +278,13 @@ This data source is often used with XPathEntityProcessor to fetch content from a
 The URLDataSource type accepts these optional parameters:
 
 [width="100%",cols="50%,50%",options="header",]
-|============================================================================================================================================================================================================
+|===
 |Optional Parameter |Description
 |baseURL |Specifies a new baseURL for pathnames. You can use this to specify host/port changes between Dev/QA/Prod environments. Using this attribute isolates the changes to be made to the `solrconfig.xml`
 |connectionTimeout |Specifies the length of time in milliseconds after which the connection should time out. The default value is 5000ms.
 |encoding |By default the encoding in the response header is used. You can use this property to override the default encoding.
 |readTimeout |Specifies the length of time in milliseconds after which a read operation should time out. The default value is 10000ms.
-|============================================================================================================================================================================================================
+|===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-EntityProcessors]]
 == Entity Processors
@@ -294,7 +294,7 @@ Entity processors extract data, transform it, and add it to a Solr index. Exampl
 Each processor has its own set of attributes, described in its own section below. In addition, there are non-specific attributes common to all entities which may be specified.
 
 [width="100%",cols="50%,50%",options="header",]
-|=====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Attribute |Use
 |dataSource |The name of a data source. If there are multiple data sources defined, use this attribute with the name of the data source for this entity.
 |name |Required. The unique name used to identify an entity.
@@ -311,7 +311,7 @@ Each processor has its own set of attributes, described in its own section below
 |where |an alternative way to specify `cacheKey` and `cacheLookup` concatenated with '='. eg `where="CODE=People.COUNTRY_CODE"` is equal to `cacheKey="CODE" cacheLookup="People.COUNTRY_CODE"`
 |child="true" |Enables indexing document blocks aka <<uploading-data-with-index-handlers.adoc#,Nested Child Documents>> for searching with <<other-parsers.adoc#,Block Join Query Parsers>>. It can be only specified on `<entity>` under another root entity. It switches from default behavior (merging field values) to nesting documents as children documents. Note: parent `<entity>` should add a field which is used as a parent filter in query time.
 |join="zipper" |Enables merge join aka "zipper" algorithm for joining parent and child entities without cache. It should be specified at child (nested) `<entity>`. It implies that parent and child queries return results ordered by keys, otherwise it throws an exception. Keys should be specified either with `where` attribute or with `cacheKey` and `cacheLookup`.
-|=====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 Caching of entities in DIH is provided to avoid repeated lookups for same entities again and again. The default `SortedMapBackedCache` is a `HashMap` where a key is a field in the row and the value is a bunch of rows for that same key.
 
@@ -332,14 +332,14 @@ The SqlEntityProcessor is the default processor. The associated <<UploadingStruc
 The entity attributes specific to this processor are shown in the table below.
 
 [width="100%",cols="50%,50%",options="header",]
-|===============================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Attribute |Use
 |query |Required. The SQL query used to select rows.
 |deltaQuery |SQL query used if the operation is delta-import. This query selects the primary keys of the rows which will be parts of the delta-update. The pks will be available to the deltaImportQuery through the variable `${dataimporter.delta.<column-name>`}.
 |parentDeltaQuery |SQL query used if the operation is delta-import.
 |deletedPkQuery |SQL query used if the operation is delta-import.
 |deltaImportQuery |SQL query used if the operation is delta-import. If this is not present, DIH tries to construct the import query by(after identifying the delta) modifying the 'query' (this is error prone). There is a namespace `${dataimporter.delta.<column-name>`} which can be used in this query. For example, `select * from tbl where id=${dataimporter.delta.id`}.
-|===============================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-TheXPathEntityProcessor]]
 === The XPathEntityProcessor
@@ -349,7 +349,7 @@ This processor is used when indexing XML formatted data. The data source is typi
 The entity attributes unique to this processor are shown below.
 
 [width="100%",cols="50%,50%",options="header",]
-|===========================================================================================================================================================
+|===
 |Attribute |Use
 |Processor |Required. Must be set to "XpathEntityProcessor".
 |url |Required. HTTP URL or file location.
@@ -358,16 +358,16 @@ The entity attributes unique to this processor are shown below.
 |xsl |Optional: Its value (a URL or filesystem path) is the name of a resource used as a preprocessor for applying the XSL transformation.
 |useSolrAddSchema |Set this to true if the content is in the form of the standard Solr update XML schema.
 |flatten |Optional: If set true, then text from under all the tags is extracted into one field.
-|===========================================================================================================================================================
+|===
 
 Each field element in the entity can have the following attributes as well as the default ones.
 
 [width="100%",cols="50%,50%",options="header",]
-|==================================================================================================================================================
+|===
 |Attribute |Use
 |xpath |Required. The XPath expression which will extract the content from the record for this field. Only a subset of Xpath syntax is supported.
 |commonField |Optional. If true, then when this field is encountered in a record it will be copied to future records when creating a Solr document.
-|==================================================================================================================================================
+|===
 
 Here is an example from the "`rss`" collection in the `dih` example (`example/example-DIH/solr/rss/conf/rss-data-config.xml`):
 
@@ -431,7 +431,7 @@ Here is an example from the "`mail`" collection of the `dih` example (`example/e
 The entity attributes unique to the MailEntityProcessor are shown below.
 
 [width="100%",cols="50%,50%",options="header",]
-|====================================================================================================================================================================================================================
+|===
 |Attribute |Use
 |processor |Required. Must be set to "MailEntityProcessor".
 |user |Required. Username for authenticating to the IMAP server; this is typically the email address of the mailbox owner.
@@ -452,7 +452,7 @@ processAttachments
 
  |Optional (default is true). Use Tika to process message attachments.
 |includeContent |Optional (default is true). Include the message body when constructing Solr documents for indexing.
-|====================================================================================================================================================================================================================
+|===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-ImportingNewEmailsOnly]]
 ==== Importing New Emails Only
@@ -489,7 +489,7 @@ Here is an example from the "`tika`" collection of the `dih` example (`example/e
 The parameters for this processor are described in the table below:
 
 [width="100%",cols="50%,50%",options="header",]
-|==========================================================================================================================================================================================================================================================================================================
+|===
 |Attribute |Use
 |dataSource a|
 This parameter defines the data source and an optional name which can be referred to in later parts of the configuration if needed. This is the same dataSource explained in the description of general entity processor attributes above. The available data source types for this processor are:
@@ -505,7 +505,7 @@ This parameter defines the data source and an optional name which can be referre
 |fields |The list of fields from the input documents and how they should be mapped to Solr fields. If the attribute `meta` is defined as "true", the field will be obtained from the metadata of the document and not parsed from the body of the main text.
 |extractEmbedded |Instructs the TikaEntityProcessor to extract embedded documents or attachments when **true**. If false, embedded documents and attachments will be ignored.
 |onError |By default, the TikaEntityProcessor will stop processing documents if it finds one that generates an error. If you define `onError` to "skip", the TikaEntityProcessor will instead skip documents that fail processing and log a message that the document was skipped.
-|==========================================================================================================================================================================================================================================================================================================
+|===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-TheFileListEntityProcessor]]
 === The FileListEntityProcessor
@@ -515,7 +515,7 @@ This processor is basically a wrapper, and is designed to generate a set of file
 The attributes specific to this processor are described in the table below:
 
 [width="100%",cols="50%,50%",options="header",]
-|========================================================================================================================================
+|===
 |Attribute |Use
 |fileName |Required. A regular expression pattern to identify files to be included.
 |basedir |Required. The base directory (absolute path).
@@ -525,7 +525,7 @@ The attributes specific to this processor are described in the table below:
 |olderThan |A date, using the same formats as newerThan.
 |rootEntity |This should be set to false. This ensures that each row (filepath) emitted by this processor is considered to be a document.
 |dataSource |Must be set to null.
-|========================================================================================================================================
+|===
 
 The example below shows the combination of the FileListEntityProcessor with another processor which will generate a set of fields from each file found.
 
@@ -564,12 +564,12 @@ This EntityProcessor reads all content from the data source on a line by line ba
 The lines read can be filtered by two regular expressions specified with the `acceptLineRegex` and `omitLineRegex` attributes. The table below describes the LineEntityProcessor's attributes:
 
 [width="100%",cols="50%,50%",options="header",]
-|=======================================================================================================================================================================================================================================================
+|===
 |Attribute |Description
 |url |A required attribute that specifies the location of the input file in a way that is compatible with the configured data source. If this value is relative and you are using FileDataSource or URLDataSource, it assumed to be relative to baseLoc.
 |acceptLineRegex |An optional attribute that if present discards any line which does not match the regExp.
 |omitLineRegex |An optional attribute that is applied after any acceptLineRegex and that discards any line which matches this regExp.
-|=======================================================================================================================================================================================================================================================
+|===
 
 For example:
 
@@ -627,7 +627,7 @@ The Data Import Handler contains several built-in transformers. You can also wri
 Solr includes the following built-in transformers:
 
 [width="100%",cols="50%,50%",options="header",]
-|=====================================================================================================================================================================================================
+|===
 |Transformer Name |Use
 |<<UploadingStructuredDataStoreDatawiththeDataImportHandler-ClobTransformer,ClobTransformer>> |Used to create a String out of a Clob type in database.
 |<<UploadingStructuredDataStoreDatawiththeDataImportHandler-TheDateFormatTransformer,DateFormatTransformer>> |Parse date/time instances.
@@ -637,7 +637,7 @@ Solr includes the following built-in transformers:
 |<<UploadingStructuredDataStoreDatawiththeDataImportHandler-TheRegexTransformer,RegexTransformer>> |Use regular expressions to manipulate fields.
 |<<UploadingStructuredDataStoreDatawiththeDataImportHandler-TheScriptTransformer,ScriptTransformer>> |Write transformers in Javascript or any other scripting language supported by Java.
 |<<UploadingStructuredDataStoreDatawiththeDataImportHandler-TheTemplateTransformer,TemplateTransformer>> |Transform a field using a template.
-|=====================================================================================================================================================================================================
+|===
 
 These transformers are described below.
 
@@ -657,11 +657,11 @@ You can use the ClobTransformer to create a string out of a CLOB in a database. 
 The ClobTransformer accepts these attributes:
 
 [width="100%",cols="50%,50%",options="header",]
-|=================================================================================================================================================================
+|===
 |Attribute |Description
 |clob |Boolean value to signal if ClobTransformer should process this field or not. If this attribute is omitted, then the corresponding field is not transformed.
 |sourceColName |The source column to be used as input. If this is absent source and target are same
-|=================================================================================================================================================================
+|===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-TheDateFormatTransformer]]
 === The DateFormatTransformer
@@ -673,12 +673,12 @@ DateFormatTransformer applies only on the fields with an attribute `dateTimeForm
 This transformer recognizes the following attributes:
 
 [width="100%",cols="50%,50%",options="header",]
-|======================================================================================================================================================================================================
+|===
 |Attribute |Description
 |dateTimeFormat |The format used for parsing this field. This must comply with the syntax of the http://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html[Java SimpleDateFormat] class.
 |sourceColName |The column on which the dateFormat is to be applied. If this is absent source and target are same.
 |locale |The locale to use for date transformations. If not specified, the ROOT locale will be used. It must be specified as language-country. For example, `en-US`.
-|======================================================================================================================================================================================================
+|===
 
 Here is example code that returns the date rounded up to the month "2007-JUL":
 
@@ -731,12 +731,12 @@ NumberFormatTransformer will be applied only to fields with an attribute `format
 This transformer recognizes the following attributes:
 
 [width="100%",cols="50%,50%",options="header",]
-|===========================================================================================================================================================================================
+|===
 |Attribute |Description
 |formatStyle |The format used for parsing this field. The value of the attribute must be one of (`number|percent|integer|currency`). This uses the semantics of the Java NumberFormat class.
 |sourceColName |The column on which the NumberFormat is to be applied. This is attribute is absent. The source column and the target column are the same.
 |locale |The locale to be used for parsing the strings. If this is absent, the ROOT locale is used. It must be specified as language-country. For example, `en-US`.
-|===========================================================================================================================================================================================
+|===
 
 For example:
 
@@ -759,14 +759,14 @@ The regex transformer helps in extracting or manipulating values from fields (fr
 The table below describes the attributes recognized by the regex transformer.
 
 [width="100%",cols="50%,50%",options="header",]
-|===================================================================================================================================================================================================================
+|===
 |Attribute |Description
 |regex |The regular expression that is used to match against the column or sourceColName's value(s). If replaceWith is absent, each regex _group_ is taken as a value and a list of values is returned.
 |sourceColName |The column on which the regex is to be applied. If not present, then the source and target are identical.
 |splitBy |Used to split a string. It returns a list of values. note: this is a regular expression – it may need to be escaped (e.g. via back-slashes)
 |groupNames |A comma separated list of field column names, used where the regex contains groups and each group is to be saved to a different field. If some groups are not to be named leave a space between commas.
 |replaceWith |Used along with regex . It is equivalent to the method `new String(<sourceColVal>).replaceAll(<regex>, <replaceWith>)`.
-|===================================================================================================================================================================================================================
+|===
 
 Here is an example of configuring the regex transformer:
 
@@ -851,11 +851,11 @@ You can use the template transformer to construct or modify a field value, perha
 You can pass special commands to the DIH by adding any of the variables listed below to any row returned by any component:
 
 [width="100%",cols="50%,50%",options="header",]
-|==================================================================================================================================
+|===
 |Variable |Description
 |$skipDoc |Skip the current document; that is, do not add it to Solr. The value can be the string `true|false`.
 |$skipRow |Skip the current row. The document will be added with rows from other entities. The value can be the string `true|false`
 |$docBoost |Boost the current document. The boost value can be a number or the `toString` conversion of a number.
 |$deleteDocById |Delete a document from Solr with this ID. The value has to be the `uniqueKey` value of the document.
 |$deleteDocByQuery |Delete documents from Solr using this query. The value must be a Solr Query.
-|==================================================================================================================================
+|===

@@ -154,7 +154,7 @@ When the JDBC stream is opened it will validate that a driver can be found for t
 Due to the inherent differences in datatypes across JDBC sources the following datatypes are supported. The table indicates what Java type will be used for a given JDBC type. Types marked as requiring conversion will go through a conversion for each value of that type. For performance reasons the cell data types are only considered when the stream is opened as this is when the converters are created.
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|=========================================
+|===
 |JDBC Type |Java Type |Requires Conversion
 |String |String |No
 |Short |Long |Yes
@@ -163,7 +163,7 @@ Due to the inherent differences in datatypes across JDBC sources the following d
 |Float |Double |Yes
 |Double |Double |No
 |Boolean |Boolean |No
-|=========================================
+|===
 
 [[StreamingExpressions-Syntax.1]]
 ==== Syntax

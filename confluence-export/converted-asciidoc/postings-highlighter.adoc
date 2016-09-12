@@ -54,7 +54,7 @@ This example shows all of the defaults for each parameter. If you intend to keep
 The table below describes Solr's parameters for this highlighter. These parameters can be set as defaults (as in the examples), or the default values can be changed in the request handler or at query time. Most of the parameters can be specified per-field (exceptions noted below).
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Default |Description
 |hl |blank (no highlight) |When set to **true**, enables highlighted snippets to be generated in the query response. If set to *false* or to a blank or missing value, disables highlighting.
 |hl.q |blank |Specifies an overriding query term for highlighting. If `hl.q` is specified, the highlighter will use that term rather than the main query term.
@@ -74,7 +74,7 @@ The table below describes Solr's parameters for this highlighter. These paramete
 |hl.bs.country |blank |Specifies the breakiterator country for dividing the document into passages.
 |hl.bs.variant |blank |Specifies the breakiterator variant for dividing the document into passages.
 |hl.bs.type |SENTENCE |Specifies the breakiterator type for dividing the document into passages. Can be **SENTENCE**, **WORD**, **CHARACTER**, **LINE**, or **WHOLE**.
-|====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[PostingsHighlighter-RelatedContent]]
 == Related Content

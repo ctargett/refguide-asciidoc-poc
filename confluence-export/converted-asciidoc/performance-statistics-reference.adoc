@@ -24,7 +24,7 @@ Can be useful to measure and track number of search queries , response times etc
 Both Update Request Handler and Search Request Handler along with handlers like “sql”, “export” and realtime “get” handler will be having the following attributes in their statistics.
 
 [cols=",",options="header",]
-|==========================================================================================================================================================================================================================
+|===
 |Attribute |Description
 |15minRateReqsPerSecond |Requests per second received over the past 15 minutes
 |5minRateReqsPerSecond |Requests per second received over the past 5 minutes
@@ -42,7 +42,7 @@ Both Update Request Handler and Search Request Handler along with handlers like 
 |serverErrors |Number of errors thrown by the server while executing the request
 |timeouts |Number of responses received with partial results
 |totalTime |The sum of all request processing times since the Solr process was started
-|==========================================================================================================================================================================================================================
+|===
 
 [[PerformanceStatisticsReference-UpdateHandler]]
 == Update Handler
@@ -52,7 +52,7 @@ Both Update Request Handler and Search Request Handler along with handlers like 
 *Path:* /solr/<core>/updateHandler/DirectUpdateHandler2
 
 [cols=",",options="header",]
-|========================================================================================================================================================================================================
+|===
 |Attribute |Description
 |adds |Total number of “add” requests since last commit
 |autocommit maxTime |Maximum time between two autocommits execution
@@ -72,7 +72,7 @@ Both Update Request Handler and Search Request Handler along with handlers like 
 |soft autocommits |Number of soft commits executed
 |transaction_logs_total_number |Number of TLogs created from the beginning of the Solr instance. It will be equivalent to number of Hard commits executed.
 |transaction_logs_total_size |Total size of all the TLogs created so far from the beginning of the Solr instance
-|========================================================================================================================================================================================================
+|===
 
 [[PerformanceStatisticsReference-Caches]]
 == Caches
@@ -99,7 +99,7 @@ This cache is used for filters for unordered sets of all documents that match a 
 *Path:* /solr/<cache>/filterCache
 
 [cols=",",options="header",]
-|===========================================================================================================================
+|===
 |Attribute |Description
 |cumulative_evictions |Number of cache evictions across all caches since this node has been running.
 |cumulative_hitratio |Ratio of cache hits to lookups across all the caches since this node has been running.
@@ -113,7 +113,7 @@ This cache is used for filters for unordered sets of all documents that match a 
 |lookups |Number of lookups against the cache
 |size |Size of the cache at that particular instance (in KBs)
 |warmupTime |Warm-up time for the registered index searcher. This time is taken in account for the “auto-warming” of caches.
-|===========================================================================================================================
+|===
 
 More on <<query-settings-in-solrconfig.adoc#,Solr caches>>
 

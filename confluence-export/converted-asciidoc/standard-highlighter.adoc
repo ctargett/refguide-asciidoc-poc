@@ -10,7 +10,7 @@ The standard highlighter (AKA the default highlighter) doesn't require any speci
 The table below describes Solr's parameters for the Standard highlighter. These parameters can be defined in the highlight search component, as defaults for the specific request handler, or passed to the request handler with the query.
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Default Value |Description
 |hl |blank (no highlight) |When set to **true**, enables highlighted snippets to be generated in the query response. If set to *false* or to a blank or missing value, disables highlighting.
 |hl.q |blank |Specifies an overriding query term for highlighting. If `hl.q` is specified, the highlighter will use that term rather than the main query term.
@@ -36,7 +36,7 @@ The table below describes Solr's parameters for the Standard highlighter. These 
 |hl.regex.maxAnalyzedChars |10000 |Instructs Solr to analyze only this many characters from a field when using the regex fragmenter (after which, the fragmenter produces fixed-sized fragments). Applying a complicated regex to a huge field is computationally expensive.
 |hl.preserveMulti |false |If **true**, multi-valued fields will return all values in the order they were saved in the index. If **false**, only values that match the highlight request will be returned.
 |hl.payloads |(automatic) |When `hl.usePhraseHighlighter` is true and the indexed field has payloads but not term vectors (generally quite rare), the index's payloads will be read into the highlighter's memory index along with the postings. If this may happen and you know you don't need them for highlighting (i.e. your queries don't filter by payload) then you can save a little memory by setting this to false.
-|====================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[StandardHighlighter-RelatedContent]]
 == Related Content

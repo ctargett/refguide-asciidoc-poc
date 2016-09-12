@@ -16,7 +16,7 @@ The `CollapsingQParser` is really a _post filter_ that provides more performant 
 The CollapsingQParser accepts the following local parameters:
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|===========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description |Default
 |field |The field that is being collapsed on. The field must be a single valued String, Int or Float |none
 |min | max a|
@@ -45,7 +45,7 @@ There are three null policies:
  |ignore
 |hint |Currently there is only one hint available "`top_fc`", which stands for top level FieldCache. The top_fc hint is only available when collapsing on String fields. top_fc usually provides the best query time speed but takes the longest to warm on startup or following a commit. top_fc will also result in having the collapsed field cached in memory twice if the it's used for faceting or sorting. For very high cardinality (high distinct count) fields, top_fc may not fare so well. |none
 |size |Sets the initial size of the collapse data structures when collapsing on a **numeric field only**. The data structures used for collapsing grow dynamically when collapsing on numeric fields. Setting the size above the number of results expected in the result set will eliminate the resizing cost. |100,000
-|===========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 *Sample Syntax:*
 
@@ -121,10 +121,10 @@ Inside the expanded section there is a _map_ with each group head pointing to th
 The ExpandComponent has the following parameters:
 
 [cols=",,",options="header",]
-|==========================================================================================================
+|===
 |Parameter |Description |Default
 |expand.sort |Orders the documents within the expanded groups |score desc
 |expand.rows |The number of rows to display in each group |5
 |expand.q |Overrides the main q parameter, determines which documents to include in the main group. |main q
 |expand.fq |Overrides main fq's, determines which documents to include in the main group. |main fq's
-|==========================================================================================================
+|===

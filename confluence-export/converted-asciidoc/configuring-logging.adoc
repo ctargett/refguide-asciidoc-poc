@@ -26,7 +26,7 @@ Directories are shown with their current logging levels. The Log Level Menu floa
 Log levels settings are as follows:
 
 [width="100%",cols="50%,50%",options="header",]
-|==========================================================
+|===
 |Level |Result
 |FINEST |Reports everything.
 |FINE |Reports everything but the least important messages.
@@ -36,7 +36,7 @@ Log levels settings are as follows:
 |SEVERE |Reports only the most severe warnings.
 |OFF |Turns off logging.
 |UNSET |Removes the previous log setting.
-|==========================================================
+|===
 
 Multiple settings at one time are allowed.
 

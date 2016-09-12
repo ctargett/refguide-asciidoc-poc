@@ -111,7 +111,7 @@ Search components define the logic that is used by the SearchHandler to perform 
 There are several default search components that work with all SearchHandlers without any additional configuration. If no components are defined (with the exception of `first-components` and `last-components` - see below), these are executed by default, in the following order:
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|=====================================================================================================================================================================
+|===
 |Component Name |Class Name |More Information
 |query |solr.QueryComponent |Described in the section <<query-syntax-and-parsing.adoc#,Query Syntax and Parsing>>.
 |facet |solr.FacetComponent |Described in the section <<faceting.adoc#,Faceting>>.
@@ -120,7 +120,7 @@ There are several default search components that work with all SearchHandlers wi
 |stats |solr.StatsComponent |Described in the section <<the-stats-component.adoc#,The Stats Component>>.
 |debug |solr.DebugComponent |Described in the section on <<common-query-parameters.adoc#CommonQueryParameters-ThedebugParameter,Common Query Parameters>>.
 |expand |solr.ExpandComponent |Described in the section <<collapse-and-expand-results.adoc#,Collapse and Expand Results>>.
-|=====================================================================================================================================================================
+|===
 
 If you register a new search component with one of these default names, the newly defined component will be used instead of the default.
 

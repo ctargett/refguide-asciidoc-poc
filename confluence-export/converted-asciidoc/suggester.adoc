@@ -45,7 +45,7 @@ The first step is to add a search component to `solrconfig.xml` and tell it to u
 The Suggester search component takes several configuration parameters. The choice of the lookup implementation (`lookupImpl`, how terms are found in the suggestion dictionary) and the dictionary implementation (`dictionaryImpl`, how terms are stored in the suggestion dictionary) will dictate some of the parameters required. Below are the main parameters that can be used no matter what lookup or dictionary implementation is used. In the following sections additional parameters are provided for each implementation.
 
 [width="100%",cols="50%,50%",options="header",]
-|============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description
 |searchComponent name |Arbitrary name for the search component.
 |name |A symbolic name for this suggester. You can refer to this name in the URL parameters and in the SearchHandler configuration. It is possible to have mutiples of these
@@ -73,7 +73,7 @@ However, this minimal analysis is not required if you want more analysis to occu
 |storeDir |The location to store the dictionary file.
 |buildOnCommit or buildOnOptimize |If true then the lookup data structure will be rebuilt after soft-commit. If false, the default, then the lookup data will be built only when requested by URL parameter `suggest.build=true`. Use `buildOnCommit` to rebuild the dictionary with every soft-commit, or `buildOnOptimize` to build the dictionary only when the index is optimized. Some lookup implementations may take a long time to build, specially with large indexes, in such cases, using buildOnCommit or buildOnOptimize, particularly with a high frequency of softCommits is not recommended, and it's recommended instead to build the suggester at a lower frequency by manually issuing requests with `suggest.build=true`.
 |buildOnStartup |If true then the lookup data structure will be built when Solr starts or when the core is reloaded. If this parameter is not specified, the suggester will check if the lookup data structure is present on disk and build it if not found. Enabling this to true could lead to the core talking longer to load (or reload) as the suggester data structure needs to be built, which can sometimes take a long time. It’s usually preferred to have this setting set to 'false' and build suggesters manually issuing requests with `suggest.build=true`.
-|============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 [[Suggester-LookupImplementations]]
 ==== Lookup Implementations
@@ -290,7 +290,7 @@ After adding the search component, a request handler must be added to `solrconfi
 The following parameters allow you to set defaults for the Suggest request handler:
 
 [width="100%",cols="50%,50%",options="header",]
-|========================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description
 |suggest=true |This parameter should always be true, because we always want to run the Suggester for queries submitted to this handler.
 |suggest.dictionary |The name of the dictionary component configured in the search component. This is a mandatory parameter. It can be set in the request handler, or sent as a parameter at query time.
@@ -301,7 +301,7 @@ The following parameters allow you to set defaults for the Suggest request handl
 |suggest.reload |If true, it will reload the suggester index.
 |suggest.buildAll |If true, it will build all suggester indexes.
 |suggest.reloadAll |If true, it will reload all suggester indexes.
-|========================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 These properties can also be overridden at query time, or not set in the request handler at all and always sent at query time.
 

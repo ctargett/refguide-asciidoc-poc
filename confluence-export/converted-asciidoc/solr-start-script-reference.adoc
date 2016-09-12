@@ -34,7 +34,7 @@ When using the restart command, you must pass all of the parameters you initiall
 The bin/solr script provides many options to allow you to customize the server in common ways, such as changing the listening port. However, most of the defaults are adequate for most Solr installations, especially when just getting started.
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|============================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description |Example
 |-a "<string>" |Start Solr with additional JVM parameters, such as those starting with -X. If you are passing JVM parameters that begin with "-D", you can omit the -a option. |`bin/solr start -a "-Xdebug -Xrunjdwp:transport=dt_socket, server=y,suspend=n,address=1044"`
 |-cloud a|
@@ -79,7 +79,7 @@ This parameter is ignored when running examples (-e), as the solr.solr.home depe
  |`bin/solr start -s newHome`
 |-V |Start Solr with verbose messages from the start script. |`bin/solr start -V`
 |-z <zkHost> |Start Solr with the defined ZooKeeper connection string. This option is only used with the -c option, to start Solr in SolrCloud mode. If this option is not provided, Solr will start the embedded ZooKeeper instance and use that instance for SolrCloud operations. |`bin/solr start -c -z server1:2181,server2:2181`
-|============================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 To emphasize how the default settings work take a moment to understand that the following commands are equivalent:
 
@@ -150,12 +150,12 @@ The stop command sends a STOP request to a running Solr node, which allows it to
 ==== Available Parameters
 
 [cols=",,",options="header",]
-|=======================================================================================================================================================================================================================================
+|===
 |Parameter |Description |Example
 |-p <port> |Stop Solr running on the given port. If you are running more than one instance, or are running in SolrCloud mode, you either need to specify the ports in separate requests or use the -all option. |`bin/solr stop -p 8983`
 |-all |Stop all running Solr instances that have a valid PID. |`bin/solr stop -all`
 |-k <key> |Stop key used to protect from stopping Solr inadvertently; default is "solrrocks". |`bin/solr stop -k solrrocks`
-|=======================================================================================================================================================================================================================================
+|===
 
 [[SolrStartScriptReference-Informational]]
 == Informational
@@ -222,11 +222,11 @@ The healthcheck command generates a JSON-formatted health report for a collectio
 ==== Available Parameters
 
 [cols=",,",options="header",]
-|===========================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description |Example
 |-c <collection> |Name of the collection to run a healthcheck against (required). |`bin/solr healthcheck -c gettingstarted`
 |-z <zkhost> |ZooKeeper connection string, defaults to localhost:9983. If you are running Solr on a port other than 8983, you will have to specify the ZooKeeper connection string. By default, this will be the Solr port + 1000. |`bin/solr healthcheck -z localhost:2181`
-|===========================================================================================================================================================================================================================================================================
+|===
 
 Below is an example healthcheck request and response using a non-standard ZooKeeper connect string, with 2 nodes running:
 
@@ -306,7 +306,7 @@ The create command detects the mode that Solr is running in (standalone or SolrC
 ==== Available Parameters
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|==============================================================================================================================================================================================================
+|===
 |Parameter |Description |Example
 |-c <name> |Name of the core or collection to create (required). |`bin/solr create -c mycollection`
 |-d <confdir> a|
@@ -334,7 +334,7 @@ a|
 -replicationFactor
 
  |Number of copies of each document in the collection. The default is 1 (no replication). |`bin/solr create -rf 2`
-|==============================================================================================================================================================================================================
+|===
 
 [[SolrStartScriptReference-ConfigurationDirectoriesandSolrCloud]]
 ==== Configuration Directories and SolrCloud
@@ -369,7 +369,7 @@ If running in SolrCloud mode, the delete command checks if the configuration dir
 ==== Available Parameters
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|============================================================================================================================================================================
+|===
 |Parameter |Description |Example
 |-c <name> |Name of the core / collection to delete (required). |`bin/solr delete -c mycoll`
 |-deleteConfig <true|false> a|
@@ -384,7 +384,7 @@ The port of a local Solr instance to send the delete command to. By default the 
 This option is useful if you are running multiple standalone Solr instances on the same host, thus requiring you to be specific about which instance to delete the core from.
 
  |`bin/solr delete -p 8983`
-|============================================================================================================================================================================
+|===
 
 [[SolrStartScriptReference-ZooKeeperOperations]]
 == ZooKeeper Operations
@@ -406,7 +406,7 @@ Use this Zookeeper sub-command to upload one of the pre-configured configuration
 ==== Available Parameters (all parameters are required)
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|=======================================================================================================================================================
+|===
 |Parameter |Description |Example
 |upconfig |Upload a configuration set from the local filesystem to Zookeeper (-upconfig for back compat) |`upconfig`
 |-n <name> a|
@@ -428,7 +428,7 @@ If just a name is supplied, $SOLR_HOME/server/solr/configsets will be checked fo
 `-d /absolute/path/to/configset/source`
 
 |-z <zkHost> |The Zookeeper connection string. Unnecessary if ZK_HOST is defined in solr.in.sh or solr.in.cmd |`-z 123.321.23.43:2181`
-|=======================================================================================================================================================
+|===
 
 An example of this command with these parameters is:
 
@@ -445,7 +445,7 @@ Use this Zookeeper sub-command to download a configuration set from Zookeeper to
 ==== Available Parameters (all parameters are required)
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|======================================================================================================================================================================
+|===
 |Parameter |Description |Example
 |downconfig |Download a configuration set from Zookeeper to the local filesystem. (-downconfig for back compat) |`downconfig`
 |-n <name> |Name of config set in Zookeeper to download. The Admin UI>>Cloud>>tree>>configs node lists all available configuration sets. |`-n myconfig`
@@ -460,7 +460,7 @@ In either case, _pre-existing configurations at the destination will be overwrit
 
  |`-d directory_under_configsets` `-d /absolute/path/to/configset/destination`
 |-z <zkHost> |The Zookeeper connection string. Unnecessary if ZK_HOST is defined in http://solr.in[solr.in].sh or http://solr.in[solr.in].cmd |`-z 123.321.23.43:2181 `
-|======================================================================================================================================================================
+|===
 
 An example of this command with the parameters is:
 
@@ -477,7 +477,7 @@ Use this Zookeeper sub-command for transferring files and directories between Zo
 ==== Available Parameters
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|========================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description |Example
 |cp |Copy files and directories to/from Zookeeper and the local drive |`cp`
 |-r |Optional. Do a recursive copy. The command will fail if the <src> has children unless '-r' is specified |`-r`
@@ -496,7 +496,7 @@ file:/Users/apache/configs/src
 ....
 
 |-z <zkHost> |The ZooKeeper connection string. Unnecessary if ZK_HOST is defined in http://solr.in/[solr.in].sh or http://solr.in/[solr.in].cmd |`-z 123.321.23.43:2181 `
-|========================================================================================================================================================================================================================================================================================================================
+|===
 
 An example of this command with the parameters is:
 
@@ -519,7 +519,7 @@ Use this ZooKeeper sub-command to remove a znode (and optionally all child nodes
 ==== Available Parameters
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|========================================================================================================================================================================
+|===
 |Parameter |Description |Example
 |rm |Remove znode(s) from Zookeeper |`rm`
 |-r |Optional. Do a recursive removal. The command will fail if the <path> has children unless '-r' is specified |`-r`
@@ -538,7 +538,7 @@ The path is assumed to be a Zookeeper node no 'zk:' prefix is necessary
 /config/myconfigset/solrconfig.xml
 
 |-z <zkHost> |The ZooKeeper connection string. Unnecessary if ZK_HOST is defined in http://solr.in/[solr.in].sh or http://solr.in/[solr.in].cmd |`-z 123.321.23.43:2181 `
-|========================================================================================================================================================================
+|===
 
 An example of this command with the parameters is:
 
@@ -557,13 +557,13 @@ Use this ZooKeeper sub-command to move (rename) a Zookeeper znode
 ==== Available Parameters
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|========================================================================================================================================================================
+|===
 |Parameter |Description |Example
 |mv |Move/rename a znode |`mv`
 |<src> |Znode to rename. The 'zk:' prefix is assumed |`/configs/oldconfigset`
 |<dest> |The new name of the znode. The 'zk:' prefix is assumed |/configs/newconfigset
 |-z <zkHost> |The ZooKeeper connection string. Unnecessary if ZK_HOST is defined in http://solr.in/[solr.in].sh or http://solr.in/[solr.in].cmd |`-z 123.321.23.43:2181 `
-|========================================================================================================================================================================
+|===
 
 An example of this command is:
 
@@ -578,13 +578,13 @@ Use this ZooKeeper sub-command to see the children of a znode.
 ==== Available Parameters
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|========================================================================================================================================================================
+|===
 |Parameter |Description |Example
 |ls |Print out the children (optionally recursively) of a znode |`ls`
 |-r |Optional. Recursively list all descendants of a znode |`-r`
 |<path> |The path on Zookeeper to list. |/collections/mycollection
 |-z <zkHost> |The ZooKeeper connection string. Unnecessary if ZK_HOST is defined in http://solr.in/[solr.in].sh or http://solr.in/[solr.in].cmd |`-z 123.321.23.43:2181 `
-|========================================================================================================================================================================
+|===
 
 An example of this command with the parameters is:
 

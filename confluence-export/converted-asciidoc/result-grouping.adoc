@@ -36,7 +36,7 @@ If you ask Solr to group these documents by "product_range", then the total amou
 Result Grouping takes the following request parameters. Any number of these request parameters can be included in a single request:
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|==============================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Type |Description
 |group |Boolean |If true, query results will be grouped.
 |group.field |string |The name of the field by which to group results. The field must be single-valued, and either be indexed or a field type that has a value source and works in a function query, such as `ExternalFileField`. It must also be a string-based field, such as `StrField` or `TextField`
@@ -66,7 +66,7 @@ Determines whether to compute grouped facets for the field facets specified in f
 See below for <<ResultGrouping-DistributedResultGroupingCaveats,Distributed Result Grouping Caveats>> when using sharded indexes
 
 |group.cache.percent |integer between 0 and 100 |Setting this parameter to a number greater than 0 enables caching for result grouping. Result Grouping executes two searches; this option caches the second search. The default value is 0. Testing has shown that group caching only improves search time with Boolean, wildcard, and fuzzy queries. For simple queries like term or "match all" queries, group caching degrades performance.
-|==============================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 Any number of group commands (`group.field`, `group.func`, `group.query`) may be specified in a single request.
 

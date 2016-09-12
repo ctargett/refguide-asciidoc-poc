@@ -1176,7 +1176,7 @@ The `NorwegianLightStemFilterFactory` requires a "two-pass" sort for the -dom an
 The second pass is to pick up -dom and -het endings. Consider this example:
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|==================================================
+|===
 |*One pass* | |*Two passes* |
 |*Before* |*After* |*Before* |*After*
 |forlegen |forleg |forlegen |forleg
@@ -1186,7 +1186,7 @@ The second pass is to pick up -dom and -het endings. Consider this example:
 |firkantet |firkant |firkantet |firkant
 |firkantethet |firkantet |firkantethet |firkant
 |firkantetheten |firkantet |firkantetheten |firkant
-|==================================================
+|===
 
 *Factory class:* `solr.NorwegianLightStemFilterFactory`
 

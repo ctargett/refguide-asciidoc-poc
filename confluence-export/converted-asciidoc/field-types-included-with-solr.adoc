@@ -5,7 +5,7 @@
 The following table lists the field types that are available in Solr. The `org.apache.solr.schema` package includes all the classes listed in this table.
 
 [width="100%",cols="50%,50%",options="header",]
-|=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Class |Description
 |BinaryField |Binary data.
 |BoolField |Contains either true or false. Values of "1", "t", or "T" in the first character are interpreted as true. Any other values in the first character are interpreted as false.
@@ -29,4 +29,4 @@ The following table lists the field types that are available in Solr. The `org.a
 |TrieIntField |Integer field (32-bit signed integer). `precisionStep="0"` enables efficient numeric sorting and minimizes index size; `precisionStep="8"` (the default) enables efficient range queries.
 |TrieLongField |Long field (64-bit signed integer). `precisionStep="0"` enables efficient numeric sorting and minimizes index size; `precisionStep="8"` (the default) enables efficient range queries.
 |UUIDField |Universally Unique Identifier (UUID). Pass in a value of "NEW" and Solr will create a new UUID. **Note**: configuring a UUIDField instance with a default value of "NEW" is not advisable for most users when using SolrCloud (and not possible if the UUID value is configured as the unique key field) since the result will be that each replica of each document will get a unique UUID value. Using UUIDUpdateProcessorFactory to generate UUID values when documents are added is recommended instead.
-|=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===

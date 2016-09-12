@@ -22,7 +22,7 @@ Whether or not you remember this explanation, do remember that the DisMax reques
 In addition to the common request parameter, highlighting parameters, and simple facet parameters, the DisMax query parser supports the parameters described below. Like the standard query parser, the DisMax query parser allows default parameter values to be specified in `solrconfig.xml`, or overridden by query-time values in the request.
 
 [width="100%",cols="50%,50%",options="header",]
-|=========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Parameter |Description
 |<<TheDisMaxQueryParser-TheqParameter,q>> |Defines the raw input strings for the query.
 |<<TheDisMaxQueryParser-Theq.altParameter,q.alt>> |Calls the standard query parser and defines query input strings, when the q parameter is not used.
@@ -34,7 +34,7 @@ In addition to the common request parameter, highlighting parameters, and simple
 |<<TheDisMaxQueryParser-Thetie(TieBreaker)Parameter,tie>> |Tie Breaker: specifies a float value (which should be something much less than 1) to use as tiebreaker in DisMax queries. Default: 0.0
 |<<TheDisMaxQueryParser-Thebq(BoostQuery)Parameter,bq>> |Boost Query: specifies a factor by which a term or phrase should be "boosted" in importance when considering a match.
 |<<TheDisMaxQueryParser-Thebf(BoostFunctions)Parameter,bf>> |Boost Functions: specifies functions to be applied to boosts. (See for details about function queries.)
-|=========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 The sections below explain these parameters in detail.
 
@@ -69,7 +69,7 @@ When processing queries, Lucene/Solr recognizes three types of clauses: mandator
 The table below explains the various ways that mm values can be specified.
 
 [width="100%",cols="34%,33%,33%",options="header",]
-|===========================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 |Syntax |Example |Description
 |Positive integer |3 |Defines the minimum number of clauses that must match, regardless of how many clauses there are in total.
 |Negative integer |-2 |Sets the minimum number of matching clauses to the total number of optional clauses, minus this value.
@@ -77,7 +77,7 @@ The table below explains the various ways that mm values can be specified.
 |Negative percentage |-25% |Indicates that this percent of the total number of optional clauses can be missing. The number computed from the percentage is rounded down, before being subtracted from the total to determine the minimum number.
 |An expression beginning with a positive integer followed by a > or < sign and another value |3<90% |Defines a conditional expression indicating that if the number of optional clauses is equal to (or less than) the integer, they are all required, but if it's greater than the integer, the specification applies. In this example: if there are 1 to 3 clauses they are all required, but for 4 or more clauses only 90% are required.
 |Multiple conditional expressions involving > or < signs |2<-25% 9<-3 |Defines multiple conditions, each one being valid only for numbers greater than the one before it. In the example at left, if there are 1 or 2 clauses, then both are required. If there are 3-9 clauses all but 25% are required. If there are more then 9 clauses, all but three are required.
-|===========================================================================================================================================================================================================================================================================================================================================================================================================================================
+|===
 
 When specifying `mm` values, keep in mind the following:
 

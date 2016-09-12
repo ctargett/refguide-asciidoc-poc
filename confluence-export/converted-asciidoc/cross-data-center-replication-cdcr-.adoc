@@ -235,12 +235,12 @@ The configuration details, defaults and options are as follows:
 CDCR can be configured to forward update requests to one or more replicas. A replica is defined with a “replica” list as follows:
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|=============================================================================================================================================================================
+|===
 |Parameter |Required |Default |Description
 |zkHost |Yes |none |The host address for ZooKeeper of the Target SolrCloud. Usually this is a comma-separated list of addresses to each node in the Target ZooKeeper ensemble.
 |Source |Yes |none |The name of the collection on the Source SolrCloud to be replicated.
 |Target |Yes |none |The name of the collection on the Target SolrCloud to which updates will be forwarded.
-|=============================================================================================================================================================================
+|===
 
 [[CrossDataCenterReplication(CDCR)-TheReplicatorElement]]
 ==== The Replicator Element
@@ -248,12 +248,12 @@ CDCR can be configured to forward update requests to one or more replicas. A rep
 The CDC Replicator is the component in charge of forwarding updates to the replicas. The replicator will monitor the update logs of the Source collection and will forward any new updates to the Target collection. The replicator uses a fixed thread pool to forward updates to multiple replicas in parallel. If more than one replica is configured, one thread will forward a batch of updates from one replica at a time in a round-robin fashion. The replicator can be configured with a “replicator” list as follows:
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|=====================================================================================================================================================================================================
+|===
 |Parameter |Required |Default |Description
 |threadPoolSize |No |2 |The number of threads to use for forwarding updates. One thread per replica is recommended.
 |schedule |No |10 |The delay in milliseconds for the monitoring the update log(s).
 |batchSize |No |128 |The number of updates to send in one batch. The optimal size depends on the size of the documents. Large batches of large documents can increase your memory usage significantly.
-|=====================================================================================================================================================================================================
+|===
 
 [[CrossDataCenterReplication(CDCR)-TheupdateLogSynchronizerElement]]
 ==== The updateLogSynchronizer Element
@@ -261,10 +261,10 @@ The CDC Replicator is the component in charge of forwarding updates to the repli
 Expert: Non-leader nodes need to synchronize their update logs with their leader node from time to time in order to clean deprecated transaction log files. By default, such a synchronization process is performed every minute. The schedule of the synchronization can be modified with a “updateLogSynchronizer” list as follows:
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|=================================================================================
+|===
 |Parameter |Required |Default |Description
 |schedule |No |60000 |The delay in milliseconds for synchronizing the updates log.
-|=================================================================================
+|===
 
 [[CrossDataCenterReplication(CDCR)-TheBufferElement]]
 ==== The Buffer Element
@@ -272,10 +272,10 @@ Expert: Non-leader nodes need to synchronize their update logs with their leader
 CDCR is configured by default to buffer any new incoming updates. When buffering updates, the updates log will store all the updates indefinitely. Replicas do not need to buffer updates, and it is recommended to disable buffer on the Target SolrCloud. The buffer can be disabled at startup with a “buffer” list and the parameter “defaultState” as follows:
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
-|==============================================================
+|===
 |Parameter |Required |Default |Description
 |defaultState |No |enabled |The state of the buffer at startup.
-|==============================================================
+|===
 
 [[CrossDataCenterReplication(CDCR)-CDCRAPI]]
 == CDCR API
@@ -674,12 +674,12 @@ This is a general approach for initializing CDCR in a production environment bas
 For example: if there are 2 shards on collection1 with 2 replicas for each shard, copy the corresponding index directories from
 
 [width="100%",cols="34%,33%,33%",]
-|==============================================
+|===
 |shard1replica1Source |to |shard1replica1Target
 |shard1replica2Source |to |shard1replica2Target
 |shard2replica1Source |to |shard2replica1Target
 |shard2replica2Source |to |shard2replica2Target
-|==============================================
+|===
 
 * ** Start the ZooKeeper on the Target (DR) side
 ** Start the SolrCloud on the Target (DR) side
@@ -689,9 +689,9 @@ For example: if there are 2 shards on collection1 with 2 replicas for each shard
 ** Activate the CDCR on Source instance using the cdcr api
 
 [width="100%",cols="100%",]
-|========================================================================
+|===
 |http://hostport[http://host:port/solr/collection_name/cdcr?action=START]
-|========================================================================
+|===
 
 [source,java]
 ----
