@@ -138,12 +138,16 @@ Automatically detect content types in a folder, but limit it to PPT and HTML fil
 ----
 
 [[PostTool-WindowsWindowssupport]]
-== [[PostTool-Windows]]Windows support
+
+[[PostTool-Windows]]
+== Windows support
 
 `bin/post` exists currently only as a Unix shell script, however it delegates its work to a cross-platform capable Java program. The` SimplePostTool `can be run directly in supported environments, including Windows.
 
 [[PostTool-SimplePostToolSimplePostTool]]
-== [[PostTool-SimplePostTool]]SimplePostTool
+
+[[PostTool-SimplePostTool]]
+== SimplePostTool
 
 The `bin/post` script currently delegates to a standalone Java program called `SimplePostTool`. This tool, bundled into a executable JAR, can be run directly using `java -jar example/exampledocs/post.jar`. See the help output and take it from there to post files, recurse a website or file system folder, or send direct commands to a Solr server.
 

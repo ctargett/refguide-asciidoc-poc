@@ -319,6 +319,54 @@ public class ScrapeConfluence {
         }
       }
     }
+
+    // confluence has a nasty habbit of (sometimes) putting named anchors people explicitly define
+    // *inside* a header, instead of around/before it.
+    // so if we find any of these, we need to rearange some things to work around somr problems...
+    // https://github.com/asciidoctor/asciidoctor/issues/1875
+    // 
+    // NOTE: just moving an explicit anchor before the header should work, but because of how id's on headers
+    // are treated in asciidoc, and some weirdness in how asciidoctor treats multiple anchors
+    // delcared in front of a header this causes all but one of the anchors to be ignored...
+    //
+    // https://github.com/asciidoctor/asciidoctor/issues/1874
+    //
+    // because of this, we'll use the "explicitly" defined ancor macro from confluence as our "main"
+    // id for the header, and move the existing header id to it's own declaration.
+    //
+    // that should result in both still existing in the final adoc file (so they are easy to grep for)
+    // but the one that is most likely to have links to it will be the one used by default in generated html.
+    for (int level = 1; level < 7; level++) {
+      final String h = "h" + level;
+      elements = docOut.getElementsByTag(h);
+      for (Element header : elements) {
+        // first see if we are immediately preceeded by an explicit anchor macro...
+        // (any wrapping <p> tags should have already been uprapped for us)
+        Element previous = header.previousElementSibling();
+        if (null != previous && "span".equals(previous.tagName()) && previous.classNames().contains("confluence-anchor-link")) {
+          // swap the id from this "previous" macro declaration with the "id" of the as our header
+          final String oldId = header.attr("id");
+          header.attr("id", previous.attr("id"));
+          previous.attr("id", oldId);
+        }
+          
+        // next, look for any anchors declared inside the header...
+        Elements inner = header.getElementsByClass("confluence-anchor-link");
+        for (Element anchor : inner) {
+          final String oldId = header.attr("id");
+          header.attr("id", anchor.attr("id"));
+          if (null != oldId) {
+            // flip id and move the anchor before the header
+            anchor.attr("id", oldId);
+            header.before(anchor);
+          } else {
+            // just remove the anchor completley
+            // (don't think this code path is possible, but including for completeness)
+            anchor.remove();
+          }
+        }
+      }
+    }
     
     // replace icon text
     elements = docOut.getElementsByClass("aui-icon");

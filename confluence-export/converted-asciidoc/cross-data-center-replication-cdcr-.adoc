@@ -151,7 +151,9 @@ The current design of CDCR has some limitations. CDCR will continue to evolve ov
 The Source and Target configurations differ in the case of the data centers being in separate clusters. "Cluster" here means separate ZooKeeper ensembles controlling disjoint Solr instances. Whether these data centers are physically separated or not is immaterial for this discussion.
 
 [[CrossDataCenterReplication(CDCR)-Configuration.1]]
-=== [[CrossDataCenterReplication(CDCR)-Configuration]]
+
+[[CrossDataCenterReplication(CDCR)-Configuration]]
+===
 
 [[CrossDataCenterReplication(CDCR)-SourceConfiguration]]
 === Source Configuration
@@ -626,9 +628,9 @@ The “queues” object also contains information about the updates log, such as
 }
 ----
 
-[[CrossDataCenterReplication(CDCR)-FirstTime]]
-
 [[CrossDataCenterReplication(CDCR)-InitialStartup]]
+
+[[CrossDataCenterReplication(CDCR)-FirstTime]]
 == Initial Startup
 
 This is a general approach for initializing CDCR in a production environment based upon an approach taken by the initial working installation of CDCR and generously contributed to illustrate a "real world" scenario. NOTE: The configuration snippets below illustrate specific points of configuration, you _must_ configure your Source and Target configurations installation at <<CrossDataCenterReplication(CDCR)-Configuration,Configuration:>>:
