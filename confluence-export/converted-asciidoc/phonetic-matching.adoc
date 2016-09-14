@@ -6,7 +6,9 @@ Phonetic matching algorithms may be used to encode tokens so that two different 
 
 For overviews of and comparisons between algorithms, see http://en.wikipedia.org/wiki/Phonetic_algorithm and http://ntz-develop.blogspot.com/2011/03/phonetic-algorithms.html
 
-[[PhoneticMatching-Beider-MorsePhoneticMatching(BMPM)]]
+// OLD_CONFLUENCE_ID: PhoneticMatching-Beider-MorsePhoneticMatching(BMPM)
+
+[[PhoneticMatching-Beider-MorsePhoneticMatching_BMPM_]]
 == Beider-Morse Phonetic Matching (BMPM)
 
 To use this encoding in your analyzer, see <<filter-descriptions.adoc#FilterDescriptions-Beider-MorseFilter,Beider Morse Filter>> in the Filter Descriptions section.
@@ -101,7 +103,9 @@ Caverphone is an algorithm created by the Caversham Project at the University of
 
 See http://en.wikipedia.org/wiki/Caverphone and the Caverphone 2.0 specification at http://caversham.otago.ac.nz/files/working/ctp150804.pdf
 
-[[PhoneticMatching-KölnerPhonetika.k.a.ColognePhonetic]]
+// OLD_CONFLUENCE_ID: PhoneticMatching-KölnerPhonetika.k.a.ColognePhonetic
+
+[[PhoneticMatching-K_lnerPhonetika.k.a.ColognePhonetic]]
 == Kölner Phonetik a.k.a. Cologne Phonetic
 
 To use this encoding in your analyzer, specify `encoding="ColognePhonetic"` with the <<filter-descriptions.adoc#FilterDescriptions-PhoneticFilter,Phonetic Filter>>.

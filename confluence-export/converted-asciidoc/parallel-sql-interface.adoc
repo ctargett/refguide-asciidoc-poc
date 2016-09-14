@@ -49,7 +49,9 @@ More detail on the architecture of the "map_reduce" query is in the section <<Pa
 
 The request handlers used for the SQL interface are configured to load implicitly, meaning there is little to do to start using this feature.
 
-[[ParallelSQLInterface-/sqlRequestHandler]]
+// OLD_CONFLUENCE_ID: ParallelSQLInterface-/sqlRequestHandler
+
+[[ParallelSQLInterface-_sqlRequestHandler]]
 === /sql Request Handler
 
 The `/sql` handler is the front end of the Parallel SQL interface. All SQL queries are sent to the `/sql` handler to be processed. The handler also coordinates the distributed MapReduce jobs when running `GROUP BY` and `SELECT DISTINCT` queries in `map_reduce` mode. By default the `/sql` handler will choose worker nodes from it's own collection to handle the distributed operations. In this default scenario the collection where the `/sql` handler resides acts as the default worker collection for MapReduce queries.
@@ -60,7 +62,9 @@ Note:
 
 As described below in the section <<ParallelSQLInterface-BestPractices,Best Practices>>, you may want to set up a separate collection for parallelized SQL queries. If you have high cardinality fields and a large amount of data, please be sure to review that section and
 
-[[ParallelSQLInterface-/streamand/exportRequestHandlers]]
+// OLD_CONFLUENCE_ID: ParallelSQLInterface-/streamand/exportRequestHandlers
+
+[[ParallelSQLInterface-_streamand_exportRequestHandlers]]
 === /stream and /export Request Handlers
 
 The Streaming API is an extensible parallel computing framework for SolrCloud. <<streaming-expressions.adoc#,Streaming Expressions>> provide a query language and a serialization format for the Streaming API. The Streaming API provides support for fast MapReduce allowing it to perform parallel relational algebra on extremely large data sets. Under the covers the SQL interface parses SQL queries using the Presto SQL Parser. It then translates the queries to the parallel query plan. The parallel query plan is expressed using the Streaming API and Streaming Expressions.
@@ -406,7 +410,9 @@ A step-by-step guide for setting up https://www.dbvis.com/[DbVisualizer] is in t
 
 A step-by-step guide for setting up http://squirrel-sql.sourceforge.net[SQuirreL SQL] is in the section <<solr-jdbc-squirrel-sql.adoc#,Solr JDBC - SQuirreL SQL>>.
 
-[[ParallelSQLInterface-ApacheZeppelin(incubating)]]
+// OLD_CONFLUENCE_ID: ParallelSQLInterface-ApacheZeppelin(incubating)
+
+[[ParallelSQLInterface-ApacheZeppelin_incubating_]]
 === Apache Zeppelin (incubating)
 
 A step-by-step guide for setting up http://zeppelin.apache.org/[Apache Zeppelin] is in the section <<solr-jdbc-apache-zeppelin.adoc#,Solr JDBC - Apache Zeppelin>>.

@@ -20,7 +20,9 @@ Schema defaults and `copyFields` cannot be used to populate the `uniqueKey` fiel
 
 Further, the operation will fail if the `uniqueKey` field is used, but is multivalued (or inherits the multivalueness from the `fieldtype`). However, `uniqueKey` will continue to work, as long as the field is properly used.
 
-[[OtherSchemaElements-DefaultSearchField&QueryOperator]]
+// OLD_CONFLUENCE_ID: OtherSchemaElements-DefaultSearchField&QueryOperator
+
+[[OtherSchemaElements-DefaultSearchField_QueryOperator]]
 == Default Search Field & Query Operator
 
 Although they have been deprecated for quite some time, Solr still has support for Schema based configuration of a `<defaultSearchField/>` (which is superseded by the `df parameter`) and `<solrQueryParser defaultOperator="OR"/>` (which is superseded by the <<the-standard-query-parser.adoc#,`q.op` parameter>>.

@@ -92,7 +92,9 @@ The parameters that can be specified are as follows:
 |`fairnessPolicy` |false |Chooses the JVM specifics dealing with fair policy queuing, if enabled distributed searches will be handled in a First in First out fashion at a cost to throughput. If disabled throughput will be favored over latency.
 |===
 
-[[DistributedRequests-ConfiguringstatsCache(DistributedIDF)]]
+// OLD_CONFLUENCE_ID: DistributedRequests-ConfiguringstatsCache(DistributedIDF)
+
+[[DistributedRequests-ConfiguringstatsCache_DistributedIDF_]]
 == Configuring statsCache (Distributed IDF)
 
 Document and term statistics are needed in order to calculate relevancy. Solr provides four implementations out of the box when it comes to document stats calculation:

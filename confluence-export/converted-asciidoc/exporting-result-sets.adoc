@@ -11,7 +11,9 @@ The cases where this functionality may be useful include: session analysis, dist
 
 All the fields being sorted and exported must have docValues set to true. For more information, see the section on <<docvalues.adoc#,DocValues>>.
 
-[[ExportingResultSets-Definingthe/exportRequestHandler]]
+// OLD_CONFLUENCE_ID: ExportingResultSets-Definingthe/exportRequestHandler
+
+[[ExportingResultSets-Definingthe_exportRequestHandler]]
 == Defining the /export Request Handler
 
 To export the full sorted result set you'll want to use a request handler explicitly configured to only run the "query" component, using the the export "rq" and "wt" params.

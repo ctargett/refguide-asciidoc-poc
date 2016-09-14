@@ -10,14 +10,18 @@ Both Lucene and Solr were designed to scale to support large implementations wit
 
 If you need full scale distribution of indexes and queries, as well as replication, load balancing and failover, you may want to use SolrCloud. Full details on configuring and using SolrCloud is available in the section <<solrcloud.adoc#,SolrCloud>>.
 
-[[IntroductiontoScalingandDistribution-WhatProblemDoesDistributionSolve?]]
+// OLD_CONFLUENCE_ID: IntroductiontoScalingandDistribution-WhatProblemDoesDistributionSolve?
+
+[[IntroductiontoScalingandDistribution-WhatProblemDoesDistributionSolve_]]
 == What Problem Does Distribution Solve?
 
 If searches are taking too long or the index is approaching the physical limitations of its machine, you should consider distributing the index across two or more Solr servers.
 
 To distribute an index, you divide the index into partitions called shards, each of which runs on a separate machine. Solr then partitions searches into sub-searches, which run on the individual shards, reporting results collectively. The architectural details underlying index sharding are invisible to end users, who simply experience faster performance on queries against very large indexes.
 
-[[IntroductiontoScalingandDistribution-WhatProblemDoesReplicationSolve?]]
+// OLD_CONFLUENCE_ID: IntroductiontoScalingandDistribution-WhatProblemDoesReplicationSolve?
+
+[[IntroductiontoScalingandDistribution-WhatProblemDoesReplicationSolve_]]
 == What Problem Does Replication Solve?
 
 Replicating an index is useful when:

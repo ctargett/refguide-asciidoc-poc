@@ -63,7 +63,9 @@ A drawback of this feature is that it could be used to load malicious executable
 
 The following steps will allow you enable security for this feature. The instructions assume you have started all your Solr nodes with the `-Denable.runtime.lib=true`.
 
-[[AddingCustomPluginsinSolrCloudMode-Step1:GenerateanRSAPrivateKey]]
+// OLD_CONFLUENCE_ID: AddingCustomPluginsinSolrCloudMode-Step1:GenerateanRSAPrivateKey
+
+[[AddingCustomPluginsinSolrCloudMode-Step1_GenerateanRSAPrivateKey]]
 === Step 1: Generate an RSA Private Key
 
 The first step is to generate an RSA private key. The example below uses a 512-bit key, but you should use the strength appropriate to your needs.
@@ -73,7 +75,9 @@ The first step is to generate an RSA private key. The example below uses a 512-b
 $ openssl genrsa -out priv_key.pem 512
 ----
 
-[[AddingCustomPluginsinSolrCloudMode-Step2:OutputthePublicKey]]
+// OLD_CONFLUENCE_ID: AddingCustomPluginsinSolrCloudMode-Step2:OutputthePublicKey
+
+[[AddingCustomPluginsinSolrCloudMode-Step2_OutputthePublicKey]]
 === Step 2: Output the Public Key
 
 The public portion of the key should be output in DER format so Java can read it.
@@ -83,7 +87,9 @@ The public portion of the key should be output in DER format so Java can read it
 $ openssl rsa -in priv_key.pem -pubout -outform DER -out pub_key.der
 ----
 
-[[AddingCustomPluginsinSolrCloudMode-Step3:LoadtheKeytoZooKeeper]]
+// OLD_CONFLUENCE_ID: AddingCustomPluginsinSolrCloudMode-Step3:LoadtheKeytoZooKeeper
+
+[[AddingCustomPluginsinSolrCloudMode-Step3_LoadtheKeytoZooKeeper]]
 === Step 3: Load the Key to ZooKeeper
 
 The .der files that are output from Step 2 should then be loaded to ZooKeeper under a node `/keys/exe` so they are available throughout every node. You can load any number of public keys to that node and all are valid. If a key is removed from the directory, the signatures of that key will cease to be valid. So, before removing the a key, make sure to update your runtime library configurations with valid signatures with the `update-runtimelib` command.
@@ -110,7 +116,9 @@ $ .bin/zkCli.sh -server localhost:9983
 
 After this, any attempt to load a jar will fail. All your jars must be signed with one of your private keys for Solr to trust it. The process to sign your jars and use the signature is outlined in Steps 4-6.
 
-[[AddingCustomPluginsinSolrCloudMode-Step4:SignthejarFile]]
+// OLD_CONFLUENCE_ID: AddingCustomPluginsinSolrCloudMode-Step4:SignthejarFile
+
+[[AddingCustomPluginsinSolrCloudMode-Step4_SignthejarFile]]
 === Step 4: Sign the jar File
 
 Next you need to sign the sha1 digest of your jar file and get the base64 string.
@@ -122,7 +130,9 @@ $ openssl dgst -sha1 -sign priv_key.pem myjar.jar | openssl enc -base64
 
 The output of this step will be a string that you will need to add the jar to your classpath in Step 6 below.
 
-[[AddingCustomPluginsinSolrCloudMode-Step5:LoadthejartotheBlobStore]]
+// OLD_CONFLUENCE_ID: AddingCustomPluginsinSolrCloudMode-Step5:LoadthejartotheBlobStore
+
+[[AddingCustomPluginsinSolrCloudMode-Step5_LoadthejartotheBlobStore]]
 === Step 5: Load the jar to the Blob Store
 
 Load your jar to the Blob store, using the <<blob-store-api.adoc#,Blob Store API>>. This step does not require a signature; you will need the signature in Step 6 to add it to your classpath.
@@ -135,7 +145,9 @@ http://localhost:8983/solr/.system/blob/{blobname}
 
 The blob name that you give the jar file in this step will be used as the name in the next step.
 
-[[AddingCustomPluginsinSolrCloudMode-Step6:AddthejartotheClasspath]]
+// OLD_CONFLUENCE_ID: AddingCustomPluginsinSolrCloudMode-Step6:AddthejartotheClasspath
+
+[[AddingCustomPluginsinSolrCloudMode-Step6_AddthejartotheClasspath]]
 === Step 6: Add the jar to the Classpath
 
 Finally, add the jar to the classpath using the Config API as detailed above. In this step, you will need to provide the signature of the jar that you got in Step 4.

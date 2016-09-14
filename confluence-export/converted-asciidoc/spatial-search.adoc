@@ -26,7 +26,7 @@ Some details that are not in this guide can be found at http://wiki.apache.org/s
 
 For indexing geodetic points (latitude and longitude), supply the pair of numbers as a string with a comma separating them in latitude then longitude order. For non-geodetic points, the order is x,y for PointType, and for RPT you must use a space instead of a comma, or use WKT or GeoJSON.
 
-See the section <<SpatialSearch-SpatialRecursivePrefixTreeFieldType(abbreviatedasRPT),SpatialRecursivePrefixTreeFieldType>> below for RPT configuration specifics.
+See the section <<SpatialSearch-SpatialRecursivePrefixTreeFieldType_abbreviatedasRPT_,SpatialRecursivePrefixTreeFieldType>> below for RPT configuration specifics.
 
 [[SpatialSearch-SpatialFilters]]
 == Spatial Filters
@@ -85,7 +85,9 @@ When a bounding box includes a pole, the bounding box ends up being a "bounding 
 
 Sometimes the spatial search requirement calls for finding everything in a rectangular area, such as the area covered by a map the user is looking at. For this case, geofilt and bbox won't cut it. This is somewhat of a trick, but you can use Solr's range query syntax for this by supplying the lower-left corner as the start of the range and the upper-right corner as the end of the range. Here's an example: `&q=*:*&fq=store:[45,-94 TO 46,-93]`. LatLonType does *not* support rectangles that cross the dateline, but RPT does. If you are using RPT with non-geospatial coordinates (`geo="false"`) then you must quote the points due to the space, e.g. `"x y"`.
 
-[[SpatialSearch-Optimization:SolrPostFiltering]]
+// OLD_CONFLUENCE_ID: SpatialSearch-Optimization:SolrPostFiltering
+
+[[SpatialSearch-Optimization_SolrPostFiltering]]
 === Optimization: Solr Post Filtering
 
 Most likely, the fastest spatial filters will be to simply use the RPT field type. However, sometimes it may be faster to use LatLonType with _Solr post filtering_ in circumstances when both the spatial query isn't worth caching and there aren't many matching documents that match the non-spatial filters (e.g. keyword queries and other filters). To use _Solr post filtering_ with LatLonType, use the `bbox` or `geofilt` query parsers in a filter query but specify `cache=false` and `cost=100` (or greater) as local parameters. Here's a short example:

@@ -313,7 +313,9 @@ Range faceting on date fields is a common situation where the <<working-with-dat
 
 For more information, see the examples in the <<working-with-dates.adoc#,Working with Dates>> section.
 
-[[Faceting-Pivot(DecisionTree)Faceting]]
+// OLD_CONFLUENCE_ID: Faceting-Pivot(DecisionTree)Faceting
+
+[[Faceting-Pivot_DecisionTree_Faceting]]
 == Pivot (Decision Tree) Faceting
 
 Pivoting is a summarization tool that lets you automatically sort, count, total or average data stored in a table. The results are typically displayed in a second table showing the summarized data. Pivot faceting lets you create a summary table of the results from a faceting documents by multiple fields.

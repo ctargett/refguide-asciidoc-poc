@@ -309,7 +309,9 @@ Using a Tailored ruleset:
 
 <<main,Back to Top>>
 
-[[LanguageAnalysis-ASCII&DecimalFoldingFilters]]
+// OLD_CONFLUENCE_ID: LanguageAnalysis-ASCII&DecimalFoldingFilters
+
+[[LanguageAnalysis-ASCII_DecimalFoldingFilters]]
 == ASCII & Decimal Folding Filters
 
 [[LanguageAnalysis-AsciiFolding]]
@@ -383,7 +385,7 @@ These factories are each designed to work with specific languages. The languages
 * <<LanguageAnalysis-Galician,Galician>>
 * <<LanguageAnalysis-German,German>>
 * <<LanguageAnalysis-Greek,Greek>>
-* <<LanguageAnalysis-Hebrew,Lao,Myanmar,Khmer,Hebrew, Lao, Myanmar, Khmer>>
+* <<LanguageAnalysis-Hebrew_Lao_Myanmar_Khmer,Hebrew, Lao, Myanmar, Khmer>>
 * <<LanguageAnalysis-Hindi,Hindi>>
 
 * <<LanguageAnalysis-Indonesian,Indonesian>>
@@ -1120,7 +1122,9 @@ Example:
 
 <<main,Back to Top>>
 
-[[LanguageAnalysis-Hebrew,Lao,Myanmar,Khmer]]
+// OLD_CONFLUENCE_ID: LanguageAnalysis-Hebrew,Lao,Myanmar,Khmer
+
+[[LanguageAnalysis-Hebrew_Lao_Myanmar_Khmer]]
 === Hebrew, Lao, Myanmar, Khmer
 
 Lucene provides support, in addition to UAX#29 word break rules, for Hebrew's use of the double and single quote characters, and for segmenting Lao, Myanmar, and Khmer into syllables with the `solr.ICUTokenizerFactory` in the `analysis-extras` contrib module. To use this tokenizer, see `solr/contrib/analysis-extras/README.txt for` instructions on which jars you need to add to your `solr_home/lib`.

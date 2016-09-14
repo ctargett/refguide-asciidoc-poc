@@ -172,7 +172,9 @@ Results:
 </response>
 ----
 
-[[TheTermsComponent-GetFirst10TermsStartingwithLetter'a']]
+// OLD_CONFLUENCE_ID: TheTermsComponent-GetFirst10TermsStartingwithLetter'a'
+
+[[TheTermsComponent-GetFirst10TermsStartingwithLetter_a_]]
 === Get First 10 Terms Starting with Letter 'a'
 
 This query requests the first ten terms in the name field, in index order (instead of the top 10 results by document count): ` http://localhost:8983/solr/techproducts/terms?terms.fl=name&terms.lower=a&terms.sort=index `

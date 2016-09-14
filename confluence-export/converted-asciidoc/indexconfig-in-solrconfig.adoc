@@ -60,7 +60,9 @@ Defines how merging segments is done. The default in Solr is to use a `TieredMer
 </mergePolicyFactory>
 ----
 
-[[IndexConfiginSolrConfig-ControllingSegmentSizes:MergeFactors]]
+// OLD_CONFLUENCE_ID: IndexConfiginSolrConfig-ControllingSegmentSizes:MergeFactors
+
+[[IndexConfiginSolrConfig-ControllingSegmentSizes_MergeFactors]]
 === Controlling Segment Sizes: Merge Factors
 
 The most common adjustment some folks make to the configuration of TieredMergePolicy (or LogByteSizeMergePolicy) are the "merge factors" to change how many segments should be merged at one time. For TieredMergePolicy, this is controlled by setting the `<int name="maxMergeAtOnce">` and `<int name="segmentsPerTier">` options, while LogByteSizeMergePolicy has a single `<int name="mergeFactor">` option (all of which default to "`10`").

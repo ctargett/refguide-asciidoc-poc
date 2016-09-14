@@ -21,7 +21,9 @@ In addition to the <<common-query-parameters.adoc#,Common Query Parameters>>, <<
 
 Default parameter values are specified in `solrconfig.xml`, or overridden by query-time values in the request.
 
-[[TheStandardQueryParser-TheStandardQueryParser'sResponse]]
+// OLD_CONFLUENCE_ID: TheStandardQueryParser-TheStandardQueryParser'sResponse
+
+[[TheStandardQueryParser-TheStandardQueryParser_sResponse]]
 == The Standard Query Parser's Response
 
 By default, the response from the standard query parser contains one `<result>` block, which is unnamed. If the <<common-query-parameters.adoc#CommonQueryParameters-ThedebugParameter,`debug` parameter>> is used, then an additional `<lst>` block will be returned, using the name "debug". This will contain useful debugging info, including the original query string, the parsed query string, and explain info for each document in the <result> block. If the <<common-query-parameters.adoc#CommonQueryParameters-TheexplainOtherParameter,`explainOther` parameter>> is also used, then additional explain info will be provided for all the documents matching that query.
@@ -162,7 +164,9 @@ The brackets around a query determine its inclusiveness.
 * Curly brackets \{ } denote an exclusive range query that matches values between the upper and lower bounds, but excluding the upper and lower bounds themselves.
 * You can mix these types so one end of the range is inclusive and the other is exclusive. Here's an example: `count:{1 TO 10]`
 
-[[TheStandardQueryParser-BoostingaTermwith^]]
+// OLD_CONFLUENCE_ID: TheStandardQueryParser-BoostingaTermwith^
+
+[[TheStandardQueryParser-BoostingaTermwith_]]
 === Boosting a Term with `^`
 
 Lucene/Solr provides the relevance level of matching documents based on the terms found. To boost a term use the caret symbol `^` with a boost factor (a number) at the end of the term you are searching. The higher the boost factor, the more relevant the term will be.
@@ -179,7 +183,9 @@ This will make documents with the term jakarta appear more relevant. You can als
 
 By default, the boost factor is 1. Although the boost factor must be positive, it can be less than 1 (for example, it could be 0.2).
 
-[[TheStandardQueryParser-ConstantScorewith^=]]
+// OLD_CONFLUENCE_ID: TheStandardQueryParser-ConstantScorewith^=
+
+[[TheStandardQueryParser-ConstantScorewith_]]
 === Constant Score with `^=`
 
 Constant score queries are created with `<query_clause>^=<score>`, which sets the entire clause to the specified score for any documents matching that clause. This is desirable when you only care about matches for a particular clause and don't want other relevancy factors such as term frequency (the number of times the term appears in the field) or inverse document frequency (a measure across the whole index for how rare a term is in a field).
@@ -244,7 +250,9 @@ or
 
 `"jakarta apache" OR jakarta`
 
-[[TheStandardQueryParser-TheBooleanOperator+]]
+// OLD_CONFLUENCE_ID: TheStandardQueryParser-TheBooleanOperator+
+
+[[TheStandardQueryParser-TheBooleanOperator_]]
 === The Boolean Operator `+`
 
 The `+` symbol (also known as the "required" operator) requires that the term after the `+` symbol exist somewhere in a field in at least one document in order for the query to return a match.
@@ -257,7 +265,9 @@ Note:
 
 This operator is supported by both the standard query parser and the DisMax query parser.
 
-[[TheStandardQueryParser-TheBooleanOperatorAND(&&)]]
+// OLD_CONFLUENCE_ID: TheStandardQueryParser-TheBooleanOperatorAND(&&)
+
+[[TheStandardQueryParser-TheBooleanOperatorAND_]]
 === The Boolean Operator AND (`&&`)
 
 The AND operator matches documents where both terms exist anywhere in the text of a single document. This is equivalent to an intersection using sets. The symbol `&&` can be used in place of the word AND.
@@ -268,7 +278,9 @@ To search for documents that contain "jakarta apache" and "Apache Lucene," use e
 
 `"jakarta apache" && "Apache Lucene"`
 
-[[TheStandardQueryParser-TheBooleanOperatorNOT(!)]]
+// OLD_CONFLUENCE_ID: TheStandardQueryParser-TheBooleanOperatorNOT(!)
+
+[[TheStandardQueryParser-TheBooleanOperatorNOT_]]
 === The Boolean Operator NOT (`!`)
 
 The NOT operator excludes documents that contain the term after NOT. This is equivalent to a difference using sets. The symbol `!` can be used in place of the word NOT.

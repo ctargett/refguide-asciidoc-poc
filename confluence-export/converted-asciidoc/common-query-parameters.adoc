@@ -11,8 +11,8 @@ The table below summarizes Solr's common query parameters, which are supported b
 |<<CommonQueryParameters-ThesortParameter,sort>> |Sorts the response to a query in either ascending or descending order based on the response's score or another specified characteristic.
 |<<CommonQueryParameters-ThestartParameter,start>> |Specifies an offset (by default, 0) into the responses at which Solr should begin displaying content.
 |<<CommonQueryParameters-TherowsParameter,rows>> |Controls how many rows of responses are displayed at a time (default value: 10)
-|<<CommonQueryParameters-Thefq(FilterQuery)Parameter,fq>> |Applies a filter query to the search results.
-|<<CommonQueryParameters-Thefl(FieldList)Parameter,fl>> |Limits the information included in a query response to a specified list of fields. The fields need to either be `stored="true"` or `docValues="true"`
+|<<CommonQueryParameters-Thefq_FilterQuery_Parameter,fq>> |Applies a filter query to the search results.
+|<<CommonQueryParameters-Thefl_FieldList_Parameter,fl>> |Limits the information included in a query response to a specified list of fields. The fields need to either be `stored="true"` or `docValues="true"`
 |<<CommonQueryParameters-ThedebugParameter,debug>> |Request additional debugging information in the response. Specifying the `debug=timing` parameter returns just the timing information; specifying the `debug=results` parameter returns "explain" information for each of the documents returned; specifying the `debug=query parameter` returns all of the debug information.
 |<<CommonQueryParameters-TheexplainOtherParameter,explainOther>> |Allows clients to specify a Lucene query to identify a set of documents. If non-blank, the explain info of each document which matches this query, relative to the main query (specified by the q parameter) will be returned along with the rest of the debugging information.
 |<<CommonQueryParameters-ThetimeAllowedParameter,timeAllowed>> |Defines the time allowed for the query to be processed. If the time elapses before the query response is complete, partial information may be returned.
@@ -83,7 +83,9 @@ You can use the rows parameter to paginate results from a query. The parameter s
 
 The default value is 10. That is, by default, Solr returns 10 documents at a time in response to a query.
 
-[[CommonQueryParameters-Thefq(FilterQuery)Parameter]]
+// OLD_CONFLUENCE_ID: CommonQueryParameters-Thefq(FilterQuery)Parameter
+
+[[CommonQueryParameters-Thefq_FilterQuery_Parameter]]
 == The `fq` (Filter Query) Parameter
 
 The `fq` parameter defines a query that can be used to restrict the superset of documents that can be returned, without influencing score. It can be very useful for speeding up complex queries, since the queries specified with `fq` are cached independently of the main query. When a later query uses the same filter, there's a cache hit, and filter results are returned quickly from the cache.
@@ -108,7 +110,9 @@ fq=+popularity:[10 TO *] +section:0
 
 * As with all parameters: special characters in an URL need to be properly escaped and encoded as hex values. Online tools are available to help you with URL-encoding. For example: http://meyerweb.com/eric/tools/dencoder/.
 
-[[CommonQueryParameters-Thefl(FieldList)Parameter]]
+// OLD_CONFLUENCE_ID: CommonQueryParameters-Thefl(FieldList)Parameter
+
+[[CommonQueryParameters-Thefl_FieldList_Parameter]]
 == The `fl` (Field List) Parameter
 
 The `fl` parameter limits the information included in a query response to a specified list of fields. The fields need to either be `stored="true"` or `docValues="true"``.`
@@ -233,7 +237,9 @@ If set to true, this parameter excludes the header from the returned results. Th
 
 The `wt` parameter selects the Response Writer that Solr should use to format the query's response. For detailed descriptions of Response Writers, see <<response-writers.adoc#,Response Writers>>.
 
-[[CommonQueryParameters-Thecache=falseParameter]]
+// OLD_CONFLUENCE_ID: CommonQueryParameters-Thecache=falseParameter
+
+[[CommonQueryParameters-Thecache_falseParameter]]
 == The `cache=false` Parameter
 
 Solr caches the results of all queries and filter queries by default. To disable result caching, set the `cache=false` parameter.

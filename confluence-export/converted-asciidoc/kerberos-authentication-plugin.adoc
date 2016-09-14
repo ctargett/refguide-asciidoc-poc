@@ -152,7 +152,9 @@ Once all of the pieces are in place, start ZooKeeper with the following paramete
 bin/zkServer.sh start -Djava.security.auth.login.config=/etc/zookeeper/conf/jaas-client.conf
 ----
 
-[[KerberosAuthenticationPlugin-Create/security.json]]
+// OLD_CONFLUENCE_ID: KerberosAuthenticationPlugin-Create/security.json
+
+[[KerberosAuthenticationPlugin-Create_security.json]]
 === Create /security.json
 
 Set up Solr to use the Kerberos plugin by uploading the `security.json` as follows:

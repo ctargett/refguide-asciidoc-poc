@@ -168,7 +168,9 @@ curl "http://localhost:8983/solr/gettingstarted/update/json?update.chain=dedupe&
 
 The above should dedupe the two identical documents and index only one of them.
 
-[[UpdateRequestProcessors-processor&post-processorrequestparameters]]
+// OLD_CONFLUENCE_ID: UpdateRequestProcessors-processor&post-processorrequestparameters
+
+[[UpdateRequestProcessors-processor_post-processorrequestparameters]]
 === processor & post-processor request parameters
 
 We can dynamically construct a custom update request processor chain using the "processor" and "post-processor" request parameters. Multiple processors can be specified as a comma-separated value for these two parameters. For example:

@@ -4,7 +4,9 @@
 
 This section describes how to install Solr. You can install Solr in any system where a suitable Java Runtime Environment (JRE) is available, as detailed below. Currently this includes Linux, OS X, and Microsoft Windows. The instructions in this section should work for any platform, with a few exceptions for Windows as noted.
 
-[[InstallingSolr-GotJava?]]
+// OLD_CONFLUENCE_ID: InstallingSolr-GotJava?
+
+[[InstallingSolr-GotJava_]]
 == Got Java?
 
 You will need the Java Runtime Environment (JRE) version 1.8 or higher. At a command line, check your Java version like this:

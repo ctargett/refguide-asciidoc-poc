@@ -35,7 +35,9 @@ As you can see, the discovery Solr configuration is "SolrCloud friendly". Howeve
 [[Formatofsolr.xml-Solr.xmlParameters]]
 === Solr.xml Parameters
 
-[[Formatofsolr.xml-The<solr>Element]]
+// OLD_CONFLUENCE_ID: Formatofsolr.xml-The<solr>Element
+
+[[Formatofsolr.xml-The_solr_Element]]
 ==== The `<solr>` Element
 
 There are no attributes that you can specify in the `<solr>` tag, which is the root element of `solr.xml`. The tables below list the child nodes of each XML element in `solr.xml`.
@@ -70,7 +72,9 @@ configSetBaseDir
  |The directory under which configsets for solr cores can be found. Defaults to SOLR_HOME/configsets
 |===
 
-[[Formatofsolr.xml-The<solrcloud>element]]
+// OLD_CONFLUENCE_ID: Formatofsolr.xml-The<solrcloud>element
+
+[[Formatofsolr.xml-The_solrcloud_element]]
 ==== The `<solrcloud>` element
 
 This element defines several parameters that relate so SolrCloud. This section is ignored unless the solr instance is started with either `-DzkRun` or `-DzkHost`
@@ -91,7 +95,9 @@ This element defines several parameters that relate so SolrCloud. This section i
 |`zkCredentialsProvider` & ` zkACLProvider` |Optional parameters that can be specified if you are using <<zookeeper-access-control.adoc#,ZooKeeper Access Control>>.
 |===
 
-[[Formatofsolr.xml-The<logging>element]]
+// OLD_CONFLUENCE_ID: Formatofsolr.xml-The<logging>element
+
+[[Formatofsolr.xml-The_logging_element]]
 ==== The `<logging>` element
 
 [width="100%",cols="50%,50%",options="header",]
@@ -101,7 +107,9 @@ This element defines several parameters that relate so SolrCloud. This section i
 |`enabled` |true/false - whether to enable logging or not.
 |===
 
-[[Formatofsolr.xml-The<logging><watcher>element]]
+// OLD_CONFLUENCE_ID: Formatofsolr.xml-The<logging><watcher>element
+
+[[Formatofsolr.xml-The_logging_watcher_element]]
 ===== The `<logging><watcher>` element
 
 [width="100%",cols="50%,50%",options="header",]
@@ -111,7 +119,9 @@ This element defines several parameters that relate so SolrCloud. This section i
 |`threshold` |The logging level above which your particular logging implementation will record. For example when using log4j one might specify DEBUG, WARN, INFO, etc.
 |===
 
-[[Formatofsolr.xml-The<shardHandlerFactory>element]]
+// OLD_CONFLUENCE_ID: Formatofsolr.xml-The<shardHandlerFactory>element
+
+[[Formatofsolr.xml-The_shardHandlerFactory_element]]
 ==== The `<shardHandlerFactory>` element
 
 Custom shard handlers can be defined in `solr.xml` if you wish to create a custom shard handler.

@@ -249,7 +249,9 @@ Note:
 
 If your operating system does not include cURL, you can download binaries here: http://curl.haxx.se/download.html
 
-[[EnablingSSL-CreateaSolrCloudcollectionusingbin/solr]]
+// OLD_CONFLUENCE_ID: EnablingSSL-CreateaSolrCloudcollectionusingbin/solr
+
+[[EnablingSSL-CreateaSolrCloudcollectionusingbin_solr]]
 === Create a SolrCloud collection using `bin/solr`
 
 Create a 2-shard, replicationFactor=1 collection named mycollection using the default configset (data_driven_schema_configs):

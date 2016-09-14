@@ -42,7 +42,7 @@ the output would be:
 <float name="score">0.343</float>
 ...
 ----
-* Use in a parameter that is explicitly for specifying functions, such as the EDisMax query parser's <<the-extended-dismax-query-parser.adoc#,`boost`>> param, or DisMax query parser's <<the-dismax-query-parser.adoc#TheDisMaxQueryParser-Thebf(BoostFunctions)Parameter,`bf` (boost function) parameter>>. (Note that the `bf` parameter actually takes a list of function queries separated by white space and each with an optional boost. Make sure you eliminate any internal white space in single function queries when using `bf`). For example:
+* Use in a parameter that is explicitly for specifying functions, such as the EDisMax query parser's <<the-extended-dismax-query-parser.adoc#,`boost`>> param, or DisMax query parser's <<the-dismax-query-parser.adoc#TheDisMaxQueryParser-Thebf_BoostFunctions_Parameter,`bf` (boost function) parameter>>. (Note that the `bf` parameter actually takes a list of function queries separated by white space and each with an optional boost. Make sure you eliminate any internal white space in single function queries when using `bf`). For example:
 +
 [source,java]
 ----

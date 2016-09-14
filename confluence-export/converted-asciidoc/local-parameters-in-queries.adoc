@@ -46,7 +46,9 @@ is equivilent to:
 
 `fq={!type=lucene df=summary}solr rocks`
 
-[[LocalParametersinQueries-SpecifyingtheParameterValuewiththe'v'Key]]
+// OLD_CONFLUENCE_ID: LocalParametersinQueries-SpecifyingtheParameterValuewiththe'v'Key
+
+[[LocalParametersinQueries-SpecifyingtheParameterValuewiththe_v_Key]]
 == Specifying the Parameter Value with the '`v`' Key
 
 A special key of `v` within local parameters is an alternate way to specify the value of that parameter.

@@ -402,7 +402,9 @@ NOTE: Solr should have been started at least once before issuing these commands 
 
 Use this Zookeeper sub-command to upload one of the pre-configured configuration set or a customized configuration set to Zookeeper.
 
-[[SolrStartScriptReference-AvailableParameters(allparametersarerequired)]]
+// OLD_CONFLUENCE_ID: SolrStartScriptReference-AvailableParameters(allparametersarerequired)
+
+[[SolrStartScriptReference-AvailableParameters_allparametersarerequired_]]
 ==== Available Parameters (all parameters are required)
 
 [width="100%",cols="34%,33%,33%",options="header",]
@@ -441,7 +443,9 @@ This command does *not* automatically make changes effective! It simply uploads 
 
 Use this Zookeeper sub-command to download a configuration set from Zookeeper to the local filesystem.
 
-[[SolrStartScriptReference-AvailableParameters(allparametersarerequired).1]]
+// OLD_CONFLUENCE_ID: SolrStartScriptReference-AvailableParameters(allparametersarerequired).1
+
+[[SolrStartScriptReference-AvailableParameters_allparametersarerequired_.1]]
 ==== Available Parameters (all parameters are required)
 
 [width="100%",cols="34%,33%,33%",options="header",]
@@ -548,7 +552,9 @@ An example of this command with the parameters is:
 bin/solr zk rm /configs/myconfigset/schema.xml
 ....
 
-[[SolrStartScriptReference-MoveoneZookeeperznodetoanother(rename)]]
+// OLD_CONFLUENCE_ID: SolrStartScriptReference-MoveoneZookeeperznodetoanother(rename)
+
+[[SolrStartScriptReference-MoveoneZookeeperznodetoanother_rename_]]
 === Move one Zookeeper znode to another (rename)
 
 Use this ZooKeeper sub-command to move (rename) a Zookeeper znode
@@ -569,7 +575,9 @@ An example of this command is:
 
 `bin/solr zk mv /configs/oldconfigset /configs/newconfigset`
 
-[[SolrStartScriptReference-ListaZookeeperznode'schildren]]
+// OLD_CONFLUENCE_ID: SolrStartScriptReference-ListaZookeeperznode'schildren
+
+[[SolrStartScriptReference-ListaZookeeperznode_schildren]]
 === List a Zookeeper znode's children
 
 Use this ZooKeeper sub-command to see the children of a znode.

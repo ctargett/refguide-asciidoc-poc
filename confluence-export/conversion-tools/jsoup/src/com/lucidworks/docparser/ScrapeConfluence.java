@@ -30,6 +30,7 @@ import org.jsoup.select.NodeVisitor;
  */
 public class ScrapeConfluence {
   static final Pattern PRE_CODE_CLASS_PATTERN = Pattern.compile("brush:\\s+([^;]+)");
+  static final Pattern ANCHOR_ID_CLEANER = Pattern.compile("[^A-Za-z0-9\\.\\-\\_\\#]+");
   
     public static void main(String[] args) throws Exception {
         if (args.length < 3) {
@@ -188,7 +189,7 @@ public class ScrapeConfluence {
       Element linkedPage = pageTree.getPageIfMatch(path);
       
       if ("".equals(path)) { // fragment only URL (ie: same page)
-        return PRE + href;
+        return PRE + fixAnchorId(href);
       } else if (null != linkedPage) {
         path = pageTree.getPageShortName(linkedPage) + ".adoc";
 
@@ -197,6 +198,7 @@ public class ScrapeConfluence {
           // we have to have a fragment for intra-page links to work correctly in asciidoc
           frag = "";
         }
+        frag = fixAnchorId(frag);
         
         // HACKish, to ensure we get clean path + ?query? + fragement
         // (assuming we have any query parts in our realtive urls to worry about)
@@ -390,9 +392,33 @@ public class ScrapeConfluence {
       element.remove();
     }
 
+    // work around https://github.com/asciidoctor/asciidoctor/issues/1873
+    elements = docOut.select("[id]");
+    for (Element element : elements) {
+      final String oldId = element.attr("id");
+      final String newId = fixAnchorId(oldId);
+      if (! oldId.equals(newId)) {
+        // would love to use jsoup's Comment class, but it doesn't survive pandoc
+        // ironically, this does...
+        Element fakeComment = new Element(Tag.valueOf("div"), "");
+        fakeComment.text("// OLD_CONFLUENCE_ID: " + oldId);
+        element.before(fakeComment);
+        element.attr("id", newId);
+      }
+    }
+    
     docOut.normalise();
   }
 
+  /** 
+   * work around https://github.com/asciidoctor/asciidoctor/issues/1873
+   * needs to be called on all "id" attributes, as well as any anchor text in (local) links
+   */
+  public static String fixAnchorId(String id) {
+    Matcher m = ANCHOR_ID_CLEANER.matcher(id);
+    return m.replaceAll("_");
+  }
+  
   /**
    * Wraps a (Jsoup) "DOM" of the <code>page-tree.xml</code> file with convinience methods
    * for getting the names, shortnames, and kids of various pages

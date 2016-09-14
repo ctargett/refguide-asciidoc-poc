@@ -91,7 +91,9 @@ The content to be indexed/searched along with metadata defining how the content 
 [[SolrGlossary-I]]
 == I
 
-[[SolrGlossary-Inversedocumentfrequency(IDF)]]
+// OLD_CONFLUENCE_ID: SolrGlossary-Inversedocumentfrequency(IDF)
+
+[[SolrGlossary-Inversedocumentfrequency_IDF_]]
 ====== Inverse document frequency (IDF)
 
 A measure of the general importance of a term. It is calculated as the number of total Documents divided by the number of Documents that a particular word occurs in the collection. See http://en.wikipedia.org/wiki/Tf-idf and http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/search/similarities/TFIDFSimilarity.html[the Lucene TFIDFSimilarity javadocs] for more info on TF-IDF based scoring and Lucene scoring in particular. See also <<SolrGlossary-Termfrequency,#Term frequency>>.
@@ -197,12 +199,16 @@ In SolrCloud, a logical partition of a single <<SolrGlossary-Collection,Collecti
 
 Umbrella term for a suite of functionality in Solr which allows managing a <<SolrGlossary-Cluster,Cluster>> of Solr <<SolrGlossary-Nodes,Nodes>> for scalability, fault tolerance, and high availability.
 
-[[SolrGlossary-SolrSchema(managed-schemaorschema.xml)]]
+// OLD_CONFLUENCE_ID: SolrGlossary-SolrSchema(managed-schemaorschema.xml)
+
+[[SolrGlossary-SolrSchema_managed-schemaorschema.xml_]]
 ====== <<documents-fields-and-schema-design.adoc#,Solr Schema (managed-schema or schema.xml)>>
 
 The Solr index Schema defines the fields to be indexed and the type for the field (text, integers, etc.) By default schema data can be "managed" at run time using the <<schema-api.adoc#,Schema API>> and is typically kept in a file named `managed-schema` which Solr modifies as needed, but a collection may be configured to use a static Schema, which is only loaded on startup from a human edited configuration file - typically named `schema.xml`. See <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory Definition in SolrConfig>> for details.
 
-[[SolrGlossary-SolrConfig(solrconfig.xml)]]
+// OLD_CONFLUENCE_ID: SolrGlossary-SolrConfig(solrconfig.xml)
+
+[[SolrGlossary-SolrConfig_solrconfig.xml_]]
 ====== <<the-well-configured-solr-instance.adoc#,SolrConfig (solrconfig.xml)>>
 
 The Apache Solr configuration file. Defines indexing options, RequestHandlers, highlighting, spellchecking and various other configurations. The file, solrconfig.xml is located in the Solr home conf directory.
@@ -233,7 +239,7 @@ Synonyms generally are terms which are near to each other in meaning and may sub
 [[SolrGlossary-Termfrequency]]
 ====== Term frequency
 
-The number of times a word occurs in a given document. See http://en.wikipedia.org/wiki/Tf-idf and http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/search/similarities/TFIDFSimilarity.html[the Lucene TFIDFSimilarity javadocs] for more info on TF-IDF based scoring and Lucene scoring in particular. See also <<SolrGlossary-Inversedocumentfrequency(IDF),#Inverse document frequency (IDF)>>.
+The number of times a word occurs in a given document. See http://en.wikipedia.org/wiki/Tf-idf and http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/search/similarities/TFIDFSimilarity.html[the Lucene TFIDFSimilarity javadocs] for more info on TF-IDF based scoring and Lucene scoring in particular. See also <<SolrGlossary-Inversedocumentfrequency_IDF_,#Inverse document frequency (IDF)>>.
 
 [[SolrGlossary-Transactionlog]]
 ====== Transaction log

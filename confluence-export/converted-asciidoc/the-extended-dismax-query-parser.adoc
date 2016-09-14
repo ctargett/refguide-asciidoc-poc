@@ -22,7 +22,7 @@ In addition to all the <<the-dismax-query-parser.adoc#TheDisMaxQueryParser-DisMa
 [[TheExtendedDisMaxQueryParser-Themm.autoRelaxParameter]]
 === The mm.autoRelax Parameter
 
-If true, the number of clauses required (<<the-dismax-query-parser.adoc#TheDisMaxQueryParser-Themm(MinimumShouldMatch)Parameter,minimum should match>>) will automatically be relaxed if a clause is removed (by e.g. stopwords filter) from some but not all `qf` fields. Use this parameter as a workaround if you experience that queries return zero hits due to uneven stopword removal between the `qf` fields.
+If true, the number of clauses required (<<the-dismax-query-parser.adoc#TheDisMaxQueryParser-Themm_MinimumShouldMatch_Parameter,minimum should match>>) will automatically be relaxed if a clause is removed (by e.g. stopwords filter) from some but not all `qf` fields. Use this parameter as a workaround if you experience that queries return zero hits due to uneven stopword removal between the `qf` fields.
 
 Note that relaxing mm may cause undesired side effects, hurting the precision of the search, depending on the nature of your index content.
 
@@ -138,7 +138,9 @@ f.name.qf=last_name first_name
 
 Negative query boosts have been supported at the "Query" object level for a long time (resulting in negative scores for matching documents). Now the QueryParsers have been updated to handle this too.
 
-[[TheExtendedDisMaxQueryParser-Using'slop']]
+// OLD_CONFLUENCE_ID: TheExtendedDisMaxQueryParser-Using'slop'
+
+[[TheExtendedDisMaxQueryParser-Using_slop_]]
 == Using 'slop'
 
 `Dismax` and `Edismax` can run queries against all query fields, and also run a query in the form of a phrase against the phrase fields. (This will work only for boosting documents, not actually for matching.) However, that phrase query can have a 'slop,' which is the distance between the terms of the query while still considering it a phrase match. For example:
@@ -196,7 +198,9 @@ A document that contains "Hans Anderson" will match, but a document that contain
 
 Finally, in addition to the phrase fields (`pf`) parameter, `edismax` also supports the `pf2` and `pf3` parameters, for fields over which to create bigram and trigram phrase queries. The phrase slop for these parameters' queries can be specified using the `ps2` and `ps3` parameters, respectively. If you use `pf2`/`pf3` but `ps2`/`ps3`, then the phrase slop for these parameters' queries will be taken from the `ps` parameter, if any.
 
-[[TheExtendedDisMaxQueryParser-Usingthe'magicfields'_val_and_query_]]
+// OLD_CONFLUENCE_ID: TheExtendedDisMaxQueryParser-Usingthe'magicfields'_val_and_query_
+
+[[TheExtendedDisMaxQueryParser-Usingthe_magicfields__val_and_query_]]
 == Using the 'magic fields' _val_ and _query_
 
 The Solr Query Parser's use of `_val_` and `_query_` differs from the Lucene Query Parser in the following ways:

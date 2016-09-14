@@ -13,7 +13,9 @@ bin/post -c gettingstarted example/films/films.json
 
 This will contact the server at `localhost:8983. S`pecifying the `collection/core name` is **mandatory**. The '-help' (or simply '-h') option will output information on its usage (i.e., `bin/post -help)`.
 
-[[PostTool-Usingthebin/postTool]]
+// OLD_CONFLUENCE_ID: PostTool-Usingthebin/postTool
+
+[[PostTool-Usingthebin_postTool]]
 == Using the bin/post Tool
 
 Specifying either the `collection/core name` or the full update `url` is *mandatory* when using `bin/post`.
@@ -113,7 +115,9 @@ Index all JSON files into `gettingstarted`.
   bin/post -c gettingstarted *.json
 ----
 
-[[PostTool-Indexingrichdocuments(PDF,Word,HTML,etc)]]
+// OLD_CONFLUENCE_ID: PostTool-Indexingrichdocuments(PDF,Word,HTML,etc)
+
+[[PostTool-Indexingrichdocuments_PDF_Word_HTML_etc_]]
 === Indexing rich documents (PDF, Word, HTML, etc)
 
 Index a PDF file into `gettingstarted`.

@@ -134,7 +134,9 @@ These commands allow registering more advanced customizations to Solr:
 
 See the section <<ConfigAPI-CreatingandUpdatingRequestHandlers,Creating and Updating Request Handlers>> below for examples of using these commands.
 
-[[ConfigAPI-Whatabout<updateRequestProcessorChain>?]]
+// OLD_CONFLUENCE_ID: ConfigAPI-Whatabout<updateRequestProcessorChain>?
+
+[[ConfigAPI-Whatabout_updateRequestProcessorChain_]]
 ==== What about <`updateRequestProcessorChain>`?
 
 The Config API does not let you create or edit `<updateRequestProcessorChain>` elements. However, it is possible to create `<updateProcessor>` entries and can use them by name to create a chain.

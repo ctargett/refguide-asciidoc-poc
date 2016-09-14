@@ -239,7 +239,9 @@ The command below captures `<div>` tags separately, and then maps all the instan
 bin/post -c techproducts example/exampledocs/sample.html -params "literal.id=doc2&captureAttr=true&defaultField=_text_&fmap.div=foo_t&capture=div"
 ----
 
-[[UploadingDatawithSolrCellusingApacheTika-Capture,Mapping,andBoosting]]
+// OLD_CONFLUENCE_ID: UploadingDatawithSolrCellusingApacheTika-Capture,Mapping,andBoosting
+
+[[UploadingDatawithSolrCellusingApacheTika-Capture_Mapping_andBoosting]]
 ==== Capture, Mapping, and Boosting
 
 The command below captures `<div>` tags separately, maps the field to a dynamic field named `foo_t`, then boosts `foo_t` by 3.

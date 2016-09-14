@@ -51,7 +51,9 @@ bin/solr start -c -Dsolr.directoryFactory=HdfsDirectoryFactory
 
 This command starts Solr in SolrCloud mode, using the defined JVM properties.
 
-[[RunningSolronHDFS-Modifyingsolr.in.sh(*nix)orsolr.in.cmd(Windows)]]
+// OLD_CONFLUENCE_ID: RunningSolronHDFS-Modifyingsolr.in.sh(*nix)orsolr.in.cmd(Windows)
+
+[[RunningSolronHDFS-Modifyingsolr.in.sh_nix_orsolr.in.cmd_Windows_]]
 === Modifying solr.in.sh (*nix) or solr.in.cmd (Windows)
 
 The examples above assume you will pass JVM arguments as part of the start command every time you use `bin/solr` to start Solr. However, `bin/solr` looks for an include file named `solr.in.sh` (`solr.in.cmd` on Windows) to set environment variables. By default, this file is found in the `bin` directory, and you can modify it to permanently add the `HdfsDirectoryFactory` settings and ensure they are used every time Solr is started.
