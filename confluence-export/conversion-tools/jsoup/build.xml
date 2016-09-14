@@ -32,44 +32,59 @@
     </jar>
   </target>
 
-  <property name="from.dir"
-            value="/Users/cass/LuceneSolr/asciidoc-experiments/confluence-export/raw-export"/>
-  <property name="to.dir"
-            value="/Users/cass/LuceneSolr/asciidoc-experiments/confluence-export/cleaned-export"/>
-  <property name="sitemap"
-            value="${to.dir}/sitemap.txt"/>
+  <property name="work.dir" location="../../"/>
+  <property name="from.dir" location="${work.dir}/raw-export"/>
+  <property name="cleaned.dir" location="${work.dir}/cleaned-export"/>
+  <property name="entities.xml.path" location="${work.dir}/raw-xml-export/entities.xml"/>
+  <property name="page-tree.xml.path" location="${work.dir}/page-tree.xml"/>
 
-  <target name="map"
-          depends="jar">
-    <mkdir dir="${to.dir}"/>
-    <java classname="com.lucidworks.docparser.GetSiteMap"
-          fork="true">
-      <classpath refid="classpath"/>
-      <arg value ="${from.dir}"/>
-      <arg value ="${to.dir}"/>
-    </java>
+  <target name="-dir-check">
+    <fail message="Raw (HTML) confluence export dir does not exist: ${from.dir}">
+      <condition>
+        <not>
+          <available file="${from.dir}" />
+        </not>
+      </condition>
+    </fail>
+    <fail message="Can't find entities.xml in raw (XML) confluence export dir: ${entities.xml.path}">
+      <condition>
+        <not>
+          <available file="${entities.xml.path}" />
+        </not>
+      </condition>
+    </fail>
   </target>
-
+  
+  <target name="-page-tree-check">
+    <uptodate property="page-tree.xml.uptodate"
+              srcfile="${entities.xml.path}"
+              targetfile="${page-tree.xml.path}"/>
+  </target>
+  
+  <target name="page-tree"
+          depends="-dir-check,-page-tree-check"
+          unless="${page-tree.xml.uptodate}">
+    <xslt in="${entities.xml.path}" out="${page-tree.xml.path}"
+          style="../page-hierarchy.xsl" />
+  </target>
+  
   <target name="scrape"
-          depends="jar">
-    <mkdir dir="${to.dir}"/>
+          depends="-dir-check,jar,page-tree">
+    <delete dir="${cleaned.dir}" />
+    <mkdir dir="${cleaned.dir}"/>
+    <mkdir dir="${cleaned.dir}/images"/>
+    <!-- any "images" in the raw dump are icons that are definitely used by some page
+         (the export code already filtered from the set of all images in confluence) -->
+    <copy todir="${cleaned.dir}/images">
+      <fileset dir="${from.dir}/images" />
+    </copy>
     <java classname="com.lucidworks.docparser.ScrapeConfluence"
+          failonerror="true"
           fork="true">
       <classpath refid="classpath"/>
-      <arg value ="${from.dir}"/>
-      <arg value ="${to.dir}"/>
-    </java>
-  </target>
-
-    <target name="hier"
-          depends="jar">
-    <mkdir dir="${to.dir}"/>
-    <java classname="com.lucidworks.docparser.ScrapeConfluenceHierarchy"
-          fork="true">
-      <classpath refid="classpath"/>
-      <arg value ="${from.dir}"/>
-      <arg value ="${to.dir}"/>
-      <arg value ="${sitemap}"/>
+      <arg value="${from.dir}"/>
+      <arg value="${page-tree.xml.path}"/>
+      <arg value="${cleaned.dir}"/>
     </java>
   </target>
 

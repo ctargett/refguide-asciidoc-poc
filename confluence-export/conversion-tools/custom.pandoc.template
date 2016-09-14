@@ -1,0 +1,38 @@
+$if(titleblock)$
+$title$
+$for(author)$
+:author: $author$
+$endfor$
+$if(date)$
+:date: $date$
+$endif$
+$if(toc)$
+:toc:
+$endif$
+$if(page-shortname)$
+:page-shortname: $page-shortname$
+$endif$
+$if(page-permalink)$
+:page-permalink: $page-permalink$
+$endif$
+$if(page-tags)$
+:page-tags: $for(page-tags)$[$page-tags$]$sep$, $endfor$
+$endif$
+$if(page-children)$
+:page-children: $for(page-children)$$page-children$$sep$, $endfor$
+$endif$
+
+$endif$
+$for(header-includes)$
+$header-includes$
+
+$endfor$
+$for(include-before)$
+$include-before$
+
+$endfor$
+$body$
+$for(include-after)$
+
+$include-after$
+$endfor$

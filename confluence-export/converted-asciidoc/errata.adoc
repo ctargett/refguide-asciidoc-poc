@@ -1,0 +1,21 @@
+= Errata
+:page-shortname: errata
+:page-permalink: errata.html
+
+[[Errata-ErrataForThisDocumentation]]
+= Errata For This Documentation
+
+Any mistakes found in this documentation after its release will be listed on the on-line version of this page:
+
+http://s.apache.org/errata[https://cwiki.apache.org/confluence/display/solr/Errata]
+
+[[Errata-ErrataForPastVersionsofThisDocumentation]]
+= Errata For Past Versions of This Documentation
+
+Any known mistakes in past releases of this documentation will be noted below.
+
+*Using copyField directives with suggester:* Previous versions of this guide advocated using copyField directives to accumulate the contents on multiple fields into a single field to be used with Solr suggester components. This will not work previous to Solr 5.1; attempting to build the suggester will result in errors being reported in the logs if the field is multiValued. As a work-around, indexing clients should accumulate all of the contents into the field before sending the documents to Solr, and any fields used with the suggesters should have multiValued="false".
+
+The *_variable_ facet.range.gap parameter* was included in documentation even though the patch was not committed. As of yet there is no ability to specify variable gaps via a comma-separated list for facet.range.gap. Some of this functionality can be achieved by interval faceting, see SOLR-6216.
+
+The *MaxIndexingThreads* parameter in *solrconfig.xml* is no longer supported from Solr 5.3, see LUCENE-6659

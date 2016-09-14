@@ -1,7 +1,9 @@
 build
 lib/*
 # Converted Confluence docs
-confluence-export/cleaned-export/*
-confluence-export/raw-export/*
+confluence-export/cleaned-export
+confluence-export/raw-export
+confluence-export/raw-xml-export
+confluence-export/page-tree.xml
 html/scripts/*
 .DS_Store

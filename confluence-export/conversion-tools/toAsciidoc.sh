@@ -6,23 +6,47 @@
 # reconvert asciidoc to html
 
 
-ASCIIDOC="converted2-asciidoc"
+# parent dir of script until/unless we move it
+WORK_DIR=$(realpath -L "$(dirname $0)/../")
 
-rm -fr build
-mkdir build
+if [ ! -d $WORK_DIR ]
+then
+    echo "$WORK_DIR does not exist (as a directory)"
+    exit -1
+fi
 
-for x in `find cleaned-export -name "*.html"`
+# check that we have the expected version of pandoc
+PANDOC_VER=`pandoc --version | head -1 | cut -d' ' -f 2 | cut -d'.' -f 1-2`
+if [ $PANDOC_VER != "1.17" ]
+then
+    echo "Only tested with pandoc 1.17, you are using $PANDOC_VER"
+    exit -1
+fi
+
+PANDOC_TEMPLATE="$WORK_DIR/conversion-tools/custom.pandoc.template"
+if [ ! -e $PANDOC_TEMPLATE ]
+then
+    echo "$PANDOC_TEMPLATE does not exist"
+    exit -1
+fi
+
+HTML_DIR="$WORK_DIR/cleaned-export"
+ASCII_DIR="$WORK_DIR/converted-asciidoc"
+
+rm $ASCII_DIR/*.adoc
+
+echo "Coping images..."
+cp -r $HTML_DIR/images $ASCII_DIR/images
+
+for x in `find $HTML_DIR -name "*.html"`
 do
     echo $x;
-    FNAME=`echo ${x} | sed -e 's#cleaned-export/##'`
-    echo "fname: $FNAME";
+    FNAME=`echo ${x} | sed -e "s#${HTML_DIR}/##"`
     DIRNAME=$(dirname ${FNAME})
-    echo $DIRNAME;
+    mkdir -p "$ASCII_DIR/$DIRNAME"
+    
+    # convert to .asciidoc format using pandoc
+    pandoc $HTML_DIR/$FNAME -f html -t asciidoc -i --parse-raw --wrap=none --standalone --atx-headers --template=$PANDOC_TEMPLATE -o ${ASCII_DIR}/${FNAME%.*}.adoc
 
-    # a. convert to .adoc format using pandoc
-    rm ${ASCIIDOC}/${FNAME%.*}.adoc
-    pandoc cleaned-export/$FNAME -f html -t asciidoc -i --parse-raw --atx-headers --wrap=none -o ${ASCIIDOC}/${FNAME%.*}.adoc
-    ls -l ${ASCIIDOC}/${FNAME%.*}.adoc
-
-
-done
+    perl "$WORK_DIR/conversion-tools/post-process-adocs.pl" ${ASCII_DIR}/${FNAME%.*}.adoc
+done;

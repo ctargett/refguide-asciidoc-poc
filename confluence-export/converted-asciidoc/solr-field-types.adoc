@@ -1,0 +1,28 @@
+= Solr Field Types
+:page-shortname: solr-field-types
+:page-permalink: solr-field-types.html
+:page-children: field-type-definitions-and-properties, field-types-included-with-solr, working-with-currencies-and-exchange-rates, working-with-dates, working-with-enum-fields, working-with-external-files-and-processes, field-properties-by-use-case
+
+The field type defines how Solr should interpret data in a field and how the field can be queried. There are many field types included with Solr by default, and they can also be defined locally.
+
+Topics covered in this section:
+
+* <<field-type-definitions-and-properties.adoc#,Field Type Definitions and Properties>>
+
+* <<field-types-included-with-solr.adoc#,Field Types Included with Solr>>
+
+* <<working-with-currencies-and-exchange-rates.adoc#,Working with Currencies and Exchange Rates>>
+
+* <<working-with-dates.adoc#,Working with Dates>>
+
+* <<working-with-enum-fields.adoc#,Working with Enum Fields>>
+
+* <<working-with-external-files-and-processes.adoc#,Working with External Files and Processes>>
+
+* <<field-properties-by-use-case.adoc#,Field Properties by Use Case>>
+
+[[SolrFieldTypes-RelatedTopics]]
+== Related Topics
+
+* http://wiki.apache.org/solr/SchemaXml#Data_Types[SchemaXML-DataTypes]
+* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/schema/FieldType.html[FieldType Javadoc]

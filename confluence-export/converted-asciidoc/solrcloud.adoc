@@ -1,0 +1,31 @@
+= SolrCloud
+:page-shortname: solrcloud
+:page-permalink: solrcloud.html
+:page-children: getting-started-with-solrcloud, how-solrcloud-works, solrcloud-configuration-and-parameters, rule-based-replica-placement, cross-data-center-replication-cdcr-
+
+Apache Solr includes the ability to set up a cluster of Solr servers that combines fault tolerance and high availability. Called **SolrCloud**, these capabilities provide distributed indexing and search capabilities, supporting the following features:
+
+* Central configuration for the entire cluster
+* Automatic load balancing and fail-over for queries
+* ZooKeeper integration for cluster coordination and configuration.
+
+SolrCloud is flexible distributed search and indexing, without a master node to allocate nodes, shards and replicas. Instead, Solr uses ZooKeeper to manage these locations, depending on configuration files and schemas. Queries and updates can be sent to any server. Solr will use the information in the ZooKeeper database to figure out which servers need to handle the request.
+
+In this section, we'll cover everything you need to know about using Solr in SolrCloud mode. We've split up the details into the following topics:
+
+* <<getting-started-with-solrcloud.adoc#,Getting Started with SolrCloud>>
+* <<how-solrcloud-works.adoc#,How SolrCloud Works>>
+** <<shards-and-indexing-data-in-solrcloud.adoc#,Shards and Indexing Data in SolrCloud>>
+** <<distributed-requests.adoc#,Distributed Requests>>
+** <<read-and-write-side-fault-tolerance.adoc#,Read and Write Side Fault Tolerance>>
+* <<solrcloud-configuration-and-parameters.adoc#,SolrCloud Configuration and Parameters>>
+** <<setting-up-an-external-zookeeper-ensemble.adoc#,Setting Up an External ZooKeeper Ensemble>>
+** <<using-zookeeper-to-manage-configuration-files.adoc#,Using ZooKeeper to Manage Configuration Files>>
+** <<zookeeper-access-control.adoc#,ZooKeeper Access Control>>
+** <<collections-api.adoc#,Collections API>>
+** <<parameter-reference.adoc#,Parameter Reference>>
+** <<command-line-utilities.adoc#,Command Line Utilities>>
+** <<solrcloud-with-legacy-configuration-files.adoc#,SolrCloud with Legacy Configuration Files>>
+** <<configsets-api.adoc#,ConfigSets API>>
+* <<rule-based-replica-placement.adoc#,Rule-based Replica Placement>>
+* <<cross-data-center-replication-cdcr-.adoc#,Cross Data Center Replication (CDCR)>>

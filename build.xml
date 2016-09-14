@@ -1,13 +1,131 @@
 <project xmlns:asciidoctor="antlib:org.asciidoctor.ant">
 
+  <mkdir dir="lib"/>
+  <property name="asciidoctor-ant.jar.path" location="lib/asciidoctor-ant.jar" />
   <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctor-ant/1.5.3/asciidoctor-ant-1.5.3.jar"
-    dest="lib/asciidoctor-ant.jar" usetimestamp="true"/>
+       dest="${asciidoctor-ant.jar.path}" usetimestamp="true"/>
+  <property name="org-json.jar.path" location="lib/org-json.jar" />
+  <get src="http://repo1.maven.org/maven2/org/json/json/20160810/json-20160810.jar"
+       dest="${org-json.jar.path}" usetimestamp="true"/>
 
 <!--  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj-pdf/1.5.0-alpha.11/asciidoctorj-pdf-1.5.0-alpha.11.jar" dest="lib/asciidoctorj-pdf.jar" usetimestamp="true" /> -->
 
 <!--  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj/1.5.4.1/asciidoctorj-1.5.4.1.jar" dest="lib/asciidoctorj.jar" usetimestamp="true" /> -->
 
+<!-- TODO: this should be same as what jekyll uses -->
+<property name="asciidoc.dir" location="confluence-export/converted-asciidoc/" />
+<property name="hoss.jekyll.dir" location="build/jekyll" />
+<property name="main-page" value="apache-solr-reference-guide" />
 
+<!-- ====== TOOLS FOR GENERATING/VALIDATING BITS OF THE SITE / PDF ======= -->
+  <property name="jar"
+            value="build/tools.jar"/>
+  <path id="classpath">
+    <pathelement location="${jar}"/>
+    <pathelement location="${asciidoctor-ant.jar.path}"/>
+    <pathelement location="${org-json.jar.path}"/>
+  </path>
+  <target name="clean">
+    <delete dir="build"/>
+  </target>
+  <target name="jar">
+    <mkdir dir="build/classes"/>
+    <javac debug="yes"
+           debuglevel="source,lines,vars"
+           destdir="build/classes"
+           includeantruntime="false">
+      <compilerarg value="-Xlint:all"/>
+      <classpath refid="classpath"/>
+      <src path="src/"/>
+    </javac>
+    <jar destfile="${jar}">
+      <fileset dir="build/classes"
+               includes="**/*.class"/>
+    </jar>
+  </target>
+  <target name="build-nav" depends="jar">
+    <!-- TODO: for now, put these in _data since thats where sidebar.json lives
+         but in final refguide, they should live in some tmp dir somewhere? outside of git?
+    -->
+    <mkdir dir="${asciidoc.dir}/_data"/>
+    <delete file="${asciidoc.dir}/_data/pdf-main-body.adoc" />
+    <delete file="${asciidoc.dir}/_data/sidebar.json" />
+    <java classname="BuildNavAndPDFBody"
+          fork="true">
+      <classpath refid="classpath"/>
+      <arg value="${asciidoc.dir}"/>
+      <arg value="${main-page}"/>
+    </java>
+  </target>
+  <target name="hoss-pdf"
+          depends="build-nav"
+          description="Builds a PDF against all converted-asciidoc files">
+    <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
+             classpath="lib/asciidoctor-ant.jar"/>
+    <asciidoctor:convert
+                 sourceDirectory="pdf"
+                 sourceDocumentName="SolrRefGuide-all.adoc"
+                 baseDir="confluence-export/converted-asciidoc/"
+                 outputDirectory="build"
+                 backend="pdf"
+                 extensions="adoc"
+                 sourceHighlighter="coderay"
+                 embedAssets="true"
+                 imagesDir="${asciidoc.dir}"
+                 doctype="book"
+                 safemode="unsafe">
+      <attribute key="icons" value="font" />
+      <attribute key="icon-set" value="fa" />
+      <attribute key="docinfo!" value='' />
+      <attribute key="pdf-stylesDir" value="../../pdf/themes"/>
+      <attribute key="pdf-style" value="refguide"/>
+      <attribute key="pdf-fontsDir" value="../../pdf/fonts"/>
+      <attribute key="pagenums" value='' />
+      <attribute key="figure-caption!" value='' />
+    </asciidoctor:convert>
+    <echo>Finished Building ${basedir}/build/SolrRefGuide-all.pdf</echo>
+  </target>
+  <target name="hoss-jekyll"
+          depends="build-nav"
+          description="Builds a Jekyll Site using the converted-asciidoc files">
+    <delete dir="${hoss.jekyll.dir}" />
+    <mkdir dir="${hoss.jekyll.dir}" />
+    <echo>Copying all non adoc files from jekylltest ...</echo>
+    <copy todir="${hoss.jekyll.dir}">
+      <fileset dir="jekylltest">
+        <exclude name="**/*.adoc"/>
+        <exclude name="_site/**"/>
+      </fileset>
+      </copy>
+    <echo>Copying all source files from converted-asciidoc ...</echo>
+    <copy todir="${hoss.jekyll.dir}" overwrite="true">
+      <fileset dir="${asciidoc.dir}" />
+    </copy>
+    <echo>Moving images so we don't have to change _config.yml (I'm lazy)</echo> <!-- TODO: HACK -->
+    <mkdir dir="${hoss.jekyll.dir}/refguide/images" />
+    <move file="${hoss.jekyll.dir}/images" todir="${hoss.jekyll.dir}/refguide/images/" />
+    <echo>Running Jekyll...</echo>
+    <exec executable="jekyll" dir="${hoss.jekyll.dir}">
+      <arg value="build"/>
+    </exec>
+    <echo>Ready to browse site: ${hoss.jekyll.dir}/_site/${main-page}.html</echo>
+  </target>
+  <target name="hoss"
+          depends="hoss-pdf,hoss-jekyll">
+    <echo>PDF: ${basedir}/build/SolrRefGuide-all.pdf</echo>
+    <echo>SITE: ${hoss.jekyll.dir}/_site/${main-page}.html</echo>
+  </target>
+
+  <target name="convert-raw-confluence-exports"
+          description="Convinience target for running the one time conversion needed to build confluence-export/converted-asciidoc">
+    <ant dir="confluence-export/conversion-tools/jsoup"
+         target="scrape"
+         inheritAll="false"
+         useNativeBasedir="true" />
+    <exec executable="confluence-export/conversion-tools/toAsciidoc.sh" />
+  </target>
+    
+  
 <!-- ======= Asciidoctor HTML conversion ========
    Uses pure Asciidoctor build task-->
   <target name="asciidoctor"
