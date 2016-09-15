@@ -9,9 +9,12 @@ Cores can be created using `bin/solr` script or as part of SolrCloud collection 
 
 In standalone mode, `solr.xml` must reside in `solr_home`. In SolrCloud mode, `solr.xml` will be loaded from Zookeeper if it exists, with fallback to `solr_home`.
 
-Note:
+[NOTE]
+====
 
 In older versions of Solr, cores had to be predefined as `<core>` tags in `solr.xml` in order for Solr to know about them. Now, however, Solr supports automatic discovery of cores and they no longer need to be explicitly defined. The recommended way is to dynamically create cores/collections using the APIs.
+
+====
 
 The following sections describe these options in more detail.
 

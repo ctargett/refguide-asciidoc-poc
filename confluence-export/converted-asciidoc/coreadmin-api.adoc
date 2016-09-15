@@ -38,15 +38,17 @@ If a Solr core with the given name already exists, it will continue to handle re
 
 `http://localhost:8983/solr/admin/cores?action=CREATE&name=coreX&instanceDir=path/to/dir&config=config_file_name.xml&dataDir=data `
 
-CREATE must be able to find a configuration!
-
-Note:
+.CREATE must be able to find a configuration!
+[IMPORTANT]
+====
 
 Your CREATE call must be able to find a configuration, or it will not succeed.
 
 When you are running SolrCloud and create a new core for a collection, the configuration will be inherited from the collection – each collection is linked to a configName, which is stored in the zookeeper database. This satisfies the config requirement. There is something to note, though – if you're running SolrCloud, you should *NOT* be using the CoreAdmin API at all. Use the Collections API.
 
 When you are not running SolrCloud, if you have <<config-sets.adoc#,Config Sets>> defined, you can use the configSet parameter as documented below. If there are no config sets, then the instanceDir specified in the CREATE call must already exist, and it must contain a conf directory which in turn must contain `solrconfig.xml` and your schema, which is usually named either `managed-schema` or `schema.xml`, as well as any files referenced by those configs. The config and schema filenames could be specified with the config and schema parameters, but these are expert options. One thing you COULD do to avoid creating the conf directory is use config and schema parameters that point at absolute paths, but this can lead to confusing configurations unless you fully understand what you are doing.
+
+====
 
 [[CoreAdminAPI-Input.1]]
 === *Input*
@@ -75,9 +77,12 @@ Use `collection.configName=<configname>` to point to the config for a new collec
 
 `http://localhost:8983/solr/admin/cores?action=CREATE&name=my_core&collection=my_collection&shard=shard2`
 
-Note:
+[IMPORTANT]
+====
 
 While it's possible to create a core for a non-existent collection, this approach is not supported and not recommended. Always create a collection using the <<collections-api.adoc#,Collections API>> before creating a core directly for it.
+
+====
 
 [[CoreAdminAPI-RELOAD]]
 == `RELOAD`
@@ -88,7 +93,7 @@ The `RELOAD` action loads a new core from the configuration of an existing, regi
 
 This is useful when you've made changes to a Solr core's configuration on disk, such as adding new field definitions. Calling the RELOAD action lets you apply the new configuration without having to restart the Web container.
 
-Note:RELOAD performs "live" reloads of SolrCore, reusing some existing objects. Some configuration options, such as the `dataDir` location and `IndexWriter`-related settings in `solrconfig.xml` can not be changed and made active with a simple RELOAD action.
+[WARNING]==== RELOAD performs "live" reloads of SolrCore, reusing some existing objects. Some configuration options, such as the `dataDir` location and `IndexWriter`-related settings in `solrconfig.xml` can not be changed and made active with a simple RELOAD action.====
 
 [[CoreAdminAPI-Input.2]]
 === Input
@@ -128,9 +133,12 @@ The `RENAME` action changes the name of a Solr core.
 
 `http://localhost:8983/solr/admin/cores?action=SWAP&core=core1&other=core0`
 
-Note:
+[WARNING]
+====
 
 Do not use `SWAP` with a SolrCloud node. It is not supported and can result in the core being unusable.
+
+====
 
 [[CoreAdminAPI-Input.4]]
 === Input
@@ -154,9 +162,12 @@ The `UNLOAD` action removes a core from Solr. Active requests will continue to b
 
 The `UNLOAD` action requires a parameter (`core`) identifying the core to be removed. If the persistent attribute of `<solr>` is set to `true`, the `<core>` element with this `name` attribute will be removed from `solr.xml`.
 
-Note:
+[WARNING]
+====
 
 Unloading all cores in a SolrCloud collection causes the removal of that collection's metadata from ZooKeeper.
+
+====
 
 [[CoreAdminAPI-Input.5]]
 === Input
@@ -227,9 +238,12 @@ The `SPLIT` action supports five parameters, which are described in the table be
 |async |string |No | |Request ID to track this action which will be processed asynchronously
 |===
 
-Note:
+[WARNING]
+====
 
 Either `path` or `targetCore` parameter must be specified but not both. The ranges and split.key parameters are optional and only one of the two should be specified, if at all required.
+
+====
 
 [[CoreAdminAPI-Examples]]
 === Examples

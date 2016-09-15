@@ -151,9 +151,12 @@ Returns milliseconds of difference between its arguments. Dates are relative to 
 |ord a|
 Returns the ordinal of the indexed field value within the indexed list of terms for that field in Lucene index order (lexicographically ordered by unicode value), starting at 1. In other words, for a given field, all values are ordered lexicographically; this function then returns the offset of a particular value in that ordering. The field must have a maximum of one value per document (not multi-valued). 0 is returned for documents without a value in the field.
 
-Note:
+[WARNING]
+====
 
 `ord()` depends on the position in an index and can change when other documents are inserted or deleted.
+
+====
 
 See also `rord` below.
 

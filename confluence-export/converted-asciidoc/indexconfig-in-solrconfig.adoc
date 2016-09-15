@@ -118,13 +118,15 @@ When using Solr in for <<near-real-time-searching.adoc#,Near Real Time Searching
 
 Each Lucene segment is typically comprised of a dozen or so files. Lucene can be configured to bundle all of the files for a segment into a single compound file using a file extension of `.cfs`; it's an abbreviation for Compound File Segment. CFS segments may incur a minor performance hit for various reasons, depending on the runtime environment. For example, filesystem buffers are typically associated with open file descriptors, which may limit the total cache space available to each index. On systems where the number of open files allowed per process is limited, CFS may avoid hitting that limit. The open files limit might also be tunable for your OS with the Linux/Unix `ulimit` command, or something similar for other operating systems.
 
-CFS: New Segments vs Merged Segments
-
-Note:
+.CFS: New Segments vs Merged Segments
+[NOTE]
+====
 
 To configure whether _newly written segments_ should use CFS, see the <<IndexConfiginSolrConfig-useCompoundFile,`useCompoundFile`>> setting described above. To configure whether _merged segments_ use CFS, review the Javadocs for your `mergePolicyFactory`.
 
 Many <<IndexConfiginSolrConfig-MergingIndexSegments,Merge Policy>> implementations support `noCFSRatio` and `maxCFSSegmentSizeMB` settings with default values that prevent compound files from being used for large segments, but do use compound files for small segments.
+
+====
 
 [[IndexConfiginSolrConfig-IndexLocks]]
 == Index Locks

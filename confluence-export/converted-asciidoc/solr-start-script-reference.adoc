@@ -133,9 +133,12 @@ The following examples are provided:
 * **dih**: This example starts Solr in standalone mode with the DataImportHandler (DIH) enabled and several example `dataconfig.xml` files pre-configured for different types of data supported with DIH (such as, database contents, email, RSS feeds, etc.). The configset used is customized for DIH, and is found in `$SOLR_HOME/example/example-DIH/solr/conf`. For more information about DIH, see the section <<uploading-structured-data-store-data-with-the-data-import-handler.adoc#,Uploading Structured Data Store Data with the Data Import Handler>>.
 * **schemaless**: This example starts Solr in standalone mode using a managed schema, as described in the section <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory Definition in SolrConfig>>, and provides a very minimal pre-defined schema. Solr will run in <<schemaless-mode.adoc#,Schemaless Mode>> with this configuration, where Solr will create fields in the schema on the fly and will guess field types used in incoming documents. The configset used can be found in `$SOLR_HOME/server/solr/configsets/data_driven_schema_configs`.
 
-Note:
+[WARNING]
+====
 
 The run in-foreground option (-f) does not work with the -e option since the script needs to perform additional tasks after starting the Solr server.
+
+====
 
 [[SolrStartScriptReference-Stop]]
 === Stop
@@ -288,13 +291,15 @@ The bin/solr script can also help you create new collections (in SolrCloud mode)
 [[SolrStartScriptReference-Create]]
 === Create
 
-User permissions on "create"
-
-Note:
+.User permissions on "create"
+[IMPORTANT]
+====
 
 When using the "create" command, be sure that you run this command as the same user that you use to start Solr. If you use the UNIX/Linux install script, this will normally be a user named "solr". If Solr is running as the solr user but you use root to create a core, then Solr will not be able to write to the directories created by the start script.
 
 If you are running in cloud mode, this very likely will not be a problem. In cloud mode, all the configuration is stored in ZooKeeper, and the create script does not need to make directories or copy configuration files. Solr itself will create all the necessary directories.
+
+====
 
 The create command detects the mode that Solr is running in (standalone or SolrCloud) and then creates a core or collection depending on the mode.
 

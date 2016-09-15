@@ -305,11 +305,13 @@ The following parameters allow you to set defaults for the Suggest request handl
 
 These properties can also be overridden at query time, or not set in the request handler at all and always sent at query time.
 
-Context Filtering
-
-Note:
+.Context Filtering
+[WARNING]
+====
 
 Context filtering (`suggest.cfq`) is currently only supported by AnalyzingInfixLookupFactory and BlendedInfixLookupFactory, and only when backed by a Document*Dictionary. All other implementations will return unfiltered matches as if filtering was not requested.
+
+====
 
 [[Suggester-ExampleUsages]]
 == Example Usages

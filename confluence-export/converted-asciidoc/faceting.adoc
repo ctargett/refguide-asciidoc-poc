@@ -70,9 +70,12 @@ These parameters are described in the sections below.
 
 The `facet.field` parameter identifies a field that should be treated as a facet. It iterates over each Term in the field and generate a facet count using that Term as the constraint. This parameter can be specified multiple times in a query to select multiple facet fields.
 
-Note:
+[WARNING]
+====
 
 If you do not set this parameter to at least one field in the schema, none of the other parameters described in this section will have any effect.
+
+====
 
 [[Faceting-Thefacet.prefixParameter]]
 === The `facet.prefix` Parameter
@@ -265,9 +268,12 @@ By default, the ranges used to compute range faceting between `facet.range.start
 
 You can specify this parameter on a per field basis with the syntax of `f.<fieldname>.facet.range.include`, and you can specify it multiple times to indicate multiple choices.
 
-Note:
+[NOTE]
+====
 
 To ensure you avoid double-counting, do not choose both `lower` and `upper`, do not choose `outer`, and do not choose `all`.
+
+====
 
 [[Faceting-Thefacet.range.otherParameter]]
 === The `facet.range.other` Parameter
@@ -305,13 +311,15 @@ Default value for this parameter is "filter".
 
 The `facet.mincount` parameter, the same one as used in field faceting is also applied to range faceting. When used, no ranges with a count below the minimum will be included in the response.
 
-Date Ranges & Time Zones
-
-Note:
+.Date Ranges & Time Zones
+[NOTE]
+====
 
 Range faceting on date fields is a common situation where the <<working-with-dates.adoc#WorkingwithDates-TZ,`TZ`>> parameter can be useful to ensure that the "facet counts per day" or "facet counts per month" are based on a meaningful definition of when a given day/month "starts" relative to a particular TimeZone.
 
 For more information, see the examples in the <<working-with-dates.adoc#,Working with Dates>> section.
+
+====
 
 // OLD_CONFLUENCE_ID: Faceting-Pivot(DecisionTree)Faceting
 

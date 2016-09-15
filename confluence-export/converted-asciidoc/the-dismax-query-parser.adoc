@@ -43,9 +43,12 @@ The sections below explain these parameters in detail.
 
 The `q` parameter defines the main "query" constituting the essence of the search. The parameter supports raw input strings provided by users with no special escaping. The + and - characters are treated as "mandatory" and "prohibited" modifiers for terms. Text wrapped in balanced quote characters (for example, "San Jose") is treated as a phrase. Any query containing an odd number of quote characters is evaluated as if there were no quote characters at all.
 
-Note:
+[WARNING]
+====
 
 The `q` parameter does not support wildcard characters such as *.
+
+====
 
 [[TheDisMaxQueryParser-Theq.altParameter]]
 === The `q.alt` Parameter
