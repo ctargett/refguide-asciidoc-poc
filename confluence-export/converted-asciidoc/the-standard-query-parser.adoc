@@ -243,7 +243,10 @@ Boolean operators allow terms to be combined through logic operators. Lucene sup
 
 When specifying Boolean operators with keywords such as AND or NOT, the keywords must appear in all uppercase.
 
-==== [NOTE]====
+====
+
+[NOTE]
+====
 
 The standard query parser supports all the Boolean operators listed in the table above. The DisMax query parser supports only `+` and `-`.
 

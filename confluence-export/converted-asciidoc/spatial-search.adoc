@@ -79,7 +79,10 @@ image::images/spatial-search/circle.png[image]
 The `bbox` filter is very similar to `geofilt` except it uses the _bounding box_ of the calculated circle. See the blue box in the diagram below. It takes the same parameters as geofilt. Here's a sample query: `&q=*:*&fq={!bbox sfield=store}&pt=45.15,-93.85&d=5`. The rectangular shape is faster to compute and so it's sometimes used as an alternative to geofilt when it's acceptable to return points outside of the radius. However, if the ideal goal is a circle but you want it to run faster, then instead consider using the RPT field and try a large "distErrPct" value like `0.1` (10% radius). This will return results outside the radius but it will do so somewhat uniformly around the shape.
 
 image::images/spatial-search/bbox.png[image]
-[WARNING]====
+
+
+[WARNING]
+====
 
 When a bounding box includes a pole, the bounding box ends up being a "bounding bowl" (a __spherical cap__) that includes all values north of the lowest latitude of the circle if it touches the north pole (or south of the highest latitude if it touches the south pole).
 

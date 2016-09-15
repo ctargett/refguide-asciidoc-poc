@@ -93,7 +93,12 @@ The `RELOAD` action loads a new core from the configuration of an existing, regi
 
 This is useful when you've made changes to a Solr core's configuration on disk, such as adding new field definitions. Calling the RELOAD action lets you apply the new configuration without having to restart the Web container.
 
-[WARNING]==== RELOAD performs "live" reloads of SolrCore, reusing some existing objects. Some configuration options, such as the `dataDir` location and `IndexWriter`-related settings in `solrconfig.xml` can not be changed and made active with a simple RELOAD action.====
+[WARNING]
+====
+
+RELOAD performs "live" reloads of SolrCore, reusing some existing objects. Some configuration options, such as the `dataDir` location and `IndexWriter`-related settings in `solrconfig.xml` can not be changed and made active with a simple RELOAD action.
+
+====
 
 [[CoreAdminAPI-Input.2]]
 === Input
