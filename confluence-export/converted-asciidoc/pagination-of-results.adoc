@@ -231,11 +231,14 @@ Z
 
 In a nutshell: When fetching all results matching a query using `cursorMark`, the only way index modifications can result in a document being skipped, or returned twice, is if the sort value of the document changes.
 
-Note:
+[TIP]
+====
 
 One way to ensure that a document will never be returned more then once, is to use the uniqueKey field as the primary (and therefore: only significant) sort criterion.
 
 In this situation, you will be guaranteed that each document is only returned once, no matter how it may be be modified during the use of the cursor.
+
+====
 
 // OLD_CONFLUENCE_ID: PaginationofResults-"Tailing"aCursor
 

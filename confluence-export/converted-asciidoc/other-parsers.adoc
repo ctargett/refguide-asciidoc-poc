@@ -101,9 +101,9 @@ Again using the example documents above, we can construct a query such as `q={!p
 </result>
 ----
 
-Using which
-
-Note:
+.Using which
+[IMPORTANT]
+====
 
 A common mistake is to try to filter parents with a `which` filter, as in this bad example:
 
@@ -112,6 +112,8 @@ A common mistake is to try to filter parents with a `which` filter, as in this b
 Instead, you should use a sibling mandatory clause as a filter:
 
 `q= +title:join` +\{!parent which="**content_type:parentDocument**"}comments:SolrCloud
+
+====
 
 [[OtherParsers-Scoring]]
 === Scoring

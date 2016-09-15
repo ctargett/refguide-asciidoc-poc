@@ -6,9 +6,12 @@ If you are using Kerberos to secure your network environment, the Kerberos authe
 
 Support for the Kerberos authentication plugin is only available in SolrCloud mode.
 
-Note:
+[TIP]
+====
 
 If you are using Solr with a Hadoop cluster secured with Kerberos and intend to store your Solr indexes in HDFS, also see the section <<running-solr-on-hdfs.adoc#,Running Solr on HDFS>> for additional steps to configure Solr for that purpose. The instructions on this page apply only to scenarios where Solr will be secured with Kerberos. If you only need to store your indexes in a Kerberized HDFS system, please see the other section referenced above.
+
+====
 
 [[KerberosAuthenticationPlugin-HowSolrWorksWithKerberos]]
 == How Solr Works With Kerberos
@@ -56,11 +59,13 @@ Detailed information on how to set up your browser is beyond the scope of this d
 [[KerberosAuthenticationPlugin-PluginConfiguration]]
 == Plugin Configuration
 
-Consult Your Kerberos Admins!
-
-Note:
+.Consult Your Kerberos Admins!
+[IMPORTANT]
+====
 
 Before attempting to configure Solr to use Kerberos authentication, please review each step outlined below and consult with your local Kerberos administrators on each detail to be sure you know the correct values for each parameter. Small errors can cause Solr to not start or not function properly, and are notoriously difficult to diagnose.
+
+====
 
 Configuration of the Kerberos plugin has several parts:
 
@@ -72,9 +77,8 @@ Configuration of the Kerberos plugin has several parts:
 
 We'll walk through each of these steps below.
 
-Using Hostnames
-
-Note:To use host names instead of IP addresses, use the SOLR_HOST config in `bin/solr.in.sh` or pass a `-Dhost=<hostname>` during Solr startup. This guide uses IP addresses . If you specify a hostname replace all the IP addresses in the guide with the solr hostname
+.Using Hostnames
+[WARNING]==== To use host names instead of IP addresses, use the SOLR_HOST config in `bin/solr.in.sh` or pass a `-Dhost=<hostname>` during Solr startup. This guide uses IP addresses . If you specify a hostname replace all the IP addresses in the guide with the solr hostname====
 
 [[KerberosAuthenticationPlugin-GetServicePrincipalsandKeytabs]]
 === Get Service Principals and Keytabs
@@ -166,9 +170,12 @@ Set up Solr to use the Kerberos plugin by uploading the `security.json` as follo
 
 More details on how to use a `/security.json` file in Solr are available in the section <<authentication-and-authorization-plugins.adoc#,Authentication and Authorization Plugins>>.
 
-Note:
+[WARNING]
+====
 
 If you already have a `/security.json` file in Zookeeper, download the file, add or modify the authentication section and upload it back to ZooKeeper using the <<command-line-utilities.adoc#,Command Line Utilities>> available in Solr.
+
+====
 
 [[KerberosAuthenticationPlugin-DefineaJAASConfigurationFile]]
 === Define a JAAS Configuration File
@@ -228,9 +235,9 @@ SOLR_AUTHENTICATION_CLIENT_CONFIGURER=org.apache.solr.client.solrj.impl.Krb5Http
 SOLR_AUTHENTICATION_OPTS="-Djava.security.auth.login.config=/home/foo/jaas-client.conf -Dsolr.kerberos.cookie.domain=192.168.0.107 -Dsolr.kerberos.cookie.portaware=true -Dsolr.kerberos.principal=HTTP/192.168.0.107@EXAMPLE.COM -Dsolr.kerberos.keytab=/keytabs/107.keytab"
 ----
 
-KDC with AES-256 encryption
-
-Note:
+.KDC with AES-256 encryption
+[WARNING]
+====
 
 If your KDC uses AES-256 encryption, you need to add the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files to your JRE before a kerberized Solr can interact with the KDC.
 
@@ -239,6 +246,8 @@ You will know this when you see an error like this in your Solr logs : "KrbExcep
 For Java 1.8, this is available here: http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html.
 
 Replace the local_policy.jar present in JAVA_HOME/jre/lib/security/ with the new local_policy.jar from the downloaded package and restart the Solr node.
+
+====
 
 [[KerberosAuthenticationPlugin-StartSolr]]
 === Start Solr

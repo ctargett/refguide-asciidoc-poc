@@ -5,7 +5,7 @@
 
 This page covers how to upgrade an existing Solr cluster that was installed using the <<taking-solr-to-production.adoc#,service installation scripts>> .
 
-Note:The steps outlined on this page assume you use the default service name of " `solr`". If you use an alternate service name or Solr installation directory, some of the paths and commands mentioned below will have to be modified accordingly.
+[WARNING]==== The steps outlined on this page assume you use the default service name of " `solr`". If you use an alternate service name or Solr installation directory, some of the paths and commands mentioned below will have to be modified accordingly.====
 
 [[UpgradingaSolrCluster-PlanningYourUpgrade]]
 == Planning Your Upgrade
@@ -47,7 +47,7 @@ Begin by stopping the Solr node you want to upgrade. After stopping the node, if
 
 Please follow the instructions to install Solr as a Service on Linux documented at <<taking-solr-to-production.adoc#,Taking Solr to Production>>. After running the install script, the new Solr node will be running, so please stop it by doing: `sudo service solr stop`. You need to update the `/etc/default/solr.in.sh` include file in the next step to complete the upgrade process.
 
-Note:If you have a `/var/solr/solr.in.sh` file for your existing Solr install, running the `install_solr_service.sh` script will move this file to it's new location: `/etc/default/solr.in.sh` (see https://issues.apache.org/jira/browse/SOLR-8101[SOLR-8101] for more details)
+[NOTE]==== If you have a `/var/solr/solr.in.sh` file for your existing Solr install, running the `install_solr_service.sh` script will move this file to it's new location: `/etc/default/solr.in.sh` (see https://issues.apache.org/jira/browse/SOLR-8101[SOLR-8101] for more details)====
 
 // OLD_CONFLUENCE_ID: UpgradingaSolrCluster-Step3:SetEnvironmentVariableOverrides
 

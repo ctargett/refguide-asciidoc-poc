@@ -119,9 +119,12 @@ The entire configuration itself can be passed as a request parameter using the `
 
 A `reload-config` command is also supported, which is useful for validating a new configuration file, or if you want to specify a file, load it, and not have it reloaded again on import. If there is an `xml` mistake in the configuration a user-friendly message is returned in `xml` format. You can then fix the problem and do a `reload-config`.
 
-Note:
+[TIP]
+====
 
 You can also view the DIH configuration in the Solr Admin UI and there is an interface to import content.
+
+====
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-RequestParameters]]
 ==== Request Parameters

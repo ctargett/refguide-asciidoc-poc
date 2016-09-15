@@ -205,9 +205,12 @@ Before using a chroot for the first time, you need to create the root path (znod
 $ server/scripts/cloud-scripts/zkcli.sh -zkhost zk1,zk2,zk3 -cmd makepath /solr
 ----
 
-Note:
+[NOTE]
+====
 
 If you also want to bootstrap ZooKeeper with existing `solr_home`, you can instead use use `zkcli.sh` / `zkcli.bat`'s `bootstrap` command, which will also create the chroot path if it does not exist. See <<command-line-utilities.adoc#,Command Line Utilities>> for more info.
+
+====
 
 [[TakingSolrtoProduction-SolrHostname]]
 === Solr Hostname
@@ -277,9 +280,9 @@ We don’t recommend enabling remote JMX access in production, but it can someti
 
 The `bin/solr` script is capable of running multiple instances on one machine, but for a *typical* installation, this is not a recommended setup. Extra CPU and memory resources are required for each additional instance. A single instance is easily capable of handling multiple indexes.
 
-When to ignore the recommendation
-
-Note:
+.When to ignore the recommendation
+[NOTE]
+====
 
 For every recommendation, there are exceptions. For the recommendation above, that exception is mostly applicable when discussing extreme scalability. The best reason for running multiple Solr nodes on one host is decreasing the need for extremely large heaps.
 
@@ -288,6 +291,8 @@ When the Java heap gets very large, it can result in extremely long garbage coll
 There is another issue once the heap reaches 32GB. Below 32GB, Java is able to use compressed pointers, but above that point, larger pointers are required, which uses more memory and slows down the JVM.
 
 Because of the potential garbage collection issues and the particular issues that happen at 32GB, if a single instance would require a 64GB heap, performance is likely to improve greatly if the machine is set up with two nodes that each have a 31GB heap.
+
+====
 
 If your use case requires multiple instances, at a minimum you will need unique Solr home directories for each node you want to run; ideally, each home should be on a different physical disk so that multiple Solr nodes don’t have to compete with each other when accessing files on disk. Having different Solr home directories implies that you’ll need a different include file for each node. Moreover, if using the `/etc/init.d/solr` script to control Solr as a service, then you’ll need a separate script for each node. The easiest approach is to use the service installation script to add multiple services on the same host, such as:
 

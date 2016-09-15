@@ -8,9 +8,12 @@ This section explains SolrCloud and its inner workings in detail, but before you
 
 In this section you will learn how to start a SolrCloud cluster using startup scripts and a specific configset.
 
-Note:
+[TIP]
+====
 
 This tutorial assumes that you're already familiar with the basics of using Solr. If you need a refresher, please see the <<getting-started.adoc#,Getting Started section>> to get a grounding in Solr concepts. If you load documents as part of that exercise, you should start over with a fresh Solr installation for these SolrCloud tutorials.
+
+====
 
 [[GettingStartedwithSolrCloud-SolrCloudExample]]
 == SolrCloud Example

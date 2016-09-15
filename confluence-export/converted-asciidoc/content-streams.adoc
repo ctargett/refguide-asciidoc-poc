@@ -33,9 +33,12 @@ Remote streaming lets you send the contents of a URL as a stream to a given Solr
 
 The default behavior, when `enableRemoteStreaming` is not specified in `solrconfig.xml` is to _not_ allow remote streaming (i.e., `enableRemoteStreaming="false"`).
 
-Note:
+[WARNING]
+====
 
 If you `enableRemoteStreaming="true"` is used, be aware that this allows _anyone_ to send a request to any URL or local file. If <<ContentStreams-DebuggingRequests,DumpRequestHandler>> is enabled, it will allow anyone to view any file on your system.
+
+====
 
 [[ContentStreams-DebuggingRequests]]
 == Debugging Requests

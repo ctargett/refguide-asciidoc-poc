@@ -129,9 +129,12 @@ If you register a new search component with one of these default names, the newl
 
 It's possible to define some components as being used before (with `first-components`) or after (with `last-components`) the default components listed above.
 
-Note:
+[WARNING]
+====
 
 `first-components` and/or `last-components` may only be used in conjunction with the default components. If you define your own `components`, the default components will not be executed, and `first-components` and `last-components` are disallowed.
+
+====
 
 [source,xml]
 ----

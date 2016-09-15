@@ -18,7 +18,7 @@ There are several available functions, including those that implement:
 
 Streams from outside systems can be joined with streams originating from Solr and users can add their own stream functions by following Solr's http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/io/stream/package-summary.html[Java streaming API].
 
-Note:Both streaming expressions and the streaming API are considered experimental, and the APIs are subject to change.
+[WARNING]==== Both streaming expressions and the streaming API are considered experimental, and the APIs are subject to change.====
 
 [[StreamingExpressions-StreamLanguageBasics]]
 == Stream Language Basics
@@ -358,9 +358,12 @@ stats(collection1,
 
 The `topic` function provides publish/subscribe messaging capabilities built on top of SolrCloud. The topic function allows users to subscribe to a query. The function then provides one-time delivery of new or updated documents that match the topic query. The initial call to the topic function establishes the checkpoints for the specific topic ID. Subsequent calls to the same topic ID will return new or updated documents that match the topic query.
 
-Note:
+[IMPORTANT]
+====
 
 The topic function should be considered in beta until https://issues.apache.org/jira/browse/SOLR-8709[SOLR-8709] is committed and released.
+
+====
 
 [[StreamingExpressions-Parameters.6]]
 ==== Parameters
@@ -806,11 +809,13 @@ The parallel function requires that the `partitionKeys` parameter be provided to
 
 The parallel function maintains the sort order of the tuples returned by the worker nodes, so the sort criteria of the parallel function must match up with the sort order of the tuples returned by the workers.
 
-Worker Collections
-
-Note:
+.Worker Collections
+[TIP]
+====
 
 The worker nodes can be from the same collection as the data, or they can be a different collection entirely, even one that only exists for parallel streaming expressions. A worker collection can be any SolrCloud collection that has the `/stream` handler configured. Unlike normal SolrCloud collections, worker collections don't have to hold any data. Worker collections can be empty collections that exist only to execute streaming expressions.
+
+====
 
 [[StreamingExpressions-Parameters.14]]
 ==== Parameters
@@ -845,9 +850,12 @@ The `reduce` function wraps an internal stream and groups tuples by common field
 
 Each tuple group is operated on as a single block by a pluggable reduce operation. The group operation provided with Solr implements distributed grouping functionality. The group operation also serves as an example reduce operation that can be referred to when building custom reduce operations.
 
-Note:
+[WARNING]
+====
 
 The reduce function relies on the sort order of the underlying stream. Accordingly the sort order of the underlying stream must be aligned with the group by field.
+
+====
 
 [[StreamingExpressions-Parameters.15]]
 ==== Parameters

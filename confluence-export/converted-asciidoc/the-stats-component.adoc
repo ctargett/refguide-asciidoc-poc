@@ -127,7 +127,7 @@ Similar to the <<faceting.adoc#,Facet Component>>, the `stats.field` parameter s
 
 Local parameters can also be used to specify individual statistics by name, overriding the set of statistics computed by default, eg: `stats.field={!min=true max=true percentiles='99,99.9,99.99'}price`
 
-Note:If any supported statistics are specified via local parameters, then the entire set of default statistics is overridden and only the requested statistics are computed.
+[WARNING]==== If any supported statistics are specified via local parameters, then the entire set of default statistics is overridden and only the requested statistics are computed.====
 
 Additional "Expert" local params are supported in some cases for affecting the behavior of some statistics:
 

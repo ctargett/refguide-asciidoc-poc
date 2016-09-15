@@ -76,9 +76,12 @@ This filter converts alphabetic, numeric, and symbolic Unicode characters which 
 
 Implements the Beider-Morse Phonetic Matching (BMPM) algorithm, which allows identification of similar names, even if they are spelled differently or in different languages. More information about how this works is available in the section on <<phonetic-matching.adoc#,Phonetic Matching>>.
 
-Note:
+[WARNING]
+====
 
 BeiderMorseFilter changed its behavior in Solr 5.0 due to an update to version 3.04 of the BMPM algorithm. Older version of Solr implemented BMPM version 3.00 (see http://stevemorse.org/phoneticinfo.htm). Any index built using this filter with earlier versions of Solr will need to be rebuilt.
+
+====
 
 *Factory class:* `solr.BeiderMorseFilterFactory`
 
@@ -1176,9 +1179,12 @@ This filter removes dots from acronyms and the substring "'s" from the end of to
 
 *Arguments:* None
 
-Note:
+[WARNING]
+====
 
 This filter is no longer operational in Solr when the `luceneMatchVersion` (in `solrconfig.xml`) is higher than "3.1".
+
+====
 
 [[FilterDescriptions-StopFilter]]
 == Stop Filter

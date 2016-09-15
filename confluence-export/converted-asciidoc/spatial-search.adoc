@@ -49,9 +49,12 @@ There are 2 types of Spatial filters, which both support the following parameter
 * `distance` - distance between the field value and the specified center point in the `distanceUnits` configured for this field
 * `recipDistance` - 1 / the distance
 
-Note:
+[IMPORTANT]
+====
 
 Don't use this for indexed non-point shapes (e.g. polygons). The results will be erroneous. And with RPT, it's only recommended for multi-valued point data, as the implementation doesn't scale very well and for single-valued fields, you should instead use a separate LatLonType field purely for distance sorting.
+
+====
 
 When used with `BBoxField`,additional options are supported:
 
@@ -76,9 +79,11 @@ image::images/spatial-search/circle.png[image]
 The `bbox` filter is very similar to `geofilt` except it uses the _bounding box_ of the calculated circle. See the blue box in the diagram below. It takes the same parameters as geofilt. Here's a sample query: `&q=*:*&fq={!bbox sfield=store}&pt=45.15,-93.85&d=5`. The rectangular shape is faster to compute and so it's sometimes used as an alternative to geofilt when it's acceptable to return points outside of the radius. However, if the ideal goal is a circle but you want it to run faster, then instead consider using the RPT field and try a large "distErrPct" value like `0.1` (10% radius). This will return results outside the radius but it will do so somewhat uniformly around the shape.
 
 image::images/spatial-search/bbox.png[image]
- Note:
+[WARNING]====
 
 When a bounding box includes a pole, the bounding box ends up being a "bounding bowl" (a __spherical cap__) that includes all values north of the lowest latitude of the circle if it touches the north pole (or south of the highest latitude if it touches the south pole).
+
+====
 
 [[SpatialSearch-Filteringbyanarbitraryrectangle]]
 === Filtering by an arbitrary rectangle
@@ -242,11 +247,13 @@ The heatmap feature is accessed from Solr's faceting feature. As a part of facet
 |facet.heatmap.format |The format, either `ints2D` (default) or `png`.
 |===
 
-Tip
-
-Note:
+.Tip
+[NOTE]
+====
 
 You'll experiment with different distErrPct values (probably 0.10 - 0.20) with various input geometries till the default size is what you're looking for. The specific details of how it's computed isn't important. For high-detail grids used in point-plotting (loosely one cell per pixel), set distErr to be the number of decimal-degrees of several pixels or so of the map being displayed. Also, you probably don't want to use a geohash based grid because the cell orientation between grid levels flip-flops between being square and rectangle. Quad is consistent and has more levels, albeit at the expense of a larger index.
+
+====
 
 Here's some sample output in JSON (with some ..... inserted for brevity):
 

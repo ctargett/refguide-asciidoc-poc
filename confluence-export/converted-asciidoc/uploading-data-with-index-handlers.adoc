@@ -118,7 +118,7 @@ Documents can be deleted from the index in two ways. "Delete by ID" deletes the 
 </delete>
 ----
 
-Note:When using the Join query parser in a Delete By Query, you should use the `score` parameter with a value of " `none`" to avoid a `ClassCastException`. See the section on the <<other-parsers.adoc#,Join Query Parser>> for more details on the `score` parameter.
+[WARNING]==== When using the Join query parser in a Delete By Query, you should use the `score` parameter with a value of " `none`" to avoid a `ClassCastException`. See the section on the <<other-parsers.adoc#,Join Query Parser>> for more details on the `score` parameter. ====
 
 [[UploadingDatawithIndexHandlers-RollbackOperations]]
 ==== Rollback Operations
@@ -332,11 +332,14 @@ curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/my_
 }' 
 ----
 
-Note:
+[WARNING]
+====
 
 Comments are not allowed in JSON, but duplicate names are.
 
 The comments in the above example are for illustrative purposes only, and can not be included in actual commands sent to Solr.
+
+====
 
 As with other update handlers, parameters such as `commit`, `commitWithin`, `optimize`, and `overwrite` may be specified in the URL instead of in the body of the message.
 
@@ -490,9 +493,12 @@ curl 'http://localhost:8983/solr/my_collection/update/json/docs'\
 
 In this example, we simply named the field paths (such as `/exams/test`). Solr will automatically attempt to add the content of the field from the JSON input to the index in a field with the same name.
 
-Note:
+[TIP]
+====
 
 Note that if you are not working in <<schemaless-mode.adoc#,Schemaless Mode>>, where fields that don't exist will be created on the fly with Solr's best guess for the field type, documents may get rejected if the fields do not exist in the schema before indexing.
+
+====
 
 [[UploadingDatawithIndexHandlers-Wildcards]]
 ==== Wildcards
@@ -817,10 +823,12 @@ This example is equivalent to the XML example above, note the special `_childDoc
 ]
 ----
 
-Note
-
-Note:
+.Note
+[NOTE]
+====
 
 One limitation of indexing nested documents is that the whole block of parent-children documents must be updated together whenever any changes are required. In other words, even if a single child document or the parent document is changed, the whole block of parent-child documents must be indexed together.
+
+====
 
 <<main,Back to Top>>

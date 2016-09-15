@@ -94,9 +94,12 @@ A query to the standard query parser is broken up into terms and operators. Ther
 
 Multiple terms can be combined together with Boolean operators to form more complex queries (as described below).
 
-Note:
+[WARNING]
+====
 
 It is important that the analyzer used for queries parses terms and phrases in a way that is consistent with the way the analyzer used for indexing parses terms and phrases; otherwise, searches may produce unexpected results.
+
+====
 
 [[TheStandardQueryParser-TermModifiers]]
 === Term Modifiers
@@ -130,9 +133,12 @@ An optional distance parameter specifies the maximum number of edits allowed, be
 
 This will match terms like roams & foam - but not foams since it has an edit distance of "2".
 
-Note:
+[WARNING]
+====
 
 In many cases, stemming (reducing terms to a common stem) can produce similar effects to fuzzy searches and wildcard searches.
+
+====
 
 [[TheStandardQueryParser-ProximitySearches]]
 === Proximity Searches
@@ -232,13 +238,16 @@ Boolean operators allow you to apply Boolean logic to queries, requiring the pre
 
 Boolean operators allow terms to be combined through logic operators. Lucene supports AND, "`+`", OR, NOT and "`-`" as Boolean operators.
 
-Note:
+[WARNING]
+====
 
 When specifying Boolean operators with keywords such as AND or NOT, the keywords must appear in all uppercase.
 
-Note:
+==== [NOTE]====
 
 The standard query parser supports all the Boolean operators listed in the table above. The DisMax query parser supports only `+` and `-`.
+
+====
 
 The OR operator is the default conjunction operator. This means that if there is no Boolean operator between two terms, the OR operator is used. The OR operator links two terms and finds a matching document if either of the terms exist in a document. This is equivalent to a union using sets. The symbol || can be used in place of the word OR.
 
@@ -261,9 +270,12 @@ For example, to search for documents that must contain "jakarta" and that may or
 
 `+jakarta lucene`
 
-Note:
+[NOTE]
+====
 
 This operator is supported by both the standard query parser and the DisMax query parser.
+
+====
 
 // OLD_CONFLUENCE_ID: TheStandardQueryParser-TheBooleanOperatorAND(&&)
 

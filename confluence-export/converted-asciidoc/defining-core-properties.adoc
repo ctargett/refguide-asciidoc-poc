@@ -38,9 +38,12 @@ It is possible to segment Solr into multiple cores, each with its own configurat
 
 Your `core.properties` file can be empty if necessary. Suppose `core.properties` is located in `./cores/core1 ` (relative to `solr_home` ) but is empty. In that case, the core name is assumed to be "core1". The instanceDir will be the folder containing `core.properties` (i.e., `./cores/core1`). The dataDir will be `../cores/core1/data`, etc.
 
-Note:
+[NOTE]
+====
 
 You can run Solr without configuring any cores.
+
+====
 
 [[Definingcore.properties-Definingcore.propertiesFiles]]
 == Defining core.properties Files

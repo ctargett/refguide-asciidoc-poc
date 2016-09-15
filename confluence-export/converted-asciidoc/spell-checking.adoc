@@ -95,9 +95,12 @@ The `FileBasedSpellChecker` uses an external file as a spelling dictionary. This
 
 The differences here are the use of the `sourceLocation` to define the location of the file of terms and the use of `characterEncoding` to define the encoding of the terms file.
 
-Note:
+[NOTE]
+====
 
 In the previous example, _name_ is used to name this specific definition of the spellchecker. Multiple definitions can co-exist in a single `solrconfig.xml`, and the _name_ helps to differentiate them. If only defining one spellchecker, no name is required.
+
+====
 
 [[SpellChecking-WordBreakSolrSpellChecker]]
 ==== WordBreakSolrSpellChecker
@@ -191,9 +194,12 @@ This parameter turns on SpellCheck suggestions for the request. If **true**, the
 
 This parameter specifies the query to spellcheck. If `spellcheck.q` is defined, then it is used; otherwise the original input query is used. The `spellcheck.q` parameter is intended to be the original query, minus any extra markup like field names, boosts, and so on. If the `q` parameter is specified, then the `SpellingQueryConverter` class is used to parse it into tokens; otherwise the <<tokenizers.adoc#Tokenizers-WhiteSpaceTokenizer,`WhitespaceTokenizer`>> is used. The choice of which one to use is up to the application. Essentially, if you have a spelling "ready" version in your application, then it is probably better to use `spellcheck.q`. Otherwise, if you just want Solr to do the job, use the `q` parameter.
 
-Note:
+[WARNING]
+====
 
 The SpellingQueryConverter class does not deal properly with non-ASCII characters. In this case, you have either to use `spellcheck.q`, or implement your own QueryConverter.
+
+====
 
 [[SpellChecking-Thespellcheck.buildParameter]]
 === The `spellcheck.build` Parameter
@@ -239,9 +245,12 @@ If **true**, this parameter directs Solr to take the best suggestion for each to
 
 The spellcheck.collate parameter only returns collations that are guaranteed to result in hits if re-queried, even when applying original `fq` parameters. This is especially helpful when there is more than one correction per query.
 
-Note:
+[WARNING]
+====
 
 This only returns a query to be used. It does not actually run the suggested query.
+
+====
 
 [[SpellChecking-Thespellcheck.maxCollationsParameter]]
 === The `spellcheck.maxCollations` Parameter
