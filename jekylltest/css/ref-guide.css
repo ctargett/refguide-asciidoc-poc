@@ -2464,6 +2464,7 @@ span.icon > .fa
     cursor: default;
 }
 
+
 .admonitionblock td.icon [class^='fa icon-']
 {
     text-shadow: 1px 1px 2px rgba(0,0,0,.5);
@@ -2471,12 +2472,14 @@ span.icon > .fa
     cursor: default;
 }
 
+/* font awesome icon info-circle: http://fontawesome.io/icon/info-circle/ */
 .admonitionblock td.icon .icon-note:before
 {
     color: #19407c;
     content: '\f05a';
 }
 
+/* font awesome icon lightbulb-o: http://fontawesome.io/icon/lightbulb-o/ */
 .admonitionblock td.icon .icon-tip:before
 {
     color: #111;
@@ -2484,18 +2487,21 @@ span.icon > .fa
     text-shadow: 1px 1px 2px rgba(155,155,0,.8);
 }
 
+/* font awesome icon exclamation-triangle: http://fontawesome.io/icon/exclamation-triangle/ */
 .admonitionblock td.icon .icon-warning:before
 {
     color: #bf6900;
     content: '\f071';
 }
 
+/* font awesome icon fire: http://fontawesome.io/icon/fire/ */
 .admonitionblock td.icon .icon-caution:before
 {
     color: #bf3400;
     content: '\f06d';
 }
 
+/* font awesome icon exclamation-circle: http://fontawesome.io/icon/exclamation-circle/ */
 .admonitionblock td.icon .icon-important:before
 {
     color: #bf0000;
