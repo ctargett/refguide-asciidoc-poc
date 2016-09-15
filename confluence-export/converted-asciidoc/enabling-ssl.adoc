@@ -251,7 +251,10 @@ The cURL commands in the following sections will not work with the system `curl`
 curl -E solr-ssl.keystore.p12:secret --cacert solr-ssl.cacert.pem ...
 ----
 
-==== [NOTE]====
+====
+
+[NOTE]
+====
 
 If your operating system does not include cURL, you can download binaries here: http://curl.haxx.se/download.html
 

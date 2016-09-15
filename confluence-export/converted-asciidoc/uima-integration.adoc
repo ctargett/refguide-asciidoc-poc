@@ -89,6 +89,7 @@ The SolrUIMA UpdateRequestProcessor is a custom update request processor that ta
 [WARNING]
 ====
 +
++
 `VALID_ALCHEMYAPI_KEY` is your AlchemyAPI Access Key. You need to register an AlchemyAPI Access key to use AlchemyAPI services: http://www.alchemyapi.com/api/register.html. `VALID_OPENCALAIS_KEY` is your Calais Service Key. You need to register a Calais Service key to use the Calais services: http://www.opencalais.com/apikey. `analysisEngine` must contain an AE descriptor inside the specified path in the classpath. `analyzeFields` must contain the input fields that need to be analyzed by UIMA. If `merge=true` then their content will be merged and analyzed only once. Field mapping describes which features of which types should go in a field.
 +
 ====

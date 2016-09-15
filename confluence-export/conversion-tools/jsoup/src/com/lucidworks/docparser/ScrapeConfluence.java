@@ -385,8 +385,8 @@ public class ScrapeConfluence {
         title.prependText("TODO_ADMON_TITLE:");
         element.before(title); // move it before the block
       }
-      element.prependText("[" + admonishment + "]====\n");
-      element.appendText("====\n");
+      element.prependChild((new Element(Tag.valueOf("p"), ".")).prependText("[" + admonishment + "]===="));
+      element.appendChild((new Element(Tag.valueOf("p"), ".")).prependText("===="));
     }
 
     // unwrap various block tags if they are empty

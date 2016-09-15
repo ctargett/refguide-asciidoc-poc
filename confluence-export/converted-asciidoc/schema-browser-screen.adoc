@@ -13,4 +13,9 @@ In the right part of the main view, we see the specific properties of how the `g
 
 Under the analyzer information is a button to **Load Term Info**. Clicking that button will show the top _N_ terms that are in a sample shard for that field, as well as a histogram showing the number of terms with various frequencies. Click on a term, and you will be taken to the <<query-screen.adoc#,Query Screen>> to see the results of a query of that term in that field. If you want to always see the term information for a field, choose *Autoload* and it will always appear when there are terms for a field. A histogram shows the number of terms with a given frequency in the field.
 
-[WARNING]==== Term Information is loaded from single arbitrarily selected core from the collection, to provide a representative sample for the collection. Full <<faceting.adoc#,Field Facet>> query results are needed to see precise term counts across the entire collection.====
+[WARNING]
+====
+
+Term Information is loaded from single arbitrarily selected core from the collection, to provide a representative sample for the collection. Full <<faceting.adoc#,Field Facet>> query results are needed to see precise term counts across the entire collection.
+
+====
