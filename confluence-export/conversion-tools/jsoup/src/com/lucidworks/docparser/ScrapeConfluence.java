@@ -444,6 +444,49 @@ public class ScrapeConfluence {
         element.attr("id", newId);
       }
     }
+
+    // pandoc gets really confused when <ol>s get nested, add a comment pointing out
+    // manual cleanup is needed
+    elements = docOut.select("ol:has(ol, ul), ul:has(ol)");
+    LIST: for (Element list : elements) {
+      // if we are wrapped in an outer list, nothing to do - already done at top level
+      for (Element parent : list.parents()) {
+        if ("ol".equals(parent.tagName()) || "ul".equals(parent.tagName())) {
+          continue LIST;
+        }
+      }
+      // would love to use jsoup's Comment class, but it doesn't survive pandoc
+      // ironically, this does...
+      Element fakeComment = new Element(Tag.valueOf("div"), "");
+      fakeComment.text("// TODO: This '"+list.tagName()+"' has problematic nested lists inside of it, needs manual editing");
+      list.before(fakeComment);
+    }
+    
+    // // pandoc gets really confused when <ol>s get nested, add a comment pointing out
+    // // manual cleanup is needed
+    // elements = docOut.select("ol, ul");
+    // LIST: for (Element list : elements) {
+    //   // if we are wrapped in an outer list, nothing to do - already done at top level
+    //   for (Element parent : list.parents()) {
+    //     if ("ol".equals(parent.tagName()) || "ul".equals(parent.tagName())) {
+    //       break LIST;
+    //     }
+    //   }
+    //   if (0 < list.select("* ol").size()) {
+    //     // would love to use jsoup's Comment class, but it doesn't survive pandoc
+    //     // ironically, this does...
+    //     Element fakeComment = new Element(Tag.valueOf("div"), "");
+    //     fakeComment.text("// TODO: This '"+list.tagName()+"' has nested 'ol' inside of it, needs manual editing");
+    //     list.before(fakeComment);
+    //   } else if ("ol".equals(list.tagName()) && 0 < list.select("* ul").size()) {
+    //     // would love to use jsoup's Comment class, but it doesn't survive pandoc
+    //     // ironically, this does...
+    //     Element fakeComment = new Element(Tag.valueOf("div"), "");
+    //     fakeComment.text("// TODO: This 'ol' has nested 'ul' inside of it, needs manual editing");
+    //     list.before(fakeComment);
+    //   }
+    // }
+    
     
     docOut.normalise();
   }

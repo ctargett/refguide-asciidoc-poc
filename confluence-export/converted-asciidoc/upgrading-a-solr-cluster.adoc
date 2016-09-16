@@ -17,6 +17,8 @@ The steps outlined on this page assume you use the default service name of " `so
 
 Here is a checklist of things you need to prepare before starting the upgrade process:
 
+// TODO: This 'ol' has problematic nested lists inside of it, needs manual editing
+
 1.  Examine the <<upgrading-solr.adoc#,Upgrading Solr>> page to determine if any behavior changes in the new version of Solr will affect your installation.
 2.  If not using replication (ie: collections with replicationFactor > 1), then you should make a backup of each collection. If all of your collections use replication, then you don't technically need to make a backup since you will be upgrading and verifying each node individually.
 3.  Determine which Solr node is currently hosting the Overseer leader process in SolrCloud, as you should upgrade this node last. To determine the Overseer, use the Overseer Status API, see: <<collections-api.adoc#,Collections API>>.

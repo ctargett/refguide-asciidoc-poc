@@ -776,6 +776,8 @@ For example: if there are 2 shards on collection1 with 2 replicas for each shard
 http://host:port/solr/collection_name/cdcr?action=START
 ----
 
+// TODO: This 'ol' has problematic nested lists inside of it, needs manual editing
+
 1.  * There is no need to run the /cdcr?action=START command on the Target
 * Disable the buffer on the Target
 
@@ -790,6 +792,8 @@ http://host:port/solr/collection_name/cdcr?action=DISABLEBUFFER
 
 [[CrossDataCenterReplication_CDCR_-Monitoring.1]]
 == Monitoring
+
+// TODO: This 'ol' has problematic nested lists inside of it, needs manual editing
 
 1.  Network and disk space monitoring are essential. Ensure that the system has plenty of available storage to queue up changes if there is a disconnect between the Source and Target. A network outage between the two data centers can cause your disk usage to grow.
 1.  Tip: Set a monitor for your disks to send alerts when the disk gets over a certain percentage (eg. 70%)
@@ -815,6 +819,8 @@ maxClientCnxns=800
 
 [[CrossDataCenterReplication_CDCR_-UpgradingandPatchingProduction]]
 == Upgrading and Patching Production
+
+// TODO: This 'ol' has problematic nested lists inside of it, needs manual editing
 
 1.  When rolling in upgrades to your indexer or application, you should shutdown the Source (production) and the Target (DR). Depending on your setup, you may want to pause/stop indexing. Deploy the release or patch and renable indexing. Then start the Target (DR).
 1.  Tip: There is no need to reissue the DISABLEBUFFERS or START commands. These are persisted.
