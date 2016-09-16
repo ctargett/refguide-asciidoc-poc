@@ -9,7 +9,7 @@ The Replication screen shows you the current replication state for the core you 
 3.  Disable replication. (on a master node)
 
 .Caution When Using SolrCloud
-[WARNING]
+[IMPORTANT]
 ====
 
 When using <<getting-started-with-solrcloud.adoc#,SolrCloud>>, do not attempt to disable replication via this screen.

@@ -26,7 +26,7 @@ Both the source and the destination of `copyField` can contain either leading or
 <copyField source="*_t" dest="text" maxChars="25000" />
 ----
 
-[WARNING]
+[IMPORTANT]
 ====
 
 The `copyField` command can use a wildcard (*) character in the `dest` parameter only if the `source` parameter contains one as well. `copyField` uses the matching glob from the source field for the `dest` field name into which the source content is copied.

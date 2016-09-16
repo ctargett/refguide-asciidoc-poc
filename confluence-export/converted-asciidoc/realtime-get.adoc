@@ -92,7 +92,7 @@ http://localhost:8983/solr/techproducts/get?id=mydoc&id=IW-02&fq=name:realtime-g
 }
 ----
 
-[WARNING]
+[IMPORTANT]
 ====
 
 Do *NOT* disable the realtime get handler at `/get` if you are using SolrCloud otherwise any leader election will cause a full sync in *ALL* replicas for the shard in question. Similarly, a replica recovery will also always fetch the complete index from the leader because a partial sync will not be possible in the absence of this handler.

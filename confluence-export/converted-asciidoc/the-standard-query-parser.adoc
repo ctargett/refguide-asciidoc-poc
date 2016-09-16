@@ -94,7 +94,7 @@ A query to the standard query parser is broken up into terms and operators. Ther
 
 Multiple terms can be combined together with Boolean operators to form more complex queries (as described below).
 
-[WARNING]
+[IMPORTANT]
 ====
 
 It is important that the analyzer used for queries parses terms and phrases in a way that is consistent with the way the analyzer used for indexing parses terms and phrases; otherwise, searches may produce unexpected results.
@@ -133,7 +133,7 @@ An optional distance parameter specifies the maximum number of edits allowed, be
 
 This will match terms like roams & foam - but not foams since it has an edit distance of "2".
 
-[WARNING]
+[IMPORTANT]
 ====
 
 In many cases, stemming (reducing terms to a common stem) can produce similar effects to fuzzy searches and wildcard searches.
@@ -238,7 +238,7 @@ Boolean operators allow you to apply Boolean logic to queries, requiring the pre
 
 Boolean operators allow terms to be combined through logic operators. Lucene supports AND, "`+`", OR, NOT and "`-`" as Boolean operators.
 
-[WARNING]
+[IMPORTANT]
 ====
 
 When specifying Boolean operators with keywords such as AND or NOT, the keywords must appear in all uppercase.

@@ -102,7 +102,7 @@ Again using the example documents above, we can construct a query such as `q={!p
 ----
 
 .Using which
-[IMPORTANT]
+[WARNING]
 ====
 
 A common mistake is to try to filter parents with a `which` filter, as in this bad example:

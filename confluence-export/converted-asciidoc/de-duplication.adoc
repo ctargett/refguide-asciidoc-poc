@@ -14,7 +14,7 @@ Preventing duplicate or near duplicate documents from entering an index or taggi
 
 Other, more sophisticated algorithms for fuzzy/near hashing can be added later.
 
-[WARNING]
+[IMPORTANT]
 ====
 
 Adding in the de-duplication process will change the `allowDups` setting so that it applies to an update Term (with `signatureField` in this case) rather than the unique field Term. Of course the `signatureField` could be the unique field, but generally you want the unique field to be unique. When a document is added, a signature will automatically be generated and attached to the document in the specified `signatureField`.

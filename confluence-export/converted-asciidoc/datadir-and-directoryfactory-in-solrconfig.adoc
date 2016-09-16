@@ -32,7 +32,7 @@ The `solr.RAMDirectoryFactory` is memory based, not persistent, and does not wor
 <directoryFactory class="org.apache.solr.core.RAMDirectoryFactory"/>
 ----
 
-[WARNING]
+[IMPORTANT]
 ====
 
 If you are using Hadoop and would like to store your indexes in HDFS, you should use the `solr.HdfsDirectoryFactory` instead of either of the above implementations. For more details, see the section <<running-solr-on-hdfs.adoc#,Running Solr on HDFS>>.

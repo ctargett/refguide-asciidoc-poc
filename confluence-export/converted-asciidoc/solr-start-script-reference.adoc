@@ -133,7 +133,7 @@ The following examples are provided:
 * **dih**: This example starts Solr in standalone mode with the DataImportHandler (DIH) enabled and several example `dataconfig.xml` files pre-configured for different types of data supported with DIH (such as, database contents, email, RSS feeds, etc.). The configset used is customized for DIH, and is found in `$SOLR_HOME/example/example-DIH/solr/conf`. For more information about DIH, see the section <<uploading-structured-data-store-data-with-the-data-import-handler.adoc#,Uploading Structured Data Store Data with the Data Import Handler>>.
 * **schemaless**: This example starts Solr in standalone mode using a managed schema, as described in the section <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory Definition in SolrConfig>>, and provides a very minimal pre-defined schema. Solr will run in <<schemaless-mode.adoc#,Schemaless Mode>> with this configuration, where Solr will create fields in the schema on the fly and will guess field types used in incoming documents. The configset used can be found in `$SOLR_HOME/server/solr/configsets/data_driven_schema_configs`.
 
-[WARNING]
+[IMPORTANT]
 ====
 
 The run in-foreground option (-f) does not work with the -e option since the script needs to perform additional tasks after starting the Solr server.
@@ -292,7 +292,7 @@ The bin/solr script can also help you create new collections (in SolrCloud mode)
 === Create
 
 .User permissions on "create"
-[IMPORTANT]
+[WARNING]
 ====
 
 When using the "create" command, be sure that you run this command as the same user that you use to start Solr. If you use the UNIX/Linux install script, this will normally be a user named "solr". If Solr is running as the solr user but you use root to create a core, then Solr will not be able to write to the directories created by the start script.

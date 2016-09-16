@@ -468,10 +468,10 @@ public class ScrapeConfluence {
     if (e.hasClass("confluence-information-macro-tip")) {
       return "TIP";
     }
-    if (e.hasClass("confluence-information-macro-warning")) {
+    if (e.hasClass("confluence-information-macro-note")) {
       return "IMPORTANT";
     }
-    if (e.hasClass("confluence-information-macro-note")) {
+    if (e.hasClass("confluence-information-macro-warning")) {
       return "WARNING";
     }
     System.err.println("No admonishment mapping for: " + e.outerHtml());

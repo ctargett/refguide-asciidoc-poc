@@ -39,7 +39,7 @@ If a Solr core with the given name already exists, it will continue to handle re
 `http://localhost:8983/solr/admin/cores?action=CREATE&name=coreX&instanceDir=path/to/dir&config=config_file_name.xml&dataDir=data `
 
 .CREATE must be able to find a configuration!
-[IMPORTANT]
+[WARNING]
 ====
 
 Your CREATE call must be able to find a configuration, or it will not succeed.
@@ -77,7 +77,7 @@ Use `collection.configName=<configname>` to point to the config for a new collec
 
 `http://localhost:8983/solr/admin/cores?action=CREATE&name=my_core&collection=my_collection&shard=shard2`
 
-[IMPORTANT]
+[WARNING]
 ====
 
 While it's possible to create a core for a non-existent collection, this approach is not supported and not recommended. Always create a collection using the <<collections-api.adoc#,Collections API>> before creating a core directly for it.
@@ -93,7 +93,7 @@ The `RELOAD` action loads a new core from the configuration of an existing, regi
 
 This is useful when you've made changes to a Solr core's configuration on disk, such as adding new field definitions. Calling the RELOAD action lets you apply the new configuration without having to restart the Web container.
 
-[WARNING]
+[IMPORTANT]
 ====
 
 RELOAD performs "live" reloads of SolrCore, reusing some existing objects. Some configuration options, such as the `dataDir` location and `IndexWriter`-related settings in `solrconfig.xml` can not be changed and made active with a simple RELOAD action.
@@ -138,7 +138,7 @@ The `RENAME` action changes the name of a Solr core.
 
 `http://localhost:8983/solr/admin/cores?action=SWAP&core=core1&other=core0`
 
-[WARNING]
+[IMPORTANT]
 ====
 
 Do not use `SWAP` with a SolrCloud node. It is not supported and can result in the core being unusable.
@@ -167,7 +167,7 @@ The `UNLOAD` action removes a core from Solr. Active requests will continue to b
 
 The `UNLOAD` action requires a parameter (`core`) identifying the core to be removed. If the persistent attribute of `<solr>` is set to `true`, the `<core>` element with this `name` attribute will be removed from `solr.xml`.
 
-[WARNING]
+[IMPORTANT]
 ====
 
 Unloading all cores in a SolrCloud collection causes the removal of that collection's metadata from ZooKeeper.
@@ -243,7 +243,7 @@ The `SPLIT` action supports five parameters, which are described in the table be
 |async |string |No | |Request ID to track this action which will be processed asynchronously
 |===
 
-[WARNING]
+[IMPORTANT]
 ====
 
 Either `path` or `targetCore` parameter must be specified but not both. The ranges and split.key parameters are optional and only one of the two should be specified, if at all required.

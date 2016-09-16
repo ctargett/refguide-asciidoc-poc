@@ -49,7 +49,7 @@ There are 2 types of Spatial filters, which both support the following parameter
 * `distance` - distance between the field value and the specified center point in the `distanceUnits` configured for this field
 * `recipDistance` - 1 / the distance
 
-[IMPORTANT]
+[WARNING]
 ====
 
 Don't use this for indexed non-point shapes (e.g. polygons). The results will be erroneous. And with RPT, it's only recommended for multi-valued point data, as the implementation doesn't scale very well and for single-valued fields, you should instead use a separate LatLonType field purely for distance sorting.
@@ -81,7 +81,7 @@ The `bbox` filter is very similar to `geofilt` except it uses the _bounding box_
 image::images/spatial-search/bbox.png[image]
 
 
-[WARNING]
+[IMPORTANT]
 ====
 
 When a bounding box includes a pole, the bounding box ends up being a "bounding bowl" (a __spherical cap__) that includes all values north of the lowest latitude of the circle if it touches the north pole (or south of the highest latitude if it touches the south pole).
