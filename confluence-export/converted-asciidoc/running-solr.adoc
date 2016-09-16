@@ -195,7 +195,7 @@ Now that you have indexed documents, you can perform queries. The simplest way i
 
 For example, the following query searches all document fields for "video":
 
-` http://localhost:8983/solr/gettingstarted/select?q=video `
+`http://localhost:8983/solr/gettingstarted/select?q=video`
 
 Notice how the URL includes the host name (`localhost`), the port number where the server is listening (`8983`), the application name (`solr`), the request handler for queries (`select`), and finally, the query itself (`q=video`).
 
@@ -208,21 +208,21 @@ image::images/running-solr/solr34_responseHeader.png[image,width=600,height=634]
 
 Once you have mastered the basic idea of a query, it is easy to add enhancements to explore the query syntax. This one is the same as before but the results only contain the ID, name, and price for each returned document. If you don't specify which fields you want, all of them are returned.
 
-` http://localhost:8983/solr/gettingstarted/select?q=video&fl=id,name,price `
+`http://localhost:8983/solr/gettingstarted/select?q=video&fl=id,name,price`
 
 Here is another example which searches for "black" in the `name` field only. If you do not tell Solr which field to search, it will search default fields, as specified in the schema.
 
-` http://localhost:8983/solr/gettingstarted/select?q=name:black `
+`http://localhost:8983/solr/gettingstarted/select?q=name:black`
 
 You can provide ranges for fields. The following query finds every document whose price is between $0 and $400.
 
-` http://localhost:8983/solr/gettingstarted/select?q=price:[0%20TO%20400]&fl=id,name,price `
+`http://localhost:8983/solr/gettingstarted/select?q=price:[0%20TO%20400]&fl=id,name,price`
 
 <<faceting.adoc#,Faceted browsing>> is one of Solr's key features. It allows users to narrow search results in ways that are meaningful to your application. For example, a shopping site could provide facets to narrow search results by manufacturer or price.
 
 Faceting information is returned as a third part of Solr's query response. To get a taste of this power, take a look at the following query. It adds `facet=true` and `facet.field=cat`.
 
-` http://localhost:8983/solr/gettingstarted/select?q=price:[0%20TO%20400]&fl=id,name,price&facet=true&facet.field=cat `
+`http://localhost:8983/solr/gettingstarted/select?q=price:[0%20TO%20400]&fl=id,name,price&facet=true&facet.field=cat`
 
 In addition to the familiar `responseHeader` and response from Solr, a `facet_counts` element is also present. Here is a view with the `responseHeader` and response collapsed so you can see the faceting information clearly.
 
@@ -270,4 +270,4 @@ In addition to the familiar `responseHeader` and response from Solr, a `facet_co
 
 The facet information shows how many of the query results have each possible value of the `cat` field. You could easily use this information to provide users with a quick way to narrow their query results. You can filter results by adding one or more filter queries to the Solr request. This request constrains documents with a category of "software".
 
-` http://localhost:8983/solr/gettingstarted/select?q=price:0%20TO%20400&fl=id,name,price&facet=true&facet.field=cat&fq=cat:software `
+`http://localhost:8983/solr/gettingstarted/select?q=price:0%20TO%20400&fl=id,name,price&facet=true&facet.field=cat&fq=cat:software`

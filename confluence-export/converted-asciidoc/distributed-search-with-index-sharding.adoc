@@ -20,7 +20,7 @@ In the legacy distributed mode, Solr does not calculate universal term/doc frequ
 
 If a query request includes the `shards` parameter, the Solr server distributes the request across all the shards listed as arguments to the parameter. The `shards` parameter uses this syntax:
 
-` host ` `:` ` port ` `/` ` base_url ` `[,` ` host ` `:` ` port ` `/` ` base_url ` `]*`
+`host` `:` `port` `/` `base_url` `[,` `host` `:` `port` `/` `base_url` `]*`
 
 For example, the `shards` parameter below causes the search to be distributed across two Solr servers: *solr1* and **solr2**, both of which are running on port 8983:
 

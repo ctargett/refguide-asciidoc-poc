@@ -18,7 +18,7 @@ The API allows two output modes for all calls: JSON or XML. When requesting the 
 
 When modifying the schema with the API, a core reload will automatically occur in order for the changes to be available immediately for documents indexed thereafter. Previously indexed documents will *not* be automatically handled - they *must* be re-indexed if they used schema elements that you changed.
 
-The base address for the API is `http://<host>:<port>/solr/<collection_name>`. If for example you run Solr's "`cloud`" example (via the `bin/solr` command shown below), which creates a "`gettingstarted`" collection, then the base URL (as in all the sample URLs in this section) would be: ` http://localhost:8983/solr/gettingstarted `.
+The base address for the API is `http://<host>:<port>/solr/<collection_name>`. If for example you run Solr's "`cloud`" example (via the `bin/solr` command shown below), which creates a "`gettingstarted`" collection, then the base URL (as in all the sample URLs in this section) would be: `http://localhost:8983/solr/gettingstarted`.
 
 [source,bash]
 ----
@@ -559,7 +559,7 @@ curl http://localhost:8983/solr/gettingstarted/schema?wt=schema.xml
 
 `GET /collection/schema/fields`
 
-`GET /collection/schema/fields/fieldname `
+`GET /collection/schema/fields/fieldname`
 
 [[SchemaAPI-INPUT.1]]
 ==== INPUT
@@ -644,7 +644,7 @@ The sample output below has been truncated to only show a few fields.
 
 `GET /collection/schema/dynamicfields`
 
-`GET /collection/schema/dynamicfields/name `
+`GET /collection/schema/dynamicfields/name`
 
 [[SchemaAPI-INPUT.2]]
 ==== INPUT
@@ -737,7 +737,7 @@ The sample output below has been truncated.
 
 `GET /collection/schema/fieldtypes`
 
-`GET /collection/schema/fieldtypes/name `
+`GET /collection/schema/fieldtypes/name`
 
 [[SchemaAPI-INPUT.3]]
 ==== INPUT

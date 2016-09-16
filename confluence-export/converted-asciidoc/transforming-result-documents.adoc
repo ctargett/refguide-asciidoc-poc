@@ -266,7 +266,7 @@ If subquery is declared as `fl=*,foo:[subquery]`, subquery parameters are prefix
 [[TransformingResultDocuments-Documentfieldasaninputforsubqueryparams]]
 ==== Document field as an input for subquery params
 
-It's necessary to pass some document field values as a parameter for subquery. It's supported via implicit *`row.fieldname `* parameter, and can be (but might not only) referred via Local Parameters syntax: `q=namne:john&fl=name,id,depts:[subquery]&depts.q={!terms f=id v=$row.dept_id}&depts.rows=10`
+It's necessary to pass some document field values as a parameter for subquery. It's supported via implicit *`row.fieldname`* parameter, and can be (but might not only) referred via Local Parameters syntax: `q=namne:john&fl=name,id,depts:[subquery]&depts.q={!terms f=id v=$row.dept_id}&depts.rows=10`
 
 Here departmens are retrieved per every employee in search result. We can say that it's like SQL `join ON emp.dept_id=dept.id`.
 

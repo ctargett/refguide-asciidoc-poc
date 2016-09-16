@@ -13,7 +13,7 @@ Functions must be expressed as function calls (for example, `sum(a,b)` instead o
 
 There are several ways of using function queries in a Solr query:
 
-* Via an explicit QParser that expects function arguments, such ` func ` or ` frange `. For example:
+* Via an explicit QParser that expects function arguments, such `func` or `frange`. For example:
 +
 [source,java]
 ----
@@ -73,7 +73,7 @@ The table below summarizes the functions available for function queries.
 |def |`def` is short for default. Returns the value of field "field", or if the field does not exist, returns the default value specified. and yields the first value where `exists()==true`.) |`def(rating,5):` This `def()` function returns the rating, or if no rating specified in the doc, returns 5 `def(myfield, 1.0):` equivalent to `if(exists(myfield),myfield,1.0)`
 |div |Divides one value or function by another. div(x,y) divides x by y. |`div(1,y)` `div(sum(x,100),max(y,1))`
 |dist |Return the distance between two vectors (points) in an n-dimensional space. Takes in the power, plus two or more ValueSource instances and calculates the distances between the two vectors. Each ValueSource must be a number. There must be an even number of ValueSource instances passed in and the method assumes that the first half represent the first vector and the second half represent the second vector. |`dist(2, x, y, 0, 0):` calculates the Euclidean distance between (0,0) and (x,y) for each document `dist(1, x, y, 0, 0)`: calculates the Manhattan (taxicab) distance between (0,0) and (x,y) for each document `dist(2, x,y,z,0,0,0):` Euclidean distance between (0,0,0) and (x,y,z) for each document. `dist(1,x,y,z,e,f,g)`: Manhattan distance between (x,y,z) and (e,f,g) where each letter is a field name
-|docfreq(field,val) |Returns the number of documents that contain the term in the field. This is a constant (the same value for all documents in the index). You can quote the term if it's more complex, or do parameter substitution for the term value. |`docfreq(text,'solr')` `...&defType=func ` &q=docfreq(text,$myterm)&myterm=solr
+|docfreq(field,val) |Returns the number of documents that contain the term in the field. This is a constant (the same value for all documents in the index). You can quote the term if it's more complex, or do parameter substitution for the term value. |`docfreq(text,'solr')` `...&defType=func` &q=docfreq(text,$myterm)&myterm=solr
 |exists |Returns TRUE if any member of the field exists. |`exists(author)` returns TRUE for any document has a value in the "author" field. `exists(query(price:5.00))` returns TRUE if "price" matches "5.00".
 |field[[FunctionQueries-field]] a|
 Returns the numeric docValues or indexed value of the field with the specified name. In it's simplest (single argument) form, this function can only be used on single valued fields, and can be called using the name of the field as a string, or for most conventional field names simply use the field name by itself with out using the `field(...)` syntax.

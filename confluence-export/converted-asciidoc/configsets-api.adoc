@@ -18,7 +18,7 @@ The base URL for all API calls is `http://<hostname>:<port>/solr`.
 [[ConfigSetsAPI-create]]
 == Create a ConfigSet
 
-`/admin/configs?action=CREATE&name=name&baseConfigSet=baseConfigSet `
+`/admin/configs?action=CREATE&name=name&baseConfigSet=baseConfigSet`
 
 Create a ConfigSet, based on an existing ConfigSet.
 
@@ -69,7 +69,7 @@ http://localhost:8983/solr/admin/configs?action=CREATE&name=myConfigSet&baseConf
 [[ConfigSetsAPI-delete]]
 == Delete a ConfigSet
 
-`/admin/configs?action=DELETE&name=name `
+`/admin/configs?action=DELETE&name=name`
 
 Delete a ConfigSet
 

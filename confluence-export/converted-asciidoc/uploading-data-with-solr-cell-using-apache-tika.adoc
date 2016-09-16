@@ -6,7 +6,7 @@ Solr uses code from the http://lucene.apache.org/tika/[Apache Tika] project to p
 
 When this framework was under development, it was called the Solr Content Extraction Library or CEL; from that abbreviation came this framework's name: Solr Cell.
 
-If you want to supply your own `ContentHandler` for Solr to use, you can extend the `ExtractingRequestHandler` and override the `createFactory()` method. This factory is responsible for constructing the ` SolrContentHandler ` that interacts with Tika, and allows literals to override Tika-parsed values. Set the parameter `literalsOverride`, which normally defaults to *true, to *false" to append Tika-parsed values to literal values.
+If you want to supply your own `ContentHandler` for Solr to use, you can extend the `ExtractingRequestHandler` and override the `createFactory()` method. This factory is responsible for constructing the `SolrContentHandler` that interacts with Tika, and allows literals to override Tika-parsed values. Set the parameter `literalsOverride`, which normally defaults to *true, to *false" to append Tika-parsed values to literal values.
 
 For more information on Solr's Extracting Request Handler, see https://wiki.apache.org/solr/ExtractingRequestHandler.
 
@@ -64,7 +64,7 @@ You can also use `bin/post` to send a PDF file into Solr (without the params, th
 bin/post -c techproducts example/exampledocs/solr-word.pdf -params "literal.id=a"
 ----
 
-Now you should be able to execute a query and find that document. You can make a request like ` http://localhost:8983/solr/techproducts/select?q=pdf `.
+Now you should be able to execute a query and find that document. You can make a request like `http://localhost:8983/solr/techproducts/select?q=pdf`.
 
 You may notice that although the content of the sample document has been indexed and stored, there are not a lot of metadata fields associated with this document. This is because unknown fields are ignored according to the default parameters configured for the `/update/extract` handler in `solrconfig.xml`, and this behavior can be easily changed or overridden. For example, to store and see all metadata and content, execute the following:
 
@@ -114,7 +114,7 @@ Here is the order in which the Solr Cell framework, using the Extracting Request
 
 1.  Tika generates fields or passes them in as literals specified by `literal.<fieldname>=<value>`. If `literalsOverride=false`, literals will be appended as multi-value to the Tika-generated field.
 2.  If `lowernames=true`, Tika maps fields to lowercase.
-3.  Tika applies the mapping rules specified by `fmap.` ` source ` `=` ` target ` parameters.
+3.  Tika applies the mapping rules specified by `fmap.` `source` `=` `target` parameters.
 4.  If `uprefix` is specified, any unknown field names are prefixed with that value, else if `defaultField` is specified, any unknown fields are copied to the default field.
 
 [[UploadingDatawithSolrCellusingApacheTika-ConfiguringtheSolrExtractingRequestHandler]]

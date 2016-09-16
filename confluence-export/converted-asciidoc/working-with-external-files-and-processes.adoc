@@ -27,7 +27,7 @@ The `valType` attribute specifies the actual type of values that will be found i
 [[WorkingwithExternalFilesandProcesses-FormatoftheExternalFile]]
 === Format of the External File
 
-The file itself is located in Solr's index directory, which by default is `$SOLR_HOME/data`. The name of the file should be `external_fieldname ` or `external_fieldname.*`. For the example above, then, the file could be named `external_entryRankFile` or `external_entryRankFile.txt`.
+The file itself is located in Solr's index directory, which by default is `$SOLR_HOME/data`. The name of the file should be `external_fieldname` or `external_fieldname.*`. For the example above, then, the file could be named `external_entryRankFile` or `external_entryRankFile.txt`.
 
 Note:
 

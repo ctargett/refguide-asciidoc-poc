@@ -37,6 +37,6 @@ If you are already using Solr 6.0, Solr 6.1 should not present any major problem
 [[UpgradingSolr-UpgradingfromOlderVersionsofSolr]]
 == Upgrading from Older Versions of Solr
 
-Users upgrading from older versions are strongly encouraged to consult ` CHANGES.txt ` for the details of _all_ changes since the version they are upgrading from.
+Users upgrading from older versions are strongly encouraged to consult `CHANGES.txt` for the details of _all_ changes since the version they are upgrading from.
 
 A summary of the significant changes between Solr 5.x and Solr 6.0 can be found in the <<major-changes-from-solr-5-to-solr-6.adoc#,Major Changes from Solr 5 to Solr 6>> section.

@@ -373,7 +373,7 @@ http://localhost:8983/solr/techproducts/select?q=*:*&facet.pivot=cat,popularity,
 [[Faceting-CombiningStatsComponentWithPivots]]
 === Combining Stats Component With Pivots
 
-In addition to some of the <<Faceting-LocalParametersforFaceting,general local parameters>> supported by other types of faceting, a `stats` local parameters can be used with `facet.pivot` to refer to ` stats.field ` instances (by tag) that you would like to have computed for each Pivot Constraint.
+In addition to some of the <<Faceting-LocalParametersforFaceting,general local parameters>> supported by other types of faceting, a `stats` local parameters can be used with `facet.pivot` to refer to `stats.field` instances (by tag) that you would like to have computed for each Pivot Constraint.
 
 In the example below, two different (overlapping) sets of statistics are computed for each of the facet.pivot result hierarchies:
 
@@ -592,11 +592,11 @@ facet.pivot={!range=r1}cat,inStock
 
 Although `facet.pivot.mincount` deviates in name from the `facet.mincount` parameter used by field faceting, many other Field faceting parameters described above can also be used with pivot faceting:
 
-* ` facet.limit `
-* ` facet.offset `
+* `facet.limit`
+* `facet.offset`
 * <<Faceting-Thefacet.sortParameter,`facet.sort`>>
-* ` facet.overrequest.count `
-* ` facet.overrequest.ratio `
+* `facet.overrequest.count`
+* `facet.overrequest.ratio`
 
 [[Faceting-IntervalFaceting]]
 == Interval Faceting
@@ -669,7 +669,7 @@ q=mainquery&fq=status:public&fq=doctype:pdf&facet=true&facet.field=doctype
 
 Because everything is already constrained by the filter `doctype:pdf`, the `facet.field=doctype` facet command is currently redundant and will return 0 counts for everything except `doctype:pdf`.
 
-To implement a multi-select facet for doctype, a GUI may want to still display the other doctype values and their associated counts, as if the ` doctype:pdf ` constraint had not yet been applied. For example:
+To implement a multi-select facet for doctype, a GUI may want to still display the other doctype values and their associated counts, as if the `doctype:pdf` constraint had not yet been applied. For example:
 
 [source,java]
 ----

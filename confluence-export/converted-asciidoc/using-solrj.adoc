@@ -136,11 +136,11 @@ solr.setRequestWriter(new BinaryRequestWriter());
 [[UsingSolrJ-UsingtheConcurrentUpdateSolrClient]]
 === Using the ConcurrentUpdateSolrClient
 
-When implementing java applications that will be bulk loading a lot of documents at once, ` ConcurrentUpdateSolrClient ` is an alternative to consider instead of using `HttpSolrClient`. The `ConcurrentUpdateSolrClient` buffers all added documents and writes them into open HTTP connections. This class is thread safe. Although any SolrClient request can be made with this implementation, it is only recommended to use the `ConcurrentUpdateSolrClient` for `/update` requests.
+When implementing java applications that will be bulk loading a lot of documents at once, `ConcurrentUpdateSolrClient` is an alternative to consider instead of using `HttpSolrClient`. The `ConcurrentUpdateSolrClient` buffers all added documents and writes them into open HTTP connections. This class is thread safe. Although any SolrClient request can be made with this implementation, it is only recommended to use the `ConcurrentUpdateSolrClient` for `/update` requests.
 
 [[UsingSolrJ-EmbeddedSolrServer]]
 == EmbeddedSolrServer
 
-The ` EmbeddedSolrServer ` class provides an implementation of the `SolrClient` client API talking directly to an micro-instance of Solr running directly in your Java application. This embedded approach is not recommended in most cases and fairly limited in the set of features it supports – in particular it can not be used with <<solrcloud.adoc#,SolrCloud>> or <<index-replication.adoc#,Index Replication>>. `EmbeddedSolrServer` exists primarily to help facilitate testing.
+The `EmbeddedSolrServer` class provides an implementation of the `SolrClient` client API talking directly to an micro-instance of Solr running directly in your Java application. This embedded approach is not recommended in most cases and fairly limited in the set of features it supports – in particular it can not be used with <<solrcloud.adoc#,SolrCloud>> or <<index-replication.adoc#,Index Replication>>. `EmbeddedSolrServer` exists primarily to help facilitate testing.
 
 For information on how to use `EmbeddedSolrServer` please review the SolrJ JUnit tests in the `org.apache.solr.client.solrj.embedded` package of the Solr source release.

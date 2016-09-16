@@ -56,7 +56,7 @@ The main differences compared to the other soundex variants are:
 * rules to encoded multi-character n-grams
 * multiple possible encodings for the same name (branching)
 
-Note: the implementation used by Solr (commons-codec's ` DaitchMokotoffSoundex `) has additional branching rules compared to the original description of the algorithm.
+Note: the implementation used by Solr (commons-codec's `DaitchMokotoffSoundex`) has additional branching rules compared to the original description of the algorithm.
 
 For more information, see http://en.wikipedia.org/wiki/Daitch%E2%80%93Mokotoff_Soundex and http://www.avotaynu.com/soundex.htm
 

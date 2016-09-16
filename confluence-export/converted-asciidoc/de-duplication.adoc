@@ -48,7 +48,7 @@ The `SignatureUpdateProcessorFactory` takes several properties:
 [width="100%",cols="34%,33%,33%",options="header",]
 |===
 |Parameter |Default |Description
-|signatureClass |`org.apache.solr.update.processor.Lookup3Signature ` a|
+|signatureClass |`org.apache.solr.update.processor.Lookup3Signature` a|
 A Signature implementation for generating a signature hash. The full classpath of the implementation must be specified. The available options are described above, the associated classpaths to use are:
 
 * `org.apache.solr.update.processor.Lookup3Signature`

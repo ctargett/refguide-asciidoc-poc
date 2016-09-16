@@ -219,7 +219,7 @@ These parameters specify how multi-valued fields are encoded. Per-field override
 [[ResponseWriters-Example]]
 === Example
 
-` http://localhost:8983/solr/techproducts/select?q=ipod&fl=id,cat,name,popularity,price,score&wt=csv ` returns:
+`http://localhost:8983/solr/techproducts/select?q=ipod&fl=id,cat,name,popularity,price,score&wt=csv` returns:
 
 [source,java]
 ----

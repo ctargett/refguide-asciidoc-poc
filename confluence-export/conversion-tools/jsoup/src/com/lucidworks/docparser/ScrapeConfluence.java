@@ -288,7 +288,21 @@ public class ScrapeConfluence {
         }
       }
     }
-
+    
+    // trim any leading/trailing space from the leading/trailing textNodes of formatting tags
+    for (String tag : Arrays.asList("strong", "em", "code", "pre")) {
+      elements = docOut.getElementsByTag(tag);
+      for (Element element : elements) {
+        List<TextNode> textNodes = element.textNodes();
+        if (1 < textNodes.size()) {
+          TextNode first = textNodes.get(0);
+          first.text(first.text().replaceAll("^\\s+", ""));
+          TextNode last = textNodes.get(textNodes.size()-1);
+          last.text(last.text().replaceAll("\\s+$", ""));
+        }
+      }
+    }
+    
     // remove confluence styles
     elements = docOut.select("[style]");
     for (Element element : elements) {

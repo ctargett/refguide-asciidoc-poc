@@ -175,7 +175,7 @@ The `_version_` field is by default stored in the inverted index (`indexed="true
 [[UpdatingPartsofDocuments-DocumentCentricVersioningConstraints]]
 == Document Centric Versioning Constraints
 
-Optimistic Concurrency is extremely powerful, and works very efficiently because it uses an internally assigned, globally unique values for the `_version_` field. However, In some situations users may want to configure their own document specific version field, where the version values are assigned on a per-document basis by an external system, and have Solr reject updates that attempt to replace a document with an "older" version. In situations like this the ` DocBasedVersionConstraintsProcessorFactory ` can be useful.
+Optimistic Concurrency is extremely powerful, and works very efficiently because it uses an internally assigned, globally unique values for the `_version_` field. However, In some situations users may want to configure their own document specific version field, where the version values are assigned on a per-document basis by an external system, and have Solr reject updates that attempt to replace a document with an "older" version. In situations like this the `DocBasedVersionConstraintsProcessorFactory` can be useful.
 
 The basic usage of `DocBasedVersionConstraintsProcessorFactory` is to configure it in `solrconfig.xml` as part of the http://wiki.apache.org/solr/UpdateRequestProcessor[UpdateRequestProcessorChain] and specify the name of your custom `versionField` in your schema that should be checked when validating updates:
 
