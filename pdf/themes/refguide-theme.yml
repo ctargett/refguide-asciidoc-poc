@@ -119,6 +119,22 @@ admonition:
   border_color: $base_border_color
   border_width: $base_border_width
   padding: [0, $horizontal_rhythm, 0, $horizontal_rhythm]
+  icon:
+     tip:
+        name: fa-lightbulb-o
+        stroke_color: '#428b30'
+     note:
+        name: fa-info-circle
+        stroke_color: '#19407c'
+     warning:
+        name: fa-exclamation-triangle
+        stroke_color: '#bf6900'
+     caution:
+        name: fa-fire
+        stroke_color: '#eeea74'
+     information:
+        name: fa-bolt
+        stroke_color: '#bf6900'
 blockquote:
   font_color: $base_font_color
   font_size: $base_font_size_large
