@@ -42,6 +42,8 @@ As you can see, the discovery Solr configuration is "SolrCloud friendly". Howeve
 
 There are no attributes that you can specify in the `<solr>` tag, which is the root element of `solr.xml`. The tables below list the child nodes of each XML element in `solr.xml`.
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="50%,50%",options="header",]
 |===
 |Node |Description

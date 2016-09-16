@@ -114,6 +114,8 @@ Permissions need to be created if they are not on the list of pre-defined permis
 
 Several properties can be used to define your custom permission.
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="50%,50%",options="header",]
 |===
 |Property |Description

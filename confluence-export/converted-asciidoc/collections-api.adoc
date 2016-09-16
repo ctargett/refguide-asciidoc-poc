@@ -22,6 +22,8 @@ The base URL for all API calls below is `http://<hostname>:<port>/solr`.
 
 *Query Parameters*
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
 |===
 |Key |Type |Required |Default |Description
@@ -99,6 +101,8 @@ http://localhost:8983/solr/admin/collections?action=CREATE&name=newCollection&nu
 It's possible to edit multiple attributes at a time. Changing these values only updates the z-node on Zookeeper, they do not change the topology of the collection. For instance, increasing replicationFactor will _not_ automatically add more replicas to the collection but _will_ allow more ADDREPLICA commands to succeed.
 
 *Query Parameters*
+
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
 |===
@@ -610,6 +614,8 @@ Add a replica to a shard in a collection. The node name can be specified if the 
 *Input*
 
 *Query Parameters*
+
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
 |===
@@ -1373,6 +1379,8 @@ Assign an arbitrary property to a particular replica and give it the value speci
 
 *Query Parameters*
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="25%,25%,25%,25%",options="header",]
 |===
 |Key |Type |Required |Description
@@ -1451,6 +1459,8 @@ Deletes an arbitrary property from a particular replica.
 *Input*
 
 *Query Parameters*
+
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
 |===

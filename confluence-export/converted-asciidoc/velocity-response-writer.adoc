@@ -40,6 +40,8 @@ The above example shows the optional initialization and custom tool parameters u
 [[VelocityResponseWriter-VelocityResponseWriterrequestparameters]]
 === VelocityResponseWriter request parameters
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="34%,33%,33%",options="header",]
 |===
 |Parameter |Description |Default value

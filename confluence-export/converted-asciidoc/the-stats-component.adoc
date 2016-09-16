@@ -16,6 +16,8 @@ bin/solr -e techproducts
 
 The Stats Component accepts the following parameters:
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="50%,50%",options="header",]
 |===
 |Parameter |Description
@@ -89,6 +91,8 @@ The query below demonstrates computing stats against two different fields numeri
 == Statistics Supported
 
 The table below explains the statistics supported by the Stats component. Not all statistics are supported for all field types, and not all statistics are computed by default (See <<TheStatsComponent-LocalParameters,Local Parameters>> below for details)
+
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
 |===

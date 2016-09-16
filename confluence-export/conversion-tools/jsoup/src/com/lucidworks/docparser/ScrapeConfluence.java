@@ -461,33 +461,23 @@ public class ScrapeConfluence {
       fakeComment.text("// TODO: This '"+list.tagName()+"' has problematic nested lists inside of it, needs manual editing");
       list.before(fakeComment);
     }
-    
-    // // pandoc gets really confused when <ol>s get nested, add a comment pointing out
-    // // manual cleanup is needed
-    // elements = docOut.select("ol, ul");
-    // LIST: for (Element list : elements) {
-    //   // if we are wrapped in an outer list, nothing to do - already done at top level
-    //   for (Element parent : list.parents()) {
-    //     if ("ol".equals(parent.tagName()) || "ul".equals(parent.tagName())) {
-    //       break LIST;
-    //     }
-    //   }
-    //   if (0 < list.select("* ol").size()) {
-    //     // would love to use jsoup's Comment class, but it doesn't survive pandoc
-    //     // ironically, this does...
-    //     Element fakeComment = new Element(Tag.valueOf("div"), "");
-    //     fakeComment.text("// TODO: This '"+list.tagName()+"' has nested 'ol' inside of it, needs manual editing");
-    //     list.before(fakeComment);
-    //   } else if ("ol".equals(list.tagName()) && 0 < list.select("* ul").size()) {
-    //     // would love to use jsoup's Comment class, but it doesn't survive pandoc
-    //     // ironically, this does...
-    //     Element fakeComment = new Element(Tag.valueOf("div"), "");
-    //     fakeComment.text("// TODO: This 'ol' has nested 'ul' inside of it, needs manual editing");
-    //     list.before(fakeComment);
-    //   }
-    // }
-    
-    
+
+    // table cells containing structural elements are problematic in PDFs...
+    elements = docOut.select("table:has(ol, ul, p ~ p, div, pre, table)");
+    TABLE: for (Element table : elements) {
+      // if we are wrapped in another table, nothing to do - already done at top level
+      for (Element parent : table.parents()) {
+        if ("table".equals(parent.tagName())) {
+          continue TABLE;
+        }
+      }
+      // would love to use jsoup's Comment class, but it doesn't survive pandoc
+      // ironically, this does...
+      Element fakeComment = new Element(Tag.valueOf("div"), "");
+      fakeComment.text("// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13");
+      table.before(fakeComment);
+    }
+
     docOut.normalise();
   }
 
