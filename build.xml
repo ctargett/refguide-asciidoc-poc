@@ -1,16 +1,13 @@
 <project xmlns:asciidoctor="antlib:org.asciidoctor.ant">
 
   <mkdir dir="lib"/>
+  <!-- asciidoctor-ant 1.5.3 includes asciidoctorj 1.5.3 and asciidoctorj-pdf 1.5.0-alpha.11, which is the same as asciidoctor-pdf 1.5.0-alpha.11 -->
   <property name="asciidoctor-ant.jar.path" location="lib/asciidoctor-ant.jar" />
   <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctor-ant/1.5.3/asciidoctor-ant-1.5.3.jar"
        dest="${asciidoctor-ant.jar.path}" usetimestamp="true"/>
   <property name="org-json.jar.path" location="lib/org-json.jar" />
   <get src="http://repo1.maven.org/maven2/org/json/json/20160810/json-20160810.jar"
        dest="${org-json.jar.path}" usetimestamp="true"/>
-
-<!--  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj-pdf/1.5.0-alpha.11/asciidoctorj-pdf-1.5.0-alpha.11.jar" dest="lib/asciidoctorj-pdf.jar" usetimestamp="true" /> -->
-
-<!--  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj/1.5.4.1/asciidoctorj-1.5.4.1.jar" dest="lib/asciidoctorj.jar" usetimestamp="true" /> -->
 
 <!-- TODO: this should be same as what jekyll uses -->
 <property name="asciidoc.dir" location="confluence-export/converted-asciidoc/" />
@@ -25,9 +22,11 @@
     <pathelement location="${asciidoctor-ant.jar.path}"/>
     <pathelement location="${org-json.jar.path}"/>
   </path>
+
   <target name="clean">
     <delete dir="build"/>
   </target>
+
   <target name="jar">
     <mkdir dir="build/classes"/>
     <javac debug="yes"
@@ -43,6 +42,7 @@
                includes="**/*.class"/>
     </jar>
   </target>
+
   <target name="build-nav" depends="jar">
     <!-- TODO: for now, put these in _data since thats where sidebar.json lives
          but in final refguide, they should live in some tmp dir somewhere? outside of git?
@@ -57,6 +57,7 @@
       <arg value="${main-page}"/>
     </java>
   </target>
+
   <target name="hoss-pdf"
           depends="build-nav"
           description="Builds a PDF against all converted-asciidoc files">
@@ -85,6 +86,7 @@
     </asciidoctor:convert>
     <echo>Finished Building ${basedir}/build/SolrRefGuide-all.pdf</echo>
   </target>
+
   <target name="hoss-jekyll"
           depends="build-nav"
           description="Builds a Jekyll Site using the converted-asciidoc files">
@@ -110,6 +112,7 @@
     </exec>
     <echo>Ready to browse site: ${hoss.jekyll.dir}/_site/${main-page}.html</echo>
   </target>
+  
   <target name="hoss"
           depends="hoss-pdf,hoss-jekyll">
     <echo>PDF: ${basedir}/build/SolrRefGuide-all.pdf</echo>
@@ -117,7 +120,7 @@
   </target>
 
   <target name="convert-raw-confluence-exports"
-          description="Convinience target for running the one time conversion needed to build confluence-export/converted-asciidoc">
+          description="Convienience target for running the one time conversion needed to build confluence-export/converted-asciidoc">
     <ant dir="confluence-export/conversion-tools/jsoup"
          target="scrape"
          inheritAll="false"
@@ -125,28 +128,6 @@
     <exec executable="confluence-export/conversion-tools/toAsciidoc.sh" />
   </target>
 
-
-<!-- ======= Asciidoctor HTML conversion ========
-   Uses pure Asciidoctor build task-->
-  <target name="asciidoctor"
-          description="Builds raw HTML versions of all '.adoc' files">
-    <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml" classpath="lib/asciidoctor-ant.jar"/>
-    <asciidoctor:convert
-                 sourceDirectory="asciidoc"
-                 outputDirectory="html"
-                 backend="html5"
-                 extensions="adoc"
-                 sourceHighlighter="coderay"
-                 embedAssets="true"
-                 imagesDir="asciidoc/images">
-      <attribute key="docinfo1" value='' />
-      <attribute key="stylesheet" value="ref-guide.css" />
-      <attribute key="stylesdir" value="html/styles" />
-      <attribute key="icons" value="font" />
-      <attribute key="figure-caption!" value='' />
-      <attribute key="toc" value="right" />
-   </asciidoctor:convert>
-  </target>
 
 <!-- ======= Jekyll Build =======
   Builds site with Jekyll. This (for now) assumes that Jekyll (http://jekyllrb.com) is installed locally.
@@ -230,39 +211,5 @@
       <attribute key="figure-caption!" value='' />
    </asciidoctor:convert>
   </target>
-
-<!--  <condition property="asciidoctor-ant-built" value="true">
-    <available file="lib/${asciidoctor-ant.snapshot.jar}"/>
-</condition> -->
-
-  <!-- Fetch and build asciidoctor-ant.  **With asciidoctor-ant 1.5.3 this can perhaps go away**
-
-       The latest asciidoctor-ant release (1.5.1) has two problems that disallow conversion to PDF:
-
-       1. It includes a buggy asciidoctorj-pdf dependency.
-          See https://github.com/asciidoctor/asciidoctor-maven-examples/issues/11#issuecomment-112226507
-       2. The "pdf" backend was added after the 1.5.1 release
-   -->
-   <!-- With asciidoctor-ant 1.5.3 this can perhaps go away
-  <target name="build-asciidoctor-ant" unless="asciidoctor-ant-built">
-    <delete dir="build/asciidoctor-ant" failonerror="false"/>
-    <mkdir dir="build"/>
-    <exec dir="build" executable="git" failonerror="true">
-      <arg value="clone"/>
-      <arg value="https://github.com/asciidoctor/asciidoctor-ant"/>
-    </exec>
-
-    <old comment: asciidoctorj-pdf-1.5.0-alpha.7 is missing a required font - upgrade to 1.5.0-alpha.9 >
-    <replaceregexp file="build/asciidoctor-ant/pom.xml"
-                   match="&lt;asciidoctorj-pdf.version&gt;1.5.0-alpha.7&lt;/asciidoctorj-pdf.version&gt;"
-                   replace="&lt;asciidoctorj-pdf.version&gt;1.5.0-alpha.9&lt;/asciidoctorj-pdf.version&gt;"/>
-    <exec dir="build/asciidoctor-ant" executable="mvn">
-      <arg value="clean"/>
-      <arg value="package"/>
-    </exec>
-    <copy todir="lib" file="build/asciidoctor-ant/target/${asciidoctor-ant.snapshot.jar}"
-          failonerror="true" overwrite="true"/>
-  </target>
-  -->
 
 </project>
