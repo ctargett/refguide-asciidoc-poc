@@ -128,13 +128,13 @@ admonition:
         stroke_color: '#19407c'
      warning:
         name: fa-exclamation-triangle
-        stroke_color: '#bf6900'
+        stroke_color: '#bf0000'
      caution:
         name: fa-fire
-        stroke_color: '#eeea74'
+        stroke_color: '#bf6900'
      information:
         name: fa-bolt
-        stroke_color: '#bf6900'
+        stroke_color: '#eeea74'
 blockquote:
   font_color: $base_font_color
   font_size: $base_font_size_large
