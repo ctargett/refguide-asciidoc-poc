@@ -103,8 +103,8 @@ block:
 caption:
   align: left
   font:
-     style: italic
-     color: '#7a2518'
+    style: italic
+    color: 7a2518
   margin_inside: $vertical_rhythm / 3
   margin_outside: 0
 lead:
@@ -119,25 +119,22 @@ admonition:
   border_color: $base_border_color
   border_width: $base_border_width
   padding: [0, $horizontal_rhythm, 0, $horizontal_rhythm]
-  # This apparently does not work
-  title:
-     font-color: '#7a2518'
   icon:
-     tip:
-        name: fa-lightbulb-o
-        stroke_color: '#428b30'
-     note:
-        name: fa-info-circle
-        stroke_color: '#19407c'
-     warning:
-        name: fa-exclamation-triangle
-        stroke_color: '#bf0000'
-     caution:
-        name: fa-fire
-        stroke_color: '#bf6900'
-     information:
-        name: fa-bolt
-        stroke_color: '#eeea74'
+    tip:
+      name: fa-lightbulb-o
+      stroke_color: '#428b30'
+    note:
+      name: fa-info-circle
+      stroke_color: '#19407c'
+    warning:
+      name: fa-exclamation-triangle
+      stroke_color: '#bf0000'
+    caution:
+      name: fa-fire
+      stroke_color: '#bf6900'
+    information:
+      name: fa-bolt
+      stroke_color: '#eeea74'
 blockquote:
   font_color: $base_font_color
   font_size: $base_font_size_large
