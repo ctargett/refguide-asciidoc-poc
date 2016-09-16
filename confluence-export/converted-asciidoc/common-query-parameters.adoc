@@ -156,7 +156,7 @@ fl=id,title,[explain]
 [[CommonQueryParameters-FieldNameAliases]]
 === Field Name Aliases
 
-You can change the key used to in the response for a field, function, or transformer by prefixing it with a `"displayName:`". For example:
+You can change the key used to in the response for a field, function, or transformer by prefixing it with a `__"displayName__:`". For example:
 
 [source,java]
 ----
