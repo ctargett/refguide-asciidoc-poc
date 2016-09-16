@@ -95,6 +95,8 @@ The `HdfsDirectoryFactory` has a number of settings that are defined as part of 
 [[RunningSolronHDFS-BlockCacheSettings]]
 === Block Cache Settings
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="34%,33%,33%",options="header",]
 |===
 |Parameter |Default |Description
@@ -136,6 +138,8 @@ solr.hdfs.confdir pass the location of HDFS client configuration files - needed 
 === Kerberos Authentication Settings
 
 Hadoop can be configured to use the Kerberos protocol to verify user identity when trying to access core services like HDFS. If your HDFS directories are protected using Kerberos, then you need to configure Solr's HdfsDirectoryFactory to authenticate using Kerberos in order to read and write to HDFS. To enable Kerberos authentication from Solr, you need to set the following parameters:
+
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
 
 [width="100%",cols="34%,33%,33%",options="header",]
 |===

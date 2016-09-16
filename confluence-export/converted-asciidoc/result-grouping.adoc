@@ -35,6 +35,8 @@ If you ask Solr to group these documents by "product_range", then the total amou
 
 Result Grouping takes the following request parameters. Any number of these request parameters can be included in a single request:
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="34%,33%,33%",options="header",]
 |===
 |Parameter |Type |Description

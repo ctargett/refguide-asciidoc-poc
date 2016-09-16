@@ -73,6 +73,8 @@ To configure the standard handler, provide a configuration like this in the solr
 
 The parameters that can be specified are as follows:
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="34%,33%,33%",options="header",]
 |===
 |Parameter |Default |Explanation

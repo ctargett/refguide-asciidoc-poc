@@ -233,6 +233,8 @@ If documents are added to the slave, then the slave is no longer in sync with it
 
 You can use the HTTP commands below to control the ReplicationHandler's operations.
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="50%,50%",options="header",]
 |===
 |Command |Description

@@ -18,6 +18,8 @@ The `CollapsingQParser` is really a _post filter_ that provides more performant 
 
 The CollapsingQParser accepts the following local parameters:
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="34%,33%,33%",options="header",]
 |===
 |Parameter |Description |Default

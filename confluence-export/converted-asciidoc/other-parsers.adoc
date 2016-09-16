@@ -623,6 +623,8 @@ The Simple query parser in Solr is based on Lucene's SimpleQueryParser. This que
 
 This parser takes the following parameters:
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="50%,50%",options="header",]
 |===
 |Parameter |Description

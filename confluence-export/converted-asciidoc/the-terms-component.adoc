@@ -50,6 +50,8 @@ You could add this component to another handler if you wanted to, and pass "term
 
 The parameters below allow you to control what terms are returned. You can also any of these to the request handler if you'd like to set them permanently. Or, you can add them to the query request. These parameters are:
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="25%,25%,25%,25%",options="header",]
 |===
 |Parameter |Required |Default |Description

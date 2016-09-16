@@ -145,6 +145,8 @@ Then, these parameters can be passed to the full-import command or defined in th
 
 DIH commands are sent to Solr via an HTTP request. The following operations are supported.
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="50%,50%",options="header",]
 |===
 |Command |Description
@@ -433,6 +435,8 @@ Here is an example from the "```mail```" collection of the `dih` example (`examp
 
 The entity attributes unique to the MailEntityProcessor are shown below.
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="50%,50%",options="header",]
 |===
 |Attribute |Use
@@ -490,6 +494,8 @@ Here is an example from the "```tika```" collection of the `dih` example (`examp
 ----
 
 The parameters for this processor are described in the table below:
+
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
 
 [width="100%",cols="50%,50%",options="header",]
 |===

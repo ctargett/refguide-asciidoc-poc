@@ -13,6 +13,8 @@ The material as presented assumes that you are familiar with some basic search c
 
 Special notes are included throughout these pages.
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="50%,50%",options="header",]
 |===
 |Note Type |Look & Description

@@ -28,6 +28,8 @@ This sets the default search field ("df") to be "_text_" for all of the request 
 
 The syntax and semantics are similar to that of a `<requestHandler>` . The following are the attributes
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="50%,50%",options="header",]
 |===
 |property |Description
