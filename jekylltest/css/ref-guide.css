@@ -2482,7 +2482,7 @@ span.icon > .fa
 /* font awesome icon lightbulb-o: http://fontawesome.io/icon/lightbulb-o/ */
 .admonitionblock td.icon .icon-tip:before
 {
-    color: #111;
+    color: #428b30;
     content: '\f0eb';
     text-shadow: 1px 1px 2px rgba(155,155,0,.8);
 }
@@ -2497,15 +2497,15 @@ span.icon > .fa
 /* font awesome icon fire: http://fontawesome.io/icon/fire/ */
 .admonitionblock td.icon .icon-caution:before
 {
-    color: #bf3400;
+    color: #eeea74;
     content: '\f06d';
 }
 
-/* font awesome icon exclamation-circle: http://fontawesome.io/icon/exclamation-circle/ */
+/* font awesome icon bolt: http://fontawesome.io/icon/bolt/ */
 .admonitionblock td.icon .icon-important:before
 {
-    color: #bf0000;
-    content: '\f06a';
+    color: #bf6900;
+    content: '\f0e7';
 }
 
 .conum[data-value]
