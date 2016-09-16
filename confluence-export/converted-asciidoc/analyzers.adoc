@@ -36,11 +36,13 @@ Note that classes in the `org.apache.solr.analysis` package may be referred to h
 
 In this case, no Analyzer class was specified on the `<analyzer>` element. Rather, a sequence of more specialized classes are wired together and collectively act as the Analyzer for the field. The text of the field is passed to the first item in the list (`solr.StandardTokenizerFactory`), and the tokens that emerge from the last one (`solr.EnglishPorterFilterFactory`) are the terms that are used for indexing or querying any fields that use the "nametext" `fieldType`.
 
-Field Values versus Indexed Terms
-
-Note:
+.Field Values versus Indexed Terms
+[IMPORTANT]
+====
 
 The output of an Analyzer affects the _terms_ indexed in a given field (and the terms used when parsing queries against those fields) but it has no impact on the _stored_ value for the fields. For example: an analyzer might split "Brown Cow" into two indexed terms "brown" and "cow", but the stored value will still be a single String: "Brown Cow"
+
+====
 
 [[Analyzers-AnalysisPhases]]
 == Analysis Phases

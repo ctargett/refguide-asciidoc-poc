@@ -49,10 +49,12 @@ In this example, there are two value lists defined. Each list is between `enum` 
 </enumsConfig>
 ----
 
-Changing Values
-
-Note:
+.Changing Values
+[IMPORTANT]
+====
 
 You cannot change the order, or remove, existing values in an `<enum/>` without reindexing.
 
 You can however add new values to the end.
+
+====

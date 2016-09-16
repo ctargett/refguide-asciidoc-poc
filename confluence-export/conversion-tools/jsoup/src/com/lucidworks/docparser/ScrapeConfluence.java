@@ -398,11 +398,22 @@ public class ScrapeConfluence {
     }
     
     // replace icon text
-    elements = docOut.getElementsByClass("aui-icon");
+    elements = docOut.getElementsByClass("confluence-information-macro");
     for (Element element : elements) {
-      // TODO: replace with something better so we can preserve the "note box" type asciidoc formatting?
-      //                System.out.println(title + ": replaced Icon");
-      element.text("Note:");
+      final String admonishment = getAdmonishment(element);
+      Elements titles = element.select(".title");
+      if (1 < titles.size()) {
+        System.err.println("admonishment macro has more then 1 title: " + element.outerHtml());
+        System.exit(-1);
+      }
+
+      // it's easier to post-process this, then to try and fight the html->pandoc->adoc conversion
+      for (Element title : titles) { // only one, loop is easy
+        title.prependText("TODO_ADMON_TITLE:");
+        element.before(title); // move it before the block
+      }
+      element.prependChild((new Element(Tag.valueOf("p"), ".")).prependText("[" + admonishment + "]===="));
+      element.appendChild((new Element(Tag.valueOf("p"), ".")).prependText("===="));
     }
 
     // unwrap various block tags if they are empty
@@ -444,6 +455,28 @@ public class ScrapeConfluence {
   public static String fixAnchorId(String id) {
     Matcher m = ANCHOR_ID_CLEANER.matcher(id);
     return m.replaceAll("_");
+  }
+
+  /**
+   * convert confluence admonishment macor types to the "equivilent" adoc types we want to use
+   */
+  public static String getAdmonishment(Element e) {
+    String admon = null;
+    if (e.hasClass("confluence-information-macro-information")) {
+      return "NOTE";
+    }
+    if (e.hasClass("confluence-information-macro-tip")) {
+      return "TIP";
+    }
+    if (e.hasClass("confluence-information-macro-note")) {
+      return "IMPORTANT";
+    }
+    if (e.hasClass("confluence-information-macro-warning")) {
+      return "WARNING";
+    }
+    System.err.println("No admonishment mapping for: " + e.outerHtml());
+    System.exit(-1);
+    return null;
   }
   
   /**

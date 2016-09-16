@@ -21,5 +21,13 @@ while (my $line = <>) {
     # TODO: any attributes we want to add to every image?
     $line =~ s{image:(.*?)\[(.*?)\]}{image::$1\[$2\]\n}g;
 
+    # admonishments...
+    if ($line =~ s{^TODO_ADMON_TITLE:}{.}) {
+	# next line should be blank, trash it
+	my $trash = <>;
+	$trash =~ /^$/ or die "not a blank trash line: $trash";
+    }
+    $line =~ s{^(\[\w+\])====$}{$1\n====};
+    
     print $line;
 }

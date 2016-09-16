@@ -24,9 +24,12 @@ When using the Solr Cell framework, it is helpful to keep the following in mind:
 * You can pass in literals for field values. Literals will override Tika-parsed values, including fields in the Tika metadata object, the Tika content field, and any "captured content" fields.
 * You can apply an XPath expression to the Tika XHTML to restrict the content that is produced.
 
-Note:
+[TIP]
+====
 
 While Apache Tika is quite powerful, it is not perfect and fails on some files. PDF files are particularly problematic, mostly due to the PDF format itself. In case of a failure processing any file, the `ExtractingRequestHandler` does not have a secondary mechanism to try to extract some text from the file; it will throw an exception and fail.
+
+====
 
 [[UploadingDatawithSolrCellusingApacheTika-TryingoutTikawiththeSolrtechproductsExample]]
 == Trying out Tika with the Solr `techproducts` Example
@@ -222,9 +225,12 @@ In addition to Tika's metadata, Solr adds the following metadata (defined in `Ex
 |stream_content_type |The content type of the stream, if available.
 |===
 
-Note:
+[IMPORTANT]
+====
 
 We recommend that you try using the `extractOnly` option to discover which values Solr is setting for these metadata elements.
+
+====
 
 [[UploadingDatawithSolrCellusingApacheTika-ExamplesofUploadsUsingtheExtractingRequestHandler]]
 === Examples of Uploads Using the Extracting Request Handler

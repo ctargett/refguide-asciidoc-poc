@@ -234,6 +234,9 @@ createdate:[1976-03-06T23:59:59.999Z TO 1976-03-06T23:59:59.999Z+1YEAR]
 createdate:[1976-03-06T23:59:59.999Z/YEAR TO 1976-03-06T23:59:59.999Z]
 ----
 
-Note:
+[IMPORTANT]
+====
 
 TO must be uppercase, or Solr will report a 'Range Group' error.
+
+====

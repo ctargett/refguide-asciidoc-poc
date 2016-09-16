@@ -13,9 +13,12 @@ JMX configuration is provided in `solrconfig.xml`. Please see the http://www.ora
 
 A `rootName` attribute can be used when configuring `<jmx />` in `solrconfig.xml`. If this attribute is set, Solr uses it as the root name for all the MBeans that Solr exposes via JMX. The default name is "solr" followed by the core name.
 
-Note:
+[IMPORTANT]
+====
 
 Enabling/disabling JMX and securing access to MBeanServers is left up to the user by specifying appropriate JVM parameters and configuration. Please explore the http://www.oracle.com/technetwork/java/javase/tech/javamanagement-140525.html[JMX Technology Home Page] for more details.
+
+====
 
 [[UsingJMXwithSolr-ConfiguringanExistingMBeanServer]]
 === Configuring an Existing MBeanServer
@@ -75,6 +78,9 @@ If you want to connect to Solr remotely, you need to pass in some extra paramete
 
 http://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html
 
-Note:
+[IMPORTANT]
+====
 
 Making JMX connections into machines running behind NATs (e.g. Amazon's EC2 service) is not a simple task. The `java.rmi.server.hostname` system property may help, but running `jconsole` on the server itself and using a remote desktop is often the simplest solution. See http://web.archive.org/web/20130525022506/http://jmsbrdy.com/monitoring-java-applications-running-on-ec2-i.
+
+====

@@ -278,9 +278,12 @@ And only the 'q' and 'fq' parameters will be logged.
 
 If no parameters should be logged, you can send `logParamsList` as empty (i.e., `logParamsList=`).
 
-Note:
+[TIP]
+====
 
 This parameter does not only apply to query requests, but to any kind of request to Solr.
+
+====
 
 [[CommonQueryParameters-TheechoParamsParameter]]
 == The `echoParams` Parameter

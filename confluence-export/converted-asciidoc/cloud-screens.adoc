@@ -4,11 +4,13 @@
 
 When running in <<solrcloud.adoc#,SolrCloud>> mode, a "Cloud" option will appear in the Admin UI between <<logging.adoc#,Logging>> and <<collections-core-admin.adoc#,Collections/Core Admin>> which provides status information about each collection & node in your cluster, as well as access to the low level data being stored in <<using-zookeeper-to-manage-configuration-files.adoc#,Zookeeper>>.
 
-Only Visible When using SolrCloud
-
-Note:
+.Only Visible When using SolrCloud
+[NOTE]
+====
 
 The "Cloud" menu option is only available on Solr instances running in <<getting-started-with-solrcloud.adoc#,SolrCloud mode>>. Single node or master/slave replication instances of Solr will not display this option.
+
+====
 
 Click on the Cloud option in the left-hand navigation, and a small sub-menu appears with options called "Tree", "Graph", "Graph (Radial)" and "Dump". The default view ("Graph") shows a graph of each collection, the shards that make up those collections, and the addresses of each replica for each shard.
 

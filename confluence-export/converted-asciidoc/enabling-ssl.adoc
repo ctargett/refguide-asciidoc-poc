@@ -74,11 +74,13 @@ SOLR_SSL_WANT_CLIENT_AUTH=false
 
 When you start Solr, the `bin/solr` script includes the settings in `bin/solr.in.sh` and will pass these SSL-related system properties to the JVM.
 
-Client Authentication Settings
-
-Note:
+.Client Authentication Settings
+[WARNING]
+====
 
 Enable either SOLR_SSL_NEED_CLIENT_AUTH or SOLR_SSL_WANT_CLIENT_AUTH but not both at the same time. They are mutually exclusive and Jetty will select one of them which may not be what you expect.
+
+====
 
 Similarly, when you start Solr on Windows, the `bin\solr.cmd` script includes the settings in `bin\solr.in.cmd` - uncomment and update the set of properties beginning with `SOLR_SSL_*` to pass these SSL-related system properties to the JVM:
 
@@ -123,9 +125,12 @@ This section describes how to run a two-node SolrCloud cluster with no initial c
 [[EnablingSSL-ConfigureZooKeeper]]
 === Configure ZooKeeper
 
-Note:
+[NOTE]
+====
 
 ZooKeeper does not support encrypted communication with clients like Solr. There are several related JIRA tickets where SSL support is being planned/worked on: https://issues.apache.org/jira/browse/ZOOKEEPER-235[ZOOKEEPER-235]; https://issues.apache.org/jira/browse/ZOOKEEPER-236[ZOOKEEPER-236]; https://issues.apache.org/jira/browse/ZOOKEEPER-733[ZOOKEEPER-733]; and https://issues.apache.org/jira/browse/ZOOKEEPER-1000[ZOOKEEPER-1000].
+
+====
 
 Before you start any SolrCloud nodes, you must configure your solr cluster properties in ZooKeeper, so that Solr nodes know to communicate via SSL.
 
@@ -234,7 +239,8 @@ bin\solr.cmd -cloud -s cloud\node2 -z localhost:2181 -p 7574
 [[EnablingSSL-ExampleClientActions]]
 == Example Client Actions
 
-Note:
+[IMPORTANT]
+====
 
 cURL on OS X Mavericks (10.9) has degraded SSL support. For more information and workarounds to allow 1-way SSL, see http://curl.haxx.se/mail/archive-2013-10/0036.html . cURL on OS X Yosemite (10.10) is improved - 2-way SSL is possible - see http://curl.haxx.se/mail/archive-2014-10/0053.html .
 
@@ -245,9 +251,14 @@ The cURL commands in the following sections will not work with the system `curl`
 curl -E solr-ssl.keystore.p12:secret --cacert solr-ssl.cacert.pem ...
 ----
 
-Note:
+====
+
+[NOTE]
+====
 
 If your operating system does not include cURL, you can download binaries here: http://curl.haxx.se/download.html
+
+====
 
 // OLD_CONFLUENCE_ID: EnablingSSL-CreateaSolrCloudcollectionusingbin/solr
 

@@ -47,9 +47,12 @@ A sample fieldType configuration could look like this:
 </fieldtype>
 ----
 
-Note:
+[IMPORTANT]
+====
 
 When adding the same token twice, it will also score twice (double), so you may have to re-tune your ranking rules.
+
+====
 
 <<main,Back to Top>>
 
@@ -875,9 +878,12 @@ This filter converts uppercase letters in the Greek character set to the equival
 
 *Arguments:* None
 
-Note:
+[IMPORTANT]
+====
 
 Use of custom charsets is not longer supported as of Solr 3.1. If you need to index text in these encodings, please use Java's character set conversion facilities (InputStreamReader, and so on.) during I/O, so that Lucene can analyze this text as Unicode instead.
+
+====
 
 *Example:*
 
@@ -1403,9 +1409,12 @@ Solr includes two stemmers for Russian: one in the `solr.SnowballPorterFilterFac
 
 *Arguments:* None
 
-Note:
+[IMPORTANT]
+====
 
 Use of custom charsets is no longer supported as of Solr 3.4. If you need to index text in these encodings, please use Java's character set conversion facilities (InputStreamReader, and so on.) during I/O, so that Lucene can analyze this text as Unicode instead.
+
+====
 
 *Example:*
 

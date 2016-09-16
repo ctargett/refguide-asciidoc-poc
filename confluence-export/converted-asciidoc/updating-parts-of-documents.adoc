@@ -159,9 +159,9 @@ $ curl 'http://localhost:8983/solr/techproducts/query?q=*:*&fl=id,_version_'
 
 For more information, please also see https://www.youtube.com/watch?v=WYVM6Wz-XTw[Yonik Seeley's presentation on NoSQL features in Solr 4] from Apache Lucene EuroCon 2012.
 
-Power Tip
-
-Note:
+.Power Tip
+[TIP]
+====
 
 The `_version_` field is by default stored in the inverted index (`indexed="true"`). However, for some systems with a very large number of documents, the increase in FieldCache memory requirements may be too costly. A solution can be to declare the `_version_` field as <<docvalues.adoc#,DocValues>>:
 
@@ -171,6 +171,8 @@ The `_version_` field is by default stored in the inverted index (`indexed="true
 ----
 <field name="_version_" type="long" indexed="false" stored="true" required="true" docValues="true"/>
 ----
+
+====
 
 [[UpdatingPartsofDocuments-DocumentCentricVersioningConstraints]]
 == Document Centric Versioning Constraints
@@ -188,11 +190,13 @@ The basic usage of `DocBasedVersionConstraintsProcessorFactory` is to configure 
 
 Once configured, this update processor will reject (HTTP error code 409) any attempt to update an existing document where the value of the `my_version_l` field in the "new" document is not greater then the value of that field in the existing document.
 
-versionField vs _version_
-
-Note:
+.versionField vs _version_
+[IMPORTANT]
+====
 
 The `_version_` field used by Solr for its normal optimistic concurrency also has important semantics in how updates are distributed to replicas in SolrCloud, and *MUST* be assigned internally by Solr. Users can not re-purpose that field and specify it as the `versionField` for use in the `DocBasedVersionConstraintsProcessorFactory` configuration.
+
+====
 
 `DocBasedVersionConstraintsProcessorFactory` supports two additional configuration params which are optional:
 

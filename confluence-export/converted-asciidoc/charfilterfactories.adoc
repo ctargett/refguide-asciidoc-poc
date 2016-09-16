@@ -68,9 +68,12 @@ This filter:
 * Inline tags, such as `<b>`, `<i>`, or `<span>` will be removed.
 * Uppercase character entities like `quot`, `gt`, `lt` and `amp` are recognized and handled as lowercase.
 
-Note:
+[TIP]
+====
 
 The input need not be an HTML document. The filter removes only constructs that look like HTML. If the input doesn't include anything that looks like HTML, the filter won't remove any input.
+
+====
 
 The table below presents examples of HTML stripping.
 

@@ -15,9 +15,12 @@ The center of the screen shows the detail of the option selected. This may inclu
 
 Under the covers, the Solr Admin UI re-uses the same HTTP APIs available to all clients to access Solr-related data to drive an external interface.
 
-Note:
+[TIP]
+====
 
 The path to the Solr Admin UI given above is `http://hostname:port/solr`, which redirects to `http://hostname:port/solr/#/` in the current version. A convenience redirect is also supported, so simply accessing the Admin UI at `http://hostname:port/` will also redirect to `http://hostname:port/solr/#/`.
+
+====
 
 [[OverviewoftheSolrAdminUI-RelatedTopics]]
 == Related Topics

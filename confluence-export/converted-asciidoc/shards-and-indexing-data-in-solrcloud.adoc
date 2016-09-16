@@ -27,9 +27,12 @@ Solr offers the ability to specify the router implementation used by a collectio
 
 Then at query time, you include the prefix(es) into your query with the `_route_` parameter (i.e., `q=solr&_route_=IBM!`) to direct queries to specific shards. In some situations, this may improve query performance because it overcomes network latency when querying all the shards.
 
-Note:
+[IMPORTANT]
+====
 
 The `_route_` parameter replaces `shard.keys`, which has been deprecated and will be removed in a future Solr release.
+
+====
 
 The `compositeId` router supports prefixes containing up to 2 levels of routing. For example: a prefix routing first by region, then by customer: "USA!IBM!12345"
 

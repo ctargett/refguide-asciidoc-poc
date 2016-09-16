@@ -58,9 +58,12 @@ The `/sql` handler is the front end of the Parallel SQL interface. All SQL queri
 
 By default, the `/sql` request handler is configured as an implicit handler, meaning that it is always enabled in every Solr installation and no further configuration is required.
 
-Note:
+[IMPORTANT]
+====
 
 As described below in the section <<ParallelSQLInterface-BestPractices,Best Practices>>, you may want to set up a separate collection for parallelized SQL queries. If you have high cardinality fields and a large amount of data, please be sure to review that section and
+
+====
 
 // OLD_CONFLUENCE_ID: ParallelSQLInterface-/streamand/exportRequestHandlers
 
@@ -146,11 +149,13 @@ Notice that the result set is an array of tuples with key/value pairs that match
 
 Solr supports a broad range of SQL syntax.
 
-SQL Parser is Case Insensitive
-
-Note:
+.SQL Parser is Case Insensitive
+[IMPORTANT]
+====
 
 The SQL parser being used by Solr to translate the SQL statements is case insensitive. However, for ease of reading, all examples on this page use capitalized keywords.
+
+====
 
 [[ParallelSQLInterface-SELECTStatements]]
 === SELECT Statements

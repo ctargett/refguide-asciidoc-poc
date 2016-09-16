@@ -4,13 +4,15 @@
 
 When running Solr in SolrCloud mode and you want to use custom code (such as custom analyzers, tokenizers, query parsers, and other plugins), it can be cumbersome to add jars to the classpath on all nodes in your cluster. Using the <<blob-store-api.adoc#,Blob Store API>> and special commands with the <<config-api.adoc#,Config API>>, you can upload jars to a special system-level collection and dynamically load plugins from them at runtime with out needing to restart any nodes.
 
-This Feature is Disabled By Default
-
-Note:
+.This Feature is Disabled By Default
+[IMPORTANT]
+====
 
 In addition to requiring that Solr by running in <<solrcloud.adoc#,SolrCloud>> mode, this feature is also disabled by default unless all Solr nodes are run with the `-Denable.runtime.lib=true` option on startup.
 
 Before enabling this feature, users should carefully consider the issues discussed in the <<AddingCustomPluginsinSolrCloudMode-SecuringRuntimeLibraries,Securing Runtime Libraries>> section below.
+
+====
 
 [[AddingCustomPluginsinSolrCloudMode-UploadingJarFiles]]
 == Uploading Jar Files

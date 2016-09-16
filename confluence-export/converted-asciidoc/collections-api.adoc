@@ -1664,9 +1664,12 @@ In the unlikely event of a shard losing its leader, this command can be invoked 
 |shard |string |Yes |The name of the shard
 |===
 
-Note:
+[IMPORTANT]
+====
 
 This is an expert level command, and should be invoked only when regular leader election is not working. This may potentially lead to loss of data in the event that the new leader doesn't have certain updates, possibly recent ones, which were acknowledged by the old leader before going down.
+
+====
 
 [[CollectionsAPI-MigrateClusterStateMigrateClusterState]]
 

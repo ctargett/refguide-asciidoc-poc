@@ -6,15 +6,17 @@ Although Solr comes bundled with http://zookeeper.apache.org[Apache ZooKeeper], 
 
 The solution to this problem is to set up an external ZooKeeper ensemble. Fortunately, while this process can seem intimidating due to the number of powerful options, setting up a simple ensemble is actually quite straightforward, as described below.
 
-How Many ZooKeepers?
-
-Note:
+.How Many ZooKeepers?
+[NOTE]
+====
 
 "For a ZooKeeper service to be active, there must be a majority of non-failing machines that can communicate with each other. **_To create a deployment that can tolerate the failure of F machines, you should count on deploying 2xF+1 machines_**. Thus, a deployment that consists of three machines can handle one failure, and a deployment of five machines can handle two failures. Note that a deployment of six machines can only handle two failures since three machines is not a majority.
 
 For this reason, ZooKeeper deployments are usually made up of an odd number of machines."
 
 _-- http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html[ZooKeeper Administrator's Guide]._
+
+====
 
 When planning how many ZooKeeper nodes to configure, keep in mind that the main principle for a ZooKeeper ensemble is maintaining a majority of servers to serve requests. This majority is also called a __quorum__. It is generally recommended to have an odd number of ZooKeeper servers in your ensemble, so a majority is maintained. For example, if you only have two ZooKeeper nodes and one goes down, 50% of available servers is not a majority, so ZooKeeper will no longer serve requests. However, if you have three ZooKeeper nodes and one goes down, you have 66% of available servers available, and ZooKeeper will continue normally while you repair the one down node. If you have 5 nodes, you could continue operating with two down nodes if necessary. More information on ZooKeeper clusters is available from the ZooKeeper documentation at http://zookeeper.apache.org/doc/r3.4.5/zookeeperAdmin.html#sc_zkMulitServerSetup.
 
@@ -23,11 +25,14 @@ When planning how many ZooKeeper nodes to configure, keep in mind that the main 
 
 The first step in setting up Apache ZooKeeper is, of course, to download the software. It's available from http://zookeeper.apache.org/releases.html.
 
-Note:
+[IMPORTANT]
+====
 
 When using stand-alone ZooKeeper, you need to take care to keep your version of ZooKeeper updated with the latest version distributed with Solr. Since you are using it as a stand-alone application, it does not get upgraded when you upgrade Solr.
 
 Solr currently uses Apache ZooKeeper v3.4.6.
+
+====
 
 [[SettingUpanExternalZooKeeperEnsemble-SettingUpaSingleZooKeeper]]
 == Setting Up a Single ZooKeeper

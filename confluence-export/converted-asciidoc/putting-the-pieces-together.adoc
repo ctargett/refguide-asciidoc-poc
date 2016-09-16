@@ -16,11 +16,13 @@ At the highest level, `schema.xml` is structured as follows. This example is not
 
 Obviously, most of the excitement is in `types` and `fields`, where the field types and the actual field definitions live. These are supplemented by `copyFields`. The `uniqueKey` must always be defined. In older Solr versions you would find `defaultSearchField` and `solrQueryParser` tags as well, but although these still work they are deprecated and discouraged, see <<other-schema-elements.adoc#,Other Schema Elements>>.
 
-Types and fields are optional tags
-
-Note:
+.Types and fields are optional tags
+[NOTE]
+====
 
 Note that the `types` and `fields` sections are optional, meaning you are free to mix `field`, `dynamicField`, `copyField` and `fieldType` definitions on the top level. This allows for a more logical grouping of related tags in your schema.
+
+====
 
 [[PuttingthePiecesTogether-ChoosingAppropriateNumericTypes]]
 == Choosing Appropriate Numeric Types

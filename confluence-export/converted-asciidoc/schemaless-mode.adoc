@@ -49,9 +49,12 @@ You can use the `/schema/fields` <<schema-api.adoc#,Schema API>> to confirm this
       "uniqueKey":true}]}
 ----
 
-Note:
+[IMPORTANT]
+====
 
 Because the `data_driven_schema_configs` config set includes a `copyField` directive that causes all content to be indexed in a predefined "catch-all" `_text_` field, to enable single-field search that includes all fields' content, the index will be larger than it would be without the `copyField`. When you nail down your schema, consider removing the `_text_` field and the corresponding `copyField` directive if you don't need it.
+
+====
 
 [[SchemalessMode-ConfiguringSchemalessMode]]
 == Configuring Schemaless Mode
@@ -163,9 +166,12 @@ Once the UpdateRequestProcessorChain has been defined, you must instruct your Up
   </initParams>
 ----
 
-Note:
+[IMPORTANT]
+====
 
 After each of these changes have been made, Solr should be restarted (or, you can reload the cores to load the new `solrconfig.xml` definitions).
+
+====
 
 [[SchemalessMode-ExamplesofIndexedDocuments]]
 == Examples of Indexed Documents
@@ -230,13 +236,15 @@ The fields now in the schema (output from `curl http://localhost:8983/solr/getti
     }]}
 ----
 
-You Can Still Be Explicit
-
-Note:
+.You Can Still Be Explicit
+[TIP]
+====
 
 Even if you want to use schemaless mode for most fields, you can still use the <<schema-api.adoc#,Schema API>> to pre-emptively create some fields, with explicit types, before you index documents that use them.
 
 Internally, the Schema API and the Schemaless Update Processors both use the same <<schema-factory-definition-in-solrconfig.adoc#,Managed Schema>> functionality.
+
+====
 
 Once a field has been added to the schema, its field type is fixed. As a consequence, adding documents with field value(s) that conflict with the previously guessed field type will fail. For example, after adding the above document, the "`Sold`" field has the fieldType `tlongs`, but the document below has a non-integral decimal value in this field:
 

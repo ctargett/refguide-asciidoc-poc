@@ -294,9 +294,12 @@ The default `solr.ICUTokenizerFactory` provides UAX#29 word break rules tokeniza
 </analyzer>
 ----
 
-Note:
+[IMPORTANT]
+====
 
 To use this tokenizer, you must add additional .jars to Solr's classpath (as described in the section <<lib-directives-in-solrconfig.adoc#,Lib Directives in SolrConfig>>). See the `solr/contrib/analysis-extras/README.txt` for information on which jars you need to add to your `SOLR_HOME/lib`.
+
+====
 
 [[Tokenizers-PathHierarchyTokenizer]]
 == Path Hierarchy Tokenizer

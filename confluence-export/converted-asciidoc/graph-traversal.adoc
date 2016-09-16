@@ -8,9 +8,12 @@ Graph traversal with streaming expressions uses the `gatherNodes` function for b
 
 `gatherNodes` is designed for use cases that involve zooming into a neighborhood in the graph and performing precise traversals to gather node sets and aggregations. In these types of use cases `gatherNodes` will often provide sub-second performance. Some sample use cases are provided later in the document.
 
-Note:
+[IMPORTANT]
+====
 
 This document assumes a basic understanding of graph terminology and streaming expressions. You can begin exploring graph traversal concepts with this https://en.wikipedia.org/wiki/Graph_traversal[Wikipedia article]. More details about streaming expressions are available in this Guide, in the section <<streaming-expressions.adoc#,Streaming Expressions>>.
+
+====
 
 [[GraphTraversal-BasicSyntax]]
 == Basic Syntax

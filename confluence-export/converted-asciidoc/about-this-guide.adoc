@@ -17,24 +17,36 @@ Special notes are included throughout these pages.
 |===
 |Note Type |Look & Description
 |*Information* a|
-Note:
+[NOTE]
+====
 
 Notes with a blue background are used for information that is important for you to know.
 
+====
+
 |*Notes* a|
-Note:
+[IMPORTANT]
+====
 
 Yellow notes are further clarifications of important points to keep in mind while using Solr.
 
+====
+
 |*Tip* a|
-Note:
+[TIP]
+====
 
 Notes with a green background are Helpful Tips.
 
+====
+
 |*Warning* a|
-Note:
+[WARNING]
+====
 
 Notes with a red background are warning messages.
+
+====
 
 |===
 

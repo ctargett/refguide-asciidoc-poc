@@ -15,6 +15,9 @@ This section tells you how to fine-tune your Solr instance for optimum performan
 
 <<jvm-settings.adoc#,JVM Settings>>: Gives some guidance on best practices for working with Java Virtual Machines.
 
-Note:
+[IMPORTANT]
+====
 
 The focus of this section is generally on configuring a single Solr instance, but for those interested in scaling a Solr implementation in a cluster environment, see also the section <<solrcloud.adoc#,SolrCloud>>. There are also options to scale through sharding or replication, described in the section <<legacy-scaling-and-distribution.adoc#,Legacy Scaling and Distribution>>.
+
+====
