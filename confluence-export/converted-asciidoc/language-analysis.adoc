@@ -1317,7 +1317,7 @@ Solr provides support for Polish stemming with the `solr.StempelPolishStemFilter
 
 More information about the Stempel stemmer is available in http://lucene.apache.org/core/6_1_0/analyzers-stempel/index.html[the Lucene javadocs].
 
-The Morfologik dictionary param value is a constant specifying which dictionary to choose. The dictionary resource must be named `morfologik/stemming/language/language.dict` and have an associated `.info` metadata file. See http://morfologik.blogspot.com/[the Morfologik project] for details. If the dictionary attribute is not provided, the Polish dictionary is loaded and used by default.
+The Morfologik dictionary param value is a constant specifying which dictionary to choose. The dictionary resource must be named `morfologik/stemming/__language__/__language__.dict` and have an associated `.info` metadata file. See http://morfologik.blogspot.com/[the Morfologik project] for details. If the dictionary attribute is not provided, the Polish dictionary is loaded and used by default.
 
 <<main,Back to Top>>
 

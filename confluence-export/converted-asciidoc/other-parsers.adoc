@@ -107,11 +107,11 @@ Note:
 
 A common mistake is to try to filter parents with a `which` filter, as in this bad example:
 
-`q={!parent which="title:join"}comments:SolrCloud`
+`q={!parent which="**title:join**"}comments:SolrCloud`
 
 Instead, you should use a sibling mandatory clause as a filter:
 
-`q=+title:join`+\{!parent which="**content_type:parentDocument**"}comments:SolrCloud
+`q=**+title:join`**+\{!parent which="****content_type:parentDocument****"}comments:SolrCloud
 
 [[OtherParsers-Scoring]]
 === Scoring

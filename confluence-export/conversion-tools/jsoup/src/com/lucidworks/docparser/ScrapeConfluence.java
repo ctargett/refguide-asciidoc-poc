@@ -302,6 +302,19 @@ public class ScrapeConfluence {
         }
       }
     }
+
+    // fake out pandoc when an em or strong tag is inside of a code tag
+    elements = docOut.select("code strong");
+    for (Element element : elements) {
+      element.prependText("**");
+      element.appendText("**");
+    }
+    elements = docOut.select("code em");
+    for (Element element : elements) {
+      element.prependText("__");
+      element.appendText("__");
+    }
+      
     
     // remove confluence styles
     elements = docOut.select("[style]");

@@ -33,7 +33,7 @@ bin/solr -e cloud -noprompt
 [[SchemaAPI-ModifytheSchema]]
 == Modify the Schema
 
-`POST /collection/schema`
+`POST /__collection__/schema`
 
 To add, remove or replace fields, dynamic field rules, copy field rules, or new field types, you can send a POST request to the `/collection/schema/` endpoint with a sequence of commands to perform the requested actions. The following commands are supported:
 
@@ -371,7 +371,7 @@ To modify the schema, see the previous section <<SchemaAPI-ModifytheSchema,Modif
 [[SchemaAPI-RetrievetheEntireSchema]]
 === Retrieve the Entire Schema
 
-`GET /collection/schema`
+`GET /__collection__/schema`
 
 [[SchemaAPI-INPUT]]
 ==== INPUT
@@ -557,9 +557,9 @@ curl http://localhost:8983/solr/gettingstarted/schema?wt=schema.xml
 [[SchemaAPI-ListFields]]
 === List Fields
 
-`GET /collection/schema/fields`
+`GET /__collection__/schema/fields`
 
-`GET /collection/schema/fields/fieldname`
+`GET /__collection__/schema/fields/__fieldname__`
 
 [[SchemaAPI-INPUT.1]]
 ==== INPUT
@@ -642,9 +642,9 @@ The sample output below has been truncated to only show a few fields.
 [[SchemaAPI-ListDynamicFields]]
 === List Dynamic Fields
 
-`GET /collection/schema/dynamicfields`
+`GET /__collection__/schema/dynamicfields`
 
-`GET /collection/schema/dynamicfields/name`
+`GET /__collection__/schema/dynamicfields/__name__`
 
 [[SchemaAPI-INPUT.2]]
 ==== INPUT
@@ -735,9 +735,9 @@ The sample output below has been truncated.
 [[SchemaAPI-ListFieldTypes]]
 === List Field Types
 
-`GET /collection/schema/fieldtypes`
+`GET /__collection__/schema/fieldtypes`
 
-`GET /collection/schema/fieldtypes/name`
+`GET /__collection__/schema/fieldtypes/__name__`
 
 [[SchemaAPI-INPUT.3]]
 ==== INPUT
@@ -837,7 +837,7 @@ The sample output below has been truncated to show a few different field types f
 [[SchemaAPI-ListCopyFields]]
 === List Copy Fields
 
-`GET /collection/schema/copyfields`
+`GET /__collection__/schema/copyfields`
 
 [[SchemaAPI-INPUT.4]]
 ==== INPUT
@@ -915,7 +915,7 @@ The sample output below has been truncated to the first few copy definitions.
 [[SchemaAPI-ShowSchemaName]]
 === Show Schema Name
 
-`GET /collection/schema/name`
+`GET /__collection__/schema/name`
 
 [[SchemaAPI-INPUT.5]]
 ==== INPUT
@@ -967,7 +967,7 @@ curl http://localhost:8983/solr/gettingstarted/schema/name?wt=json
 [[SchemaAPI-ShowtheSchemaVersion]]
 === Show the Schema Version
 
-`GET /collection/schema/version`
+`GET /__collection__/schema/version`
 
 [[SchemaAPI-INPUT.6]]
 ==== INPUT
@@ -1021,7 +1021,7 @@ curl http://localhost:8983/solr/gettingstarted/schema/version?wt=json
 [[SchemaAPI-ListUniqueKey]]
 === List UniqueKey
 
-`GET /collection/schema/uniquekey`
+`GET /__collection__/schema/uniquekey`
 
 [[SchemaAPI-INPUT.7]]
 ==== INPUT
@@ -1075,7 +1075,7 @@ curl http://localhost:8983/solr/gettingstarted/schema/uniquekey?wt=json
 [[SchemaAPI-ShowGlobalSimilarity]]
 === Show Global Similarity
 
-`GET /collection/schema/similarity`
+`GET /__collection__/schema/similarity`
 
 [[SchemaAPI-INPUT.8]]
 ==== INPUT
@@ -1130,7 +1130,7 @@ curl http://localhost:8983/solr/gettingstarted/schema/similarity?wt=json
 [[SchemaAPI-GettheDefaultQueryOperator]]
 === Get the Default Query Operator
 
-`GET /collection/schema/solrqueryparser/defaultoperator`
+`GET /__collection__/schema/solrqueryparser/defaultoperator`
 
 [[SchemaAPI-INPUT.9]]
 ==== INPUT
