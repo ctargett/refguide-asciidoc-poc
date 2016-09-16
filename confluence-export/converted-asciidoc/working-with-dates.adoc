@@ -58,7 +58,7 @@ Limitations: The range syntax doesn't support embedded date math. If you specify
 [[WorkingwithDates-DateMath]]
 == Date Math
 
-Solr's date field types also supports _date math_ expressions, which makes it easy to create times relative to fixed moments in time, include the current time which can be represented using the special value of "`NOW`".
+Solr's date field types also supports _date math_ expressions, which makes it easy to create times relative to fixed moments in time, include the current time which can be represented using the special value of "```NOW```".
 
 [[WorkingwithDates-DateMathSyntax]]
 === Date Math Syntax
@@ -91,7 +91,7 @@ Note that while date math is most commonly used relative to `NOW` it can be appl
 [[WorkingwithDates-NOW]]
 ==== `NOW`
 
-The `NOW` parameter is used internally by Solr to ensure consistent date math expression parsing across multiple nodes in a distributed request. But it can be specified to instruct Solr to use an arbitrary moment in time (past or future) to override for all situations where the the special value of "`NOW`" would impact date math expressions.
+The `NOW` parameter is used internally by Solr to ensure consistent date math expression parsing across multiple nodes in a distributed request. But it can be specified to instruct Solr to use an arbitrary moment in time (past or future) to override for all situations where the the special value of "```NOW```" would impact date math expressions.
 
 It must be specified as a (long valued) milliseconds since epoch
 

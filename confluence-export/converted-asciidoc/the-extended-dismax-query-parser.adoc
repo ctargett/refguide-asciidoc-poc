@@ -79,7 +79,7 @@ Per-field overrides of the `qf` parameter may be specified to provide 1-to-many 
 [[TheExtendedDisMaxQueryParser-ExamplesofQueriesSubmittedtotheExtendedDisMaxQueryParser]]
 == Examples of Queries Submitted to the Extended DisMax Query Parser
 
-All of the sample URLs in this section assume you are running Solr's "`techproducts`" example:
+All of the sample URLs in this section assume you are running Solr's "```techproducts```" example:
 
 [source,bash]
 ----
@@ -123,7 +123,7 @@ http://localhost:8983/solr/techproducts/select?q=belkin+ipod+gibberish&defType=e
 http://localhost:8983/solr/techproducts/select?q=belkin+ipod+apple&defType=edismax&mm=2
 ----
 
-In the example below, we see a per-field override of the `qf` parameter being used to alias "name" in the query string to either the "`last_name`" and "`first_name`" fields:
+In the example below, we see a per-field override of the `qf` parameter being used to alias "name" in the query string to either the "```last_name```" and "```first_name```" fields:
 
 [source,text]
 ----

@@ -239,7 +239,7 @@ Token positions are tracked and implicitly added to the token stream - the start
 * token: (term=`two=` ,positionIncrement=1,startOffset=7,endOffset=15)
 * token: (term=`\`,positionIncrement=1,startOffset=17,endOffset=18)
 
-Note that unknown attributes and their values are ignored, so in this example, the "`a`" attribute on the first token and the " " (escaped space) attribute on the second token are ignored, along with their values, because they are not among the supported attribute names.
+Note that unknown attributes and their values are ignored, so in this example, the "```a```" attribute on the first token and the " " (escaped space) attribute on the second token are ignored, along with their values, because they are not among the supported attribute names.
 
 [source,text]
 ----

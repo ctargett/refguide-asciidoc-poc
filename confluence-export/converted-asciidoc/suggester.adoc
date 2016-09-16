@@ -12,12 +12,12 @@ The main features of this Suggester are:
 * Term dictionary pluggability, giving you the flexibility to choose the dictionary implementation
 * Distributed support
 
-The `solrconfig.xml` found in Solr's "`techproducts`" example has the new Suggester implementation configured already. For more on search components, see the section <<requesthandlers-and-searchcomponents-in-solrconfig.adoc#,RequestHandlers and SearchComponents in SolrConfig>>.
+The `solrconfig.xml` found in Solr's "```techproducts```" example has the new Suggester implementation configured already. For more on search components, see the section <<requesthandlers-and-searchcomponents-in-solrconfig.adoc#,RequestHandlers and SearchComponents in SolrConfig>>.
 
 [[Suggester-ConfiguringSuggesterinsolrconfig.xml]]
 == Configuring Suggester in solrconfig.xml
 
-The "`techproducts`" example `solrconfig.xml` has a `suggest` search component and a `/suggest` request handler already configured. You can use that as the basis for your configuration, or create it from scratch, as detailed below.
+The "```techproducts```" example `solrconfig.xml` has a `suggest` search component and a `/suggest` request handler already configured. You can use that as the basis for your configuration, or create it from scratch, as detailed below.
 
 [[Suggester-AddingtheSuggestSearchComponent]]
 === Adding the Suggest Search Component

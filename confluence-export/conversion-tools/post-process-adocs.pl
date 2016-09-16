@@ -28,6 +28,9 @@ while (my $line = <>) {
 	$trash =~ /^$/ or die "not a blank trash line: $trash";
     }
     $line =~ s{^(\[\w+\])====$}{$1\n====};
+
+    # fixup obviously intended quoted code (otherwise "`foo`" just gets curly quoted)
+    $line =~ s{"`(\w+)`"}{"```$1```"}g;
     
     print $line;
 }

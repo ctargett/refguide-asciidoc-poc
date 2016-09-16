@@ -4,7 +4,7 @@
 
 Many search applications store the content to be indexed in a structured data store, such as a relational database. The Data Import Handler (DIH) provides a mechanism for importing content from a data store and indexing it. In addition to relational databases, DIH can index content from HTTP based data sources such as RSS and ATOM feeds, e-mail repositories, and structured XML where an XPath processor is used to generate fields.
 
-The `example/example-DIH` directory contains several collections many of the features of the data import handler. To run this "`dih`" example:
+The `example/example-DIH` directory contains several collections many of the features of the data import handler. To run this "```dih```" example:
 
 [source,bash]
 ----
@@ -51,7 +51,7 @@ You can have multiple DIH configuration files. Each file would require a separat
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-ConfiguringtheDIHConfigurationFile]]
 === Configuring the DIH Configuration File
 
-An annotated configuration file, based on the "`db`" collection in the `dih` example server, is shown below (`example/example-DIH/solr/db/conf/db-data-config.xml`). It extracts fields from the four tables defining a simple product database, with this schema. More information about the parameters and options shown here are described in the sections following.
+An annotated configuration file, based on the "```db```" collection in the `dih` example server, is shown below (`example/example-DIH/solr/db/conf/db-data-config.xml`). It extracts fields from the four tables defining a simple product database, with this schema. More information about the parameters and options shown here are described in the sections following.
 
 [source,xml]
 ----
@@ -308,7 +308,7 @@ Each processor has its own set of attributes, described in its own section below
 |postImportDeleteQuery |Similar to the above, but executed after the import has completed.
 |rootEntity |By default the entities immediately under the `<document>` are root entities. If this attribute is set to false, the entity directly falling under that entity will be treated as the root entity (and so on). For every row returned by the root entity, a document is created in Solr.
 |transformer |Optional. One or more transformers to be applied on this entity.
-|cacheImpl |Optional. A class (which must implement `DIHCache`) to use for caching this entity when doing lookups from an entity which wraps it. Provided implementation is "`SortedMapBackedCache`".
+|cacheImpl |Optional. A class (which must implement `DIHCache`) to use for caching this entity when doing lookups from an entity which wraps it. Provided implementation is "```SortedMapBackedCache```".
 |cacheKey |The name of a property of this entity to use as a cache key if `cacheImpl` is specified.
 |cacheLookup |An entity + property name that will be used to lookup cached instances of this entity if `cacheImpl` is specified.
 |where |an alternative way to specify `cacheKey` and `cacheLookup` concatenated with '='. eg `where="CODE=People.COUNTRY_CODE"` is equal to `cacheKey="CODE" cacheLookup="People.COUNTRY_CODE"`
@@ -318,7 +318,7 @@ Each processor has its own set of attributes, described in its own section below
 
 Caching of entities in DIH is provided to avoid repeated lookups for same entities again and again. The default `SortedMapBackedCache` is a `HashMap` where a key is a field in the row and the value is a bunch of rows for that same key.
 
-In the example below, each `manufacturer` entity is cached using the '`id`' property as a cache key. Cache lookups will be performed for each `product` entity based on the product's "`manu`" property. When the cache has no data for a particular key, the query is run and the cache is populated
+In the example below, each `manufacturer` entity is cached using the '`id`' property as a cache key. Cache lookups will be performed for each `product` entity based on the product's "```manu```" property. When the cache has no data for a particular key, the query is run and the cache is populated
 
 [source,xml]
 ----
@@ -372,7 +372,7 @@ Each field element in the entity can have the following attributes as well as th
 |commonField |Optional. If true, then when this field is encountered in a record it will be copied to future records when creating a Solr document.
 |===
 
-Here is an example from the "`rss`" collection in the `dih` example (`example/example-DIH/solr/rss/conf/rss-data-config.xml`):
+Here is an example from the "```rss```" collection in the `dih` example (`example/example-DIH/solr/rss/conf/rss-data-config.xml`):
 
 [source,xml]
 ----
@@ -411,7 +411,7 @@ Here is an example from the "`rss`" collection in the `dih` example (`example/ex
 
 The MailEntityProcessor uses the Java Mail API to index email messages using the IMAP protocol. The MailEntityProcessor works by connecting to a specified mailbox using a username and password, fetching the email headers for each message, and then fetching the full email contents to construct a document (one document for each mail message).
 
-Here is an example from the "`mail`" collection of the `dih` example (`example/example-DIH/mail/conf/mail-data-config.xml`):
+Here is an example from the "```mail```" collection of the `dih` example (`example/example-DIH/mail/conf/mail-data-config.xml`):
 
 [source,xml]
 ----
@@ -472,7 +472,7 @@ When connecting to a GMail account, you can improve the efficiency of the MailEn
 
 The TikaEntityProcessor uses Apache Tika to process incoming documents. This is similar to <<uploading-data-with-solr-cell-using-apache-tika.adoc#,Uploading Data with Solr Cell using Apache Tika>>, but using the DataImportHandler options instead.
 
-Here is an example from the "`tika`" collection of the `dih` example (`example/example-DIH/tika/conf/tika-data-config.xml`):
+Here is an example from the "```tika```" collection of the `dih` example (`example/example-DIH/tika/conf/tika-data-config.xml`):
 
 [source,xml]
 ----

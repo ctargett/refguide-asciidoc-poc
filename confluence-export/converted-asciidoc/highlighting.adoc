@@ -20,4 +20,4 @@ There are three highlighting implementations available:
 
 The configuration for highlighting, whichever implementation is chosen, is first to configure a search component and then reference the component in one or more request handlers.
 
-The exact parameters for the search component vary depending on the implementation, but there is a robust example in the `solrconfig.xml` used in the "`techproducts`" example which shows how to configure both the Standard Highlighter and the FastVector Highlighter (see the <<postings-highlighter.adoc#,Postings Highlighter>> section for details on how to configure that implementation).
+The exact parameters for the search component vary depending on the implementation, but there is a robust example in the `solrconfig.xml` used in the "```techproducts```" example which shows how to configure both the Standard Highlighter and the FastVector Highlighter (see the <<postings-highlighter.adoc#,Postings Highlighter>> section for details on how to configure that implementation).
