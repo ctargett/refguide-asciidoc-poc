@@ -119,6 +119,9 @@ admonition:
   border_color: $base_border_color
   border_width: $base_border_width
   padding: [0, $horizontal_rhythm, 0, $horizontal_rhythm]
+  # This apparently does not work
+  title:
+     font-color: '#7a2518'
   icon:
      tip:
         name: fa-lightbulb-o
