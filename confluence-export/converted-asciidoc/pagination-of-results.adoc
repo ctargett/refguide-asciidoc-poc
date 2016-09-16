@@ -83,6 +83,8 @@ To use a cursor with Solr, specify a *`cursorMark`* parameter with the value of 
 
 There are a few important constraints to be aware of when using `cursorMark` parameter in a Solr request
 
+// TODO: This 'ol' has problematic nested lists inside of it, needs manual editing
+
 1.  `cursorMark` and `start` are mutually exclusive parameters
 * Your requests must either not include a `start` parameter, or it must be specified with a value of "`0`".
 2.  `sort` clauses must include the uniqueKey field (either "`asc`" or `"desc`")
