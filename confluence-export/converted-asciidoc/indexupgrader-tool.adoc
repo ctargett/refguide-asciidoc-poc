@@ -17,7 +17,7 @@ This tool keeps only the last commit in an index. For this reason, if the incomi
 
 Upgrading large indexes may take a long time. As a rule of thumb, the upgrade processes about 1 GB per minute.
 
-[IMPORTANT]
+[WARNING]
 ====
 
 This tool may reorder documents if the index was partially upgraded before execution (e.g., documents were added). If your application relies on monotonicity of document IDs (which means that the order in which the documents were added to the index is preserved), do a full forceMerge instead.

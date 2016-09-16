@@ -75,7 +75,7 @@ SOLR_SSL_WANT_CLIENT_AUTH=false
 When you start Solr, the `bin/solr` script includes the settings in `bin/solr.in.sh` and will pass these SSL-related system properties to the JVM.
 
 .Client Authentication Settings
-[IMPORTANT]
+[WARNING]
 ====
 
 Enable either SOLR_SSL_NEED_CLIENT_AUTH or SOLR_SSL_WANT_CLIENT_AUTH but not both at the same time. They are mutually exclusive and Jetty will select one of them which may not be what you expect.
@@ -239,7 +239,7 @@ bin\solr.cmd -cloud -s cloud\node2 -z localhost:2181 -p 7574
 [[EnablingSSL-ExampleClientActions]]
 == Example Client Actions
 
-[WARNING]
+[IMPORTANT]
 ====
 
 cURL on OS X Mavericks (10.9) has degraded SSL support. For more information and workarounds to allow 1-way SSL, see http://curl.haxx.se/mail/archive-2013-10/0036.html . cURL on OS X Yosemite (10.10) is improved - 2-way SSL is possible - see http://curl.haxx.se/mail/archive-2014-10/0053.html .

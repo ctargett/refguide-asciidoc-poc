@@ -118,7 +118,7 @@ Documents can be deleted from the index in two ways. "Delete by ID" deletes the 
 </delete>
 ----
 
-[WARNING]
+[IMPORTANT]
 ====
 
 When using the Join query parser in a Delete By Query, you should use the `score` parameter with a value of " `none`" to avoid a `ClassCastException`. See the section on the <<other-parsers.adoc#,Join Query Parser>> for more details on the `score` parameter.
@@ -337,7 +337,7 @@ curl -X POST -H 'Content-Type: application/json' 'http://localhost:8983/solr/my_
 }' 
 ----
 
-[WARNING]
+[IMPORTANT]
 ====
 
 Comments are not allowed in JSON, but duplicate names are.

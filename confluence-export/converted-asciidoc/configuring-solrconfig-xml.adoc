@@ -90,14 +90,14 @@ solr.lock.type=none
 ----
 
 .Deprecation
-[IMPORTANT]
+[WARNING]
 ====
 
 solrcore.properties won't work in SolrCloud mode (it is not read from ZooKeeper). This feature is likely to be removed in the future. Instead, use another mechanism like a config overlay.
 
 ====
 
-[WARNING]
+[IMPORTANT]
 ====
 
 The path and name of the `solrcore.properties` file can be overridden using the <<defining-core-properties.adoc#,`properties` property in `core.properties`>>.

@@ -7,7 +7,7 @@ Solr's Administration page (found by default at `http://hostname:8983/solr/`), p
 In addition, SolrCloud provides its own administration page (found at http://localhost:8983/solr/#/~cloud), as well as a few tools available via a ZooKeeper Command Line Utility (CLI). The CLI scripts found in `server/scripts/cloud-scripts` let you upload configuration information to ZooKeeper, in the same two ways that were shown in the examples in <<parameter-reference.adoc#,Parameter Reference>>. It also provides a few other commands that let you link collection sets to collections, make ZooKeeper paths or clear them, and download configurations from ZooKeeper to the local filesystem.
 
 .Solr's zkcli.sh vs ZooKeeper's zkCli.sh
-[WARNING]
+[IMPORTANT]
 ====
 
 The `zkcli.sh` provided by Solr is not the same as the https://zookeeper.apache.org/doc/trunk/zookeeperStarted.html#sc_ConnectingToZooKeeper[`zkCli.sh` included in ZooKeeper distributions].

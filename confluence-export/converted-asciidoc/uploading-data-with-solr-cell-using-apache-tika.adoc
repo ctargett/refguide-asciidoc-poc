@@ -225,7 +225,7 @@ In addition to Tika's metadata, Solr adds the following metadata (defined in `Ex
 |stream_content_type |The content type of the stream, if available.
 |===
 
-[WARNING]
+[IMPORTANT]
 ====
 
 We recommend that you try using the `extractOnly` option to discover which values Solr is setting for these metadata elements.

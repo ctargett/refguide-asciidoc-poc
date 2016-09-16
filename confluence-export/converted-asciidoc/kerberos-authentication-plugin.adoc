@@ -60,7 +60,7 @@ Detailed information on how to set up your browser is beyond the scope of this d
 == Plugin Configuration
 
 .Consult Your Kerberos Admins!
-[IMPORTANT]
+[WARNING]
 ====
 
 Before attempting to configure Solr to use Kerberos authentication, please review each step outlined below and consult with your local Kerberos administrators on each detail to be sure you know the correct values for each parameter. Small errors can cause Solr to not start or not function properly, and are notoriously difficult to diagnose.
@@ -78,7 +78,7 @@ Configuration of the Kerberos plugin has several parts:
 We'll walk through each of these steps below.
 
 .Using Hostnames
-[WARNING]
+[IMPORTANT]
 ====
 
 To use host names instead of IP addresses, use the SOLR_HOST config in `bin/solr.in.sh` or pass a `-Dhost=<hostname>` during Solr startup. This guide uses IP addresses . If you specify a hostname replace all the IP addresses in the guide with the solr hostname
@@ -175,7 +175,7 @@ Set up Solr to use the Kerberos plugin by uploading the `security.json` as follo
 
 More details on how to use a `/security.json` file in Solr are available in the section <<authentication-and-authorization-plugins.adoc#,Authentication and Authorization Plugins>>.
 
-[WARNING]
+[IMPORTANT]
 ====
 
 If you already have a `/security.json` file in Zookeeper, download the file, add or modify the authentication section and upload it back to ZooKeeper using the <<command-line-utilities.adoc#,Command Line Utilities>> available in Solr.
@@ -241,7 +241,7 @@ SOLR_AUTHENTICATION_OPTS="-Djava.security.auth.login.config=/home/foo/jaas-clien
 ----
 
 .KDC with AES-256 encryption
-[WARNING]
+[IMPORTANT]
 ====
 
 If your KDC uses AES-256 encryption, you need to add the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files to your JRE before a kerberized Solr can interact with the KDC.

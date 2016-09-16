@@ -31,7 +31,7 @@ The create command will upload a copy of the `data_driven_schema_configs` config
 
 Once a configuration directory has been uploaded to ZooKeeper, you can update them using the <<command-line-utilities.adoc#,ZooKeeper Command Line Interface (zkCLI)>>.
 
-[WARNING]
+[IMPORTANT]
 ====
 
 It's a good idea to keep these files under version control.

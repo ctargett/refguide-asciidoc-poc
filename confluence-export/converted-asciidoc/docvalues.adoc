@@ -27,7 +27,7 @@ Enabling a field for docValues only requires adding `docValues="true"` to the fi
 <field name="manu_exact" type="string" indexed="false" stored="false" docValues="true" />
 ----
 
-[WARNING]
+[IMPORTANT]
 ====
 
 If you have already indexed data into your Solr index, you will need to completely re-index your content after changing your field definitions in `schema.xml` in order to successfully use docValues.

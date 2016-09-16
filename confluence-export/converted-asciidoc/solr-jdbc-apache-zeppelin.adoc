@@ -2,7 +2,7 @@
 :page-shortname: solr-jdbc-apache-zeppelin
 :page-permalink: solr-jdbc-apache-zeppelin.html
 
-[WARNING]
+[IMPORTANT]
 ====
 
 This requires Apache Zeppelin 0.6.0 or greater which contains the JDBC interpreter.

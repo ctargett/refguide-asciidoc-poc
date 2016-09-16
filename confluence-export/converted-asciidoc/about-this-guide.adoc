@@ -25,7 +25,7 @@ Notes with a blue background are used for information that is important for you 
 ====
 
 |*Notes* a|
-[WARNING]
+[IMPORTANT]
 ====
 
 Yellow notes are further clarifications of important points to keep in mind while using Solr.
@@ -41,7 +41,7 @@ Notes with a green background are Helpful Tips.
 ====
 
 |*Warning* a|
-[IMPORTANT]
+[WARNING]
 ====
 
 Notes with a red background are warning messages.

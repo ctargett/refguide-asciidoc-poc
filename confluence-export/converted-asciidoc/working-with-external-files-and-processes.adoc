@@ -7,7 +7,7 @@
 
 The `ExternalFileField` type makes it possible to specify the values for a field in a file outside the Solr index. For such a field, the file contains mappings from a key field to the field value. Another way to think of this is that, instead of specifying the field in documents as they are indexed, Solr finds values for this field in the external file.
 
-[WARNING]
+[IMPORTANT]
 ====
 
 External fields are not searchable. They can be used only for function queries or display. For more information on function queries, see the section on <<function-queries.adoc#,Function Queries>>.

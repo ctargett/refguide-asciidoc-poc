@@ -86,7 +86,7 @@ The SolrUIMA UpdateRequestProcessor is a custom update request processor that ta
 </updateRequestProcessorChain>
 ----
 +
-[WARNING]
+[IMPORTANT]
 ====
 +
 +

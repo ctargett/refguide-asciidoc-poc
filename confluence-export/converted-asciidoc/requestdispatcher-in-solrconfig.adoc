@@ -7,7 +7,7 @@ The `requestDispatcher` element of `solrconfig.xml` controls the way the Solr HT
 [[RequestDispatcherinSolrConfig-handleSelectElement]]
 == `handleSelect` Element
 
-[WARNING]
+[IMPORTANT]
 ====
 
 `handleSelect` is for legacy back-compatibility; those new to Solr do not need to change anything about the way this is configured by default.

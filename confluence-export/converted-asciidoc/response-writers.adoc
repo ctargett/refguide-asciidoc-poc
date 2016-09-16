@@ -54,7 +54,7 @@ The `stylesheet` parameter can be used to direct Solr to include a `<?xml-styles
 
 The default behavior is not to return any stylesheet declaration at all.
 
-[WARNING]
+[IMPORTANT]
 ====
 
 Use of the `stylesheet` parameter is discouraged, as there is currently no way to specify external stylesheets, and no stylesheets are provided in the Solr distributions. This is a legacy parameter, which may be developed further in a future release.
