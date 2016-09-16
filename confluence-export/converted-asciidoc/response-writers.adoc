@@ -104,7 +104,7 @@ A value of 5 for `xsltCacheLifetimeSeconds` is good for development, to see XSLT
 
 A very commonly used Response Writer is the `JsonResponseWriter`, which formats output in JavaScript Object Notation (JSON), a lightweight data interchange format specified in specified in RFC 4627. Setting the `wt` parameter to `json` invokes this Response Writer.
 
-The default mime type for the JSON writer is `application/json`, however this can be overridden in the `solrconfig.xml` - such as in this example from the "`techproducts`" configuration:
+The default mime type for the JSON writer is `application/json`, however this can be overridden in the `solrconfig.xml` - such as in this example from the "```techproducts```" configuration:
 
 [source,xml]
 ----

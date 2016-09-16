@@ -29,7 +29,7 @@ A *clustering algorithm* is the actual logic (implementation) that discovers rel
 [[ResultClustering-QuickStartExample]]
 == Quick Start Example
 
-The "`techproducts`" example included with Solr is pre-configured with all the necessary components for result clustering - but they are disabled by default.
+The "```techproducts```" example included with Solr is pre-configured with all the necessary components for result clustering - but they are disabled by default.
 
 To enable the clustering component contrib and a dedicated search handler configured to use it, specify the "`-a`" option to set a JVM System Property when running the example:
 

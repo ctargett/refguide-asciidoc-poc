@@ -18,7 +18,7 @@ The three features of schemaless mode are pre-configured in the `data_driven_sch
 bin/solr start -e schemaless
 ----
 
-This will launch a Solr server, and automatically create a collection (named "`gettingstarted`") that contains only three fields in the initial schema: `id`, `_version_`, and `_text_`.
+This will launch a Solr server, and automatically create a collection (named "```gettingstarted```") that contains only three fields in the initial schema: `id`, `_version_`, and `_text_`.
 
 You can use the `/schema/fields` <<schema-api.adoc#,Schema API>> to confirm this: `curl http://localhost:8983/solr/gettingstarted/schema/fields` will output:
 
@@ -246,7 +246,7 @@ Internally, the Schema API and the Schemaless Update Processors both use the sam
 
 ====
 
-Once a field has been added to the schema, its field type is fixed. As a consequence, adding documents with field value(s) that conflict with the previously guessed field type will fail. For example, after adding the above document, the "`Sold`" field has the fieldType `tlongs`, but the document below has a non-integral decimal value in this field:
+Once a field has been added to the schema, its field type is fixed. As a consequence, adding documents with field value(s) that conflict with the previously guessed field type will fail. For example, after adding the above document, the "```Sold```" field has the fieldType `tlongs`, but the document below has a non-integral decimal value in this field:
 
 [source,bash]
 ----

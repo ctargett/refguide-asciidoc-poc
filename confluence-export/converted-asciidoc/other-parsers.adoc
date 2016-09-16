@@ -278,7 +278,7 @@ For more information about range queries over functions, see Yonik Seeley's intr
 [[OtherParsers-GraphQueryParser]]
 == Graph Query Parser
 
-The `graph` query parser does a breadth first, cyclic aware, graph traversal of all documents that are "reachable" from a starting set of root documents identified by a wrapped query. The graph is built according to linkages between documents based on the terms found in "`from`" and "`to`" fields that you specify as part of the query
+The `graph` query parser does a breadth first, cyclic aware, graph traversal of all documents that are "reachable" from a starting set of root documents identified by a wrapped query. The graph is built according to linkages between documents based on the terms found in "```from```" and "```to```" fields that you specify as part of the query
 
 [[OtherParsers-Parameters]]
 === Parameters
@@ -392,7 +392,7 @@ curl -H 'Content-Type: application/json' 'http://localhost:8983/solr/alt_graph/u
   ]'
 ----
 
-With this alternative document model, all of the same queries demonstrated above can still be executed, simply by changing the "`from`" param to replace the "`in_edge`" field with the "`id`" field:
+With this alternative document model, all of the same queries demonstrated above can still be executed, simply by changing the "```from```" param to replace the "```in_edge```" field with the "```id```" field:
 
 [source,java]
 ----
@@ -751,7 +751,7 @@ If no analysis or transformation is desired for any type of field, see the <<Oth
 [[OtherParsers-TermsQueryParser]]
 == Terms Query Parser
 
-`TermsQParser`, functions similarly to the <<OtherParsers-TermQueryParser,Term Query Parser>> but takes in multiple values separated by commas and returns documents matching any of the specified values. This can be useful for generating filter queries from the external human readable terms returned by the faceting or terms components, and may be more efficient in some cases than using the <<the-standard-query-parser.adoc#,Standard Query Parser>> to generate an boolean query since the default implementation "`method`" avoids scoring.
+`TermsQParser`, functions similarly to the <<OtherParsers-TermQueryParser,Term Query Parser>> but takes in multiple values separated by commas and returns documents matching any of the specified values. This can be useful for generating filter queries from the external human readable terms returned by the faceting or terms components, and may be more efficient in some cases than using the <<the-standard-query-parser.adoc#,Standard Query Parser>> to generate an boolean query since the default implementation "```method```" avoids scoring.
 
 This query parser takes the following parameters:
 
@@ -760,7 +760,7 @@ This query parser takes the following parameters:
 |Parameter |Description
 |f |The field on which to search. Required.
 |separator |Separator to use when parsing the input. If set to " " (a single blank space), will trim additional white space from the input terms. Defaults to "`,`".
-|method |The internal query-building implementation: `termsFilter`, `booleanQuery`, `automaton`, or `docValuesTermsFilter`. Defaults to "`termsFilter`".
+|method |The internal query-building implementation: `termsFilter`, `booleanQuery`, `automaton`, or `docValuesTermsFilter`. Defaults to "```termsFilter```".
 |===
 
 Examples:

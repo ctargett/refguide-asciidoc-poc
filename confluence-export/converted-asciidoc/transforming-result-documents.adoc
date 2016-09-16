@@ -57,7 +57,7 @@ The above query would produce results like the following:
   ...
 ----
 
-By default, values are returned as a String, but a "`t`" parameter can be specified using a value of int, float, double, or date to force a specific return type:
+By default, values are returned as a String, but a "```t```" parameter can be specified using a value of int, float, double, or date to force a specific return type:
 
 [source,java]
 ----
@@ -76,7 +76,7 @@ In addition to using these request parameters, you can configure additional name
 </transformer>
 ----
 
-The "`value`" option forces an explicit value to always be used, while the "`defaultValue`" option provides a default that can still be overridden using the "`v`" and "`t`" local parameters.
+The "```value```" option forces an explicit value to always be used, while the "```defaultValue```" option provides a default that can still be overridden using the "```v```" and "```t```" local parameters.
 
 // OLD_CONFLUENCE_ID: TransformingResultDocuments-[explain]-ExplainAugmenterFactory
 
@@ -90,7 +90,7 @@ Augments each document with an inline explanation of it's score exactly like the
 q=features:cache&wt=json&fl=id,[explain style=nl]
 ----
 
-Supported values for "`style`" are "`text`", and "`html`", and "nl" which returns the information as structured data:
+Supported values for "```style```" are "```text```", and "```html```", and "nl" which returns the information as structured data:
 
 [source,json]
 ----

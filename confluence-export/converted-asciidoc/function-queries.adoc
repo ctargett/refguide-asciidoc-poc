@@ -78,7 +78,7 @@ The table below summarizes the functions available for function queries.
 |field[[FunctionQueries-field]] a|
 Returns the numeric docValues or indexed value of the field with the specified name. In it's simplest (single argument) form, this function can only be used on single valued fields, and can be called using the name of the field as a string, or for most conventional field names simply use the field name by itself with out using the `field(...)` syntax.
 
-When using docValues, an optional 2nd argument can be specified to select the "`min"` or "`max`" value of multivalued fields.
+When using docValues, an optional 2nd argument can be specified to select the "`min"` or "```max```" value of multivalued fields.
 
 0 is returned for documents without a value in the field.
 
@@ -109,7 +109,7 @@ Enables conditional function queries. In `if(test,value1,value2)`:
 
 An expression can be any function which outputs boolean values, or even functions returning numeric values, in which case value 0 will be interpreted as false, or strings, in which case empty string is interpreted as false.
 
- |`if(termfreq``(cat,'electronics'),``popularity,42)` : This function checks each document for the to see if it contains the term "`electronics`" in the `cat` field. If it does, then the value of the `popularity` field is returned, otherwise the value of `42` is returned.
+ |`if(termfreq``(cat,'electronics'),``popularity,42)` : This function checks each document for the to see if it contains the term "```electronics```" in the `cat` field. If it does, then the value of the `popularity` field is returned, otherwise the value of `42` is returned.
 |linear |Implements `m*x+c` where `m` and `c` are constants and `x` is an arbitrary function. This is equivalent to `sum(product(m,x),c)`, but slightly more efficient as it is implemented as a single function. |`linear(x,m,c)` `linear(x,2,4)` returns `2*x+4`
 |log |Returns the log base 10 of the specified function. a|
 `log(x)`

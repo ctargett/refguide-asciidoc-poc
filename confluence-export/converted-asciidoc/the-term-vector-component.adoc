@@ -9,7 +9,7 @@ For each document in the response, the TermVectorCcomponent can return the term 
 [[TheTermVectorComponent-Configuration]]
 == Configuration
 
-The TermVectorComponent is not enabled implicitly in Solr - it must be explicitly configured in your `solrconfig.xml` file. The examples on this page show how it is configured in Solr's "`techproducts`" example:
+The TermVectorComponent is not enabled implicitly in Solr - it must be explicitly configured in your `solrconfig.xml` file. The examples on this page show how it is configured in Solr's "```techproducts```" example:
 
 [source,bash]
 ----

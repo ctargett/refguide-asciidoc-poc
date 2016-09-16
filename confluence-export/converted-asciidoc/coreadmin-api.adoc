@@ -6,7 +6,7 @@ The Core Admin API is primarily used under the covers by the <<collections-api.a
 
 The CoreAdmin API is implemented by the CoreAdminHandler, which is a special purpose SolrRequestHandler that is used to manage Solr cores. Unlike normal SolrRequestHandlers, the CoreAdminHandler is not attached to a single core. Instead, it there is a single instance of the CoreAdminHandler in each Solr node that manages all the cores running in that node and is accessible at the `/solr/admin/cores` path.
 
-CoreAdmin actions can be executed by via HTTP requests that specify an "`action`" request parameter, with additional action specific arguments provided as additional parameters.
+CoreAdmin actions can be executed by via HTTP requests that specify an "```action```" request parameter, with additional action specific arguments provided as additional parameters.
 
 All action names are uppercase, and are defined in depth in the sections below.
 
