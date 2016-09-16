@@ -124,8 +124,8 @@
          useNativeBasedir="true" />
     <exec executable="confluence-export/conversion-tools/toAsciidoc.sh" />
   </target>
-    
-  
+
+
 <!-- ======= Asciidoctor HTML conversion ========
    Uses pure Asciidoctor build task-->
   <target name="asciidoctor"
@@ -146,23 +146,6 @@
       <attribute key="figure-caption!" value='' />
       <attribute key="toc" value="right" />
    </asciidoctor:convert>
-  </target>
-
-<!-- ======= JBake Build =======
-  Builds site with JBake. This (for now) assumes that JBake (http://jbake.org) is installed locally. -->
-
-<property name="jbakesitedir" value="jbake-test/output"/>
-
-   <target name ="jbake-clean"
-           description="Cleans the JBake project by removing the 'output' directory">
-     <delete dir="${jbakesitedir}"/>
-   </target>
-
-  <target name ="jbake-site"
-          description="Builds the site using JBake">
-     <exec executable="jbake" dir="jbake-test">
-        <arg value="-b"/>
-     </exec>
   </target>
 
 <!-- ======= Jekyll Build =======
