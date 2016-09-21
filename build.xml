@@ -127,7 +127,7 @@
 
 <!-- ==== Conversion ==== -->
   <target name="convert-raw-confluence-exports"
-          description="Convienience target for running the one time conversion needed to build confluence-export/converted-asciidoc">
+          description="Convenience target for running the one time conversion needed to build confluence-export/converted-asciidoc">
     <ant dir="confluence-export/conversion-tools/jsoup"
          target="scrape"
          inheritAll="false"
