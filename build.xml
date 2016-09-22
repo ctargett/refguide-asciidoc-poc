@@ -1,6 +1,7 @@
 <project xmlns:asciidoctor="antlib:org.asciidoctor.ant">
 
   <mkdir dir="lib"/>
+  <!-- asciidoctor-ant 1.5.3 includes asciidoctorj 1.5.3 and asciidoctorj-pdf 1.5.0-alpha.11, which is the same as asciidoctor-pdf 1.5.0-alpha.11 -->
   <property name="asciidoctor-ant.jar.path" location="lib/asciidoctor-ant.jar" />
   <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctor-ant/1.5.3/asciidoctor-ant-1.5.3.jar"
        dest="${asciidoctor-ant.jar.path}" usetimestamp="true"/>
@@ -8,13 +9,9 @@
   <get src="http://repo1.maven.org/maven2/org/json/json/20160810/json-20160810.jar"
        dest="${org-json.jar.path}" usetimestamp="true"/>
 
-<!--  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj-pdf/1.5.0-alpha.11/asciidoctorj-pdf-1.5.0-alpha.11.jar" dest="lib/asciidoctorj-pdf.jar" usetimestamp="true" /> -->
-
-<!--  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctorj/1.5.4.1/asciidoctorj-1.5.4.1.jar" dest="lib/asciidoctorj.jar" usetimestamp="true" /> -->
-
 <!-- TODO: this should be same as what jekyll uses -->
 <property name="asciidoc.dir" location="confluence-export/converted-asciidoc/" />
-<property name="hoss.jekyll.dir" location="build/jekyll" />
+<property name="build.jekyll.dir" location="build/jekyll" />
 <property name="main-page" value="apache-solr-reference-guide" />
 
 <!-- ====== TOOLS FOR GENERATING/VALIDATING BITS OF THE SITE / PDF ======= -->
@@ -25,9 +22,11 @@
     <pathelement location="${asciidoctor-ant.jar.path}"/>
     <pathelement location="${org-json.jar.path}"/>
   </path>
+
   <target name="clean">
     <delete dir="build"/>
   </target>
+
   <target name="jar">
     <mkdir dir="build/classes"/>
     <javac debug="yes"
@@ -43,6 +42,7 @@
                includes="**/*.class"/>
     </jar>
   </target>
+
   <target name="build-nav" depends="jar">
     <!-- TODO: for now, put these in _data since thats where sidebar.json lives
          but in final refguide, they should live in some tmp dir somewhere? outside of git?
@@ -57,7 +57,11 @@
       <arg value="${main-page}"/>
     </java>
   </target>
-  <target name="hoss-pdf"
+
+  <!-- ====== PDF Build ======= -->
+  <!-- Build PDF with asciidoctor-ant
+       v1.5.3 of asciidoctor-ant includes asciidoctorj-pdf 1.5.0-alpha.11, which is the same as asciidoctor-pdf 1.5.0-alpha.11  -->
+  <target name="build-pdf"
           depends="build-nav"
           description="Builds a PDF against all converted-asciidoc files">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
@@ -85,201 +89,53 @@
     </asciidoctor:convert>
     <echo>Finished Building ${basedir}/build/SolrRefGuide-all.pdf</echo>
   </target>
-  <target name="hoss-jekyll"
+
+  <!-- ======= Jekyll Build =======
+    Builds site with Jekyll. This (for now) assumes that Jekyll (http://jekyllrb.com) is installed locally. -->
+
+  <target name="build-jekyll"
           depends="build-nav"
           description="Builds a Jekyll Site using the converted-asciidoc files">
-    <delete dir="${hoss.jekyll.dir}" />
-    <mkdir dir="${hoss.jekyll.dir}" />
+    <delete dir="${build.jekyll.dir}" />
+    <mkdir dir="${build.jekyll.dir}" />
     <echo>Copying all non adoc files from jekylltest ...</echo>
-    <copy todir="${hoss.jekyll.dir}">
-      <fileset dir="jekylltest">
+    <copy todir="${build.jekyll.dir}">
+      <fileset dir="jekyll">
         <exclude name="**/*.adoc"/>
         <exclude name="_site/**"/>
       </fileset>
       </copy>
     <echo>Copying all source files from converted-asciidoc ...</echo>
-    <copy todir="${hoss.jekyll.dir}" overwrite="true">
+    <copy todir="${build.jekyll.dir}" overwrite="true">
       <fileset dir="${asciidoc.dir}" />
     </copy>
     <echo>Moving images so we don't have to change _config.yml (I'm lazy)</echo> <!-- TODO: HACK -->
-    <mkdir dir="${hoss.jekyll.dir}/refguide/images" />
-    <move file="${hoss.jekyll.dir}/images" todir="${hoss.jekyll.dir}/refguide/images/" />
+    <mkdir dir="${build.jekyll.dir}/refguide/images" />
+    <move file="${build.jekyll.dir}/images" todir="${build.jekyll.dir}/refguide/images/" />
     <echo>Running Jekyll...</echo>
-    <exec executable="jekyll" dir="${hoss.jekyll.dir}">
+    <exec executable="jekyll" dir="${build.jekyll.dir}">
       <arg value="build"/>
     </exec>
-    <echo>Ready to browse site: ${hoss.jekyll.dir}/_site/${main-page}.html</echo>
-  </target>
-  <target name="hoss"
-          depends="hoss-pdf,hoss-jekyll">
-    <echo>PDF: ${basedir}/build/SolrRefGuide-all.pdf</echo>
-    <echo>SITE: ${hoss.jekyll.dir}/_site/${main-page}.html</echo>
+    <echo>Ready to browse site: ${build.jekyll.dir}/_site/${main-page}.html</echo>
   </target>
 
+  <target name="build"
+          depends="build-pdf,build-jekyll">
+    <echo>PDF: ${basedir}/build/SolrRefGuide-all.pdf</echo>
+    <echo>SITE: ${build.jekyll.dir}/_site/${main-page}.html</echo>
+  </target>
+
+<!-- ==== Conversion ==== -->
   <target name="convert-raw-confluence-exports"
-          description="Convinience target for running the one time conversion needed to build confluence-export/converted-asciidoc">
+          description="Convenience target for running the one time conversion needed to build confluence-export/converted-asciidoc">
     <ant dir="confluence-export/conversion-tools/jsoup"
          target="scrape"
          inheritAll="false"
          useNativeBasedir="true" />
     <exec executable="confluence-export/conversion-tools/toAsciidoc.sh" />
   </target>
-    
-  
-<!-- ======= Asciidoctor HTML conversion ========
-   Uses pure Asciidoctor build task-->
-  <target name="asciidoctor"
-          description="Builds raw HTML versions of all '.adoc' files">
-    <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml" classpath="lib/asciidoctor-ant.jar"/>
-    <asciidoctor:convert
-                 sourceDirectory="asciidoc"
-                 outputDirectory="html"
-                 backend="html5"
-                 extensions="adoc"
-                 sourceHighlighter="coderay"
-                 embedAssets="true"
-                 imagesDir="asciidoc/images">
-      <attribute key="docinfo1" value='' />
-      <attribute key="stylesheet" value="ref-guide.css" />
-      <attribute key="stylesdir" value="html/styles" />
-      <attribute key="icons" value="font" />
-      <attribute key="figure-caption!" value='' />
-      <attribute key="toc" value="right" />
-   </asciidoctor:convert>
-  </target>
-
-<!-- ======= JBake Build =======
-  Builds site with JBake. This (for now) assumes that JBake (http://jbake.org) is installed locally. -->
-
-<property name="jbakesitedir" value="jbake-test/output"/>
-
-   <target name ="jbake-clean"
-           description="Cleans the JBake project by removing the 'output' directory">
-     <delete dir="${jbakesitedir}"/>
-   </target>
-
-  <target name ="jbake-site"
-          description="Builds the site using JBake">
-     <exec executable="jbake" dir="jbake-test">
-        <arg value="-b"/>
-     </exec>
-  </target>
-
-<!-- ======= Jekyll Build =======
-  Builds site with Jekyll. This (for now) assumes that Jekyll (http://jekyllrb.com) is installed locally.
-
-  This section is borrowed from Ankyll (http://www.stuartgunter.org/ankyll/), an Ant script to build and publish Jekyll-based sites to Amazon S3. The S3 parts of the original have been removed. However, other portions to update Google & Bing sitemaps have been retained as examples of something we may want to integrate. -->
-
-<!-- the Jekyll generated output directory -->
-<property name="jekyllsitedir" value="_site/"/>
-
-<!-- the encoded URL to your sitemap (for submitting to search engines) -->
-<property name="sitemap" value="http%3A%2F%2Fwww.your-domain.com%2Fsitemap.xml"/>
-
-<target name="jekyll-clean"
-         description="Cleans the Jekyll project by removing the '_site' directory'">
-  <delete dir="${jekyllsitedir}"/>
-</target>
-
-<target name="jekyll-site"
-         description="Builds the site using Jekyll">
-  <exec executable="jekyll" dir="jekylltest">
-     <arg value="build"/>
-  </exec>
-</target>
-
-<!-- This section would automatcially push the sitemap to Bing & Google -->
-<!--
-<target name="publish-sitemap"
-         description="Publishes the sitemap to search engines (Google and Bing)">
-  <exec executable="curl">
-     <arg value="www.bing.com/webmaster/ping.aspx?siteMap=${sitemap}"/>
-  </exec>
-
-  <exec executable="curl">
-     <arg value="www.google.com/webmasters/tools/ping?sitemap=${sitemap}"/>
-  </exec>
-</target> -->
-
-<target name="jekyll-prepare"
-         depends="jekyll-clean,jekyll-site"
-         description="Prepares the site for deployment for local testing prior to deployment.">
-</target>
 
 
-<!-- ====== PDF Build ======= -->
 
-<!-- Approach 1 - Build PDF with a shell script using the asciidoctor-pdf gem installed locally. -->
-  <target name="pdf"
-          description="Builds a PDF using local install of asciidoctor-pdf">
-     <property name="executable-full-path"
-            location="pdf/scripts/createPDF.sh"/>
-     <exec executable="${executable-full-path}" />
-  </target>
-
-<!-- Approach 2 - Build PDF with asciidoctor-ant
-     v1.5.3 includes asciidoctorj-pdf 1.5.0-alpha.11, which is the same as asciidoctor-pdf 1.5.0-alpha.11  -->
-<!--  <property name="asciidoctor-ant.snapshot.jar" value="asciidoctor-ant-1.5.2-SNAPSHOT.jar"/> -->
-  <property name="asciidoctor-ant.snapshot.jar" value="asciidoctor-ant.jar"/>
-
-  <target name="pdf2"
-          description="Builds a PDF using downloaded copy of asciidoctorj">
-    <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
-             classpath="lib/asciidoctor-ant.jar"/>
-    <asciidoctor:convert
-                 sourceDirectory="pdf"
-                 sourceDocumentName="SolrRefGuide.adoc"
-                 outputDirectory="pdf2"
-                 backend="pdf"
-                 extensions="adoc"
-                 sourceHighlighter="coderay"
-                 embedAssets="true"
-                 imagesDir="asciidoc/images/"
-                 doctype="book"
-                 safemode="unsafe">
-      <attribute key="icons" value="font" />
-      <attribute key="icon-set" value="fa" />
-      <attribute key="docinfo!" value='' />
-      <attribute key="pdf-stylesDir" value="pdf/themes"/>
-      <attribute key="pdf-style" value="refguide"/>
-      <attribute key="pdf-fontsDir" value="pdf/fonts"/>
-      <attribute key="pagenums" value='' />
-      <attribute key="figure-caption!" value='' />
-   </asciidoctor:convert>
-  </target>
-
-<!--  <condition property="asciidoctor-ant-built" value="true">
-    <available file="lib/${asciidoctor-ant.snapshot.jar}"/>
-</condition> -->
-
-  <!-- Fetch and build asciidoctor-ant.  **With asciidoctor-ant 1.5.3 this can perhaps go away**
-
-       The latest asciidoctor-ant release (1.5.1) has two problems that disallow conversion to PDF:
-
-       1. It includes a buggy asciidoctorj-pdf dependency.
-          See https://github.com/asciidoctor/asciidoctor-maven-examples/issues/11#issuecomment-112226507
-       2. The "pdf" backend was added after the 1.5.1 release
-   -->
-   <!-- With asciidoctor-ant 1.5.3 this can perhaps go away
-  <target name="build-asciidoctor-ant" unless="asciidoctor-ant-built">
-    <delete dir="build/asciidoctor-ant" failonerror="false"/>
-    <mkdir dir="build"/>
-    <exec dir="build" executable="git" failonerror="true">
-      <arg value="clone"/>
-      <arg value="https://github.com/asciidoctor/asciidoctor-ant"/>
-    </exec>
-
-    <old comment: asciidoctorj-pdf-1.5.0-alpha.7 is missing a required font - upgrade to 1.5.0-alpha.9 >
-    <replaceregexp file="build/asciidoctor-ant/pom.xml"
-                   match="&lt;asciidoctorj-pdf.version&gt;1.5.0-alpha.7&lt;/asciidoctorj-pdf.version&gt;"
-                   replace="&lt;asciidoctorj-pdf.version&gt;1.5.0-alpha.9&lt;/asciidoctorj-pdf.version&gt;"/>
-    <exec dir="build/asciidoctor-ant" executable="mvn">
-      <arg value="clean"/>
-      <arg value="package"/>
-    </exec>
-    <copy todir="lib" file="build/asciidoctor-ant/target/${asciidoctor-ant.snapshot.jar}"
-          failonerror="true" overwrite="true"/>
-  </target>
-  -->
 
 </project>
