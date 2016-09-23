@@ -1,0 +1,32 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+entries:
+- title: sidebar
+  product: Apache Solr Reference Guide
+  version: 6.2
+  folders:
+  - title: About This Guide
+    url: about-this-guide.html
+  - title: Getting Started
+    url: getting-started.html
+    folderitems:
+    - title: Installing Solr
+      url: installing-solr.html
+    - title: Running Solr
+      url: running-solr.html
+    - title: A Quick Overview
+      url: a-quick-overview.html
+    - title: A Step Closer
+      url: a-step-closer.html
+    - title: Solr Start Script Reference
+      url: solr-start-script-reference.html
+  - title: Upgrading Solr
+    url: upgrading-solr.html
+  - title: Using the Solr Admin Interface
+    url: using-the-solr-administration-user-interface.html
+    folderitems:
+    - title: Collection-Specific Tools
+      url: collection-specific-tools.html
+      subfolders:
+      - title: Analysis Screen
+        url: analysis-screen.html
