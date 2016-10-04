@@ -8,8 +8,9 @@ entries:
   - title: About This Guide
     url: about-this-guide.html
   - title: Getting Started
-    url: getting-started.html
     folderitems:
+    - title: Getting Started Home
+      url: getting-started.html
     - title: Installing Solr
       url: installing-solr.html
     - title: Running Solr
@@ -22,11 +23,22 @@ entries:
       url: solr-start-script-reference.html
   - title: Upgrading Solr
     url: upgrading-solr.html
+    folderitems:
+    - title: Test1
+      url: test.html
+      subfolders:
+        - title: Test2
+          url: test2.html
   - title: Using the Solr Admin Interface
     url: using-the-solr-administration-user-interface.html
     folderitems:
     - title: Collection-Specific Tools
       url: collection-specific-tools.html
       subfolders:
-      - title: Analysis Screen
-        url: analysis-screen.html
+        - title: Analysis Screen
+          url: analysis-screen.html
+    - title: Core-Specific Tools
+      url: core-specific-tools.html
+      subfolders:
+        - title: Overview Screen
+          url: overview-screen.html

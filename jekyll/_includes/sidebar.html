@@ -12,23 +12,12 @@
         <!-- This is the enumeration of the 2nd level of the sidebar nav -->
         <ul>
             {% for folderitem in folder.folderitems %}
-            {% if page.url == folderitem.url %}
-            <li class="active"><a href="{{folderitem.url | remove: "/"}}">{{folderitem.title}}</a></li>
-            {% else %}
-            <li><a href="{{folderitem.url | remove: "/"}}">{{folderitem.title}}</a></li>
-            {% endif %}
+            <li><a href="{{ folderitem.url | remove: "/" }}">{{ folderitem.title }}</a></li>
             <!-- This section allows for another subsection -->
-            {% for subfolders in folderitem.subfolders %}
+            {% for subfolder in folderitem.subfolders %}
             <li class="subfolders">
-                <a href="#">{{ subfolders.title }}</a>
                 <ul>
-                    {% for subfolderitem in subfolders.subfolderitems %}
-                    {% if page.url == subfolderitem.url %}
-                    <li class="active"><a href="{{subfolderitem.url | remove: "/"}}">{{subfolderitem.title}}</a></li>
-                    {% else %}
-                    <li><a href="{{subfolderitem.url | remove: "/"}}">{{subfolderitem.title}}</a></li>
-                    {% endif %}
-                    {% endfor %}
+                    <li><a href="{{ subfolder.url | remove: "/" }}">{{ subfolder.title }}</a></li>
                 </ul>
             </li>
             {% endfor %}

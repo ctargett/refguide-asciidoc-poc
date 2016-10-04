@@ -106,6 +106,17 @@ a.no_icon:after
     padding-left: 0;
 }
 
+/* indent extra nav levels */
+ul#mysidebar li.active ul li.subfolders a {
+   padding-left: 30px;
+}
+
+/* This makes sure the navgoco script doesn't hide the extra levels */
+ul#mysidebar li.active ul li.subfolders,
+ul#mysidebar li.active ul li.subfolders ul[data-index] {
+   display: block !important;
+}
+
 abbr[title]
 {
     border-bottom: 1px dotted;
