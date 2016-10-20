@@ -111,7 +111,7 @@ A common mistake is to try to filter parents with a `which` filter, as in this b
 
 Instead, you should use a sibling mandatory clause as a filter:
 
-`q=**+title:join`**+\{!parent which="****content_type:parentDocument****"}comments:SolrCloud
+`q= **+title:join`** +\{!parent which="****content_type:parentDocument****"}comments:SolrCloud
 
 ====
 
@@ -151,7 +151,7 @@ Details about using the `CollapsingQParser` can be found in the section <<collap
 [[OtherParsers-ComplexPhraseQueryParser]]
 == Complex Phrase Query Parser
 
-The `ComplexPhraseQParser` provides support for wildcards, ORs, etc., inside phrase queries using Lucene's `ComplexPhraseQueryParser`. Under the covers, this query parser makes use of the Span group of queries, e.g., spanNear, spanOr, etc., and is subject to the same limitations as that family or parsers.
+The `ComplexPhraseQParser` provides support for wildcards, ORs, etc., inside phrase queries using Lucene's `ComplexPhraseQueryParser` . Under the covers, this query parser makes use of the Span group of queries, e.g., spanNear, spanOr, etc., and is subject to the same limitations as that family or parsers.
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -201,7 +201,7 @@ This property is described in more detail in the section <<query-settings-in-sol
 
 It is recommended not to use stopword elimination with this query parser. Lets say we add **the**, **up**, *to* to `stopwords.txt` for your collection, and index a document containing the text _"Stores up to 15,000 songs, 25,00 photos, or 150 yours of video"_ in a field named "features".
 
- While the query below does not use this parser:
+While the query below does not use this parser:
 
 [source,java]
 ----

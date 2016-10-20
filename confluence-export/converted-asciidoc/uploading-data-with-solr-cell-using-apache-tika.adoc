@@ -67,7 +67,7 @@ You can also use `bin/post` to send a PDF file into Solr (without the params, th
 bin/post -c techproducts example/exampledocs/solr-word.pdf -params "literal.id=a"
 ----
 
-Now you should be able to execute a query and find that document. You can make a request like `http://localhost:8983/solr/techproducts/select?q=pdf`.
+Now you should be able to execute a query and find that document. You can make a request like `http://localhost:8983/solr/techproducts/select?q=pdf` .
 
 You may notice that although the content of the sample document has been indexed and stored, there are not a lot of metadata fields associated with this document. This is because unknown fields are ignored according to the default parameters configured for the `/update/extract` handler in `solrconfig.xml`, and this behavior can be easily changed or overridden. For example, to store and see all metadata and content, execute the following:
 

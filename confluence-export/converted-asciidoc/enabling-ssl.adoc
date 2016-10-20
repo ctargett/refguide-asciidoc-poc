@@ -12,7 +12,7 @@ For background on SSL certificates and keys, see http://www.tldp.org/HOWTO/SSL-C
 [[EnablingSSL-Generateaself-signedcertificateandakey]]
 === Generate a self-signed certificate and a key
 
-To generate a self-signed certificate and a single key that will be used to authenticate both the server and the client, we'll use the JDK `keytool`command and create a separate keystore. This keystore will also be used as a truststore below. It's possible to use the keystore that comes with the JDK for these purposes, and to use a separate truststore, but those options aren't covered here.
+To generate a self-signed certificate and a single key that will be used to authenticate both the server and the client, we'll use the JDK `keytool` command and create a separate keystore. This keystore will also be used as a truststore below. It's possible to use the keystore that comes with the JDK for these purposes, and to use a separate truststore, but those options aren't covered here.
 
 Run the commands below in the `server/etc/` directory in the binary Solr distribution. It's assumed that you have the JDK `keytool` utility on your `PATH`, and that `openssl` is also on your `PATH`. See https://www.openssl.org/related/binaries.html for OpenSSL binaries for Windows and Solaris.
 

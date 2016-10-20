@@ -43,10 +43,18 @@ The driver files to be added are:
 * the SolrJ .jar found in `$SOLR_HOME/dist/solr-solrj-<version>.jar`
 
 image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_4.png[image,width=535,height=400]
- image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_5.png[image,width=664,height=400]
- image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_6.png[image,width=653,height=400]
- image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_7.png[image,width=655,height=400]
- image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_9.png[image,width=651,height=400]
+
+
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_5.png[image,width=664,height=400]
+
+
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_6.png[image,width=653,height=400]
+
+
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_7.png[image,width=655,height=400]
+
+
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_9.png[image,width=651,height=400]
 
 
 [[SolrJDBC-DbVisualizer-ReviewandCloseDriverManager]]
@@ -63,7 +71,9 @@ Next, create a connection to Solr using the driver just created.
 === Use the Connection Wizard
 
 image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_11.png[image,width=763,height=400]
- image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_12.png[image,width=807,height=400]
+
+
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_12.png[image,width=807,height=400]
 
 
 [[SolrJDBC-DbVisualizer-NametheConnection]]
@@ -92,7 +102,9 @@ image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_15.png[image,width=40
 Once the connection has been created, double-click on it to open the connection details screen and connect to Solr.
 
 image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_16.png[image,width=625,height=400]
- image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_17.png[image,width=592,height=400]
+
+
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_17.png[image,width=592,height=400]
 
 
 [[SolrJDBC-DbVisualizer-OpenSQLCommandertoEnterQueries]]
@@ -101,5 +113,7 @@ image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_16.png[image,width=62
 When the connection is established, you can use the SQL Commander to issue queries and view data.
 
 image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_19.png[image,width=577,height=400]
- image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_20.png[image,width=556,height=400]
+
+
+image::images/solr-jdbc-dbvisualizer/dbvisualizer_solrjdbc_20.png[image,width=556,height=400]
 

@@ -176,7 +176,7 @@ After each of these changes have been made, Solr should be restarted (or, you ca
 [[SchemalessMode-ExamplesofIndexedDocuments]]
 == Examples of Indexed Documents
 
-Once the schemaless mode has been enabled (whether you configured it manually or are using `data_driven_schema_configs`), documents that include fields that are not defined in your schema should be added to the index, and the new fields added to the schema.
+Once the schemaless mode has been enabled (whether you configured it manually or are using `data_driven_schema_configs` ), documents that include fields that are not defined in your schema should be added to the index, and the new fields added to the schema.
 
 For example, adding a CSV document will cause its fields that are not in the schema to be added, with fieldTypes based on values:
 
@@ -196,7 +196,7 @@ Output indicating success:
 </response>
 ----
 
-The fields now in the schema (output from `curl http://localhost:8983/solr/gettingstarted/schema/fields`):
+The fields now in the schema (output from `curl http://localhost:8983/solr/gettingstarted/schema/fields` ):
 
 [source,javascript]
 ----

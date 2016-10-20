@@ -36,9 +36,15 @@ image::images/solr-jdbc-squirrel-sql/squirrelsql_solrjdbc_3.png[image,width=467,
 === Add Solr JDBC jars to Classpath
 
 image::images/solr-jdbc-squirrel-sql/squirrelsql_solrjdbc_4.png[image,width=467,height=400]
- image::images/solr-jdbc-squirrel-sql/squirrelsql_solrjdbc_9.png[image,width=469,height=400]
- image::images/solr-jdbc-squirrel-sql/squirrelsql_solrjdbc_5.png[image,width=469,height=400]
- image::images/solr-jdbc-squirrel-sql/squirrelsql_solrjdbc_7.png[image,width=467,height=400]
+
+
+image::images/solr-jdbc-squirrel-sql/squirrelsql_solrjdbc_9.png[image,width=469,height=400]
+
+
+image::images/solr-jdbc-squirrel-sql/squirrelsql_solrjdbc_5.png[image,width=469,height=400]
+
+
+image::images/solr-jdbc-squirrel-sql/squirrelsql_solrjdbc_7.png[image,width=467,height=400]
 
 
 [[SolrJDBC-SQuirreLSQL-AddtheSolrJDBCdriverclassname]]

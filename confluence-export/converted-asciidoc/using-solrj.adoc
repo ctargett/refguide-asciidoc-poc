@@ -4,9 +4,9 @@
 
 http://lucene.apache.org/solr/6_1_0/solr-solrj/[SolrJ] is an API that makes it easy for Java applications to talk to Solr. SolrJ hides a lot of the details of connecting to Solr and allows your application to interact with Solr with simple high-level methods.
 
-The center of SolrJ is the `org.apache.solr.client.solrj` package, which contains just five main classes. Begin by creating a ` SolrClient`, which represents the Solr instance you want to use. Then send `SolrRequests` or `SolrQuerys` and get back SolrResponses.
+The center of SolrJ is the `org.apache.solr.client.solrj` package, which contains just five main classes. Begin by creating a `SolrClient`, which represents the Solr instance you want to use. Then send `SolrRequests` or `SolrQuerys` and get back SolrResponses.
 
-`SolrClient` is abstract, so to connect to a remote Solr instance, you'll actually create an instance of either ` HttpSolrClient`, or http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/impl/CloudSolrClient.html[`CloudSolrClient`]. Both communicate with Solr via HTTP, the difference is that `HttpSolrClient` is configured using an explicit Solr URL, while `CloudSolrClient` is configured using the zkHost String for a <<solrcloud.adoc#,SolrCloud>> cluster.
+`SolrClient` is abstract, so to connect to a remote Solr instance, you'll actually create an instance of either `HttpSolrClient`, or http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/impl/CloudSolrClient.html[`CloudSolrClient`]. Both communicate with Solr via HTTP, the difference is that `HttpSolrClient` is configured using an explicit Solr URL, while `CloudSolrClient` is configured using the zkHost String for a <<solrcloud.adoc#,SolrCloud>> cluster.
 
 *Single node Solr client*
 

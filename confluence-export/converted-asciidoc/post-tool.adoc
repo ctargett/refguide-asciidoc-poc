@@ -146,7 +146,7 @@ Automatically detect content types in a folder, but limit it to PPT and HTML fil
 [[PostTool-Windows]]
 == Windows support
 
-`bin/post` exists currently only as a Unix shell script, however it delegates its work to a cross-platform capable Java program. The`SimplePostTool`can be run directly in supported environments, including Windows.
+`bin/post` exists currently only as a Unix shell script, however it delegates its work to a cross-platform capable Java program. The `SimplePostTool` can be run directly in supported environments, including Windows.
 
 [[PostTool-SimplePostToolSimplePostTool]]
 

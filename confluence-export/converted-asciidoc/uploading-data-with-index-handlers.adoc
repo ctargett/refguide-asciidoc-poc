@@ -697,7 +697,7 @@ curl 'http://localhost:8983/solr/techproducts/update?commit=true' --data-binary 
 [[UploadingDatawithIndexHandlers-CSVUpdateParameters]]
 === CSV Update Parameters
 
-The CSV handler allows the specification of many parameters in the URL in the form: `f.__parameter__.__optional_fieldname__=__value__`.
+The CSV handler allows the specification of many parameters in the URL in the form: `f.__parameter__.__optional_fieldname__=__value__` .
 
 The table below describes the parameters for the update handler.
 

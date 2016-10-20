@@ -59,7 +59,7 @@ The table below summarizes Solr's field value faceting parameters.
 |<<Faceting-Thefacet.methodParameter,facet.method>> |Selects the algorithm or method Solr should use when faceting a field.
 |<<Faceting-Thefacet.enum.cache.minDfParameter,facet.enum.cache.minDF>> |(Advanced) Specifies the minimum document frequency (the number of documents matching a term) for which the `filterCache` should be used when determining the constraint count for that term.
 |<<Faceting-Over-RequestParameters,facet.overrequest.count>> |(Advanced) A number of documents, beyond the effective `facet.limit` to request from each shard in a distributed search
-| <<Faceting-Over-RequestParameters,facet.overrequest.ratio>> |(Advanced) A multiplier of the effective `facet.limit` to request from each shard in a distributed search
+|<<Faceting-Over-RequestParameters,facet.overrequest.ratio>> |(Advanced) A multiplier of the effective `facet.limit` to request from each shard in a distributed search
 |<<Faceting-Thefacet.threadsParameter,facet.threads>> |(Advanced) Controls parallel execution of field faceting
 |===
 
