@@ -293,6 +293,14 @@ public class ScrapeConfluence {
         element.unwrap(); // unwrap not remove! (even w/o text might be inner nodes, ex: img)
       }
     }
+
+    // these spans aren't particularly problematic, and will largely be ignored by pandoc either way
+    // but by removing them here, they simplify some of the logic we need in other cleanup later
+    // (notably when looking for tags inside of code)
+    elements = docOut.select("span.external-link, span.nolink, span.confluence-link, code span:not([id])");
+    for (Element element : elements) {
+      element.unwrap();
+    }
     
     // move any leading/trailing space from the leading/trailing textNodes of formatting tags
     // out of the tags
@@ -325,18 +333,39 @@ public class ScrapeConfluence {
       }
     }
 
+    // this is totally bogus, and yet confluence is doing this...
+    elements = docOut.select("code code");
+    for (Element element : elements) {
+      element.unwrap();
+    }
+    
     // fake out pandoc when an em or strong tag is inside of a code tag
     elements = docOut.select("code strong");
     for (Element element : elements) {
       element.prependText("**");
       element.appendText("**");
+      element.unwrap();
     }
     elements = docOut.select("code em");
     for (Element element : elements) {
       element.prependText("__");
       element.appendText("__");
+      element.unwrap();
     }
-      
+
+    // in asciidoc, links can wrap code, but code can not wrap links
+    // so we need to invert the relationship if/when we find it...
+    elements = docOut.select("code > a:only-child");
+    for (Element element : elements) {
+      Element code = element.parent();
+      String href= element.attr("href");
+      element.unwrap();
+      if (! href.equals(code.text())) {
+        // if the entire code block is a URL, we don't need to wrap it in another link
+        // asciidoctor will take care of that for us.
+        code.wrap("<a href=\""+href+"\"></a>");
+      }
+    }
     
     // remove confluence styles
     elements = docOut.select("[style]");
@@ -508,6 +537,13 @@ public class ScrapeConfluence {
         element.remove();
       }
     }
+    
+    // in general, pandoc/asciidoctor has problems with tags inside of "code" so log if we have anything
+    elements = docOut.select("code:has(*)");
+    for (Element element : elements) {
+      System.out.println("NOTE: code tag w/nested tags: " + element.outerHtml());
+    }
+      
     
     docOut.normalise();
   }

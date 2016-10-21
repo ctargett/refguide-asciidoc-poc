@@ -22,7 +22,7 @@ In addition to all the <<the-dismax-query-parser.adoc#TheDisMaxQueryParser-DisMa
 [[TheExtendedDisMaxQueryParser-Themm.autoRelaxParameter]]
 === The mm.autoRelax Parameter
 
-If true, the number of clauses required (<<the-dismax-query-parser.adoc#TheDisMaxQueryParser-Themm_MinimumShouldMatch_Parameter,minimum should match>>) will automatically be relaxed if a clause is removed (by e.g. stopwords filter) from some but not all `qf` fields. Use this parameter as a workaround if you experience that queries return zero hits due to uneven stopword removal between the `qf` fields.
+If true, the number of clauses required (<<the-dismax-query-parser.adoc#TheDisMaxQueryParser-Themm_MinimumShouldMatch_Parameter,minimum should match>>) will automatically be relaxed if a clause is removed (by e.g. stopwords filter) from some but not all <<the-dismax-query-parser.adoc#TheDisMaxQueryParser-Theqf_QueryFields_Parameter,`qf`>> fields. Use this parameter as a workaround if you experience that queries return zero hits due to uneven stopword removal between the `qf` fields.
 
 Note that relaxing mm may cause undesired side effects, hurting the precision of the search, depending on the nature of your index content.
 
@@ -207,7 +207,7 @@ The Solr Query Parser's use of `_val_` and `_query_` differs from the Lucene Que
 
 * If the magic field name `_val_` is used in a term or phrase query, the value is parsed as a function.
 
-* It provides a hook into `FunctionQuery` syntax. Quotes are necessary to encapsulate the function when it includes parentheses. For example:
+* It provides a hook into http://wiki.apache.org/solr/FunctionQuery[`FunctionQuery`] syntax. Quotes are necessary to encapsulate the function when it includes parentheses. For example:
 +
 [source,text]
 ----

@@ -25,7 +25,7 @@ Further, the operation will fail if the `uniqueKey` field is used, but is multiv
 [[OtherSchemaElements-DefaultSearchField_QueryOperator]]
 == Default Search Field & Query Operator
 
-Although they have been deprecated for quite some time, Solr still has support for Schema based configuration of a `<defaultSearchField/>` (which is superseded by the `df parameter`) and `<solrQueryParser defaultOperator="OR"/>` (which is superseded by the <<the-standard-query-parser.adoc#,`q.op` parameter>>.
+Although they have been deprecated for quite some time, Solr still has support for Schema based configuration of a `<defaultSearchField/>` (which is superseded by the <<the-standard-query-parser.adoc#,`df parameter`>>) and `<solrQueryParser defaultOperator="OR"/>` (which is superseded by the <<the-standard-query-parser.adoc#,`q.op` parameter>>.
 
 If you have these options specified in your Schema, you are strongly encouraged to replace them with request parameters (or <<request-parameters-api.adoc#,request parameter defaults>>) as support for them may be removed from future Solr release.
 

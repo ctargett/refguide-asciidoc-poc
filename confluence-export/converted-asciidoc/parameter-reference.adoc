@@ -42,6 +42,6 @@ These are set in `solr.xml`, but by default the `host` and `hostContext` paramet
 |`shard` |Defaults to being automatically assigned based on numShards |Specifies which shard this core acts as a replica of.
 |===
 
-`shard` can be specified in the `core.properties` for each core.
+`shard` can be specified in the <<defining-core-properties.adoc#,`core.properties`>> for each core.
 
 Additional cloud related parameters are discussed in <<format-of-solr-xml.adoc#,Format of solr.xml>>

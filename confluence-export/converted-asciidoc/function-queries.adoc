@@ -13,7 +13,7 @@ Functions must be expressed as function calls (for example, `sum(a,b)` instead o
 
 There are several ways of using function queries in a Solr query:
 
-* Via an explicit QParser that expects function arguments, such `func` or `frange` . For example:
+* Via an explicit QParser that expects function arguments, such <<other-parsers.adoc#OtherParsers-FunctionQueryParser,`func`>> or <<other-parsers.adoc#OtherParsers-FunctionRangeQueryParser,`frange`>> . For example:
 +
 [source,java]
 ----

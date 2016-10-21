@@ -55,7 +55,7 @@ Solr 6 has no support for reading Lucene/Solr 4.x and earlier indexes. Be sure t
 [[MajorChangesfromSolr5toSolr6-ManagedSchemaisnowtheDefault]]
 == Managed Schema is now the Default
 
-Solr's default behavior when a `solrconfig.xml` does not explicitly define a `<schemaFactory/>` is now dependent on the `luceneMatchVersion` specified in that `solrconfig.xml`. When `luceneMatchVersion < 6.0`, `ClassicIndexSchemaFactory` will continue to be used for back compatibility, otherwise an instance of `ManagedIndexSchemaFactory` will be used.
+Solr's default behavior when a `solrconfig.xml` does not explicitly define a `<schemaFactory/>` is now dependent on the `luceneMatchVersion` specified in that `solrconfig.xml`. When `luceneMatchVersion < 6.0`, `ClassicIndexSchemaFactory` will continue to be used for back compatibility, otherwise an instance of <<schema-factory-definition-in-solrconfig.adoc#,`ManagedIndexSchemaFactory`>> will be used.
 
 The most notable impacts of this change are:
 
@@ -67,7 +67,7 @@ Please review the <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory
 [[MajorChangesfromSolr5toSolr6-DefaultSimilarityChanges]]
 == Default Similarity Changes
 
-Solr's default behavior when a Schema does not explicitly define a global `<similarity/>` is now dependent on the `luceneMatchVersion` specified in the `solrconfig.xml`. When `luceneMatchVersion < 6.0`, an instance of <<major-changes-from-solr-5-to-solr-6.adoc#,`ClassicSimilarityFactory`>> will be used, otherwise an instance of <<major-changes-from-solr-5-to-solr-6.adoc#,`SchemaSimlarityFactory`>> will be used. Most notably this change means that users can take advantage of per Field Type similarity declarations, with out needing to also explicitly declare a global usage of `SchemaSimlarityFactory`.
+Solr's default behavior when a Schema does not explicitly define a global <<other-schema-elements.adoc#,`<similarity/>`>> is now dependent on the `luceneMatchVersion` specified in the `solrconfig.xml`. When `luceneMatchVersion < 6.0`, an instance of <<major-changes-from-solr-5-to-solr-6.adoc#,`ClassicSimilarityFactory`>> will be used, otherwise an instance of <<major-changes-from-solr-5-to-solr-6.adoc#,`SchemaSimlarityFactory`>> will be used. Most notably this change means that users can take advantage of per Field Type similarity declarations, with out needing to also explicitly declare a global usage of `SchemaSimlarityFactory`.
 
 Regardless of whether it is explicitly declared, or used as an implicit global default, `SchemaSimlarityFactory`'s implicit behavior when a Field Types do not declare an explicit `<similarity />` has also been changed to depend on the the `luceneMatchVersion`. When `luceneMatchVersion < 6.0`, an instance of <<major-changes-from-solr-5-to-solr-6.adoc#,`ClassicSimilarity`>> will be used, otherwise an instance of <<major-changes-from-solr-5-to-solr-6.adoc#,`BM25Simlarity`>> will be used. A `defaultSimFromFieldType` init option may be specified on the `SchemaSimilarityFactory` declaration to change this behavior. Please review the <<major-changes-from-solr-5-to-solr-6.adoc#,`SchemaSimlarityFactory` javadocs>> for more details
 
@@ -83,4 +83,4 @@ The <<collections-api.adoc#,DELETESHARD and DELETEREPLICA>> now default to delet
 [[MajorChangesfromSolr5toSolr6-facet.date._ParametersRemoved]]
 == `facet.date.*` Parameters Removed
 
-The `facet.date` parameter (and associated `facet.date.*` parameters) that were deprecated in Solr 3.x have been removed completely. If you have not yet switched to using the equivalent `facet.range` functionality you must do so now before upgrading.
+The `facet.date` parameter (and associated `facet.date.*` parameters) that were deprecated in Solr 3.x have been removed completely. If you have not yet switched to using the equivalent <<faceting.adoc#,`facet.range`>> functionality you must do so now before upgrading.

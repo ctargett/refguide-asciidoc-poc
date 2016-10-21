@@ -16,8 +16,8 @@ If you are already using Solr 6.0, Solr 6.1 should not present any major problem
 == Upgrading from 5.5.x
 
 * The deprecated `SolrServer` and subclasses have been removed, use <<using-solrj.adoc#,`SolrClient`>> instead.
-* The deprecated `<nrtMode>` configuration in `solrconfig.xml` has been removed. Please remove it from `solrconfig.xml`.
-* `SolrClient.shutdown()` has been removed, use `SolrClient.close()` instead.
+* The deprecated `<nrtMode>` configuration in <<configuring-solrconfig-xml.adoc#,`solrconfig.xml`>> has been removed. Please remove it from `solrconfig.xml`.
+* `SolrClient.shutdown()` has been removed, use http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/SolrClient.html#close()[`SolrClient.close()`] instead.
 * The deprecated `zkCredientialsProvider` element in `solrcloud` section of `solr.xml` is now removed. Use the correct spelling (<<zookeeper-access-control.adoc#,`zkCredentialsProvider`>>) instead.
 * Internal/expert - `ResultContext` was significantly changed and expanded to allow for multiple full query results (`DocLists`) per Solr request. `TransformContext` was rendered redundant and was removed. See https://issues.apache.org/jira/browse/SOLR-7957[SOLR-7957] for details.
 * Several changes have been made regarding the "<<other-schema-elements.adoc#OtherSchemaElements-Similarity,`Similarity`>>" used in Solr, in order to provide better default behavior for new users. There are 3 key impacts of these changes on existing users who upgrade:
@@ -29,7 +29,7 @@ If you are already using Solr 6.0, Solr 6.1 should not present any major problem
 * The '<<request-parameters-api.adoc#,`useParams`>>' attribute specified in request handler cannot be overridden from request params. See https://issues.apache.org/jira/browse/SOLR-8698[SOLR-8698] for more details.
 * When requesting stats in date fields, "sum" is now returned as a double value instead of a date. See https://issues.apache.org/jira/browse/SOLR-8671[SOLR-8671] for more details.
 * The deprecated GET methods for schema are now accessible through the <<schema-api.adoc#,bulk API>>. These methods now accept fewer request parameters, and output less information. See https://issues.apache.org/jira/browse/SOLR-8736[SOLR-8736] for more details. Some of the removed functionality will likely be restored in a future version of Solr - see https://issues.apache.org/jira/browse/SOLR-8992[SOLR-8992].
-* In the past, Solr guaranteed that retrieval of multi-valued fields would preserve the order of values. Because values may now be retrieved from column-stored fields (`docValues="true"`), in conjunction with the fact that <<docvalues.adoc#,DocValues>> do not currently preserve order, means that users should set `useDocValuesAsStored="false"` to prevent future optimizations from using the column-stored values over the row-stored values when fields have both `stored="true"` and `docValues="true"`.
+* In the past, Solr guaranteed that retrieval of multi-valued fields would preserve the order of values. Because values may now be retrieved from column-stored fields (`docValues="true"`), in conjunction with the fact that <<docvalues.adoc#,DocValues>> do not currently preserve order, means that users should set <<defining-fields.adoc#,`useDocValuesAsStored="false"`>> to prevent future optimizations from using the column-stored values over the row-stored values when fields have both `stored="true"` and `docValues="true"`.
 * <<working-with-dates.adoc#,Formatted date-times from Solr>> have some differences. If the year is more than 4 digits, there is a leading '+'. When there is a non-zero number of milliseconds, it is padded with zeros to 3 digits. Negative year (BC) dates are now possible. Parsing: It is now an error to supply a portion of the date out of its, range, like 67 seconds.
 * <<using-solrj.adoc#,SolrJ>> no longer includes `DateUtil`. If for some reason you need to format or parse dates, simply use `Instant.format()` and `Instant.parse()`.
 * If you are using spatial4j, please upgrade to 0.6 and <<spatial-search.adoc#,edit your `spatialContextFactory`>> to replace `com.spatial4j.core` with `org.locationtech.spatial4j`.
@@ -37,6 +37,6 @@ If you are already using Solr 6.0, Solr 6.1 should not present any major problem
 [[UpgradingSolr-UpgradingfromOlderVersionsofSolr]]
 == Upgrading from Older Versions of Solr
 
-Users upgrading from older versions are strongly encouraged to consult `CHANGES.txt` for the details of _all_ changes since the version they are upgrading from.
+Users upgrading from older versions are strongly encouraged to consult http://lucene.apache.org/solr/6_1_0/changes/Changes.html[`CHANGES.txt`] for the details of _all_ changes since the version they are upgrading from.
 
 A summary of the significant changes between Solr 5.x and Solr 6.0 can be found in the <<major-changes-from-solr-5-to-solr-6.adoc#,Major Changes from Solr 5 to Solr 6>> section.
