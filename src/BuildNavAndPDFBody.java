@@ -100,40 +100,53 @@ public class BuildNavAndPDFBody {
       final JSONArray folders = new JSONArray();
       final JSONObject sidebar = new JSONObject()
         .put("title","sidebar")
-        .put("product","Solr Reference Guide")
         .put("version", 6.2)
         .put("folders", folders);
 
       // track how deep we are so we can adjust folder vs folderitem accordingly
       final AtomicInteger depth = new AtomicInteger(0);
-      final AtomicReference<JSONArray> currentFolderitems = new AtomicReference<JSONArray>(null);
+      final AtomicReference<JSONArray> currentFolderItems = new AtomicReference<JSONArray>(null);
+      final AtomicReference<JSONArray> currentSubFolders = new AtomicReference<JSONArray>(null);
       
       mainPage.depthFirstWalk(new Page.RecursiveAction() {
         public boolean act(Page page) {
-
-          // NOTE: current jekyll theme only supports 2 level sidebar, ...
-          // and "folders" can't link to pages, just expand/collapse, ...
-          // so for now: each level1 page is a folder, and it & all decendents are items in that folder
+          
+          JSONObject current = new JSONObject()
+            .put("title",page.title)
+            .put("url", page.permalink);
+  
+          // NOTE: current jekyll theme only supports 3 level sidebar, ...
+          // level    #1: folder(s)
+          // level    #2: folderitem(s)
+          // level >= #3: subfolder
           //
           // TODO: can we improve the jekyll theme to supports something closer to confluence???
-          
-          // create a folder for every level 1 page
-          if (1 == depth.intValue()) {
-            JSONArray folderitems = new JSONArray();
-            currentFolderitems.set(folderitems);
-            folders.put(new JSONObject()
-                        .put("title",page.title)
-                        .put("output","pdf,web")
-                        .put("folderitems", folderitems));
-          }
-          if (1 <= depth.intValue()) {
-            // add every page with level >= 1 to the current folder
-            JSONArray folderitems = currentFolderitems.get();
-            folderitems.put(new JSONObject()
-                            .put("title", page.title)
-                            .put("output","pdf,web")
-                            .put("url", page.permalink));
+
+          if (0 == depth.intValue()) {
+            sidebar
+              .put("product", page.title)
+              .put("url", page.permalink);
+              
+          } else if (1 == depth.intValue()) {
+            folders.put(current);
             
+            JSONArray folderItems = new JSONArray();
+            currentFolderItems.set(folderItems);
+            current.put("folderitems", folderItems);
+            
+          } else if (2 == depth.intValue()) {
+            currentFolderItems.get().put(current);
+            
+            JSONArray subFolders = new JSONArray();
+            currentSubFolders.set(subFolders);
+            current.put("subfolders", subFolders);
+            
+          } else {
+            currentSubFolders.get().put(current);
+            
+            if (3 < depth.intValue()) {
+              System.err.println("WARNING: depth==" + depth.intValue() + " for " + page.permalink);
+            }
           }
           
           depth.incrementAndGet();
