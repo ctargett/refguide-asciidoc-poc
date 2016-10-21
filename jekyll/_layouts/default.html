@@ -8,12 +8,9 @@
                 caretHtml: '',
                 accordion: true,
                 openClass: 'active', // open
-                save: true, // leave false or nav highlighting doesn't work right
-                cookie: {
-                    name: 'navgoco',
-                    expires: false,
-                    path: '/'
-                },
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
                 slide: {
                     duration: 400,
                     easing: 'swing'

@@ -4,11 +4,11 @@
     <li class="sidebarTitle">{{sidebar[0].product}} {{sidebar[0].version}}</li>
     {% for entry in sidebar %}
     {% for folder in entry.folders %}
-    <!-- This is the top-level of the sidebar nav. It's possible to make this a link instead of just a header,
-         but I wasn't able to then figure out how to make the folder items expand.
-         To make the top-level a link, replace <a href="#"> with <a href="{{folder.url | remove: "/"}}"> -->
+    <!-- This is the top-level of the sidebar nav. -->
+    <!-- clicking on the link will open the page, clicking on the "caret" to the right of the link
+         will stay on the same page, but according the sidebar to show this folder -->
     <li>
-        <a href="#">{{ folder.title }}</a>
+        <a href="{{folder.url | remove: "/"}}">{{ folder.title }}</a>
         <!-- This is the enumeration of the 2nd level of the sidebar nav -->
         <ul>
             {% for folderitem in folder.folderitems %}
@@ -34,5 +34,6 @@
 </ul>
 </div>
 
+<!-- set the current page to active -->
 <!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
-<script>$("li.active").parents('li').toggleClass("active");</script>
+<script>$("#mysidebar a[href='{{ page.shortname }}.html']").parents('li').toggleClass("active", true);</script>
