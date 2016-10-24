@@ -106,16 +106,34 @@ a.no_icon:after
     padding-left: 0;
 }
 
-/* indent extra nav levels */
-ul#mysidebar li.active ul li.subfolders a {
-   padding-left: 30px;
+/* indent extra nav levels 
+   TODO: is there any easy way to do this that just incrementally applies to anything below sb-level2?
+         ...w/o assuming sb-level4 is as deep as we go?
+*/
+ul#mysidebar li.sb-level3 a {
+   padding-left: 20px;
+}
+ul#mysidebar li.sb-level4 a {
+   padding-left: 40px;
+}
+/* we can style the 'current-tree' hierarchy in the sidebar independently of the 'active' page as
+   the user clicks around expanding/collapsing the nav menus w/o clicking a link to load a diff page
+
+   For now: 
+    - the 'current' page title is always bolder if 'active' (ie: visible)
+    - if the 'current' page is not 'active'/visible, then the closest ancestor that *is* 'active'/visible 
+      will be bolded -- reminding the reader what section of the doc they are currently in.
+*/
+ul#mysidebar li.current-tree > a {
+    font-weight: bolder;
+}
+ul#mysidebar li.current-tree.active > a {
+    font-weight: inherit;
+}
+ul#mysidebar li.current.active > a {
+    font-weight: bolder;
 }
 
-/* This makes sure the navgoco script doesn't hide the extra levels */
-ul#mysidebar li.active ul li.subfolders,
-ul#mysidebar li.active ul li.subfolders ul[data-index] {
-   display: block !important;
-}
 
 abbr[title]
 {

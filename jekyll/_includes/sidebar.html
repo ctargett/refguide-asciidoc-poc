@@ -1,24 +1,34 @@
-{% assign sidebar = site.data.sidebar.entries %}
+{% assign sidebar = site.data.sidebar %}
 
 <ul id="mysidebar" class="nav">
-  <li class="sidebarTitle">{{sidebar[0].product}} {{sidebar[0].version}}</li>
-  {% for entry in sidebar %}
-  <!-- This is the top-level of the sidebar nav. -->
-  <!-- clicking on the link will open the page, clicking on the "caret" to the right of the link
-       will stay on the same page, but according the sidebar to show this folder -->
-  {% for folder in entry.folders %}
-  <li>
-    <a href="{{folder.url | remove: "/"}}">{{ folder.title }}</a>
-    {% if folder.folderitems.size > 0 %}
+  <li class="sidebarTitle">{{sidebar.title}} <!-- TODO: version from site.data --></li>
+  {% for level1item in sidebar.kids %}
+  <li class="sb-level1">
+    <a href="{{level1item.url | remove: "/"}}">{{ level1item.title }}</a>
+    {% if level1item.kids.size > 0 %}
     <ul>
-      {% for folderitem in folder.folderitems %}
-      <li>
-        <a href="{{ folderitem.url | remove: "/" }}">{{ folderitem.title }}</a>
-        {% if folderitem.subfolders.size > 0 %}
+      {% for level2item in level1item.kids %}
+      <li class="sb-level2">
+        <a href="{{ level2item.url | remove: "/" }}">{{ level2item.title }}</a>
+        {% if level2item.kids.size > 0 %}
         <ul>
-          {% for subfolder in folderitem.subfolders %}
-          <li class="subfolders">
-            <a href="{{ subfolder.url | remove: "/" }}">{{ subfolder.title }}</a>
+          {% for level3item in level2item.kids %}
+          <li class="sb-level3">
+            <a href="{{ level3item.url | remove: "/" }}">{{ level3item.title }}</a>
+            {% if level3item.kids.size > 0 %}
+            <ul>
+              {% for level4item in level3item.kids %}
+              <li class="sb-level4">
+                <a href="{{ level4item.url | remove: "/" }}">{{ level4item.title }}</a>
+                {% comment %}
+                <!-- NOTE: adding addiional levels here will also require additional changes to 
+                     ref-guide.css in order to indent them properly
+                  -->
+                {% endcomment %}
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
           </li>
           {% endfor %}
         </ul>
@@ -29,7 +39,6 @@
     {% endif %}
   </li>
   {% endfor %}
-  {% endfor %}
 </ul>
 {% comment %}
 <!-- if you aren't using the accordion, uncomment this block:
@@ -39,6 +48,12 @@
      -->
 {% endcomment %}
 
-<!-- set the current page to active -->
+<!-- set the 'active' class on the current page and ancestors -->
 <!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
 <script>$("#mysidebar a[href='{{ page.shortname }}.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='{{ page.shortname }}.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='{{ page.shortname }}.html']").parents('li').toggleClass("current-tree", true);
+</script>

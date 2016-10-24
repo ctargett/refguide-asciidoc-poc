@@ -97,67 +97,40 @@ public class BuildNavAndPDFBody {
     }
     System.out.println("Creating " + sidebarFile.toString());
     try (Writer w = new OutputStreamWriter(new FileOutputStream(sidebarFile), "UTF-8")) {
-      final JSONArray folders = new JSONArray();
-      final JSONObject sidebar = new JSONObject()
-        .put("title","sidebar")
-        .put("version", 6.2)
-        .put("folders", folders);
-
-      // track how deep we are so we can adjust folder vs folderitem accordingly
-      final AtomicInteger depth = new AtomicInteger(0);
-      final AtomicReference<JSONArray> currentFolderItems = new AtomicReference<JSONArray>(null);
-      final AtomicReference<JSONArray> currentSubFolders = new AtomicReference<JSONArray>(null);
+      // A stack for tracking what we're working on as we recurse
+      final Stack<JSONObject> stack = new Stack<JSONObject>();
       
       mainPage.depthFirstWalk(new Page.RecursiveAction() {
         public boolean act(Page page) {
-          
-          JSONObject current = new JSONObject()
-            .put("title",page.title)
-            .put("url", page.permalink);
-  
-          // NOTE: current jekyll theme only supports 3 level sidebar, ...
-          // level    #1: folder(s)
-          // level    #2: folderitem(s)
-          // level >= #3: subfolder
-          //
-          // TODO: can we improve the jekyll theme to supports something closer to confluence???
-
-          if (0 == depth.intValue()) {
-            sidebar
-              .put("product", page.title)
-              .put("url", page.permalink);
-              
-          } else if (1 == depth.intValue()) {
-            folders.put(current);
-            
-            JSONArray folderItems = new JSONArray();
-            currentFolderItems.set(folderItems);
-            current.put("folderitems", folderItems);
-            
-          } else if (2 == depth.intValue()) {
-            currentFolderItems.get().put(current);
-            
-            JSONArray subFolders = new JSONArray();
-            currentSubFolders.set(subFolders);
-            current.put("subfolders", subFolders);
-            
-          } else {
-            currentSubFolders.get().put(current);
-            
-            if (3 < depth.intValue()) {
-              System.err.println("WARNING: depth==" + depth.intValue() + " for " + page.permalink);
-            }
+          final int depth = stack.size();
+          if (4 < depth) {
+            System.err.println("ERROR: depth==" + depth + " for " + page.permalink);
+            System.err.println("sidebar.html template can not support pages this deep");
+            System.exit(-1);
           }
           
-          depth.incrementAndGet();
+          final JSONObject current = new JSONObject()
+            .put("title",page.title)
+            .put("url", page.permalink)
+            .put("depth", depth)
+            .put("kids", new JSONArray());
+          
+          if (0 < depth) {
+            JSONObject parent = stack.peek();
+            ((JSONArray)parent.get("kids")).put(current);
+          }
+          
+          stack.push(current);
           return true;
         }
         public void postKids(Page page) {
-          depth.decrementAndGet();
+          final JSONObject current = stack.pop();
+          if (0 == stack.size()) {
+            assert page == mainPage;
+            current.write(w);
+          }
         }
       });
-
-      (new JSONObject()).put("entries", (new JSONArray()).put(sidebar)).write(w);
     }
     
   }

@@ -51,6 +51,7 @@
     <delete file="${asciidoc.dir}/_data/pdf-main-body.adoc" />
     <delete file="${asciidoc.dir}/_data/sidebar.json" />
     <java classname="BuildNavAndPDFBody"
+          failonerror="true"
           fork="true">
       <classpath refid="classpath"/>
       <arg value="${asciidoc.dir}"/>
