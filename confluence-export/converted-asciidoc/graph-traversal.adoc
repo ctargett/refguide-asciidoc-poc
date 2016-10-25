@@ -91,7 +91,7 @@ The output of this expression would look like this:
 
 All of the tuples returned have the `node` field. The `node` field contains the node IDs gathered by the function. The `collection`, `field`, and `level` of the traversal are also included in the output.
 
-Notice that the level is "1" for each tuple in the example. The root nodes are level 0 (in the example above, the root nodes are "johndoe@apache.org, janesmith@apache.org") By default the `gatherNodes` function emits only the__*leaf nodes*__of the traversal, which is the outer-most node set. To emit the root nodes you can specify the `scatter` parameter:
+Notice that the level is "1" for each tuple in the example. The root nodes are level 0 (in the example above, the root nodes are "johndoe@apache.org, janesmith@apache.org") By default the `gatherNodes` function emits only the _*leaf nodes*_ of the traversal, which is the outer-most node set. To emit the root nodes you can specify the `scatter` parameter:
 
 [source,java]
 ----
@@ -101,7 +101,7 @@ gatherNodes(emails,
             scatter="branches, leaves") 
 ----
 
-The `scatter` parameter controls whether to emit the _*branches*_ with the __*leaves*__. The root nodes are considered "branches" because they are not the outer-most level of the traversal.
+The `scatter` parameter controls whether to emit the _*branches*_ with the _*leaves*_ . The root nodes are considered "branches" because they are not the outer-most level of the traversal.
 
 When scattering both branches and leaves the output would like this:
 

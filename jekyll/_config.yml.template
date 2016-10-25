@@ -1,3 +1,13 @@
+#
+#
+#
+# NOTE: Ant converts _config.yml.template into create _config.yml and performs ant property substitution.
+#
+#
+#
+#
+
+
 gems: [jekyll-asciidoc]
 
 output: web
@@ -102,8 +112,11 @@ description: "Intended as a documentation theme based on Jekyll for technical wr
 # needed for sitemap.xml file only
 url:
 
-# Asciidoc settings
+# Asciidoc settings - disabled so we can use asciidoctor
 asciidoc: {}
+
+# NOTE: If you add any attributes here for use in adoc files, you almost certainly need to also add
+# them to the <asciidoctor:convert/> ant task for building the PDF as well.
 
 asciidoctor:
   attributes:
@@ -111,3 +124,19 @@ asciidoctor:
     source-highlighter: "pygments"
     pygments-css: "style"
     imagesdir: refguide/images/
+    solr-docs-version: "${solr-docs-version}"
+    solr-javadocs: "${solr-javadocs}"
+    lucene-javadocs: "${lucene-javadocs}"
+    build-date: "${DSTAMP}"
+    build-year: "${current.year}"
+    
+# unfortunately we can't just re-use the attributes directly in the liquid templates, so we have to
+# declare every attribute we care about using in both adoc files and liquid templates twice...
+# https://github.com/asciidoctor/jekyll-asciidoc/issues/137
+
+solr-attributes:
+  solr-docs-version: "${solr-docs-version}"
+  solr-javadocs: "${solr-javadocs}"
+  lucene-javadocs: "${lucene-javadocs}"
+  build-date: "${DSTAMP}"
+  build-year: "${current.year}"

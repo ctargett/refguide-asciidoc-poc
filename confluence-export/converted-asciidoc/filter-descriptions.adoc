@@ -177,7 +177,7 @@ Implements the Daitch-Mokotoff Soundex algorithm, which allows identification of
 
 *Arguments:*
 
-`inject`: (true/false) If true (the default), then new phonetic tokens are added to the stream. Otherwise, tokens are replaced with the phonetic equivalent. Setting this to false will enable phonetic matching, but the exact spelling of the target word may not match.
+`inject` : (true/false) If true (the default), then new phonetic tokens are added to the stream. Otherwise, tokens are replaced with the phonetic equivalent. Setting this to false will enable phonetic matching, but the exact spelling of the target word may not match.
 
 *Example:*
 
@@ -192,7 +192,7 @@ Implements the Daitch-Mokotoff Soundex algorithm, which allows identification of
 [[FilterDescriptions-DoubleMetaphoneFilter]]
 == Double Metaphone Filter
 
-This filter creates tokens using the `DoubleMetaphone` encoding algorithm from commons-codec. For more information, see the <<phonetic-matching.adoc#,Phonetic Matching>> section.
+This filter creates tokens using the http://commons.apache.org/codec/apidocs/org/apache/commons/codec/language/DoubleMetaphone.html[`DoubleMetaphone`] encoding algorithm from commons-codec. For more information, see the <<phonetic-matching.adoc#,Phonetic Matching>> section.
 
 *Factory class:* `solr.DoubleMetaphoneFilterFactory`
 
@@ -343,7 +343,7 @@ This filter outputs a single token which is a concatenation of the sorted and de
 
 *Arguments:*
 
- `separator` : The character used to separate tokens combined into the single output token. Defaults to " " (a space character).
+`separator` : The character used to separate tokens combined into the single output token. Defaults to " " (a space character).
 
  `maxOutputTokenSize` : The maximum length of the summarized output token. If exceeded, no output token is emitted. Defaults to 1024.
 
@@ -1246,7 +1246,7 @@ Like <<FilterDescriptions-StopFilter,Stop Filter>>, this filter discards, or _st
 
 *Arguments:*
 
-`words`: (optional; default: `StopAnalyzer#ENGLISH_STOP_WORDS_SET`) The name of a stopwords file to parse.
+`words`: (optional; default: {lucene-javadocs}/analyzers-common/org/apache/lucene/analysis/core/StopAnalyzer.html[`StopAnalyzer#ENGLISH_STOP_WORDS_SET`] ) The name of a stopwords file to parse.
 
 `format`: (optional; default: `wordset`) Defines how the words file will be parsed. If `words` is not specified, then `format` must not be specified. The valid values for the format option are:
 
@@ -1292,7 +1292,7 @@ This filter does synonym mapping. Each token is looked up in the list of synonym
 
 `expand`: (optional; default: `true`) If `true`, a synonym will be expanded to all equivalent synonyms. If `false`, all equivalent synonyms will be reduced to the first in the list.
 
-`format`: (optional; default: `solr`) Controls how the synonyms will be parsed. The short names `solr` (for `SolrSynonymParser)` and `wordnet` (for `WordnetSynonymParser`) are supported, or you may alternatively supply the name of your own `SynonymMap.Builder` subclass.
+`format`: (optional; default: `solr`) Controls how the synonyms will be parsed. The short names `solr` (for {lucene-javadocs}/analyzers-common/org/apache/lucene/analysis/synonym/SolrSynonymParser.html[`SolrSynonymParser)`] and `wordnet` (for {lucene-javadocs}/analyzers-common/org/apache/lucene/analysis/synonym/WordnetSynonymParser.html[`WordnetSynonymParser`] ) are supported, or you may alternatively supply the name of your own {lucene-javadocs}/analyzers-common/org/apache/lucene/analysis/synonym/SynonymMap.Builder.html[`SynonymMap.Builder`] subclass.
 
 `tokenizerFactory`: (optional; default: `WhitespaceTokenizerFactory`) The name of the tokenizer factory to use when parsing the synonyms file. Arguments with the name prefix "`tokenizerFactory."` will be supplied as init params to the specified tokenizer factory. Any arguments not consumed by the synonym filter factory, including those without the "`tokenizerFactory.`" prefix, will also be supplied as init params to the tokenizer factory. If `tokenizerFactory` is specified, then `analyzer` may not be, and vice versa.
 

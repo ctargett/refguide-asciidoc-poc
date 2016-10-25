@@ -217,7 +217,7 @@ This parameter specifies the amount of time, in milliseconds, allowed for a sear
 
 This parameter may be set to either true or false.
 
-If set to true, and if <<indexconfig-in-solrconfig.adoc#IndexConfiginSolrConfig-mergePolicyFactory,the `<mergePolicyFactory/>`>> for this collection is a http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/index/SortingMergePolicyFactory.html[`SortingMergePolicyFactory`] which uses a `sort` option which is compatible with <<CommonQueryParameters-ThesortParameter,the `sort` parameter>> specified for this query, then Solr will attempt to use an http://lucene.apache.org/core/6_1_0/misc/org/apache/lucene/search/EarlyTerminatingSortingCollector.html[`EarlyTerminatingSortingCollector`].
+If set to true, and if <<indexconfig-in-solrconfig.adoc#IndexConfiginSolrConfig-mergePolicyFactory,the `<mergePolicyFactory/>`>> for this collection is a {solr-javadocs}/solr-core/org/apache/solr/index/SortingMergePolicyFactory.html[`SortingMergePolicyFactory`] which uses a `sort` option which is compatible with <<CommonQueryParameters-ThesortParameter,the `sort` parameter>> specified for this query, then Solr will attempt to use an {lucene-javadocs}/misc/org/apache/lucene/search/EarlyTerminatingSortingCollector.html[`EarlyTerminatingSortingCollector`].
 
 If early termination is used, a `segmentTerminatedEarly` header will be included in the `responseHeader`.
 

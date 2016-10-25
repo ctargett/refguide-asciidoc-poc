@@ -111,7 +111,7 @@ A common mistake is to try to filter parents with a `which` filter, as in this b
 
 Instead, you should use a sibling mandatory clause as a filter:
 
-`q=**+title:join`**+\{!parent which="****content_type:parentDocument****"}comments:SolrCloud
+`q= **+title:join** +{!parent which="**content_type:parentDocument**"}comments:SolrCloud`
 
 ====
 
@@ -151,7 +151,7 @@ Details about using the `CollapsingQParser` can be found in the section <<collap
 [[OtherParsers-ComplexPhraseQueryParser]]
 == Complex Phrase Query Parser
 
-The `ComplexPhraseQParser` provides support for wildcards, ORs, etc., inside phrase queries using Lucene's `ComplexPhraseQueryParser`. Under the covers, this query parser makes use of the Span group of queries, e.g., spanNear, spanOr, etc., and is subject to the same limitations as that family or parsers.
+The `ComplexPhraseQParser` provides support for wildcards, ORs, etc., inside phrase queries using Lucene's {lucene-javadocs}/queryparser/org/apache/lucene/queryparser/complexPhrase/ComplexPhraseQueryParser.html[`ComplexPhraseQueryParser`] . Under the covers, this query parser makes use of the Span group of queries, e.g., spanNear, spanOr, etc., and is subject to the same limitations as that family or parsers.
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -201,7 +201,7 @@ This property is described in more detail in the section <<query-settings-in-sol
 
 It is recommended not to use stopword elimination with this query parser. Lets say we add **the**, **up**, *to* to `stopwords.txt` for your collection, and index a document containing the text _"Stores up to 15,000 songs, 25,00 photos, or 150 yours of video"_ in a field named "features".
 
- While the query below does not use this parser:
+While the query below does not use this parser:
 
 [source,java]
 ----
@@ -493,7 +493,7 @@ Example:
 {!lucene q.op=AND df=text}myfield:foo +bar -baz
 ----
 
-For more information about the syntax for the Lucene Query Parser, see the http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description[Classic QueryParser javadocs].
+For more information about the syntax for the Lucene Query Parser, see the {lucene-javadocs}/queryparser/org/apache/lucene/queryparser/classic/package-summary.html[Classic QueryParser javadocs].
 
 [[OtherParsers-MaxScoreQueryParser]]
 == Max Score Query Parser
@@ -780,7 +780,7 @@ Examples:
 [[OtherParsers-XMLQueryParser]]
 == XML Query Parser
 
-The http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/search/XmlQParserPlugin.html[XmlQParserPlugin] extends the http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/search/QParserPlugin.html[QParserPlugin] and supports the creation of queries from XML. Example:
+The {solr-javadocs}/solr-core/org/apache/solr/search/XmlQParserPlugin.html[XmlQParserPlugin] extends the {solr-javadocs}/solr-core/org/apache/solr/search/QParserPlugin.html[QParserPlugin] and supports the creation of queries from XML. Example:
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -789,25 +789,25 @@ The http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/search/XmlQPar
 |q |<BooleanQuery fieldName="description"> <Clause occurs="must"> <TermQuery>shirt</TermQuery> </Clause> <Clause occurs="mustnot"> <TermQuery>plain</TermQuery> </Clause> <Clause occurs="should"> <TermQuery>cotton</TermQuery> </Clause> <Clause occurs="must"> <BooleanQuery fieldName="size"> <Clause occurs="should"> <TermsQuery>S M L</TermsQuery> </Clause> </BooleanQuery> </Clause> </BooleanQuery>
 |===
 
-The XmlQParser implementation uses the http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/search/SolrCoreParser.html[SolrCoreParser] class which extends Lucene's http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/CoreParser.html[CoreParser] class. XML elements are mapped to http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/QueryBuilder.html[QueryBuilder] classes as follows:
+The XmlQParser implementation uses the {solr-javadocs}/solr-core/org/apache/solr/search/SolrCoreParser.html[SolrCoreParser] class which extends Lucene's {lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/CoreParser.html[CoreParser] class. XML elements are mapped to {lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/QueryBuilder.html[QueryBuilder] classes as follows:
 
 [width="100%",cols="50%,50%",options="header",]
 |===
 |XML element |QueryBuilder class
-|<BooleanQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/BooleanQueryBuilder.html[BooleanQueryBuilder]
-|<BoostingTermQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/BoostingTermBuilder.html[BoostingTermBuilder]
-|<ConstantScoreQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/ConstantScoreQueryBuilder.html[ConstantScoreQueryBuilder]
-|<DisjunctionMaxQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/DisjunctionMaxQueryBuilder.html[DisjunctionMaxQueryBuilder]
-|<MatchAllDocsQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/MatchAllDocsQueryBuilder.html[MatchAllDocsQueryBuilder]
-|<RangeQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/RangeQueryBuilder.html[RangeQueryBuilder]
-|<SpanFirst> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/SpanFirstBuilder.html[SpanFirstBuilder]
-|<SpanNear> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/SpanNearBuilder.html[SpanNearBuilder]
-|<SpanNot> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/SpanNotBuilder.html[SpanNotBuilder]
-|<SpanOr> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/SpanOrBuilder.html[SpanOrBuilder]
-|<SpanOrTerms> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/SpanOrTermsBuilder.html[SpanOrTermsBuilder]
-|<SpanTerm> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/SpanTermBuilder.html[SpanTermBuilder]
-|<TermQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/TermQueryBuilder.html[TermQueryBuilder]
-|<TermsQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/TermsQueryBuilder.html[TermsQueryBuilder]
-|<UserQuery> |http://lucene.apache.org/core/6_1_0/queryparser/org/apache/lucene/queryparser/xml/builders/UserInputQueryBuilder.html[UserInputQueryBuilder]
+|<BooleanQuery> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/BooleanQueryBuilder.html[BooleanQueryBuilder]
+|<BoostingTermQuery> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/BoostingTermBuilder.html[BoostingTermBuilder]
+|<ConstantScoreQuery> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/ConstantScoreQueryBuilder.html[ConstantScoreQueryBuilder]
+|<DisjunctionMaxQuery> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/DisjunctionMaxQueryBuilder.html[DisjunctionMaxQueryBuilder]
+|<MatchAllDocsQuery> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/MatchAllDocsQueryBuilder.html[MatchAllDocsQueryBuilder]
+|<RangeQuery> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/RangeQueryBuilder.html[RangeQueryBuilder]
+|<SpanFirst> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/SpanFirstBuilder.html[SpanFirstBuilder]
+|<SpanNear> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/SpanNearBuilder.html[SpanNearBuilder]
+|<SpanNot> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/SpanNotBuilder.html[SpanNotBuilder]
+|<SpanOr> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/SpanOrBuilder.html[SpanOrBuilder]
+|<SpanOrTerms> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/SpanOrTermsBuilder.html[SpanOrTermsBuilder]
+|<SpanTerm> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/SpanTermBuilder.html[SpanTermBuilder]
+|<TermQuery> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/TermQueryBuilder.html[TermQueryBuilder]
+|<TermsQuery> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/TermsQueryBuilder.html[TermsQueryBuilder]
+|<UserQuery> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/UserInputQueryBuilder.html[UserInputQueryBuilder]
 |<LegacyNumericRangeQuery> |LegacyNumericRangeQuery(Builder) is deprecated
 |===

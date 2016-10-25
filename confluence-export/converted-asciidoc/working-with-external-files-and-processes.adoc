@@ -104,13 +104,13 @@ The token stream is expressed as a JSON list of JSON maps. The map for each toke
 [cols=",,,,",options="header",]
 |===
 |Key |Description |Lucene Attribute |Value |Required?
-|`t` |token |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/CharTermAttribute.html[CharTermAttribute] |UTF-8 string representing the current token |required
-|`s` |start offset |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/OffsetAttribute.html[OffsetAttribute] |Non-negative integer |optional
+|`t` |token |{lucene-javadocs}/core/org/apache/lucene/analysis/tokenattributes/CharTermAttribute.html[CharTermAttribute] |UTF-8 string representing the current token |required
+|`s` |start offset |{lucene-javadocs}/core/org/apache/lucene/analysis/tokenattributes/OffsetAttribute.html[OffsetAttribute] |Non-negative integer |optional
 |`e` |end offset |OffsetAttribute |Non-negative integer |optional
-|`i` |position increment |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/PositionIncrementAttribute.html[PositionIncrementAttribute] |Non-negative integer - default is `1` |optional
-|`p` |payload |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/PayloadAttribute.html[PayloadAttribute] |Base64 encoded payload |optional
-|`y` |lexical type |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/TypeAttribute.html[TypeAttribute] |UTF-8 string |optional
-|`f` |flags |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/FlagsAttribute.html[FlagsAttribute] |String representing an integer value in hexadecimal format |optional
+|`i` |position increment |{lucene-javadocs}/core/org/apache/lucene/analysis/tokenattributes/PositionIncrementAttribute.html[PositionIncrementAttribute] |Non-negative integer - default is `1` |optional
+|`p` |payload |{lucene-javadocs}/core/org/apache/lucene/analysis/tokenattributes/PayloadAttribute.html[PayloadAttribute] |Base64 encoded payload |optional
+|`y` |lexical type |{lucene-javadocs}/core/org/apache/lucene/analysis/tokenattributes/TypeAttribute.html[TypeAttribute] |UTF-8 string |optional
+|`f` |flags |{lucene-javadocs}/core/org/apache/lucene/analysis/tokenattributes/FlagsAttribute.html[FlagsAttribute] |String representing an integer value in hexadecimal format |optional
 |===
 
 Any other key is silently ignored.
@@ -180,12 +180,12 @@ The following token attributes are supported, and identified with short symbolic
 [cols=",,,",options="header",]
 |===
 |Name |Description |Lucene attribute |Value format
-|`i` |position increment |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/PositionIncrementAttribute.html[PositionIncrementAttribute] |integer
-|`s` |start offset |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/OffsetAttribute.html[OffsetAttribute] |integer
+|`i` |position increment |{lucene-javadocs}/core/org/apache/lucene/analysis/tokenattributes/PositionIncrementAttribute.html[PositionIncrementAttribute] |integer
+|`s` |start offset |{lucene-javadocs}/core/org/apache/lucene/analysis/tokenattributes/OffsetAttribute.html[OffsetAttribute] |integer
 |`e` |end offset |OffsetAttribute |integer
-|`y` |lexical type |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/TypeAttribute.html[TypeAttribute] |string
-|`f` |flags |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/FlagsAttribute.html[FlagsAttribute] |hexadecimal integer
-|`p` |payload |http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/analysis/tokenattributes/PayloadAttribute.html[PayloadAttribute] |bytes in hexadecimal format; whitespace is ignored
+|`y` |lexical type |{lucene-javadocs}/core/org/apache/lucene/analysis/tokenattributes/TypeAttribute.html[TypeAttribute] |string
+|`f` |flags |{lucene-javadocs}/core/org/apache/lucene/analysis/tokenattributes/FlagsAttribute.html[FlagsAttribute] |hexadecimal integer
+|`p` |payload |{lucene-javadocs}/core/org/apache/lucene/analysis/tokenattributes/PayloadAttribute.html[PayloadAttribute] |bytes in hexadecimal format; whitespace is ignored
 |===
 
 Token positions are tracked and implicitly added to the token stream - the start and end offsets consider only the term text and whitespace, and exclude the space taken by token attributes.

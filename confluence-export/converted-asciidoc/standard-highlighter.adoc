@@ -42,4 +42,4 @@ The table below describes Solr's parameters for the Standard highlighter. These 
 == Related Content
 
 * http://wiki.apache.org/solr/HighlightingParameters[HighlightingParameters] from the Solr wiki
-* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/highlight/package-summary.html[Highlighting javadocs]
+* {solr-javadocs}/solr-core/org/apache/solr/highlight/package-summary.html[Highlighting javadocs]

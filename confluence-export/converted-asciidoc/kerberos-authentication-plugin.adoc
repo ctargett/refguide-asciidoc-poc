@@ -81,7 +81,7 @@ We'll walk through each of these steps below.
 [IMPORTANT]
 ====
 
-To use host names instead of IP addresses, use the SOLR_HOST config in `bin/solr.in.sh` or pass a `-Dhost=<hostname>` during Solr startup. This guide uses IP addresses . If you specify a hostname replace all the IP addresses in the guide with the solr hostname
+To use host names instead of IP addresses, use the SOLR_HOST config in http://solr.in[`bin/solr.in.sh`] or pass a `-Dhost=<hostname>` during Solr startup. This guide uses IP addresses . If you specify a hostname replace all the IP addresses in the guide with the solr hostname
 
 ====
 

@@ -16,7 +16,7 @@ There are several available functions, including those that implement:
 * publish/subscribe messaging
 * distributed graph traversal (Solr 6.1)
 
-Streams from outside systems can be joined with streams originating from Solr and users can add their own stream functions by following Solr's http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/io/stream/package-summary.html[Java streaming API].
+Streams from outside systems can be joined with streams originating from Solr and users can add their own stream functions by following Solr's {solr-javadocs}/solr-solrj/org/apache/solr/client/solrj/io/stream/package-summary.html[Java streaming API].
 
 [IMPORTANT]
 ====
@@ -77,7 +77,7 @@ For the above example the `/stream` handler responded with the following JSON re
 
 Note the last tuple in the above example stream is `{"EOF":true,"RESPONSE_TIME":33}`. The `EOF` indicates the end of the stream. To process the JSON response, you'll need to use a streaming JSON implementation because streaming expressions are designed to return the entire result set which may have millions of records. In your JSON client you'll need to iterate each doc (tuple) and check for the EOF tuple to determine the end of stream.
 
-The`org.apache.solr.client.solrj.io`package provides Java classes that compile streaming expressions into streaming API objects. These classes can be used to execute streaming expressions from inside a Java application. For example:
+The {solr-javadocs}/solr-solrj/org/apache/solr/client/solrj/io/package-summary.html[`org.apache.solr.client.solrj.io`] package provides Java classes that compile streaming expressions into streaming API objects. These classes can be used to execute streaming expressions from inside a Java application. For example:
 
 [source,java]
 ----

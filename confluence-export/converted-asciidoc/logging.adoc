@@ -7,7 +7,9 @@ The Logging page shows recent messages logged by this Solr node.
 When you click the link for "Logging", a page similar to the one below will be displayed:
 
 image::images/logging/logging.png[image,width=621,height=250]
-__The Main Logging Screen, including an example of an error due to a bad document sent by a client__
+
+
+_The Main Logging Screen, including an example of an error due to a bad document sent by a client_
 
 While this example shows logged messages for only one core, if you have multiple cores in a single instance, they will each be listed, with the level for each.
 

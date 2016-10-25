@@ -59,7 +59,7 @@ The table below summarizes Solr's field value faceting parameters.
 |<<Faceting-Thefacet.methodParameter,facet.method>> |Selects the algorithm or method Solr should use when faceting a field.
 |<<Faceting-Thefacet.enum.cache.minDfParameter,facet.enum.cache.minDF>> |(Advanced) Specifies the minimum document frequency (the number of documents matching a term) for which the `filterCache` should be used when determining the constraint count for that term.
 |<<Faceting-Over-RequestParameters,facet.overrequest.count>> |(Advanced) A number of documents, beyond the effective `facet.limit` to request from each shard in a distributed search
-| <<Faceting-Over-RequestParameters,facet.overrequest.ratio>> |(Advanced) A multiplier of the effective `facet.limit` to request from each shard in a distributed search
+|<<Faceting-Over-RequestParameters,facet.overrequest.ratio>> |(Advanced) A multiplier of the effective `facet.limit` to request from each shard in a distributed search
 |<<Faceting-Thefacet.threadsParameter,facet.threads>> |(Advanced) Controls parallel execution of field faceting
 |===
 
@@ -238,7 +238,7 @@ The facet.range.end specifies the upper bound of the ranges. You can specify thi
 [[Faceting-Thefacet.range.gapParameter]]
 === The `facet.range.gap` Parameter
 
-The span of each range expressed as a value to be added to the lower bound. For date fields, this should be expressed using the http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/util/DateMathParser.html[`DateMathParser` syntax] (such as, `facet.range.gap=%2B1DAY ... '+1DAY'`). You can specify this parameter on a per-field basis with the syntax of `f.<fieldname>.facet.range.gap`. For example:
+The span of each range expressed as a value to be added to the lower bound. For date fields, this should be expressed using the {solr-javadocs}/solr-core/org/apache/solr/util/DateMathParser.html[`DateMathParser` syntax] (such as, `facet.range.gap=%2B1DAY ... '+1DAY'`). You can specify this parameter on a per-field basis with the syntax of `f.<fieldname>.facet.range.gap`. For example:
 
 `f.price.facet.range.gap=100&f.age.facet.range.gap=10`
 
@@ -381,7 +381,7 @@ http://localhost:8983/solr/techproducts/select?q=*:*&facet.pivot=cat,popularity,
 [[Faceting-CombiningStatsComponentWithPivots]]
 === Combining Stats Component With Pivots
 
-In addition to some of the <<Faceting-LocalParametersforFaceting,general local parameters>> supported by other types of faceting, a `stats` local parameters can be used with `facet.pivot` to refer to `stats.field` instances (by tag) that you would like to have computed for each Pivot Constraint.
+In addition to some of the <<Faceting-LocalParametersforFaceting,general local parameters>> supported by other types of faceting, a `stats` local parameters can be used with `facet.pivot` to refer to <<the-stats-component.adoc#,`stats.field`>> instances (by tag) that you would like to have computed for each Pivot Constraint.
 
 In the example below, two different (overlapping) sets of statistics are computed for each of the facet.pivot result hierarchies:
 
@@ -600,11 +600,11 @@ facet.pivot={!range=r1}cat,inStock
 
 Although `facet.pivot.mincount` deviates in name from the `facet.mincount` parameter used by field faceting, many other Field faceting parameters described above can also be used with pivot faceting:
 
-* `facet.limit`
-* `facet.offset`
+* <<Faceting-Thefacet.limitParameter,`facet.limit`>>
+* <<Faceting-Thefacet.offsetParameter,`facet.offset`>>
 * <<Faceting-Thefacet.sortParameter,`facet.sort`>>
-* `facet.overrequest.count`
-* `facet.overrequest.ratio`
+* <<Faceting-Over-RequestParameters,`facet.overrequest.count`>>
+* <<Faceting-Over-RequestParameters,`facet.overrequest.ratio`>>
 
 [[Faceting-IntervalFaceting]]
 == Interval Faceting
@@ -677,7 +677,7 @@ q=mainquery&fq=status:public&fq=doctype:pdf&facet=true&facet.field=doctype
 
 Because everything is already constrained by the filter `doctype:pdf`, the `facet.field=doctype` facet command is currently redundant and will return 0 counts for everything except `doctype:pdf`.
 
-To implement a multi-select facet for doctype, a GUI may want to still display the other doctype values and their associated counts, as if the `doctype:pdf` constraint had not yet been applied. For example:
+To implement a multi-select facet for doctype, a GUI may want to still display the other doctype values and their associated counts, as if the http://doctypepdf[`doctype:pdf`] constraint had not yet been applied. For example:
 
 [source,java]
 ----

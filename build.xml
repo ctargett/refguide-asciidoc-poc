@@ -1,4 +1,33 @@
 <project xmlns:asciidoctor="antlib:org.asciidoctor.ant">
+  
+  <!-- TODO: assume these come from common-build.xml -->
+  <property name="version.base" value="6.2.42" />
+  <tstamp>
+    <format property="current.year" pattern="yyyy"/>
+    <format property="DSTAMP" pattern="yyyy-MM-dd"/>
+  </tstamp>
+
+  <!-- properties to use in our docs -->
+  <loadresource property="solr-docs-version">
+    <propertyresource name="version.base"/>
+    <filterchain>
+      <tokenfilter>
+        <filetokenizer/>
+        <replaceregex pattern="^(\d+\.\d+)(|\..*)$" replace="\1" flags="s"/>
+      </tokenfilter>
+    </filterchain>
+  </loadresource>
+  <loadresource property="solr-docs-version-path">
+    <propertyresource name="solr-docs-version"/>
+    <filterchain>
+      <tokenfilter>
+        <filetokenizer/>
+        <replaceregex pattern="^(\d+)\.(\d+)(|\..*)$" replace="\1_\2_0" flags="s"/>
+      </tokenfilter>
+    </filterchain>
+  </loadresource>
+  <property name="solr-javadocs" value="https://lucene.apache.org/solr/${solr-docs-version-path}/" />
+  <property name="lucene-javadocs" value="https://lucene.apache.org/core/${solr-docs-version-path}/" />
 
   <mkdir dir="lib"/>
   <!-- asciidoctor-ant 1.5.3 includes asciidoctorj 1.5.3 and asciidoctorj-pdf 1.5.0-alpha.11, which is the same as asciidoctor-pdf 1.5.0-alpha.11 -->
@@ -87,6 +116,15 @@
       <attribute key="pdf-fontsDir" value="../../pdf/fonts"/>
       <attribute key="pagenums" value='' />
       <attribute key="figure-caption!" value='' />
+      <!-- attributes used in adoc files -->
+      <!-- NOTE: If you add any attributes here for use in adoc files, you almost certainly need to also add
+           them to the _config.yml.template file for building the jekyll site as well
+      -->
+      <attribute key="solr-docs-version" value="${solr-docs-version}" />
+      <attribute key="solr-javadocs" value="${solr-javadocs}" />
+      <attribute key="lucene-javadocs" value="${lucene-javadocs}" />
+      <attribute key="build-date" value="${DSTAMP}" />
+      <attribute key="build-year" value="${current.year}" />
     </asciidoctor:convert>
     <echo>Finished Building ${basedir}/build/SolrRefGuide-all.pdf</echo>
   </target>
@@ -103,9 +141,20 @@
     <copy todir="${build.jekyll.dir}">
       <fileset dir="jekyll">
         <exclude name="**/*.adoc"/>
+        <exclude name="**/*.template"/>
         <exclude name="_site/**"/>
       </fileset>
-      </copy>
+    </copy>
+    <echo>Copy (w/prop replacement) any template files</echo>
+    <copy todir="${build.jekyll.dir}">
+      <fileset dir="jekyll">
+        <include name="**/*.template"/>
+      </fileset>
+      <mapper type="glob" from="*.template" to="*"/>
+      <filterchain>
+        <expandproperties/>
+      </filterchain>
+    </copy>
     <echo>Copying all source files from converted-asciidoc ...</echo>
     <copy todir="${build.jekyll.dir}" overwrite="true">
       <fileset dir="${asciidoc.dir}" />

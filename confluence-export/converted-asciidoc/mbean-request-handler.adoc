@@ -35,8 +35,8 @@ To return information and statistics about the CACHE category only, formatted in
 
 To return information for everything, and statistics for everything except the `fieldCache`:
 
-`http://localhost:8983/solr/techproducts/admin/mbeans?stats=true&f.fieldCache.stats=false`
+http://localhost:8983/solr/admin/mbeans?stats=true&f.fieldCache.stats=false[`http://localhost:8983/solr/techproducts/admin/mbeans?stats=true&f.fieldCache.stats=false`]
 
 To return information and statistics for the `fieldCache` only:
 
-`http://localhost:8983/solr/techproducts/admin/mbeans?key=fieldCache&stats=true`
+http://localhost:8983/solr/admin/mbeans?key=fieldCache&stats=true[`http://localhost:8983/solr/techproducts/admin/mbeans?key=fieldCache&stats=true`]

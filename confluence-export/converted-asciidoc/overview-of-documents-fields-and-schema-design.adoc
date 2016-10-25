@@ -48,7 +48,7 @@ Field analysis is an important part of a field type. <<understanding-analyzers-t
 Solr stores details about the field types and fields it is expected to understand in a schema file. The name and location of this file may vary depending on how you initially configured Solr or if you modified it later.
 
 * `managed-schema` is the name for the schema file Solr uses by default to support making Schema changes at runtime via the <<schema-api.adoc#,Schema API>>, or <<schemaless-mode.adoc#,Schemaless Mode>> features. You may <<schema-factory-definition-in-solrconfig.adoc#,explicitly configure the managed schema features>> to use an alternative filename if you choose, but the contents of the files are still updated automatically by Solr.
-* `schema.xml` is the traditional name for a schema file which can be edited manually by users who use the `ClassicIndexSchemaFactory`.
+* `schema.xml` is the traditional name for a schema file which can be edited manually by users who use the <<schema-factory-definition-in-solrconfig.adoc#,`ClassicIndexSchemaFactory`>>.
 * If you are using SolrCloud you may not be able to find any file by these names on the local filesystem. You will only be able to see the schema through the Schema API (if enabled) or through the Solr Admin UI's <<cloud-screens.adoc#,Cloud Screens>>.
 
 Whichever name of the file is being used in your installation, the structure of the file is not changed. However, the way you interact with the file will change. If you are using the managed schema, it is expected that you only interact with the file with the Schema API, and never make manual edits. If you do not use the managed schema, you will only be able to make manual edits to the file, the Schema API will not support any modifications.

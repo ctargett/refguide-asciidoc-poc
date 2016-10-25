@@ -1747,7 +1747,7 @@ You can use the collection <<CollectionsAPI-api4,alias>> API to make sure client
 
 Additionally, there are several parameters that can be overridden:
 
- *Override Parameters*
+*Override Parameters*
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
 |===

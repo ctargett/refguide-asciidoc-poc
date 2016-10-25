@@ -222,11 +222,11 @@ header:
     style: bold_italic
   height: $base_line_height_length * 2.5
   recto_content:
-    left: 'Apache Solr Reference Guide 0.0'
-    right: 'DRAFT for POC'
+    left: 'Apache Solr Reference Guide {solr-docs-version}'
+    right: 'Page {page-number} of {page-count}'
   verso_content:
-    left: 'Apache Solr Reference Guide 0.0'
-    right: 'DRAFT for POC'
+    left: 'Page {page-number} of {page-count}'
+    right: 'Apache Solr Reference Guide {solr-docs-version}'
 footer:
   font_size: $base_font_size_small
   font_color: $base_font_color
@@ -249,13 +249,13 @@ footer:
   recto_content:
     #right: '{section-or-chapter-title} | {page-number}'
     #right: '{document-title} | {page-number}'
-    right: 'Page {page-number} of {page-count}'
-    left: '(C) 2016, Apache Software Foundation'
+    right: 'Published: {build-date}'
+    left: '(C) {build-year}, Apache Software Foundation'
     #center: '{page-number}'
   verso_content:
     #left: '{page-number} | {chapter-title}'
-    left: 'Page {page-number} of {page-count}'
-    right: '(C) 2016, Apache Software Foundation'
+    left: 'Published: {build-date}'
+    right: '(C) {build-year}, Apache Software Foundation'
     #center: '{page-number}'
 colophon:
   font_size: $base_font_size_small

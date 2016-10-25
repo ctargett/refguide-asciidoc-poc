@@ -1,4 +1,4 @@
-= Apache Solr Reference Guide: For Solr 0.0
+= Apache Solr Reference Guide: For Solr {solr-docs-version}
 :toc:
 :toc-title: Table of Contents
 

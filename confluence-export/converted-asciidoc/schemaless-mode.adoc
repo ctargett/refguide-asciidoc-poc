@@ -143,14 +143,14 @@ The UpdateRequestProcessorChain allows Solr to guess field types, and you can de
 
 Javadocs for update processor factories mentioned above:
 
-* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/update/processor/UUIDUpdateProcessorFactory.html[UUIDUpdateProcessorFactory]
-* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/update/processor/RemoveBlankFieldUpdateProcessorFactory.html[RemoveBlankFieldUpdateProcessorFactory]
-* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/update/processor/FieldNameMutatingUpdateProcessorFactory.html[FieldNameMutatingUpdateProcessorFactory]
-* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/update/processor/ParseBooleanFieldUpdateProcessorFactory.html[ParseBooleanFieldUpdateProcessorFactory]
-* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/update/processor/ParseLongFieldUpdateProcessorFactory.html[ParseLongFieldUpdateProcessorFactory]
-* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/update/processor/ParseDoubleFieldUpdateProcessorFactory.html[ParseDoubleFieldUpdateProcessorFactory]
-* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/update/processor/ParseDateFieldUpdateProcessorFactory.html[ParseDateFieldUpdateProcessorFactory]
-* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/update/processor/AddSchemaFieldsUpdateProcessorFactory.html[AddSchemaFieldsUpdateProcessorFactory]
+* {solr-javadocs}/solr-core/org/apache/solr/update/processor/UUIDUpdateProcessorFactory.html[UUIDUpdateProcessorFactory]
+* {solr-javadocs}/solr-core/org/apache/solr/update/processor/RemoveBlankFieldUpdateProcessorFactory.html[RemoveBlankFieldUpdateProcessorFactory]
+* {solr-javadocs}/solr-core/org/apache/solr/update/processor/FieldNameMutatingUpdateProcessorFactory.html[FieldNameMutatingUpdateProcessorFactory]
+* {solr-javadocs}/solr-core/org/apache/solr/update/processor/ParseBooleanFieldUpdateProcessorFactory.html[ParseBooleanFieldUpdateProcessorFactory]
+* {solr-javadocs}/solr-core/org/apache/solr/update/processor/ParseLongFieldUpdateProcessorFactory.html[ParseLongFieldUpdateProcessorFactory]
+* {solr-javadocs}/solr-core/org/apache/solr/update/processor/ParseDoubleFieldUpdateProcessorFactory.html[ParseDoubleFieldUpdateProcessorFactory]
+* {solr-javadocs}/solr-core/org/apache/solr/update/processor/ParseDateFieldUpdateProcessorFactory.html[ParseDateFieldUpdateProcessorFactory]
+* {solr-javadocs}/solr-core/org/apache/solr/update/processor/AddSchemaFieldsUpdateProcessorFactory.html[AddSchemaFieldsUpdateProcessorFactory]
 
 [[SchemalessMode-MaketheUpdateRequestProcessorChaintheDefaultfortheUpdateRequestHandler]]
 === Make the UpdateRequestProcessorChain the Default for the UpdateRequestHandler
@@ -176,7 +176,7 @@ After each of these changes have been made, Solr should be restarted (or, you ca
 [[SchemalessMode-ExamplesofIndexedDocuments]]
 == Examples of Indexed Documents
 
-Once the schemaless mode has been enabled (whether you configured it manually or are using `data_driven_schema_configs`), documents that include fields that are not defined in your schema should be added to the index, and the new fields added to the schema.
+Once the schemaless mode has been enabled (whether you configured it manually or are using `data_driven_schema_configs` ), documents that include fields that are not defined in your schema should be added to the index, and the new fields added to the schema.
 
 For example, adding a CSV document will cause its fields that are not in the schema to be added, with fieldTypes based on values:
 
@@ -196,7 +196,7 @@ Output indicating success:
 </response>
 ----
 
-The fields now in the schema (output from `curl http://localhost:8983/solr/gettingstarted/schema/fields`):
+The fields now in the schema (output from `curl http://localhost:8983/solr/gettingstarted/schema/fields` ):
 
 [source,javascript]
 ----

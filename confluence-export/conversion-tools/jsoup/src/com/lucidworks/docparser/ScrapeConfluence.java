@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.parser.Parser;
 import org.jsoup.parser.Tag;
@@ -31,6 +32,10 @@ import org.jsoup.select.NodeVisitor;
 public class ScrapeConfluence {
   static final Pattern PRE_CODE_CLASS_PATTERN = Pattern.compile("brush:\\s+([^;]+)");
   static final Pattern ANCHOR_ID_CLEANER = Pattern.compile("[^A-Za-z0-9\\.\\-\\_\\#]+");
+  static final Pattern LEADING_SPACE_PATTERN = Pattern.compile("\\A\\s+");
+  static final Pattern TRAILING_SPACE_PATTERN = Pattern.compile("\\s+\\Z");
+  static final Pattern ONLY_SPACE_PATTERN = Pattern.compile("\\A\\s*\\Z");
+  static final Pattern JAVADOC_URL_PATH_PATTERN = Pattern.compile("/(solr|core)/\\d+_\\d+_\\d+(/.*)");
   
     public static void main(String[] args) throws Exception {
         if (args.length < 3) {
@@ -136,6 +141,8 @@ public class ScrapeConfluence {
               
               // rewrite the src attribute
               element.attr("src", "images/" + imagePageShortName + "/" + filename);
+              // put each image in it's own paragragh (block type elements in adoc)
+              element.wrap("<p></p>");
             }
 
             // TODO: need to look for non image attachments and copy them as well
@@ -175,8 +182,14 @@ public class ScrapeConfluence {
     try {
       URI uri = new URI(href);
       if (uri.isAbsolute()) {
-        // TODO: look for lucene/solr javadoc URLs and replace them with some macro?
-        return href;
+        // check if it's a javadoc URL and if so update to use our adoc attribute
+        final Matcher matcher = JAVADOC_URL_PATH_PATTERN.matcher(uri.getPath());
+        if (uri.getHost().equals("lucene.apache.org") && matcher.matches()) {
+          String path = matcher.group(2);
+          return (matcher.group(1).equals("core") ? "{lucene-javadocs}" : "{solr-javadocs}") + path;
+        } else {
+          return href;
+        }
       }
       // else: not an absoulte URL...
       
@@ -280,41 +293,86 @@ public class ScrapeConfluence {
     }
     
     // unwrap various formatting tags if they are empty
-    for (String tag : Arrays.asList("strong", "em", "p", "code", "pre")) {
-      elements = docOut.getElementsByTag(tag);
-      for (Element element : elements) {
-        if (!element.hasText()) {
-          element.unwrap(); // unwrap not remove! (even w/o text might be inner nodes, ex: img)
-        }
+    // NOTE: explicitly not doing 'span' here because it might be used as an anchor
+    elements = docOut.select("strong, em, p, code, pre, span:not([id])");
+    for (Element element : elements) {
+      if (!element.hasText()) {
+        element.unwrap(); // unwrap not remove! (even w/o text might be inner nodes, ex: img)
       }
     }
+
+    // these spans aren't particularly problematic, and will largely be ignored by pandoc either way
+    // but by removing them here, they simplify some of the logic we need in other cleanup later
+    // (notably when looking for tags inside of code)
+    elements = docOut.select("span.external-link, span.nolink, span.confluence-link, code span:not([id])");
+    for (Element element : elements) {
+      element.unwrap();
+    }
     
-    // trim any leading/trailing space from the leading/trailing textNodes of formatting tags
-    for (String tag : Arrays.asList("strong", "em", "code", "pre")) {
+    // move any leading/trailing space from the leading/trailing textNodes of formatting tags
+    // out of the tags
+    // (completley removing it is dangerous because it might create run on "words")
+    for (String tag : Arrays.asList("span", "strong", "em", "code", "p")) { 
       elements = docOut.getElementsByTag(tag);
       for (Element element : elements) {
-        List<TextNode> textNodes = element.textNodes();
-        if (1 < textNodes.size()) {
-          TextNode first = textNodes.get(0);
-          first.text(first.text().replaceAll("^\\s+", ""));
-          TextNode last = textNodes.get(textNodes.size()-1);
-          last.text(last.text().replaceAll("\\s+$", ""));
+        // Note: not using textNodes() because our first text node may not be our first child,
+        // we don't want to munge spaces from the middle of our html if it just happens to be the
+        // first direct TextNode 
+        List<Node> kids = element.childNodes();
+        if (! kids.isEmpty()) {
+          if (kids.get(0) instanceof TextNode) {
+            TextNode t = (TextNode) kids.get(0);
+            Matcher m = LEADING_SPACE_PATTERN.matcher(t.text());
+            if (m.matches()) {
+              t.text(m.replaceAll(""));
+              element.before(" ");
+            }
+          }
+          if (kids.get(kids.size()-1) instanceof TextNode) {
+            TextNode t = (TextNode) kids.get(kids.size()-1);
+            Matcher m = TRAILING_SPACE_PATTERN.matcher(t.text());
+            if (m.matches()) {
+              t.text(m.replaceAll(""));
+              element.after(" ");
+            }
+          }
         }
       }
     }
 
+    // this is totally bogus, and yet confluence is doing this...
+    elements = docOut.select("code code");
+    for (Element element : elements) {
+      element.unwrap();
+    }
+    
     // fake out pandoc when an em or strong tag is inside of a code tag
     elements = docOut.select("code strong");
     for (Element element : elements) {
       element.prependText("**");
       element.appendText("**");
+      element.unwrap();
     }
     elements = docOut.select("code em");
     for (Element element : elements) {
       element.prependText("__");
       element.appendText("__");
+      element.unwrap();
     }
-      
+
+    // in asciidoc, links can wrap code, but code can not wrap links
+    // so we need to invert the relationship if/when we find it...
+    elements = docOut.select("code > a:only-child");
+    for (Element element : elements) {
+      Element code = element.parent();
+      String href= element.attr("href");
+      element.unwrap();
+      if (! href.equals(code.text())) {
+        // if the entire code block is a URL, we don't need to wrap it in another link
+        // asciidoctor will take care of that for us.
+        code.wrap("<a href=\""+href+"\"></a>");
+      }
+    }
     
     // remove confluence styles
     elements = docOut.select("[style]");
@@ -478,6 +536,22 @@ public class ScrapeConfluence {
       table.before(fakeComment);
     }
 
+    // final modification: get rid of any leading spaces in paragraphs
+    // (otherwise asciidoctor will treat them as a type of code formatting
+    elements = docOut.select("p > span:not([id]):first-child");
+    for (Element element : elements) {
+      if (ONLY_SPACE_PATTERN.matcher(element.html()).matches()) {
+        element.remove();
+      }
+    }
+    
+    // in general, pandoc/asciidoctor has problems with tags inside of "code" so log if we have anything
+    elements = docOut.select("code:has(*)");
+    for (Element element : elements) {
+      System.out.println("NOTE: code tag w/nested tags: " + element.outerHtml());
+    }
+      
+    
     docOut.normalise();
   }
 

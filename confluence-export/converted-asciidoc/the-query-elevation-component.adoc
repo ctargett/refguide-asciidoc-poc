@@ -107,11 +107,11 @@ You can force Solr to return only the results specified in the elevation file by
 
 The `[elevated]` <<transforming-result-documents.adoc#,Document Transformer>> can be used to annotate each document with information about whether or not it was elevated:
 
-`http://localhost:8983/solr/techproducts/elevate?q=ipod&df=text&fl=id,[elevated]`
+http://localhost:8983/solr/techproducts/elevate?q=ipod&df=text&fl=id,%5Belevated%5D[`http://localhost:8983/solr/techproducts/elevate?q=ipod&df=text&fl=id,[elevated]`]
 
 Likewise, it can be helpful when troubleshooting to see all matching documents – including documents that the elevation configuration would normally exclude. This is possible by using the `markExcludes=true` parameter, and then using the `[excluded]` transformer:
 
-`http://localhost:8983/solr/techproducts/elevate?q=ipod&df=text&markExcludes=true&fl=id,[elevated],[excluded]`
+http://localhost:8983/solr/techproducts/elevate?q=ipod&df=text&markExcludes=true&fl=id,%5Belevated%5D,%5Bexcluded%5D[`http://localhost:8983/solr/techproducts/elevate?q=ipod&df=text&markExcludes=true&fl=id,[elevated],[excluded]`]
 
 [[TheQueryElevationComponent-TheelevateIdsandexcludeIdsParameters]]
 === The `elevateIds` and `excludeIds` Parameters

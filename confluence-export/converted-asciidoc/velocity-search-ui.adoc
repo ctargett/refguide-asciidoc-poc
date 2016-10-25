@@ -7,6 +7,8 @@ Solr includes a sample search UI based on the <<response-writers.adoc#ResponseWr
 When using the `sample_techproducts_configs` config set, you can access the Velocity sample Search UI here: `http://localhost:8983/solr/techproducts/browse`
 
 image::images/velocity-search-ui/techproducts_browse.png[image,width=500]
- _The Velocity Search UI_
+
+
+_The Velocity Search UI_
 
 For more information about the Velocity Response Writer, see the <<response-writers.adoc#ResponseWriters-VelocityResponseWriter,Response Writer page>>.
