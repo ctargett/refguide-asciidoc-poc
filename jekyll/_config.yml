@@ -102,12 +102,7 @@ description: "Intended as a documentation theme based on Jekyll for technical wr
 # needed for sitemap.xml file only
 url:
 
-# Asciidoc settings
+# Asciidoc settings - disabled so we can use asciidoctor
 asciidoc: {}
 
-asciidoctor:
-  attributes:
-    icons: "font"
-    source-highlighter: "pygments"
-    pygments-css: "style"
-    imagesdir: refguide/images/
+# SEE ALSO: _data/adoc-attributes.yml[.template]
