@@ -115,28 +115,25 @@ url:
 # Asciidoc settings - disabled so we can use asciidoctor
 asciidoc: {}
 
+# Custom Attributes for use in our templates & adoc files.
+#
+# Declared as a YAML reference so we can refer to them via site.solr-attributes.foo in liquid templates,
+# in addition to using them below in our asciidoctor attribute configurations
+# (see https://github.com/asciidoctor/jekyll-asciidoc/issues/137)
+#
 # NOTE: If you add any attributes here for use in adoc files, you almost certainly need to also add
 # them to the <asciidoctor:convert/> ant task for building the PDF as well.
-
-asciidoctor:
-  attributes:
-    icons: "font"
-    source-highlighter: "pygments"
-    pygments-css: "style"
-    imagesdir: refguide/images/
-    solr-docs-version: "${solr-docs-version}"
-    solr-javadocs: "${solr-javadocs}"
-    lucene-javadocs: "${lucene-javadocs}"
-    build-date: "${DSTAMP}"
-    build-year: "${current.year}"
-    
-# unfortunately we can't just re-use the attributes directly in the liquid templates, so we have to
-# declare every attribute we care about using in both adoc files and liquid templates twice...
-# https://github.com/asciidoctor/jekyll-asciidoc/issues/137
-
-solr-attributes:
+solr-attributes: &solr-attributes-ref
   solr-docs-version: "${solr-docs-version}"
   solr-javadocs: "${solr-javadocs}"
   lucene-javadocs: "${lucene-javadocs}"
   build-date: "${DSTAMP}"
   build-year: "${current.year}"
+
+asciidoctor:
+  attributes:
+    <<: *solr-attributes-ref
+    icons: "font"
+    source-highlighter: "pygments"
+    pygments-css: "style"
+    imagesdir: refguide/images/
