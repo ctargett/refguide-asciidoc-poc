@@ -1,7 +1,11 @@
 <project xmlns:asciidoctor="antlib:org.asciidoctor.ant">
   
-  <!-- TODO: assume this comes from common-build.xml -->
+  <!-- TODO: assume these come from common-build.xml -->
   <property name="version.base" value="6.2.42" />
+  <tstamp>
+    <format property="current.year" pattern="yyyy"/>
+    <format property="DSTAMP" pattern="yyyy-MM-dd"/>
+  </tstamp>
 
   <!-- properties to use in our docs -->
   <loadresource property="solr-docs-version">
@@ -118,6 +122,8 @@
       <attribute key="solr-docs-version" value="${solr-docs-version}" />
       <attribute key="solr-javadocs" value="${solr-javadocs}" />
       <attribute key="lucene-javadocs" value="${lucene-javadocs}" />
+      <attribute key="build-date" value="${DSTAMP}" />
+      <attribute key="build-year" value="${current.year}" />
     </asciidoctor:convert>
     <echo>Finished Building ${basedir}/build/SolrRefGuide-all.pdf</echo>
   </target>
