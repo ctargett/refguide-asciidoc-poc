@@ -113,7 +113,7 @@
       <attribute key="figure-caption!" value='' />
       <!-- attributes used in adoc files -->
       <!-- NOTE: If you add any attributes here for use in adoc files, you almost certainly need to also add
-           them to the _data/adoc-attributes.yml.template file for building the jekyll site as well
+           them to the _config.yml.template file for building the jekyll site as well
       -->
       <attribute key="solr-docs-version" value="${solr-docs-version}" />
       <attribute key="solr-javadocs" value="${solr-javadocs}" />
@@ -158,8 +158,6 @@
     <echo>Running Jekyll...</echo>
     <exec executable="jekyll" dir="${build.jekyll.dir}">
       <arg value="build"/>
-      <arg value="--config" />
-      <arg value="_config.yml,_data/adoc-attributes.yml" />
     </exec>
     <echo>Ready to browse site: ${build.jekyll.dir}/_site/${main-page}.html</echo>
   </target>
