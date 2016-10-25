@@ -146,7 +146,7 @@ Returns milliseconds of difference between its arguments. Dates are relative to 
 * `ms(a,b)` : Returns the number of milliseconds that b occurs before a (that is, a - b)
 
  |`ms(NOW/DAY)` `ms(2000-01-01T00:00:00Z)` `ms(mydatefield)` `ms(NOW,mydatefield)` `ms(mydatefield,``2000-01-01T00:00:00Z)` `ms(datefield1,``datefield2)`
-|norm(__field__) |Returns the "norm" stored in the index for the specified field. This is the product of the index time boost and the length normalization factor, according to the http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/search/similarities/Similarity.html[Similarity] for the field. |`norm(fieldName)`
+|norm(__field__) |Returns the "norm" stored in the index for the specified field. This is the product of the index time boost and the length normalization factor, according to the {lucene-javadocs}/core/org/apache/lucene/search/similarities/Similarity.html[Similarity] for the field. |`norm(fieldName)`
 |not |The logically negated value of the wrapped function. |`not(exists(author))`: TRUE only when `exists(author)` is false.
 |numdocs |Returns the number of documents in the index, not including those that are marked as deleted but have not yet been purged. This is a constant (the same value for all documents in the index). |`numdocs()`
 |or |A logical disjunction. |`or(value1,value2):` TRUE if either `value1` or `value2` is true.
@@ -186,7 +186,7 @@ The current implementation cannot distinguish when documents have been deleted o
 |sum |Returns the sum of multiple values or functions, which are specified in a comma-separated list. `add(...)` may be used as an alias for this function |`sum(x,y,...) sum(x,1)` `sum(x,y)` `sum(sqrt(x),log(y),z,0.5)add(x,y)`
 |sumtotaltermfreq |Returns the sum of `totaltermfreq` values for all terms in the field in the entire index (i.e., the number of indexed tokens for that field). (Aliases `sumtotaltermfreq` to `sttf`.) |If doc1:(fieldX:A B C) and doc2:(fieldX:A A A A): `docFreq(fieldX:A)` = 2 (A appears in 2 docs) `freq(doc1, fieldX:A)` = 4 (A appears 4 times in doc 2) `totalTermFreq(fieldX:A)` = 5 (A appears 5 times across all docs) `sumTotalTermFreq(fieldX)` = 7 in `fieldX`, there are 5 As, 1 B, 1 C
 |termfreq |Returns the number of times the term appears in the field for that document. |`termfreq(text,'memory')`
-|tf |Term frequency; returns the term frequency factor for the given term, using the http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/search/similarities/Similarity.html[Similarity] for the field. The `tf-idf` value increases proportionally to the number of times a word appears in the document, but is offset by the frequency of the word in the document, which helps to control for the fact that some words are generally more common than others. See also `idf`. |`tf(text,'solr')`
+|tf |Term frequency; returns the term frequency factor for the given term, using the {lucene-javadocs}/core/org/apache/lucene/search/similarities/Similarity.html[Similarity] for the field. The `tf-idf` value increases proportionally to the number of times a word appears in the document, but is offset by the frequency of the word in the document, which helps to control for the fact that some words are generally more common than others. See also `idf`. |`tf(text,'solr')`
 |top a|
 Causes the function query argument to derive its values from the top-level IndexReader containing all parts of an index. For example, the ordinal of a value in a single segment will be different from the ordinal of that same value in the complete index.
 

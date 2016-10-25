@@ -2,7 +2,7 @@
 :page-shortname: upgrading-solr
 :page-permalink: upgrading-solr.html
 
-If you are already using Solr 6.0, Solr 6.1 should not present any major problems. However, you should review the http://lucene.apache.org/solr/6_1_0/changes/Changes.html[`CHANGES.txt`] file found in your Solr package for changes and updates that may effect your existing implementation. Detailed steps for upgrading a Solr cluster can be found in the appendix: <<upgrading-a-solr-cluster.adoc#,Upgrading a Solr Cluster>>.
+If you are already using Solr 6.0, Solr 6.1 should not present any major problems. However, you should review the {solr-javadocs}/changes/Changes.html[`CHANGES.txt`] file found in your Solr package for changes and updates that may effect your existing implementation. Detailed steps for upgrading a Solr cluster can be found in the appendix: <<upgrading-a-solr-cluster.adoc#,Upgrading a Solr Cluster>>.
 
 [[UpgradingSolr-Upgradingfrom6.1.x]]
 == Upgrading from 6.1.x
@@ -17,7 +17,7 @@ If you are already using Solr 6.0, Solr 6.1 should not present any major problem
 
 * The deprecated `SolrServer` and subclasses have been removed, use <<using-solrj.adoc#,`SolrClient`>> instead.
 * The deprecated `<nrtMode>` configuration in <<configuring-solrconfig-xml.adoc#,`solrconfig.xml`>> has been removed. Please remove it from `solrconfig.xml`.
-* `SolrClient.shutdown()` has been removed, use http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/SolrClient.html#close()[`SolrClient.close()`] instead.
+* `SolrClient.shutdown()` has been removed, use {solr-javadocs}/solr-solrj/org/apache/solr/client/solrj/SolrClient.html[`SolrClient.close()`] instead.
 * The deprecated `zkCredientialsProvider` element in `solrcloud` section of `solr.xml` is now removed. Use the correct spelling (<<zookeeper-access-control.adoc#,`zkCredentialsProvider`>>) instead.
 * Internal/expert - `ResultContext` was significantly changed and expanded to allow for multiple full query results (`DocLists`) per Solr request. `TransformContext` was rendered redundant and was removed. See https://issues.apache.org/jira/browse/SOLR-7957[SOLR-7957] for details.
 * Several changes have been made regarding the "<<other-schema-elements.adoc#OtherSchemaElements-Similarity,`Similarity`>>" used in Solr, in order to provide better default behavior for new users. There are 3 key impacts of these changes on existing users who upgrade:
@@ -37,6 +37,6 @@ If you are already using Solr 6.0, Solr 6.1 should not present any major problem
 [[UpgradingSolr-UpgradingfromOlderVersionsofSolr]]
 == Upgrading from Older Versions of Solr
 
-Users upgrading from older versions are strongly encouraged to consult http://lucene.apache.org/solr/6_1_0/changes/Changes.html[`CHANGES.txt`] for the details of _all_ changes since the version they are upgrading from.
+Users upgrading from older versions are strongly encouraged to consult {solr-javadocs}/changes/Changes.html[`CHANGES.txt`] for the details of _all_ changes since the version they are upgrading from.
 
 A summary of the significant changes between Solr 5.x and Solr 6.0 can be found in the <<major-changes-from-solr-5-to-solr-6.adoc#,Major Changes from Solr 5 to Solr 6>> section.

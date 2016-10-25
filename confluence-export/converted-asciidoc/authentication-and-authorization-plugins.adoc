@@ -114,7 +114,7 @@ Solr has two implementations of authentication plugins:
 [[AuthenticationandAuthorizationPlugins-Authorization]]
 == Authorization
 
-An authorization plugin can be written for Solr by extending the http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/security/AuthorizationPlugin.html[AuthorizationPlugin] interface.
+An authorization plugin can be written for Solr by extending the {solr-javadocs}/solr-core/org/apache/solr/security/AuthorizationPlugin.html[AuthorizationPlugin] interface.
 
 [[AuthenticationandAuthorizationPlugins-LoadingaCustomPlugin]]
 === Loading a Custom Plugin

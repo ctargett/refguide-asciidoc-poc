@@ -35,6 +35,7 @@ public class ScrapeConfluence {
   static final Pattern LEADING_SPACE_PATTERN = Pattern.compile("\\A\\s+");
   static final Pattern TRAILING_SPACE_PATTERN = Pattern.compile("\\s+\\Z");
   static final Pattern ONLY_SPACE_PATTERN = Pattern.compile("\\A\\s*\\Z");
+  static final Pattern JAVADOC_URL_PATH_PATTERN = Pattern.compile("/(solr|core)/\\d+_\\d+_\\d+(/.*)");
   
     public static void main(String[] args) throws Exception {
         if (args.length < 3) {
@@ -181,8 +182,14 @@ public class ScrapeConfluence {
     try {
       URI uri = new URI(href);
       if (uri.isAbsolute()) {
-        // TODO: look for lucene/solr javadoc URLs and replace them with some macro?
-        return href;
+        // check if it's a javadoc URL and if so update to use our adoc attribute
+        final Matcher matcher = JAVADOC_URL_PATH_PATTERN.matcher(uri.getPath());
+        if (uri.getHost().equals("lucene.apache.org") && matcher.matches()) {
+          String path = matcher.group(2);
+          return (matcher.group(1).equals("core") ? "{lucene-javadocs}" : "{solr-javadocs}") + path;
+        } else {
+          return href;
+        }
       }
       // else: not an absoulte URL...
       

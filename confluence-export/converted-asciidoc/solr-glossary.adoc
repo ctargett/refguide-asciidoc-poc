@@ -96,7 +96,7 @@ The content to be indexed/searched along with metadata defining how the content 
 [[SolrGlossary-Inversedocumentfrequency_IDF_]]
 ====== Inverse document frequency (IDF)
 
-A measure of the general importance of a term. It is calculated as the number of total Documents divided by the number of Documents that a particular word occurs in the collection. See http://en.wikipedia.org/wiki/Tf-idf and http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/search/similarities/TFIDFSimilarity.html[the Lucene TFIDFSimilarity javadocs] for more info on TF-IDF based scoring and Lucene scoring in particular. See also <<SolrGlossary-Termfrequency,#Term frequency>>.
+A measure of the general importance of a term. It is calculated as the number of total Documents divided by the number of Documents that a particular word occurs in the collection. See http://en.wikipedia.org/wiki/Tf-idf and {lucene-javadocs}/core/org/apache/lucene/search/similarities/TFIDFSimilarity.html[the Lucene TFIDFSimilarity javadocs] for more info on TF-IDF based scoring and Lucene scoring in particular. See also <<SolrGlossary-Termfrequency,#Term frequency>>.
 
 [[SolrGlossary-Invertedindex]]
 ====== Inverted index
@@ -239,7 +239,7 @@ Synonyms generally are terms which are near to each other in meaning and may sub
 [[SolrGlossary-Termfrequency]]
 ====== Term frequency
 
-The number of times a word occurs in a given document. See http://en.wikipedia.org/wiki/Tf-idf and http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/search/similarities/TFIDFSimilarity.html[the Lucene TFIDFSimilarity javadocs] for more info on TF-IDF based scoring and Lucene scoring in particular. See also <<SolrGlossary-Inversedocumentfrequency_IDF_,#Inverse document frequency (IDF)>>.
+The number of times a word occurs in a given document. See http://en.wikipedia.org/wiki/Tf-idf and {lucene-javadocs}/core/org/apache/lucene/search/similarities/TFIDFSimilarity.html[the Lucene TFIDFSimilarity javadocs] for more info on TF-IDF based scoring and Lucene scoring in particular. See also <<SolrGlossary-Inversedocumentfrequency_IDF_,#Inverse document frequency (IDF)>>.
 
 [[SolrGlossary-Transactionlog]]
 ====== Transaction log

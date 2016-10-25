@@ -80,4 +80,4 @@ The table below describes Solr's parameters for this highlighter. These paramete
 == Related Content
 
 * http://wiki.apache.org/solr/PostingsHighlighter[PostingsHighlighter] from the Solr wiki
-* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/highlight/PostingsSolrHighlighter.html[PostingsSolrHighlighter javadoc]
+* {solr-javadocs}/solr-core/org/apache/solr/highlight/PostingsSolrHighlighter.html[PostingsSolrHighlighter javadoc]

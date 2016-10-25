@@ -50,7 +50,7 @@ Controls whether newly written (and not yet merged) index segments should use th
 [[IndexConfiginSolrConfig-mergePolicyFactory]]
 === `mergePolicyFactory`
 
-Defines how merging segments is done. The default in Solr is to use a `TieredMergePolicy`, which merges segments of approximately equal size, subject to an allowed number of segments per tier. Other policies available are the `LogByteSizeMergePolicy` and `LogDocMergePolicy`. For more information on these policies, please see http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/index/MergePolicy.html[the MergePolicy javadocs].
+Defines how merging segments is done. The default in Solr is to use a `TieredMergePolicy`, which merges segments of approximately equal size, subject to an allowed number of segments per tier. Other policies available are the `LogByteSizeMergePolicy` and `LogDocMergePolicy`. For more information on these policies, please see {lucene-javadocs}/core/org/apache/lucene/index/MergePolicy.html[the MergePolicy javadocs].
 
 [source,xml]
 ----
@@ -78,7 +78,7 @@ Conversely, keeping more segments can accelerate indexing, because merges happen
 [[IndexConfiginSolrConfig-CustomizingMergePolicies]]
 === Customizing Merge Policies
 
-If the configuration options for the built-in merge policies do not fully suit your use case, you can customize them: either by creating a custom merge policy factory that you specify in your configuration, or by configuring a http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/index/WrapperMergePolicyFactory.html[merge policy wrapper] which uses a `wrapped.prefix` configuration option to control how the factory it wraps will be configured:
+If the configuration options for the built-in merge policies do not fully suit your use case, you can customize them: either by creating a custom merge policy factory that you specify in your configuration, or by configuring a {solr-javadocs}/solr-core/org/apache/solr/index/WrapperMergePolicyFactory.html[merge policy wrapper] which uses a `wrapped.prefix` configuration option to control how the factory it wraps will be configured:
 
 [source,xml]
 ----
@@ -91,7 +91,7 @@ If the configuration options for the built-in merge policies do not fully suit y
 </mergePolicyFactory>
 ----
 
-The example above shows Solr's http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/index/SortingMergePolicyFactory.html[`SortingMergePolicyFactory`] being configured to sort documents in merged segments by `"timestamp desc"`, and wrapped around a `TieredMergePolicyFactory` configured to use the values `maxMergeAtOnce=10` and `segmentsPerTier=10` via the `inner` prefix defined by `SortingMergePolicyFactory`'s `wrapped.prefix` option. For more information on using `SortingMergePolicyFactory`, see <<common-query-parameters.adoc#CommonQueryParameters-ThesegmentTerminateEarlyParameter,the segmentTerminateEarly parameter>>.
+The example above shows Solr's {solr-javadocs}/solr-core/org/apache/solr/index/SortingMergePolicyFactory.html[`SortingMergePolicyFactory`] being configured to sort documents in merged segments by `"timestamp desc"`, and wrapped around a `TieredMergePolicyFactory` configured to use the values `maxMergeAtOnce=10` and `segmentsPerTier=10` via the `inner` prefix defined by `SortingMergePolicyFactory`'s `wrapped.prefix` option. For more information on using `SortingMergePolicyFactory`, see <<common-query-parameters.adoc#CommonQueryParameters-ThesegmentTerminateEarlyParameter,the segmentTerminateEarly parameter>>.
 
 [[IndexConfiginSolrConfig-mergeScheduler]]
 === `mergeScheduler`

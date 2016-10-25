@@ -2,7 +2,7 @@
 :page-shortname: indexupgrader-tool
 :page-permalink: indexupgrader-tool.html
 
-The Lucene distribution includes http://lucene.apache.org/core/6_1_0/core/org/apache/lucene/index/IndexUpgrader.html[a tool that upgrades] an index from previous Lucene versions to the current file format.
+The Lucene distribution includes {lucene-javadocs}/core/org/apache/lucene/index/IndexUpgrader.html[a tool that upgrades] an index from previous Lucene versions to the current file format.
 
 The tool can be used from command line, or it can be instantiated and executed in Java.
 

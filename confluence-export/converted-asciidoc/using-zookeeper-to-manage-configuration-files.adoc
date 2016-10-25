@@ -41,7 +41,7 @@ It's a good idea to keep these files under version control.
 [[UsingZooKeepertoManageConfigurationFiles-UploadingconfigsusingzkcliorSolrJ]]
 == Uploading configs using zkcli or SolrJ
 
-In production situations, <<config-sets.adoc#,Config Sets>> can also be uploaded to ZooKeeper independent of collection creation using either Solr's <<command-line-utilities.adoc#,zkcli.sh script,>> or the http://lucene.apache.org/solr/6_1_0/solr-solrj/org/apache/solr/client/solrj/impl/CloudSolrClient.html#uploadConfig(java.nio.file.Path,java.lang.String)[CloudSolrClient.uploadConfig] java method.
+In production situations, <<config-sets.adoc#,Config Sets>> can also be uploaded to ZooKeeper independent of collection creation using either Solr's <<command-line-utilities.adoc#,zkcli.sh script,>> or the {solr-javadocs}/solr-solrj/org/apache/solr/client/solrj/impl/CloudSolrClient.html[CloudSolrClient.uploadConfig] java method.
 
 The below command can be used to upload a new configset using the zkcli script.
 

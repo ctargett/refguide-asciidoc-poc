@@ -266,4 +266,4 @@ The TermsComponent also supports distributed indexes. For the `/terms` request h
 == More Resources
 
 * https://wiki.apache.org/solr/TermsComponent[TermsComponent wiki page]
-* http://lucene.apache.org/solr/6_1_0/solr-core/org/apache/solr/handler/component/TermsComponent.html[TermsComponent javadoc]
+* {solr-javadocs}/solr-core/org/apache/solr/handler/component/TermsComponent.html[TermsComponent javadoc]
