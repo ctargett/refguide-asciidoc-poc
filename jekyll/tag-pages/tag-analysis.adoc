@@ -1,6 +1,0 @@
-= Analysis Pages
-:page-tagName: analysis
-:page-search: exclude
-:page-permalink: tag-analysis.html
-
-{% include taglogic.html %}
