@@ -102,18 +102,15 @@
     <move file="${build.jekyll.dir}/images" todir="${build.jekyll.dir}/refguide/images/" />
   </target>
 
-  <target name="build-nav" depends="jar,build-init">
-    <!-- TODO: for now, put these in _data since thats where sidebar.json lives
-         but in final refguide, they should live in some tmp dir somewhere? outside of git?
-    -->
-    <mkdir dir="${asciidoc.dir}/_data"/>
-    <delete file="${asciidoc.dir}/_data/pdf-main-body.adoc" />
-    <delete file="${asciidoc.dir}/_data/sidebar.json" />
+  <target name="build-nav" depends="jar,build-init" description="creates sidebar and pdf include files in build dir">
+    <mkdir dir="${build.jekyll.dir}/_data"/>
+    <delete file="${build.jekyll.dir}/_data/pdf-main-body.adoc" />
+    <delete file="${build.jekyll.dir}/_data/sidebar.json" />
     <java classname="BuildNavAndPDFBody"
           failonerror="true"
           fork="true">
       <classpath refid="classpath"/>
-      <arg value="${asciidoc.dir}"/>
+      <arg value="${build.jekyll.dir}"/>
       <arg value="${main-page}"/>
     </java>
   </target>
@@ -123,19 +120,21 @@
        v1.5.3 of asciidoctor-ant includes asciidoctorj-pdf 1.5.0-alpha.11, which is the same as asciidoctor-pdf 1.5.0-alpha.11  -->
   <target name="build-pdf"
           depends="build-nav"
-          description="Builds a PDF against all converted-asciidoc files">
+          description="Builds a PDF">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
              classpath="lib/asciidoctor-ant.jar"/>
+    <!-- TODO: move ./pdf into jekyll and exclude it in jekyll config ? -->
+    <!-- TODO: images dir is currently a hackish mess -->
     <asciidoctor:convert
                  sourceDirectory="pdf"
                  sourceDocumentName="SolrRefGuide-all.adoc"
-                 baseDir="confluence-export/converted-asciidoc/"
+                 baseDir="${build.jekyll.dir}"
                  outputDirectory="build"
                  backend="pdf"
                  extensions="adoc"
                  sourceHighlighter="coderay"
                  embedAssets="true"
-                 imagesDir="${asciidoc.dir}"
+                 imagesDir="${build.jekyll.dir}/refguide/images"
                  doctype="book"
                  safemode="unsafe">
       <attribute key="icons" value="font" />
