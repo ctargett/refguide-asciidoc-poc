@@ -97,9 +97,6 @@
     <copy todir="${build.jekyll.dir}" overwrite="true">
       <fileset dir="${asciidoc.dir}" />
     </copy>
-    <echo>Moving images so we don't have to change _config.yml (I'm lazy)</echo> <!-- TODO: HACK -->
-    <mkdir dir="${build.jekyll.dir}/refguide/images" />
-    <move file="${build.jekyll.dir}/images" todir="${build.jekyll.dir}/refguide/images/" />
   </target>
 
   <target name="build-nav" depends="jar,build-init" description="creates sidebar and pdf include files in build dir">
@@ -134,7 +131,7 @@
                  extensions="adoc"
                  sourceHighlighter="coderay"
                  embedAssets="true"
-                 imagesDir="${build.jekyll.dir}/refguide/images"
+                 imagesDir="${build.jekyll.dir}"
                  doctype="book"
                  safemode="unsafe">
       <attribute key="icons" value="font" />

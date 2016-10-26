@@ -136,4 +136,4 @@ asciidoctor:
     icons: "font"
     source-highlighter: "pygments"
     pygments-css: "style"
-    imagesdir: refguide/images/
+
