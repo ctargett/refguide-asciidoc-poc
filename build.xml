@@ -71,8 +71,38 @@
                includes="**/*.class"/>
     </jar>
   </target>
+  
+  <target name="build-init" description="Prepares the build dir">
+    <delete dir="${build.jekyll.dir}" />
+    <mkdir dir="${build.jekyll.dir}" />
+    <echo>Copying all non adoc files from jekylltest ...</echo>
+    <copy todir="${build.jekyll.dir}">
+      <fileset dir="jekyll">
+        <exclude name="**/*.adoc"/>
+        <exclude name="**/*.template"/>
+        <exclude name="_site/**"/>
+      </fileset>
+    </copy>
+    <echo>Copy (w/prop replacement) any template files</echo>
+    <copy todir="${build.jekyll.dir}">
+      <fileset dir="jekyll">
+        <include name="**/*.template"/>
+      </fileset>
+      <mapper type="glob" from="*.template" to="*"/>
+      <filterchain>
+        <expandproperties/>
+      </filterchain>
+    </copy>
+    <echo>Copying all source files from converted-asciidoc ...</echo>
+    <copy todir="${build.jekyll.dir}" overwrite="true">
+      <fileset dir="${asciidoc.dir}" />
+    </copy>
+    <echo>Moving images so we don't have to change _config.yml (I'm lazy)</echo> <!-- TODO: HACK -->
+    <mkdir dir="${build.jekyll.dir}/refguide/images" />
+    <move file="${build.jekyll.dir}/images" todir="${build.jekyll.dir}/refguide/images/" />
+  </target>
 
-  <target name="build-nav" depends="jar">
+  <target name="build-nav" depends="jar,build-init">
     <!-- TODO: for now, put these in _data since thats where sidebar.json lives
          but in final refguide, they should live in some tmp dir somewhere? outside of git?
     -->
@@ -133,35 +163,8 @@
     Builds site with Jekyll. This (for now) assumes that Jekyll (http://jekyllrb.com) is installed locally. -->
 
   <target name="build-jekyll"
-          depends="build-nav"
-          description="Builds a Jekyll Site using the converted-asciidoc files">
-    <delete dir="${build.jekyll.dir}" />
-    <mkdir dir="${build.jekyll.dir}" />
-    <echo>Copying all non adoc files from jekylltest ...</echo>
-    <copy todir="${build.jekyll.dir}">
-      <fileset dir="jekyll">
-        <exclude name="**/*.adoc"/>
-        <exclude name="**/*.template"/>
-        <exclude name="_site/**"/>
-      </fileset>
-    </copy>
-    <echo>Copy (w/prop replacement) any template files</echo>
-    <copy todir="${build.jekyll.dir}">
-      <fileset dir="jekyll">
-        <include name="**/*.template"/>
-      </fileset>
-      <mapper type="glob" from="*.template" to="*"/>
-      <filterchain>
-        <expandproperties/>
-      </filterchain>
-    </copy>
-    <echo>Copying all source files from converted-asciidoc ...</echo>
-    <copy todir="${build.jekyll.dir}" overwrite="true">
-      <fileset dir="${asciidoc.dir}" />
-    </copy>
-    <echo>Moving images so we don't have to change _config.yml (I'm lazy)</echo> <!-- TODO: HACK -->
-    <mkdir dir="${build.jekyll.dir}/refguide/images" />
-    <move file="${build.jekyll.dir}/images" todir="${build.jekyll.dir}/refguide/images/" />
+          depends="build-init,build-nav"
+          description="Builds a Jekyll Site">
     <echo>Running Jekyll...</echo>
     <exec executable="jekyll" dir="${build.jekyll.dir}">
       <arg value="build"/>
