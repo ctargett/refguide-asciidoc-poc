@@ -37,6 +37,7 @@ port: 4015
 exclude:
   - .idea/
   - .gitignore
+  - pdf/
 # these are the files and directories that jekyll will exclude from the build
 
 feedback_email: ctargett@apache.org

@@ -78,9 +78,7 @@
     <echo>Copying all non adoc files from jekylltest ...</echo>
     <copy todir="${build.jekyll.dir}">
       <fileset dir="jekyll">
-        <exclude name="**/*.adoc"/>
         <exclude name="**/*.template"/>
-        <exclude name="_site/**"/>
       </fileset>
     </copy>
     <echo>Copy (w/prop replacement) any template files</echo>
@@ -120,10 +118,8 @@
           description="Builds a PDF">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
              classpath="lib/asciidoctor-ant.jar"/>
-    <!-- TODO: move ./pdf into jekyll and exclude it in jekyll config ? -->
-    <!-- TODO: images dir is currently a hackish mess -->
     <asciidoctor:convert
-                 sourceDirectory="pdf"
+                 sourceDirectory="${build.jekyll.dir}/pdf"
                  sourceDocumentName="SolrRefGuide-all.adoc"
                  baseDir="${build.jekyll.dir}"
                  outputDirectory="build"
@@ -137,9 +133,9 @@
       <attribute key="icons" value="font" />
       <attribute key="icon-set" value="fa" />
       <attribute key="docinfo!" value='' />
-      <attribute key="pdf-stylesDir" value="../../pdf/themes"/>
+      <attribute key="pdf-stylesDir" value="./pdf/themes"/>
       <attribute key="pdf-style" value="refguide"/>
-      <attribute key="pdf-fontsDir" value="../../pdf/fonts"/>
+      <attribute key="pdf-fontsDir" value="./pdf/fonts"/>
       <attribute key="pagenums" value='' />
       <attribute key="figure-caption!" value='' />
       <!-- attributes used in adoc files -->
