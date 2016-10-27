@@ -40,7 +40,6 @@
        dest="${org-json.jar.path}" usetimestamp="true"/>
 
   <!-- TODO: this should be same as what jekyll uses -->
-  <property name="asciidoc.dir" location="../confluence-export/converted-asciidoc/" />
   <property name="build.jekyll.dir" location="build/content" />
   <property name="main-page" value="apache-solr-reference-guide" />
   <property name="pdf-filename" value="apache-solr-ref-guide-${solr-docs-version}.pdf" />
@@ -93,10 +92,6 @@
       <filterchain>
         <expandproperties/>
       </filterchain>
-    </copy>
-    <echo>Copying all source files from converted-asciidoc ...</echo>
-    <copy todir="${build.jekyll.dir}" overwrite="true">
-      <fileset dir="${asciidoc.dir}" />
     </copy>
   </target>
 

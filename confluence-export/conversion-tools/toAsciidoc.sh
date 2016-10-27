@@ -31,7 +31,7 @@ then
 fi
 
 HTML_DIR="$WORK_DIR/cleaned-export"
-ASCII_DIR="$WORK_DIR/converted-asciidoc"
+ASCII_DIR="$WORK_DIR/../solr-ref-guide/src"
 
 rm $ASCII_DIR/*.adoc
 
