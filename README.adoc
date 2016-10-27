@@ -12,30 +12,16 @@ See the wiki page in this repo https://github.com/ctargett/refguide-asciidoc-poc
 == What's in this Repo?
 This repo is a proof-of-concept for converting the Ref Guide to Asciidoc format. It includes:
 
-* The current Ref Guide exported to HTML format (on 31 August 2015), and converted to Asciidoc format, in the `confluence-export` directory.
-* Scripts to support converting from Confluence to Asciidoc format.
-* Sample pages from the conversion with additional cleanup, in the `asciidoc` directory.
-* A sample `build.xml` to generate publishable versions of the sample pages.
-* Sample configs for Jekyll and JBake as static site generators to demonstrate integration of comments, site navigation, etc.
-
-== How to Build
-This repo includes HTML pages already generated for casual review. A demo is also available at https://home.apache.org/~ctargett/RefGuidePOC.
-
-However, this project includes `ant` targets for building HTML and PDF versions of the Ref Guide. The idea is that these could eventually be integrated with Solr's build tasks to automatically generate the Solr Ref Guide.
-
-* `ant asciidoctor` builds the HTML files by finding all `.adoc` files from `asciidoc` directory and making an HTML file for each page. It downloads the https://github.com/asciidoctor/asciidoctor-ant[asciidoctor-ant] .jar file as a dependency.
-* `ant jbake-site` builds a full HTML site using JBake, a static site generator. This provides templatized HTML files. `ant jbake-clean` removes previously built files. This requires (at the moment) that http://www.jbake.org/[JBake] is installed where the build will occur.
-* `ant jekyll-site` builds a full HTML site using Jekyll, another static site generator. `ant jekyll-clean` removes previously built files. This requires (at the moment) that https://jekyllrb.com/[Jekyll] is installed where the build is happening.
-* `ant pdf2` builds a PDF from the files defined in `jekylltest/SolrRefGuide.adoc`. This uses the same `asciidoctor-ant` jar used with the `asciidoctor` target and will be downloaded to the build machine when necessary.
-
-== Conversion Tools
-
-See this repo's wiki page  https://github.com/ctargett/refguide-asciidoc-poc/wiki/ContentConversion[Content Conversion] for details on how the content will be converted from Confluence to Asciidoc, including a list of post-conversion cleanup tasks that will need to be completed.
-
-*TO DO*
-
-* Script the remaining post-conversion cleanup tasks (as described in the page above).
-* Run through all pages to create a full set of `.adoc` pages for Jekyll & PDF.
+* `solr-ref-guide` directory
+** This showcases what the "final" ref-guide files would look like in our Git repo for maintaining & building the ref-guide
+** Only this directory, and files in it, would be copied/migrated into the official lucene-solr Git repo.
+* `confluence-export` directory
+** This contains tools for converting the raw confluence XML+HTML exports into adoc files (with images) which will be written into `solr-ref-guide/src`
+** This directory is also where the raw exports should be placed by folks interested in updating the converted docs:
+*** `confluence-export/raw-export` - put an unziped confluence HTML export here
+*** `confluence-export/raw-xml-export` - put an unziped confluence XML export here
+* `build.xml`
+** this top level `build.xml` has a single `convert-raw-confluence-exports` which handles converting the raw convluence exports into `confluence-export/cleaned-export` and then doing the final conversion to `solr-ref-guide/src/*.adoc` files
 
 == Site Generation Process
 
@@ -46,10 +32,14 @@ Confluence provides a full end-to-end solution, from editing content to publishi
 This project proposes the following:
 
 * Raw content files will be stored in Asciidoc (`.adoc`) format.
+** These files will contain metadata attributes indicating the "hierarchical" structure of the documents
+* Custom java tooling will be used to processe the ADOC file metadata to build up navication data files
 * Jekyll will be used for creation of a full HTML site.
+** the jekyll sidebar will be generated fro ma `sidebar.json` file produced by our custom java tooling
 * Asciidoctor-pdf will be used for conversion to PDF.
+** the PDF will be generated from a programatically generated ADOC file built by our custom java tooling which includes all "real" ADOC files in the correct order.
 
-More on these options below:
+More on these options below - for specifics, see `solr-ref-guide/README.adoc`
 
 === Asciidoctor
 
@@ -59,13 +49,7 @@ Asciidoctor is both the markup language AND the conversion tool. The https://git
 
 === HTML
 
-It's possible to use Asciidoctor to generate HTML pages. However, the HTML output is limited to what is defined in the source content itself. There is no ability to add site navigation or add customized JavaScript. These more robust features can be added with a static site generator like JBake or Jekyll, discussed below.
-
-The build target `asciidoctor` uses `asciidoctor-ant` plugin to convert to HTML. To generate HTML, simply run `ant asciidoctor`.
-
-This task sets the output format, defines a customized stylesheet, defines the plugin to use for code syntax highlighting, and other parameters.
-
-See this repo's wiki page https://github.com/ctargett/refguide-asciidoc-poc/wiki/BuildDetails[Build Details] for more information on the HTML output task.
+It's possible to use Asciidoctor to generate HTML pages. However, the HTML output is limited to what is defined in the source content itself. There is no ability to add site navigation or add customized JavaScript. These more robust features can be added with a static site generator like Jekyll which is what we will be using.
 
 === Jekyll
 
@@ -73,9 +57,9 @@ Jekyll is a static site generator, which uses templates to create complete websi
 
 Jekyll is the most well-known of currently available static site generators, and has the most robust development and user community, and is the most mature.
 
-Jekyll is written in Ruby. For this POC, I was unable to figure out how to get a Ruby gem into an Ant script, so building the `jekyll-site` target requires Jekyll to be installed locally beforehand.
+Jekyll is written in Ruby and depends on native libraries, so it won't be viable to use JRuby to invoke jekyll via java, so building the HTML ref guide site will require that Jekyll be installed locally beforehand.
 
-The Ant integration also uses the https://github.com/asciidoctor/jekyll-asciidoc[`jekyll-asciidoc`] plugin, which would also need to be installed locally as a dependency. The `build.xml` file needs to be updated to get these gems automatically as part of the build process.
+We're also using the https://github.com/asciidoctor/jekyll-asciidoc[`jekyll-asciidoc`] plugin, which would also need to be installed locally as a dependency. The `build.xml` file still needs to be updated to try and detect if these gems are installed as part of the build process, and give a clean error w/install instructiones if they are not.
 
 The current POC uses a Jekyll https://github.com/tomjohnson1492/documentation-theme-jekyll[Documentation Theme] developed by Tom Johnson, so the POC has a UX that is very different from out-of-the-box Jekyll.
 
@@ -92,20 +76,16 @@ The borrowed theme implements "search", but it is not a full-text search engine.
 * Fix Jekyll targets in `build.xml` to download the Ruby dependencies (Ruby, Jekyll, and jekyll-asciidoc).
 * Fix broken tag pages.
 * Further CSS consolidation.
-* Experiment with approaches to automating the generation of sidebar topic headings. The current approach uses a manually edited data file; this could be problematic with a large number of editors.
-* Test publication with the full Ref Guide instead of a subset of pages.
+
 
 === PDF
 
-It's possible to generate PDFs for the entire Ref Guide, and there is an example of this in the `pdf2` directory in this repo (and online at http://home.apache.org/~ctargett/RefGuidePOC/pdf/SolrRefGuide-0.0-DRAFT.pdf).
+We'll use the `asciidoctor-ant` plugin which includes https://github.com/asciidoctor/asciidoctorj[`asciidoctorj`] which itself includes `asciidoctorj-pdf`, an implementation of https://github.com/asciidoctor/asciidoctor-pdf[`asciidoctor-pdf`] an Asciidoctor project to generate PDFs.
 
-The `pdf2` target in `build.xml` uses the `asciidoctor-ant` plugin referenced above in the HTML section. This plugin includes https://github.com/asciidoctor/asciidoctorj[`asciidoctorj`] which itself includes `asciidoctorj-pdf`, an implementation of https://github.com/asciidoctor/asciidoctor-pdf[`asciidoctor-pdf`] an Asciidoctor project to generate PDFs.
+This means that even w/o jekyll (or ruby) installed, anyone will be able to build the ref guide PDF using jar's that can be obtained from maven ventral via ivy.
 
-The PDF generation works a bit differently than in Confluence. It's not possible (that I've found) to specify a directory of files and have the tool include all of them in a single PDF. Instead, a single file that "includes" each other file is required. See https://github.com/ctargett/refguide-asciidoc-poc/blob/master/pdf/SolrRefGuide.adoc[pdf/SolrRefGuide.adoc] for an example. This uses Asciidoc syntax to pull content from one file into another file.
+There are some interesting issues that still need to be overcome:
 
-The example here uses the same raw content files that the Jekyll demo uses (for comparison sake), and this causes some interesting issues that still need to be overcome:
-
-* Heading levels are retained as they are defined in the source file. There is some syntax in Asciidoctor to offset levels, but this will need some experimentation.
 * Additionally, there is an https://github.com/asciidoctor/asciidoctor-pdf/issues/74[open issue] in `asciidoctor-pdf` to make page breaks in sections configurable. Without this, page breaks are happening after every h2 level, which is used extensively in the source files. Thus, there are a lot more page breaks than there should be.
 * The files will pick up any custom Asciidoctor rules added to an individual file - such as to add a table of contents section. This probably can be overridden.
 
@@ -115,24 +95,7 @@ Overall, this plugin is the easiest to use of the various options (another optio
 
 *TO DO*
 
-* Experiment with `level-offset` parameters to see if the heading problem can be fixed easily.
 * Check compression requirements.
-* Test PDF publication with the full Ref Guide instead of a subset of pages.
-* Experiment with ways to automate the page list, perhaps building on the solution that is devised for the Jekyll sidebar.
-
-=== JBake
-
-http://www.jbake.org/[JBake] is another static site generator and works similarly to Jekyll to convert source content into template-based HTML pages for web publishing.
-
-JBake is written in Java - it's tagline is "Jekyll of the JVM" - but has a much smaller suite of features and available integration tools. The community is also smaller, mostly dependent on the development efforts of a single person.
-
-I could find build examples for Maven and Gradle, but not for Ant, and am currently unable to figure out how to make the build target download the .jar. So, having JBake installed locally is a requirement to use the `jbake-site` target. JBake supports Asciidoctor natively, so no additional dependencies are required.
-
-For this project, basic templates have been created with http://freemarker.org/[Apache FreeMarker]. These templates add JavaScript for page comments (see this repo's wiki page https://github.com/ctargett/refguide-asciidoc-poc/wiki/Comments[Comments] for more detail). However, to get a navigation sidebar, we would need to write our own JavaScript to implement this feature.
-
-JBake can also support Groovy and Thymeleaf templates if those are preferred. Examples for those template engines have not been customized for this project.
-
-In essence, using JBake instead of Jekyll will require more upfront work to get the look & feel we want, and there is no guarantee some features are possible. This project is included as a comparison with Jekyll, but will not be built out any further.
 
 == Comments
 
