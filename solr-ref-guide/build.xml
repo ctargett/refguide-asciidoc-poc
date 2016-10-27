@@ -160,7 +160,7 @@
     <exec executable="jekyll" dir="${build.jekyll.dir}">
       <arg value="build"/>
     </exec>
-    <echo>Ready to browse site: ${build}/html-site/${main-page}.html</echo>
+    <echo>Ready to browse site: ${basedir/build/html-site/${main-page}.html</echo>
   </target>
 
   <target name="build"
