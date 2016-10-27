@@ -38,12 +38,6 @@ video
     display: inline-block;
 }
 
-audio:not([controls])
-{
-    display: none;
-    height: 0;
-}
-
 [hidden],
 template
 {
@@ -106,7 +100,7 @@ a.no_icon:after
     padding-left: 0;
 }
 
-/* indent extra nav levels 
+/* indent extra nav levels
    TODO: is there any easy way to do this that just incrementally applies to anything below sb-level2?
          ...w/o assuming sb-level4 is as deep as we go?
 */
@@ -119,9 +113,9 @@ ul#mysidebar li.sb-level4 a {
 /* we can style the 'current-tree' hierarchy in the sidebar independently of the 'active' page as
    the user clicks around expanding/collapsing the nav menus w/o clicking a link to load a diff page
 
-   For now: 
+   For now:
     - the 'current' page title is always bolder if 'active' (ie: visible)
-    - if the 'current' page is not 'active'/visible, then the closest ancestor that *is* 'active'/visible 
+    - if the 'current' page is not 'active'/visible, then the closest ancestor that *is* 'active'/visible
       will be bolded -- reminding the reader what section of the doc they are currently in.
 */
 ul#mysidebar li.current-tree > a {
@@ -134,11 +128,6 @@ ul#mysidebar li.current.active > a {
     font-weight: bolder;
 }
 
-
-abbr[title]
-{
-    border-bottom: 1px dotted;
-}
 
 b,
 strong
@@ -258,36 +247,11 @@ select
     text-transform: none;
 }
 
-button,
-html input[type='button'],
-input[type='reset'],
-input[type='submit']
+button
 {
     cursor: pointer;
 
     -webkit-appearance: button;
-}
-
-button[disabled],
-html input[disabled]
-{
-    cursor: default;
-}
-
-input[type='checkbox'],
-input[type='radio']
-{
-    box-sizing: border-box;
-    padding: 0;
-}
-
-input[type='search']
-{
-    -webkit-box-sizing: content-box;
-       -moz-box-sizing: content-box;
-            box-sizing: content-box;
-
-    -webkit-appearance: textfield;
 }
 
 input[type='search']::-webkit-search-cancel-button,
@@ -365,16 +329,6 @@ object
 img
 {
     -ms-interpolation-mode: bicubic;
-}
-
-#map_canvas embed,
-#map_canvas img,
-#map_canvas object,
-.map_canvas embed,
-.map_canvas img,
-.map_canvas object
-{
-    max-width: none!important;
 }
 
 .left
@@ -547,19 +501,6 @@ h6
     page-break-after: avoid;
 }
 
-#toctitle small,
-.sidebarblock > .content > .title small,
-h1 small,
-h2 small,
-h3 small,
-h4 small,
-h5 small,
-h6 small
-{
-    color: #e99b8f;
-    font-size: 60%;
-    line-height: 0;
-}
 
 /* Pad the page title and sidebar header */
 h1.post-title-main,
@@ -2326,166 +2267,6 @@ div.unbreakable
 .line-through
 {
     text-decoration: line-through;
-}
-
-.aqua
-{
-    color: #00bfbf;
-}
-
-.aqua-background
-{
-    background-color: #00fafa;
-}
-
-.black
-{
-    color: #000;
-}
-
-.black-background
-{
-    background-color: #000;
-}
-
-.blue
-{
-    color: #0000bf;
-}
-
-.blue-background
-{
-    background-color: #0000fa;
-}
-
-.fuchsia
-{
-    color: #bf00bf;
-}
-
-.fuchsia-background
-{
-    background-color: #fa00fa;
-}
-
-.gray
-{
-    color: #606060;
-}
-
-.gray-background
-{
-    background-color: #7d7d7d;
-}
-
-.green
-{
-    color: #006000;
-}
-
-.green-background
-{
-    background-color: #007d00;
-}
-
-.lime
-{
-    color: #00bf00;
-}
-
-.lime-background
-{
-    background-color: #00fa00;
-}
-
-.maroon
-{
-    color: #600000;
-}
-
-.maroon-background
-{
-    background-color: #7d0000;
-}
-
-.navy
-{
-    color: #000060;
-}
-
-.navy-background
-{
-    background-color: #00007d;
-}
-
-.olive
-{
-    color: #606000;
-}
-
-.olive-background
-{
-    background-color: #7d7d00;
-}
-
-.purple
-{
-    color: #600060;
-}
-
-.purple-background
-{
-    background-color: #7d007d;
-}
-
-.red
-{
-    color: #bf0000;
-}
-
-.red-background
-{
-    background-color: #fa0000;
-}
-
-.silver
-{
-    color: #909090;
-}
-
-.silver-background
-{
-    background-color: #bcbcbc;
-}
-
-.teal
-{
-    color: #006060;
-}
-
-.teal-background
-{
-    background-color: #007d7d;
-}
-
-.white
-{
-    color: #bfbfbf;
-}
-
-.white-background
-{
-    background-color: #fafafa;
-}
-
-.yellow
-{
-    color: #bfbf00;
-}
-
-.yellow-background
-{
-    background-color: #fafa00;
 }
 
 span.icon > .fa
