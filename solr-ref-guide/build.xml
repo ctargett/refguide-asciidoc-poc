@@ -165,13 +165,13 @@
     <exec executable="jekyll" dir="${build.jekyll.dir}">
       <arg value="build"/>
     </exec>
-    <echo>Ready to browse site: ${build.jekyll.dir}/_site/${main-page}.html</echo>
+    <echo>Ready to browse site: ${build}/html-site/${main-page}.html</echo>
   </target>
 
   <target name="build"
           depends="build-pdf,build-jekyll">
     <echo>PDF: ${basedir}/build/${pdf-filename}</echo>
-    <echo>SITE: ${build.jekyll.dir}/_site/${main-page}.html</echo>
+    <echo>SITE: ${basedir/build/html-site/${main-page}.html</echo>
   </target>
 
 </project>
