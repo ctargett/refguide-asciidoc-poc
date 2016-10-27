@@ -43,6 +43,7 @@
   <property name="asciidoc.dir" location="../confluence-export/converted-asciidoc/" />
   <property name="build.jekyll.dir" location="build/content" />
   <property name="main-page" value="apache-solr-reference-guide" />
+  <property name="pdf-filename" value="apache-solr-ref-guide-${solr-docs-version}.pdf" />
 
   <!-- ====== TOOLS FOR GENERATING/VALIDATING BITS OF THE SITE / PDF ======= -->
   <!-- TODO: put this in build/lib -->
@@ -150,7 +151,8 @@
       <attribute key="build-date" value="${DSTAMP}" />
       <attribute key="build-year" value="${current.year}" />
     </asciidoctor:convert>
-    <echo>Finished Building ${basedir}/build/SolrRefGuide-all.pdf</echo>
+    <move file="build/SolrRefGuide-all.pdf" tofile="build/${pdf-filename}" />
+    <echo>Finished Building ${basedir}/build/${pdf-filename}</echo>
   </target>
 
   <!-- ======= Jekyll Build =======
@@ -168,7 +170,7 @@
 
   <target name="build"
           depends="build-pdf,build-jekyll">
-    <echo>PDF: ${basedir}/build/SolrRefGuide-all.pdf</echo>
+    <echo>PDF: ${basedir}/build/${pdf-filename}</echo>
     <echo>SITE: ${build.jekyll.dir}/_site/${main-page}.html</echo>
   </target>
 
