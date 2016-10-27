@@ -166,14 +166,14 @@
     <exec executable="jekyll" dir="${build.content.dir}">
       <arg value="build"/>
     </exec>
-    <echo>Ready to browse site: ${basedir/build/html-site/${main-page}.html</echo>
+    <echo>Ready to browse site: ${basedir}/build/html-site/${main-page}.html</echo>
   </target>
 
   <target name="build"
           description="Builds both a PDF and HTML versions of the ref guide"
           depends="build-pdf,build-site">
     <echo>PDF: ${basedir}/build/${pdf-filename}</echo>
-    <echo>SITE: ${basedir/build/html-site/${main-page}.html</echo>
+    <echo>SITE: ${basedir}/build/html-site/${main-page}.html</echo>
   </target>
 
 </project>
