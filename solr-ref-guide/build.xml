@@ -1,12 +1,21 @@
-<project xmlns:asciidoctor="antlib:org.asciidoctor.ant">
+<project xmlns:asciidoctor="antlib:org.asciidoctor.ant" xmlns:ivy="antlib:org.apache.ivy.ant" >
   
-  <!-- TODO: assume these come from common-build.xml -->
+  <!-- TODO: once we're part of the lucene-solr git repo,
+       remove these lines and replace them with an import of common-build.xml -->
   <property name="version.base" value="6.2.42" />
   <tstamp>
     <format property="current.year" pattern="yyyy"/>
     <format property="DSTAMP" pattern="yyyy-MM-dd"/>
   </tstamp>
+  <property name="ivy.sync" value="true"/>
+    <condition property="ivy.symlink">
+    <os family="unix"/>
+  </condition>
+  <!-- <import file="....../common-build.xml"/> -->
 
+
+  
+  
   <!-- properties to use in our docs -->
   <loadresource property="solr-docs-version">
     <propertyresource name="version.base"/>
@@ -29,52 +38,52 @@
   <property name="solr-javadocs" value="https://lucene.apache.org/solr/${solr-docs-version-path}/" />
   <property name="lucene-javadocs" value="https://lucene.apache.org/core/${solr-docs-version-path}/" />
 
-  <!-- TODO: use ivy, and put this in build/lib -->
-  <mkdir dir="lib"/>
-  <!-- asciidoctor-ant 1.5.3 includes asciidoctorj 1.5.3 and asciidoctorj-pdf 1.5.0-alpha.11, which is the same as asciidoctor-pdf 1.5.0-alpha.11 -->
-  <property name="asciidoctor-ant.jar.path" location="lib/asciidoctor-ant.jar" />
-  <get src="http://repo1.maven.org/maven2/org/asciidoctor/asciidoctor-ant/1.5.3/asciidoctor-ant-1.5.3.jar"
-       dest="${asciidoctor-ant.jar.path}" usetimestamp="true"/>
-  <property name="org-json.jar.path" location="lib/org-json.jar" />
-  <get src="http://repo1.maven.org/maven2/org/json/json/20160810/json-20160810.jar"
-       dest="${org-json.jar.path}" usetimestamp="true"/>
-
+  <target name="resolve">
+    <mkdir dir="build/lib"/>
+    <ivy:retrieve type="jar,bundle" sync="${ivy.sync}" log="download-only" symlink="${ivy.symlink}"
+                  pattern="build/lib/[artifact]-[revision].[ext]" />
+  </target>
+  
   <!-- TODO: this should be same as what jekyll uses -->
   <property name="build.jekyll.dir" location="build/content" />
   <property name="main-page" value="apache-solr-reference-guide" />
   <property name="pdf-filename" value="apache-solr-ref-guide-${solr-docs-version}.pdf" />
 
   <!-- ====== TOOLS FOR GENERATING/VALIDATING BITS OF THE SITE / PDF ======= -->
-  <!-- TODO: put this in build/lib -->
-  <property name="jar"
-            value="build/tools.jar"/>
-  <path id="classpath">
-    <pathelement location="${jar}"/>
-    <pathelement location="${asciidoctor-ant.jar.path}"/>
-    <pathelement location="${org-json.jar.path}"/>
+  <property name="tools-jar-name" value="solr-ref-guide-tools.jar" />
+  <path id="tools-compile-classpath">
+    <fileset dir="build/lib">
+      <include name="**/*.jar"/>
+      <exclude name="**/${tools-jar-name}" />
+    </fileset>
+  </path>
+  <path id="tools-run-classpath">
+    <fileset dir="build/lib">
+      <include name="**/*.jar"/>
+    </fileset>
   </path>
 
   <target name="clean">
     <delete dir="build"/>
   </target>
 
-  <target name="jar">
+  <target name="build-tools-jar" depends="resolve" description="Builds the custom java tools use use for generating some data files from page metdata">
     <mkdir dir="build/classes"/>
     <javac debug="yes"
            debuglevel="source,lines,vars"
            destdir="build/classes"
            includeantruntime="false">
       <compilerarg value="-Xlint:all"/>
-      <classpath refid="classpath"/>
+      <classpath refid="tools-compile-classpath"/>
       <src path="tools/"/>
     </javac>
-    <jar destfile="${jar}">
+    <jar destfile="build/lib/${tools-jar-name}">
       <fileset dir="build/classes"
                includes="**/*.class"/>
     </jar>
   </target>
   
-  <target name="build-init" description="Prepares the build dir">
+  <target name="build-init" description="Prepares the build dir, copying over src files and transforming *.template files in the process">
     <delete dir="${build.jekyll.dir}" />
     <mkdir dir="${build.jekyll.dir}" />
     <echo>Copying all non template files from src ...</echo>
@@ -95,27 +104,25 @@
     </copy>
   </target>
 
-  <target name="build-nav" depends="jar,build-init" description="creates sidebar and pdf include files in build dir">
+  <target name="build-nav" depends="build-init,build-tools-jar" description="creates sidebar and pdf include files in build dir">
     <mkdir dir="${build.jekyll.dir}/_data"/>
     <delete file="${build.jekyll.dir}/_data/pdf-main-body.adoc" />
     <delete file="${build.jekyll.dir}/_data/sidebar.json" />
     <java classname="BuildNavAndPDFBody"
           failonerror="true"
           fork="true">
-      <classpath refid="classpath"/>
+      <classpath refid="tools-run-classpath"/>
       <arg value="${build.jekyll.dir}"/>
       <arg value="${main-page}"/>
     </java>
   </target>
 
   <!-- ====== PDF Build ======= -->
-  <!-- Build PDF with asciidoctor-ant
-       v1.5.3 of asciidoctor-ant includes asciidoctorj-pdf 1.5.0-alpha.11, which is the same as asciidoctor-pdf 1.5.0-alpha.11  -->
   <target name="build-pdf"
-          depends="build-nav"
+          depends="build-nav,resolve"
           description="Builds a PDF">
     <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
-             classpath="lib/asciidoctor-ant.jar"/>
+             classpathref="tools-run-classpath"/>
     <asciidoctor:convert
                  sourceDirectory="${build.jekyll.dir}/pdf"
                  sourceDocumentName="SolrRefGuide-all.adoc"
