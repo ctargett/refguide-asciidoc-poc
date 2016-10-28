@@ -7,3 +7,5 @@ confluence-export/raw-xml-export
 confluence-export/page-tree.xml
 html/scripts/*
 .DS_Store
+.ant_targets
+Gemfile.lock
