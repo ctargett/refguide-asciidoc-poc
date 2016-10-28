@@ -105,8 +105,6 @@
 
   <target name="build-nav-data-files" depends="build-init,build-tools-jar" description="creates nav based data files needed by both the html and pdf artifacts">
     <mkdir dir="${build.content.dir}/_data"/>
-    <delete file="${build.content.dir}/_data/pdf-main-body.adoc" />
-    <delete file="${build.content.dir}/_data/sidebar.json" />
     <java classname="BuildNavAndPDFBody"
           failonerror="true"
           fork="true">
