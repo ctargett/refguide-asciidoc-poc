@@ -1528,6 +1528,8 @@ See the Solr wiki for tips & advice on using this filter: https://wiki.apache.or
 </analyzer>
 ----
 
+ +
+
 <<main,Back to Top>>
 
 [[LanguageAnalysis-Spanish]]

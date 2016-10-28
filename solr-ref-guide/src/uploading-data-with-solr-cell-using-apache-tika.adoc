@@ -157,7 +157,15 @@ In the defaults section, we are mapping Tika's Last-Modified Metadata attribute 
 
 The `tika.config` entry points to a file containing a Tika configuration. The `date.formats` allows you to specify various `java.text.SimpleDateFormats` date formats for working with transforming extracted input to a Date. Solr comes configured with the following date formats (see the `DateUtil` in Solr):
 
-`yyyy-MM-dd'T'HH:mm:ss'Z'` `yyyy-MM-dd'T'HH:mm:ss` `yyyy-MM-dd` `yyyy-MM-dd hh:mm:ss` `yyyy-MM-dd HH:mm:ss` `EEE MMM d hh:mm:ss z yyyy` `EEE, dd MMM yyyy HH:mm:ss zzz` `EEEE, dd-MMM-yy HH:mm:ss zzz` `EEE MMM d HH:mm:ss yyyy`
+`yyyy-MM-dd'T'HH:mm:ss'Z'` +
+`yyyy-MM-dd'T'HH:mm:ss` +
+`yyyy-MM-dd` +
+`yyyy-MM-dd hh:mm:ss` +
+`yyyy-MM-dd HH:mm:ss` +
+`EEE MMM d hh:mm:ss z yyyy` +
+`EEE, dd MMM yyyy HH:mm:ss zzz` +
+`EEEE, dd-MMM-yy HH:mm:ss zzz` +
+`EEE MMM d HH:mm:ss yyyy`
 
 You may also need to adjust the `multipartUploadLimitInKB` attribute as follows if you are submitting very large documents.
 

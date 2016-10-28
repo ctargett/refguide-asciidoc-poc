@@ -41,7 +41,9 @@ If any files using the name pattern `.*` (such as `.txt`) appear, the last (afte
 
 The file contains entries that map a key field, on the left of the equals sign, to a value, on the right. Here are a few example entries:
 
-`doc33=1.414` `doc34=3.14159` `doc40=42`
+`doc33=1.414` +
+`doc34=3.14159` +
+`doc40=42`
 
 The keys listed in this file do not need to be unique. The file does not need to be sorted, but Solr will be able to perform the lookup faster if it is.
 
@@ -160,7 +162,8 @@ Special characters in "text" values can be escaped using the escape character `\
 
 [cols=",",options="header",]
 |===
-|EscapeSequence |Description
+|Escape +
+Sequence |Description
 |"`\` " |literal space character
 |"`\,`" |literal `,` character
 |"`\=`" |literal `=` character
@@ -236,7 +239,10 @@ Token positions are tracked and implicitly added to the token stream - the start
 * version: 1
 * stored: null
 * token: (term=` one ,`,positionIncrement=22,startOffset=0,endOffset=6)
-* token: (term=`two=` ,positionIncrement=1,startOffset=7,endOffset=15)
+* token: (term=`two=` +
+ +
+ +
+,positionIncrement=1,startOffset=7,endOffset=15)
 * token: (term=`\`,positionIncrement=1,startOffset=17,endOffset=18)
 
 Note that unknown attributes and their values are ignored, so in this example, the "```a```" attribute on the first token and the " " (escaped space) attribute on the second token are ignored, along with their values, because they are not among the supported attribute names.

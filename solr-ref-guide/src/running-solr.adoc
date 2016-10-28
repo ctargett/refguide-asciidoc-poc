@@ -127,6 +127,7 @@ That's it! Solr is running. If you need convincing, use a Web browser to see the
 image::images/running-solr/Screenshot%202015-01-09%2017.14.18.png[image,width=900,height=456]
 
 
+ +
 _The Solr Admin interface._
 
 If Solr is not running, your browser will complain that it cannot connect to the server. Check your port number and try again.
@@ -210,6 +211,7 @@ Just in case you are not running Solr as you read, the following screen shot sho
 image::images/running-solr/solr34_responseHeader.png[image,width=600,height=634]
 
 
+ +
 _An XML response to a query._
 
 Once you have mastered the basic idea of a query, it is easy to add enhancements to explore the query syntax. This one is the same as before but the results only contain the ID, name, and price for each returned document. If you don't specify which fields you want, all of them are returned.

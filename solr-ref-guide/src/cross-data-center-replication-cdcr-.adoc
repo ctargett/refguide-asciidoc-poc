@@ -339,14 +339,20 @@ Currently, none of the CDCR API calls have parameters.
 [[CrossDataCenterReplication_CDCR_-APIEntryPoints_Control_]]
 === API Entry Points (Control)
 
-`collection/cdcr?action=STATUS`: <<CrossDataCenterReplication_CDCR_-STATUS,Returns the current state>> of CDCR. `collection/cdcr?action=START`: <<CrossDataCenterReplication_CDCR_-START,Starts CDCR>> replication `collection/cdcr?action=STOPPED`: <<CrossDataCenterReplication_CDCR_-STOPPED,Stops CDCR>> replication. `collection/cdcr?action=ENABLEBUFFER`: <<CrossDataCenterReplication_CDCR_-ENABLEBUFFER,Enables the buffering>> of updates. `collection/cdcr?action=DISABLEBUFFER`: <<CrossDataCenterReplication_CDCR_-DISABLEBUFFER,Disables the buffering>> of updates.
+`collection/cdcr?action=STATUS`: <<CrossDataCenterReplication_CDCR_-STATUS,Returns the current state>> of CDCR. +
+`collection/cdcr?action=START`: <<CrossDataCenterReplication_CDCR_-START,Starts CDCR>> replication +
+`collection/cdcr?action=STOPPED`: <<CrossDataCenterReplication_CDCR_-STOPPED,Stops CDCR>> replication. +
+`collection/cdcr?action=ENABLEBUFFER`: <<CrossDataCenterReplication_CDCR_-ENABLEBUFFER,Enables the buffering>> of updates. +
+`collection/cdcr?action=DISABLEBUFFER`: <<CrossDataCenterReplication_CDCR_-DISABLEBUFFER,Disables the buffering>> of updates.
 
 // OLD_CONFLUENCE_ID: CrossDataCenterReplication(CDCR)-APIEntryPoints(Monitoring)
 
 [[CrossDataCenterReplication_CDCR_-APIEntryPoints_Monitoring_]]
 === API Entry Points (Monitoring)
 
-`core/cdcr?action=QUEUES`: <<CrossDataCenterReplication_CDCR_-QUEUES,Fetches statistics about the queue>> for each replica and about the update logs. `core/cdcr?action=OPS`: <<CrossDataCenterReplication_CDCR_-OPS,Fetches statistics about the replication performance>> (operations per second) for each replica `core/cdcr?action=ERRORS`: <<CrossDataCenterReplication_CDCR_-ERRORS,Fetches statistics and other information about replication errors>> for each replica.
+`core/cdcr?action=QUEUES`: <<CrossDataCenterReplication_CDCR_-QUEUES,Fetches statistics about the queue>> for each replica and about the update logs. +
+`core/cdcr?action=OPS`: <<CrossDataCenterReplication_CDCR_-OPS,Fetches statistics about the replication performance>> (operations per second) for each replica +
+`core/cdcr?action=ERRORS`: <<CrossDataCenterReplication_CDCR_-ERRORS,Fetches statistics and other information about replication errors>> for each replica.
 
 // OLD_CONFLUENCE_ID: CrossDataCenterReplication(CDCR)-ControlCommands
 

@@ -483,10 +483,10 @@ public class ScrapeConfluence {
     }
     
     // remove breaks -- TODO: why?
-    elements = docOut.getElementsByTag("br");
-    for (Element element : elements) {
-      element.remove();
-    }
+    //elements = docOut.getElementsByTag("br");
+    //for (Element element : elements) {
+    //  element.remove();
+    //}
 
     // work around https://github.com/asciidoctor/asciidoctor/issues/1873
     elements = docOut.select("[id]");

@@ -26,8 +26,10 @@ Both `zkcli.sh` (for Unix environments) and `zkcli.bat` (for Windows environment
 [width="100%",cols="34%,33%,33%",options="header",]
 |===
 |Short |Parameter Usage |Meaning
-| |`-cmd <arg>` |CLI Command to be executed: `bootstrap`, `upconfig`, `downconfig`, `linkconfig`, `makepath`, `get`, `getfile`, `put`, `putfile`, `list, ``clear `or` clusterprop`. This parameter is *mandatory*
-|`-z` |`-zkhost <locations>` |ZooKeeper host address. This parameter is *mandatory* for all CLI commands.
+| |`-cmd <arg>` |CLI Command to be executed: `bootstrap`, `upconfig`, `downconfig`, `linkconfig`, `makepath`, `get`, `getfile`, `put`, `putfile`, `list, ``clear `or` clusterprop`. +
+This parameter is *mandatory*
+|`-z` |`-zkhost <locations>` |ZooKeeper host address. +
+This parameter is *mandatory* for all CLI commands.
 |`-c` |`-collection <name>` |For `linkconfig`: name of the collection.
 |`-d` |`-confdir <path>` |For `upconfig`: a directory of configuration files. For downconfig: the destination of files pulled from Zookeeper
 |`-h` |`-help` |Display help text.
@@ -38,7 +40,8 @@ Both `zkcli.sh` (for Unix environments) and `zkcli.bat` (for Windows environment
 | |`-val <value>` |For `clusterprop`: the cluster property value. If not specified, *null* will be used as value.
 |===
 
-The short form parameter options may be specified with a single dash (eg: `-c mycollection`). The long form parameter options may be specified using either a single dash (eg: `-collection mycollection`) or a double dash (eg: `--collection mycollection`)
+The short form parameter options may be specified with a single dash (eg: `-c mycollection`). +
+The long form parameter options may be specified using either a single dash (eg: `-collection mycollection`) or a double dash (eg: `--collection mycollection`)
 
 [[CommandLineUtilities-ZooKeeperCLIExamples]]
 == ZooKeeper CLI Examples

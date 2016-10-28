@@ -172,6 +172,7 @@ The `ComplexPhraseQParser` provides support for wildcards, ORs, etc., inside phr
 {!complexphrase inOrder=false}name:"(john jon jonathan~) peters*"  
 ----
 
+ +
 A mix of ordered and unordered complex phrase queries:
 
 [source,java]
@@ -199,7 +200,7 @@ This property is described in more detail in the section <<query-settings-in-sol
 [[OtherParsers-Stopwords]]
 ==== Stopwords
 
-It is recommended not to use stopword elimination with this query parser. Lets say we add **the**, **up**, *to* to `stopwords.txt` for your collection, and index a document containing the text _"Stores up to 15,000 songs, 25,00 photos, or 150 yours of video"_ in a field named "features".
+It is recommended not to use stopword elimination with this query parser. Lets say we add **the**, **up**, *to* to `stopwords.txt` for your collection, and index a document containing the text _"Stores up to 15,000 songs, 25,00 photos, or 150 yours of video"_ in a field named "features". +
 
 While the query below does not use this parser:
 
@@ -786,9 +787,19 @@ The {solr-javadocs}/solr-core/org/apache/solr/search/XmlQParserPlugin.html[XmlQP
 |===
 |Parameter |Value
 |defType |xmlparser
-|q |<BooleanQuery fieldName="description"> <Clause occurs="must"> <TermQuery>shirt</TermQuery> </Clause> <Clause occurs="mustnot"> <TermQuery>plain</TermQuery> </Clause> <Clause occurs="should"> <TermQuery>cotton</TermQuery> </Clause> <Clause occurs="must"> <BooleanQuery fieldName="size"> <Clause occurs="should"> <TermsQuery>S M L</TermsQuery> </Clause> </BooleanQuery> </Clause> </BooleanQuery>
+|q |<BooleanQuery fieldName="description"> +
+<Clause occurs="must"> <TermQuery>shirt</TermQuery> </Clause> +
+<Clause occurs="mustnot"> <TermQuery>plain</TermQuery> </Clause> +
+<Clause occurs="should"> <TermQuery>cotton</TermQuery> </Clause> +
+<Clause occurs="must"> +
+<BooleanQuery fieldName="size"> +
+<Clause occurs="should"> <TermsQuery>S M L</TermsQuery> </Clause> +
+</BooleanQuery> +
+</Clause> +
+</BooleanQuery>
 |===
 
+ +
 The XmlQParser implementation uses the {solr-javadocs}/solr-core/org/apache/solr/search/SolrCoreParser.html[SolrCoreParser] class which extends Lucene's {lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/CoreParser.html[CoreParser] class. XML elements are mapped to {lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/QueryBuilder.html[QueryBuilder] classes as follows:
 
 [width="100%",cols="50%,50%",options="header",]

@@ -5,7 +5,9 @@
 [[PaginationofResults-BasicPagination]]
 == Basic Pagination
 
-In most search application usage, the "top" matching results (sorted by score, or some other criteria) are then displayed to some human user. In many applications the UI for these sorted results are displayed to the user in "pages" containing a fixed number of matching results, and users don't typically look at results past the first few pages worth of results.In Solr, this basic paginated searching is supported using the *`start`* and *`rows`* parameters, and performance of this common behaviour can be tuned by utilizing the <<query-settings-in-solrconfig.adoc#QuerySettingsinSolrConfig-queryResultCache,`queryResultCache`>> and adjusting the <<query-settings-in-solrconfig.adoc#QuerySettingsinSolrConfig-queryResultWindowSize,`queryResultWindowSize`>> configuration options based on your expected page sizes.
+In most search application usage, the "top" matching results (sorted by score, or some other criteria) are then displayed to some human user. In many applications the UI for these sorted results are displayed to the user in "pages" containing a fixed number of matching results, and users don't typically look at results past the first few pages worth of results. +
+ +
+In Solr, this basic paginated searching is supported using the *`start`* and *`rows`* parameters, and performance of this common behaviour can be tuned by utilizing the <<query-settings-in-solrconfig.adoc#QuerySettingsinSolrConfig-queryResultCache,`queryResultCache`>> and adjusting the <<query-settings-in-solrconfig.adoc#QuerySettingsinSolrConfig-queryResultWindowSize,`queryResultWindowSize`>> configuration options based on your expected page sizes.
 
 [[PaginationofResults-BasicPaginationExamples]]
 === Basic Pagination Examples
@@ -24,7 +26,9 @@ function fetch_solr_page($page_number, $rows_per_page) {
 [[PaginationofResults-HowBasicPaginationisAffectedbyIndexUpdates]]
 === How Basic Pagination is Affected by Index Updates
 
-The `start` param specified in a request to Solr indicates an *absolute* "offset" in the complete sorted list of matches that the client wants Solr to use as the beginning of the current "page". If an index modification (such as adding or removing documents) which affects the sequence of ordered documents matching a query occurs in between two requests from a client for subsequent pages of results, then it is possible that these modifications can result in the same document being returned on multiple pages, or documents being "skipped" as the result set shrinks or grows.For example: consider an index containing 26 documents like so:
+The `start` param specified in a request to Solr indicates an *absolute* "offset" in the complete sorted list of matches that the client wants Solr to use as the beginning of the current "page". If an index modification (such as adding or removing documents) which affects the sequence of ordered documents matching a query occurs in between two requests from a client for subsequent pages of results, then it is possible that these modifications can result in the same document being returned on multiple pages, or documents being "skipped" as the result set shrinks or grows. +
+ +
+For example: consider an index containing 26 documents like so:
 
 id
 
@@ -44,9 +48,10 @@ B
 
 Z
 
+ +
 Followed by the following requests & index modifications interleaved:
 
-* A client requests `q=*:*&rows=5&start=0&sort=name asc`
+* A client requests `q=*:*&rows=5&start=0&sort=name asc` +
 ** documents with the ids `1-5` will be returned to the client
 * Document id `3` is deleted
 * The client requests "page #2" using `q=*:*&rows=5&start=5&sort=name asc`
@@ -85,7 +90,7 @@ There are a few important constraints to be aware of when using `cursorMark` par
 
 // TODO: This 'ol' has problematic nested lists inside of it, needs manual editing
 
-1.  `cursorMark` and `start` are mutually exclusive parameters
+1.  `cursorMark` and `start` are mutually exclusive parameters +
 * Your requests must either not include a `start` parameter, or it must be specified with a value of "```0```".
 2.  `sort` clauses must include the uniqueKey field (either "```asc```" or `"desc`")
 * If `id` is your uniqueKey field, then sort params like `id asc` and `name asc, id desc` would both work fine, but `name asc` by itself would not
@@ -196,7 +201,9 @@ while (! done) {
 [[PaginationofResults-HowcursorsareAffectedbyIndexUpdates]]
 === How cursors are Affected by Index Updates
 
-Unlike basic pagination, Cursor pagination does not rely on using an absolute "offset" into the completed sorted list of matching documents. Instead, the `cursorMark` specified in a request encapsulates information about the *relative* position of the last document returned, based on the *absolute* sort values of that document. This means that the impact of index modifications is much smaller when using a cursor compared to basic pagination.Consider the same example index described when discussing basic pagination:
+Unlike basic pagination, Cursor pagination does not rely on using an absolute "offset" into the completed sorted list of matching documents. Instead, the `cursorMark` specified in a request encapsulates information about the *relative* position of the last document returned, based on the *absolute* sort values of that document. This means that the impact of index modifications is much smaller when using a cursor compared to basic pagination. +
+ +
+Consider the same example index described when discussing basic pagination:
 
 id
 
@@ -226,7 +233,7 @@ Z
 ** Documents `11-15` will be returned -- the addition of new documents with sort values already past does not affect the relative position of the cursor
 * Document id `1` is updated to change it's 'name' to `Q`
 * Document id 17 is updated to change it's 'name' to `A`
-* The client requests 5 more documents using the `nextCursorMark` from the previous response
+* The client requests 5 more documents using the `nextCursorMark` from the previous response +
 ** The resulting documents are `16,1,18,19,20` in that order
 ** Because the sort value of document `1` changed so that it is _after_ the cursor position, the document is returned to the client twice
 ** Because the sort value of document `17` changed so that it is _before_ the cursor position, the document has been "skipped" and will not be returned to the client as the cursor continues to progress
@@ -247,7 +254,11 @@ In this situation, you will be guaranteed that each document is only returned on
 [[PaginationofResults-_Tailing_aCursor]]
 === "Tailing" a Cursor
 
-Because Cursor requests are stateless, and the `cursorMark` values encapsulate the *absolute* sort values of the last document returned from a search, it's possible to "continue" fetching additional results from a cursor that has already reached its end -- if new documents are added (or existing documents are updated) to the end of the results. You can think of this as similar to using something like "`tail -f"` in Unix.The most common examples of how this can be useful is when you have a "timestamp" field recording when a document has been added/updated in your index. Client applications can continuously poll a cursor using a `sort=timestamp asc, id asc` for documents matching a query, and always be notified when a document is added or updated matching the request criteria. Another common example is when you have uniqueKey values that always increase as new documents are created, and you can continuously poll a cursor using `sort=id asc` to be notified about new documents.The psuedo-code for tailing a cursor is only a slight modification from our early example for processing all docs matching a query:
+Because Cursor requests are stateless, and the `cursorMark` values encapsulate the *absolute* sort values of the last document returned from a search, it's possible to "continue" fetching additional results from a cursor that has already reached its end -- if new documents are added (or existing documents are updated) to the end of the results. You can think of this as similar to using something like "`tail -f"` in Unix. +
+ +
+The most common examples of how this can be useful is when you have a "timestamp" field recording when a document has been added/updated in your index. Client applications can continuously poll a cursor using a `sort=timestamp asc, id asc` for documents matching a query, and always be notified when a document is added or updated matching the request criteria. Another common example is when you have uniqueKey values that always increase as new documents are created, and you can continuously poll a cursor using `sort=id asc` to be notified about new documents. +
+ +
+The psuedo-code for tailing a cursor is only a slight modification from our early example for processing all docs matching a query:
 
 [source,java]
 ----

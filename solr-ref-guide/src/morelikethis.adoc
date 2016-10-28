@@ -31,7 +31,7 @@ The table below summarizes the `MoreLikeThis` parameters supported by Lucene/Sol
 |mlt.fl |Specifies the fields to use for similarity. If possible, these should have stored `termVectors`.
 |mlt.mintf |Specifies the Minimum Term Frequency, the frequency below which terms will be ignored in the source document.
 |mlt.mindf |Specifies the Minimum Document Frequency, the frequency at which words will be ignored which do not occur in at least this many documents.
-|mlt.maxdf |Specifies the Maximum Document Frequency, the frequency at which words will be ignored which occur in more than this many documents.
+|mlt.maxdf |Specifies the Maximum Document Frequency, the frequency at which words will be ignored which occur in more than this many documents. +
 |mlt.minwl |Sets the minimum word length below which words will be ignored.
 |mlt.maxwl |Sets the maximum word length above which words will be ignored.
 |mlt.maxqt |Sets the maximum number of query terms that will be included in any generated query.

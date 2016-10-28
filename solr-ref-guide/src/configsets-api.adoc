@@ -11,7 +11,9 @@ This API can only be used with Solr running in SolrCloud mode. If you are not ru
 
 The base URL for all API calls is `http://<hostname>:<port>/solr`.
 
-`/admin/configs?action=CREATE`: <<ConfigSetsAPI-create,create>> a ConfigSet, based on an existing ConfigSet `/admin/configs?action=DELETE`: <<ConfigSetsAPI-delete,delete>>a ConfigSet `/admin/configs?action=LIST`: <<ConfigSetsAPI-list,list>>all ConfigSets
+`/admin/configs?action=CREATE`: <<ConfigSetsAPI-create,create>> a ConfigSet, based on an existing ConfigSet +
+`/admin/configs?action=DELETE`: <<ConfigSetsAPI-delete,delete>>a ConfigSet +
+`/admin/configs?action=LIST`: <<ConfigSetsAPI-list,list>>all ConfigSets
 
 [[ConfigSetsAPI-createCreateaConfigSet]]
 

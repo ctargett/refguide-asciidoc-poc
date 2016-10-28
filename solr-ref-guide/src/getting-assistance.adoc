@@ -7,6 +7,7 @@ At the bottom of each screen of the Admin UI is a set of links that can be used 
 image::images/getting-assistance/Assistance.png[image]
 
 
+ +
 _Assistance icons_
 
 These icons include the following links.

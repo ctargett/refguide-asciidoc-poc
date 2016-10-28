@@ -22,6 +22,7 @@ Example:
 </analyzer>
 ----
 
+ +
 Mapping file syntax:
 
 * Comment lines beginning with a hash mark (`#`), as well as blank lines, are ignored.
@@ -33,7 +34,8 @@ Mapping file syntax:
 +
 [cols=",,,",options="header",]
 |===
-|Escapesequence |Resulting character (http://www.ecma-international.org/publications/standards/Ecma-048.htm[ECMA-48] alias) |Unicode character |Example mapping line
+|Escape +
+sequence |Resulting character (http://www.ecma-international.org/publications/standards/Ecma-048.htm[ECMA-48] alias) |Unicode character |Example mapping line
 |`\\` |`\` |U+005C |`"\\" => "/"`
 |`\"` |`"` |U+0022 |`"\"and\"" => "'and'"`
 |`\b` |backspace (BS) |U+0008 |`"\b" => " "`

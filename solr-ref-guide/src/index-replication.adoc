@@ -9,6 +9,7 @@ The figure below shows a Solr configuration using index replication. The master 
 image::images/index-replication/worddav2b7e14725d898b4104cdd9c502fc77cd.png[image,width=159,height=235]
 
 
+ +
 _A Solr index can be replicated across multiple slave servers, which then process requests._
 
 [[IndexReplication-IndexReplicationinSolr]]
@@ -243,7 +244,9 @@ You can use the HTTP commands below to control the ReplicationHandler's operatio
 |http://__master_host:port__/solr/__core_name__/replication?command=enablereplication |Enables replication on the master for all its slaves.
 |http://__master_host:port__/solr/__core_name__/replication?command=disablereplication |Disables replication on the master for all its slaves.
 |http://__host:port__/solr/__core_name__/replication?command=indexversion |Returns the version of the latest replicatable index on the specified master or slave.
-|http://__slave_host:port__/solr/__core_name__/replication?command=fetchindex |Forces the specified slave to fetch a copy of the index from its master. If you like, you can pass an extra attribute such as masterUrl or compression (or any other parameter which is specified in the `<lst name="slave">` tag) to do a one time replication from a master. This obviates the need for hard-coding the master in the slave.
+|http://__slave_host:port__/solr/__core_name__/replication?command=fetchindex |Forces the specified slave to fetch a copy of the index from its master. +
+ +
+If you like, you can pass an extra attribute such as masterUrl or compression (or any other parameter which is specified in the `<lst name="slave">` tag) to do a one time replication from a master. This obviates the need for hard-coding the master in the slave.
 |http://__slave_host:port__/solr/__core_name__/replication?command=abortfetch |Aborts copying an index from a master to the specified slave.
 |http://__slave_host:port__/solr/__core_name__/replication?command=enablepoll |Enables the specified slave to poll for changes on the master.
 |http://__slave_host:port__/solr/__core_name__/replication?command=disablepoll |Disables the specified slave from polling for changes on the master.

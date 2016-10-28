@@ -33,12 +33,12 @@ Built on streaming expressions, new in Solr 6 is a <<parallel-sql-interface.adoc
 Replication across data centers is now possible with <<cross-data-center-replication-cdcr-.adoc#,Cross Data Center Replication>>. Using an active-passive model, a SolrCloud cluster can be replicated to another data center, and monitored with a new API.
 
 [[MajorChangesfromSolr5toSolr6-GraphQueryParser]]
-=== Graph Query Parser
+=== Graph Query Parser +
 
 A new <<other-parsers.adoc#OtherParsers-GraphQueryParser,`graph` query parser>> makes it possible to to graph traversal queries of Directed (Cyclic) Graphs modelled using Solr documents.
 
 [[MajorChangesfromSolr5toSolr6-DocValues]]
-=== DocValues
+=== DocValues +
 
 Most non-text field types in the Solr sample configsets now default to using <<docvalues.adoc#,DocValues>>.
 

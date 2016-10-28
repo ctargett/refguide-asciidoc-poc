@@ -153,3 +153,5 @@ All implicit properties use the `solr.core.` name prefix, and reflect the runtim
 * `solr.core.dataDir`
 * `solr.core.transient`
 * `solr.core.loadOnStartup`
+
+ +

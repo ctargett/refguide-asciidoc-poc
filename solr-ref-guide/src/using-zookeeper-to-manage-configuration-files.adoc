@@ -76,3 +76,5 @@ If you for example would like to keep your `solr.xml` in ZooKeeper to avoid havi
 ----
 zkcli.sh -zkhost localhost:2181 -cmd putfile /solr.xml /path/to/solr.xml
 ----
+
+ +

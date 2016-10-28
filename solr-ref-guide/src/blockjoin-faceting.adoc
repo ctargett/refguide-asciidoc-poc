@@ -104,6 +104,7 @@ Queries are constructed the same way as for a <<other-parsers.adoc#OtherParsers-
 http://localhost:8983/solr/bjqfacet?q={!parent which=type_s:parent}SIZE_s:XL&child.facet.field=COLOR_s
 ----
 
+ +
 As a result we should have facets for Red(1) and Blue(1), because matches on children `id=11` and `id=12` are aggregated into single hit into parent with `id=1`. The key components of the request are:
 
 [cols=",",options="header",]

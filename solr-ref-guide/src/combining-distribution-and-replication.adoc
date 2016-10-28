@@ -11,6 +11,7 @@ Query requests should be load balanced across each of the shard slaves. This giv
 image::images/combining-distribution-and-replication/worddav4101c16174820e932b44baa22abcfcd1.png[image,width=312,height=344]
 
 
+ +
 _A Solr configuration combining both replication and master-slave distribution._
 
 None of the master shards in this configuration know about each other. You index to each master, the index is replicated to each slave, and then searches are distributed across the slaves, using one slave from each master/slave shard.

@@ -18,3 +18,5 @@ This section describes how to run Solr and how to look at Solr when it is runnin
 <<using-jmx-with-solr.adoc#,Using JMX with Solr>>: Describes how to use Java Management Extensions with Solr.
 
 <<mbean-request-handler.adoc#,MBean Request Handler>>: How to use Solr's MBeans for programmatic access to the system plugins and stats.
+
+ +

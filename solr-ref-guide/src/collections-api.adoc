@@ -9,7 +9,34 @@ The Collections API is used to enable you to create, remove, or reload collectio
 
 The base URL for all API calls below is `http://<hostname>:<port>/solr`.
 
-`/admin/collections?action=CREATE`: <<CollectionsAPI-api1,create>> a collection `/admin/collections?action=MODIFYCOLLECTION`: <<CollectionsAPI-modifycoll,Modify>> certain attributes of a collection `/admin/collections?action=RELOAD`: <<CollectionsAPI-api2,reload>> a collection `/admin/collections?action=SPLITSHARD`: <<CollectionsAPI-api3,split>> a shard into two new shards `/admin/collections?action=CREATESHARD`: <<CollectionsAPI-api8,create>> a new shard `/admin/collections?action=DELETESHARD`: <<CollectionsAPI-api7,delete>> an inactive shard `/admin/collections?action=CREATEALIAS`: <<CollectionsAPI-api4,create or modify an alias>> for a collection `/admin/collections?action=DELETEALIAS`: <<CollectionsAPI-api5,delete an alias>> for a collection `/admin/collections?action=DELETE`: <<CollectionsAPI-api6,delete>> a collection `/admin/collections?action=DELETEREPLICA`: <<CollectionsAPI-api9,delete a replica>> of a shard `/admin/collections?action=ADDREPLICA`: <<CollectionsAPI-api_addreplica,add a replica>> of a shard `/admin/collections?action=CLUSTERPROP`: <<CollectionsAPI-api11,Add/edit/delete a cluster-wide property>> `/admin/collections?action=MIGRATE`: <<CollectionsAPI-api12,Migrate documents to another collection>> `/admin/collections?action=ADDROLE`: <<CollectionsAPI-api15AddRole,Add a specific role>> to a node in the cluster `/admin/collections?action=REMOVEROLE`: <<CollectionsAPI-api16RemoveRole,Remove an assigned role>> `/admin/collections?action=OVERSEERSTATUS`: <<CollectionsAPI-api17,Get status and statistics of the overseer>> `/admin/collections?action=CLUSTERSTATUS`: <<CollectionsAPI-api18,Get cluster status>> `/admin/collections?action=REQUESTSTATUS`: <<CollectionsAPI-RequestStatus,Get the status>> of a previous asynchronous request `/admin/collections?action=DELETESTATUS`: <<CollectionsAPI-DeleteStatus,Delete the stored response>> of a previous asynchronous request `/admin/collections?action=LIST`: <<CollectionsAPI-List,List all collections>> `/admin/collections?action=ADDREPLICAPROP`: <<CollectionsAPI-AddReplicaProp,Add an arbitrary property>> to a replica specified by collection/shard/replica `/admin/collections?action=DELETEREPLICAPROP`: <<CollectionsAPI-DeleteReplicaProp,Delete an arbitrary property>> from a replica specified by collection/shard/replica `/admin/collections?action=BALANCESHARDUNIQUE`: <<CollectionsAPI-BalanceSliceUnique,Distribute an arbitrary property>>, one per shard, across the nodes in a collection `/admin/collections?action=REBALANCELEADERS`: <<CollectionsAPI-RebalanceLeaders,Distribute leader role>> based on the "preferredLeader" assignments `/admin/collections?action=FORCELEADER`: <<CollectionsAPI-ForceLeader,Force a leader election>> in a shard if leader is lost `/admin/collections?action=MIGRATESTATEFORMAT`: <<CollectionsAPI-MigrateClusterState,Migrate a collection from shared clusterstate.json>> to per-collection state.json `/admin/collections?action=BACKUP`:<<CollectionsAPI-Backup,Backup>> Solr indexes and configurations for a specifc collection `/admin/collections?action=RESTORE`: <<CollectionsAPI-Restore,Restore>> Solr indexes and configurations for a specific collection
+`/admin/collections?action=CREATE`: <<CollectionsAPI-api1,create>> a collection +
+`/admin/collections?action=MODIFYCOLLECTION`: <<CollectionsAPI-modifycoll,Modify>> certain attributes of a collection +
+`/admin/collections?action=RELOAD`: <<CollectionsAPI-api2,reload>> a collection +
+`/admin/collections?action=SPLITSHARD`: <<CollectionsAPI-api3,split>> a shard into two new shards +
+`/admin/collections?action=CREATESHARD`: <<CollectionsAPI-api8,create>> a new shard +
+`/admin/collections?action=DELETESHARD`: <<CollectionsAPI-api7,delete>> an inactive shard +
+`/admin/collections?action=CREATEALIAS`: <<CollectionsAPI-api4,create or modify an alias>> for a collection +
+`/admin/collections?action=DELETEALIAS`: <<CollectionsAPI-api5,delete an alias>> for a collection +
+`/admin/collections?action=DELETE`: <<CollectionsAPI-api6,delete>> a collection +
+`/admin/collections?action=DELETEREPLICA`: <<CollectionsAPI-api9,delete a replica>> of a shard +
+`/admin/collections?action=ADDREPLICA`: <<CollectionsAPI-api_addreplica,add a replica>> of a shard +
+`/admin/collections?action=CLUSTERPROP`: <<CollectionsAPI-api11,Add/edit/delete a cluster-wide property>> +
+`/admin/collections?action=MIGRATE`: <<CollectionsAPI-api12,Migrate documents to another collection>> +
+`/admin/collections?action=ADDROLE`: <<CollectionsAPI-api15AddRole,Add a specific role>> to a node in the cluster +
+`/admin/collections?action=REMOVEROLE`: <<CollectionsAPI-api16RemoveRole,Remove an assigned role>> +
+`/admin/collections?action=OVERSEERSTATUS`: <<CollectionsAPI-api17,Get status and statistics of the overseer>> +
+`/admin/collections?action=CLUSTERSTATUS`: <<CollectionsAPI-api18,Get cluster status>> +
+`/admin/collections?action=REQUESTSTATUS`: <<CollectionsAPI-RequestStatus,Get the status>> of a previous asynchronous request +
+`/admin/collections?action=DELETESTATUS`: <<CollectionsAPI-DeleteStatus,Delete the stored response>> of a previous asynchronous request +
+`/admin/collections?action=LIST`: <<CollectionsAPI-List,List all collections>> +
+`/admin/collections?action=ADDREPLICAPROP`: <<CollectionsAPI-AddReplicaProp,Add an arbitrary property>> to a replica specified by collection/shard/replica +
+`/admin/collections?action=DELETEREPLICAPROP`: <<CollectionsAPI-DeleteReplicaProp,Delete an arbitrary property>> from a replica specified by collection/shard/replica +
+`/admin/collections?action=BALANCESHARDUNIQUE`: <<CollectionsAPI-BalanceSliceUnique,Distribute an arbitrary property>>, one per shard, across the nodes in a collection +
+`/admin/collections?action=REBALANCELEADERS`: <<CollectionsAPI-RebalanceLeaders,Distribute leader role>> based on the "preferredLeader" assignments +
+`/admin/collections?action=FORCELEADER`: <<CollectionsAPI-ForceLeader,Force a leader election>> in a shard if leader is lost +
+`/admin/collections?action=MIGRATESTATEFORMAT`: <<CollectionsAPI-MigrateClusterState,Migrate a collection from shared clusterstate.json>> to per-collection state.json +
+`/admin/collections?action=BACKUP`:<<CollectionsAPI-Backup,Backup>> Solr indexes and configurations for a specifc collection +
+`/admin/collections?action=RESTORE`: <<CollectionsAPI-Restore,Restore>> Solr indexes and configurations for a specific collection
 
 [[CollectionsAPI-CreateaCollection]]
 
@@ -226,7 +253,8 @@ The output will include the status of the request and the new shard names, which
 
 *Examples*
 
-*Input* Split shard1 of the "anotherCollection" collection.
+*Input* +
+Split shard1 of the "anotherCollection" collection.
 
 [source,java]
 ----
@@ -326,7 +354,8 @@ The output will include the status of the request. If the status is anything oth
 
 *Examples*
 
-*Input* Create 'shard-z' for the "anImplicitCollection" collection.
+*Input* +
+Create 'shard-z' for the "anImplicitCollection" collection.
 
 [source,java]
 ----
@@ -377,7 +406,8 @@ The output will include the status of the request. If the status is anything oth
 
 *Examples*
 
-*Input* Delete 'shard1' of the "anotherCollection" collection.
+*Input* +
+Delete 'shard1' of the "anotherCollection" collection.
 
 [source,java]
 ----
@@ -433,7 +463,8 @@ The output will simply be a responseHeader with details of the time it took to p
 
 *Examples*
 
-*Input* Create an alias named "testalias" and link it to the collections named "anotherCollection" and "testCollection".
+*Input* +
+Create an alias named "testalias" and link it to the collections named "anotherCollection" and "testCollection".
 
 [source,java]
 ----
@@ -478,7 +509,8 @@ The output will simply be a responseHeader with details of the time it took to p
 
 *Examples*
 
-*Input* Remove the alias named "testalias".
+*Input* +
+Remove the alias named "testalias".
 
 [source,java]
 ----
@@ -523,7 +555,8 @@ The response will include the status of the request and the cores that were dele
 
 *Examples*
 
-*Input* Delete the collection named "newCollection".
+*Input* +
+Delete the collection named "newCollection".
 
 [source,java]
 ----
@@ -705,7 +738,8 @@ The response will include the status of the request and the properties that were
 http://localhost:8983/solr/admin/collections?action=CLUSTERPROP&name=urlScheme&val=https
 ----
 
-*Output*
+*Output +
+*
 
 [source,xml]
 ----
@@ -764,7 +798,8 @@ The response will include the status of the request.
 http://localhost:8983/solr/admin/collections?action=MIGRATE&collection=test1&split.key=a!&target.collection=test2
 ----
 
-*Output*
+*Output +
+*
 
 [source,xml]
 ----
@@ -945,7 +980,8 @@ The response will include the status of the request and the properties that were
 http://localhost:8983/solr/admin/collections?action=ADDROLE&role=overseer&node=192.167.1.2:8983_solr
 ----
 
-*Output*
+*Output +
+*
 
 [source,xml]
 ----
@@ -992,7 +1028,8 @@ The response will include the status of the request and the properties that were
 http://localhost:8983/solr/admin/collections?action=REMOVEROLE&role=overseer&node=192.167.1.2:8983_solr
 ----
 
-*Output*
+*Output +
+*
 
 [source,xml]
 ----
@@ -1117,7 +1154,8 @@ The response will include the status of the request and the cluster status.
 http://localhost:8983/solr/admin/collections?action=clusterstatus&wt=json
 ----
 
-*Output*
+*Output +
+*
 
 [source,json]
 ----
@@ -1214,7 +1252,8 @@ Request the status and response of an already submitted <<CollectionsAPI-Asynchr
 http://localhost:8983/solr/admin/collections?action=REQUESTSTATUS&requestid=1000
 ----
 
-*Output*
+*Output +
+*
 
 [source,json]
 ----
@@ -1237,7 +1276,8 @@ http://localhost:8983/solr/admin/collections?action=REQUESTSTATUS&requestid=1000
 http://localhost:8983/solr/admin/collections?action=REQUESTSTATUS&requestid=1004
 ----
 
-*Output*
+*Output +
+*
 
 [source,json]
 ----
@@ -1282,7 +1322,8 @@ Delete the stored response of an already failed or completed <<CollectionsAPI-As
 http://localhost:8983/solr/admin/collections?action=DELETESTATUS&requestid=foo
 ----
 
-*Output*
+*Output +
+*
 
 [source,json]
 ----
@@ -1295,6 +1336,8 @@ http://localhost:8983/solr/admin/collections?action=DELETESTATUS&requestid=foo
 </response>
 ----
 
+ +
+
 *Input: Invalid RequestId*
 
 [source,java]
@@ -1302,7 +1345,8 @@ http://localhost:8983/solr/admin/collections?action=DELETESTATUS&requestid=foo
 http://localhost:8983/solr/admin/collections?action=DELETESTATUS&requestid=bar
 ----
 
-*Output*
+*Output +
+*
 
 [source,json]
 ----
@@ -1315,6 +1359,8 @@ http://localhost:8983/solr/admin/collections?action=DELETESTATUS&requestid=bar
 </response>
 ----
 
+ +
+
 *Input: Clearing up all the stored statuses*
 
 [source,java]
@@ -1322,7 +1368,8 @@ http://localhost:8983/solr/admin/collections?action=DELETESTATUS&requestid=bar
 http://localhost:8983/solr/admin/collections?action=DELETESTATUS&flush=true
 ----
 
-*Output*
+*Output +
+*
 
 [source,json]
 ----
@@ -1335,6 +1382,7 @@ http://localhost:8983/solr/admin/collections?action=DELETESTATUS&flush=true
 </response>
 ----
 
+ +
 [[CollectionsAPI-ListCollections]]
 
 [[CollectionsAPI-List]]
@@ -1353,7 +1401,8 @@ Fetch the names of the collections in the cluster.
 http://localhost:8983/solr/admin/collections?action=LIST&wt=json
 ----
 
-*Output*
+*Output +
+*
 
 [source,json]
 ----
@@ -1417,7 +1466,8 @@ The response will include the status of the request. If the status is anything o
 http://localhost:8983/solr/admin/collections?action=ADDREPLICAPROP&shard=shard1&collection=collection1&replica=core_node1&property=preferredLeader&property.value=true
 ----
 
-*Output*
+*Output +
+*
 
 [source,xml]
 ----
@@ -1684,7 +1734,8 @@ This is an expert level command, and should be invoked only when regular leader 
 [[CollectionsAPI-MigrateClusterStateMigrateClusterState]]
 
 [[CollectionsAPI-MigrateClusterState]]
-== Migrate Cluster State
+==  +
+Migrate Cluster State
 
 A Expert level utility API to move a collection from shared `clusterstate.json` zookeeper node (created with `stateFormat=1`, the default in all Solr releases prior to 5.0) to the per-collection `state.json` stored in ZooKeeper (created with `stateFormat=2`, the current default) seamlessly without any application down-time.
 
@@ -1775,7 +1826,8 @@ As of now, REQUESTSTATUS does not automatically clean up the tracking data struc
 http://localhost:8983/solr/admin/collections?action=SPLITSHARD&collection=collection1&shard=shard1&async=1000
 ----
 
-*Output*
+*Output +
+*
 
 [source,json]
 ----

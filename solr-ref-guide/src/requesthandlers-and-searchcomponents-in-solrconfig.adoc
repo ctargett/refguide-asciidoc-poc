@@ -60,6 +60,7 @@ Besides `defaults`, there are other options for the SearchHandler, which are:
 </lst>
 ----
 +
+ +
 In this example, the filter query "inStock:true" will always be added to every query.
 * `invariants`: This allows definition of parameters that cannot be overridden by a client. The values defined in an `invariants` section will always be used regardless of the values specified by the user, by the client, in `defaults` or in `appends`.
 +
@@ -73,6 +74,7 @@ In this example, the filter query "inStock:true" will always be added to every q
 </lst>
 ----
 +
+ +
 In this example, facet fields have been defined which limits the facets that will be returned by Solr. If the client requests facets, the facets defined with a configuration like this are the only facets they will see.
 
 The final section of a request handler definition is `components`, which defines a list of search components that can be used with a request handler. They are only registered with the request handler. How to define a search component is discussed further on in the section on <<RequestHandlersandSearchComponentsinSolrConfig-SearchComponents,Search Components>>. The `components` element can only be used with a request handler that is a SearchHandler.

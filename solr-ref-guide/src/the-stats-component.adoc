@@ -117,7 +117,8 @@ by Default
 |percentiles |"1,99,99.9" |A list of percentile values based on cut-off points specified by the param value. These values are an approximation, using the https://github.com/tdunning/t-digest/blob/master/docs/t-digest-paper/histo.pdf[t-digest algorithm]. |Numeric |No
 |distinctValues |true |The set of all distinct values for the field/function in all of the documents in the set. This calculation can be very expensive for fields that do not have a tiny cardinality. |All |No
 |countDistinct |true |The exact number of distinct values in the field/function in all of the documents in the set. This calculation can be very expensive for fields that do not have a tiny cardinality. |All |No
-|cardinality |"true" or"0.3" |A statistical approximation (currently using the https://en.wikipedia.org/wiki/HyperLogLog[HyperLogLog] algorithm) of the number of distinct values in the field/function in all of the documents in the set. This calculation is much more efficient then using the 'countDistinct' option, but may not be 100% accurate. Input for this option can be floating point number between 0.0 and 1.0 indicating how aggressively the algorithm should try to be accurate: 0.0 means use as little memory as possible; 1.0 means use as much memory as needed to be as accurate as possible. 'true' is supported as an alias for "0.3" |All |No
+|cardinality |"true" or +
+"0.3" |A statistical approximation (currently using the https://en.wikipedia.org/wiki/HyperLogLog[HyperLogLog] algorithm) of the number of distinct values in the field/function in all of the documents in the set. This calculation is much more efficient then using the 'countDistinct' option, but may not be 100% accurate. Input for this option can be floating point number between 0.0 and 1.0 indicating how aggressively the algorithm should try to be accurate: 0.0 means use as little memory as possible; 1.0 means use as much memory as needed to be as accurate as possible. 'true' is supported as an alias for "0.3" |All |No
 |===
 
 [[TheStatsComponent-LocalParameters]]
@@ -140,9 +141,9 @@ If any supported statistics are specified via local parameters, then the entire 
 
 Additional "Expert" local params are supported in some cases for affecting the behavior of some statistics:
 
-* `percentiles`
+* `percentiles` +
 ** `tdigestCompression` - a positive numeric value defaulting to `100.0` controlling the compression factor of the T-Digest. Larger values means more accuracy, but also uses more memory.
-* `cardinality`
+* `cardinality` +
 ** `hllPreHashed` - a boolean option indicating that the statistics are being computed over a "long" field that has already been hashed at index time – allowing the HLL computation to skip this step.
 ** `hllLog2m` - an integer value specifying an explicit "log2m" value to use, overriding the heuristic value determined by the cardinality local param and the field type – see the https://github.com/aggregateknowledge/java-hll/[java-hll] documentation for more details
 ** `hllRegwidth` - an integer value specifying an explicit "regwidth" value to use, overriding the heuristic value determined by the cardinality local param and the field type – see the https://github.com/aggregateknowledge/java-hll/[java-hll] documentation for more details

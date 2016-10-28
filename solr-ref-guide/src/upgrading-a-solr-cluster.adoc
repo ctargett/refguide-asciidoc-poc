@@ -25,7 +25,7 @@ Here is a checklist of things you need to prepare before starting the upgrade pr
 4.  Plan to perform your upgrade during a system maintenance window if possible. You'll be doing a rolling restart of your cluster (each node, one-by-one), but we still recommend doing the upgrade when system usage is minimal.
 5.  Verify the cluster is currently healthy and all replicas are active, as you should not perform an upgrade on a degraded cluster.
 6.  Re-build and test all custom server-side components against the new Solr JAR files.
-7.  Determine the values of the following variables that are used by the Solr start scripts:
+7.  Determine the values of the following variables that are used by the Solr start scripts: +
 * `ZK_HOST`: The ZooKeeper connection string your current SolrCloud nodes use to connect to ZooKeeper; this value will be the same for all nodes in the cluster.
 * `SOLR_HOST`: The hostname each Solr node used to register with ZooKeeper when joining the SolrCloud cluster; this value will be used to set the *host* Java system property when starting the new Solr process.
 * `SOLR_PORT`: The port each Solr node is listening on, such as 8983.

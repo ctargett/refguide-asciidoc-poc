@@ -54,7 +54,7 @@ The properties that are configured with these commands are predefined and listed
 * `query.documentCache.class`
 * `query.documentCache.size`
 * `query.documentCache.initialSize`
-* `query.documentCache.autowarmCount`
+* `query.documentCache.autowarmCount` +
 
 * `query.documentCache.regenerator`
 * `query.fieldValueCache.class`
@@ -398,6 +398,7 @@ And you should see the following as output:
     "httpMethod":"GET"}} 
 ----
 
+ +
 To update a request handler, you should use the `update-requesthandler `command :
 
 [source,bash]
@@ -412,6 +413,7 @@ curl http://localhost:8983/solr/techproducts/config -H 'Content-type:application
 }'
 ----
 
+ +
 As another example, we'll create another request handler, this time adding the 'terms' component as part of the definition:
 
 [source,bash]

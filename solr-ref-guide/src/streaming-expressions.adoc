@@ -25,6 +25,8 @@ Both streaming expressions and the streaming API are considered experimental, an
 
 ====
 
+ +
+
 [[StreamingExpressions-StreamLanguageBasics]]
 == Stream Language Basics
 

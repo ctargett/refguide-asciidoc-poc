@@ -8,7 +8,7 @@ This section describes how Solr works with search requests. It covers the follow
 * <<overview-of-searching-in-solr.adoc#,Overview of Searching in Solr>>: An introduction to searching with Solr.
 * <<velocity-search-ui.adoc#,Velocity Search UI>>: A simple search UI using the VelocityResponseWriter.
 * <<relevance.adoc#,Relevance>>: Conceptual information about understanding relevance in search results.
-* <<query-syntax-and-parsing.adoc#,Query Syntax and Parsing>>: A brief conceptual overview of query syntax and parsing. It also contains the following sub-sections:
+* <<query-syntax-and-parsing.adoc#,Query Syntax and Parsing>>: A brief conceptual overview of query syntax and parsing. It also contains the following sub-sections: +
 ** <<common-query-parameters.adoc#,Common Query Parameters>>: No matter the query parser, there are several parameters that are common to all of them.
 ** <<the-standard-query-parser.adoc#,The Standard Query Parser>>: Detailed information about the standard Lucene query parser.
 ** <<the-dismax-query-parser.adoc#,The DisMax Query Parser>>: Detailed information about Solr's DisMax query parser.

@@ -406,12 +406,14 @@ If you have JSON documents that you would like to index without transforming the
 
 These parameters allow you to define how a JSON file should be read for multiple Solr documents.
 
-* **split**: Defines the path at which to split the input JSON into multiple Solr documents and is required if you have multiple documents in a single JSON file. If the entire JSON makes a single solr document, the path must be “`/`”. It is possible to pass multiple split paths by separating them with a pipe `(|)` example : `split=/|/foo|/foo/bar` . If one path is a child of another, they automatically become a child document**f**: This is a multivalued mapping parameter. The format of the parameter is` target-field-name:json-path`. The `json-path` is required. The `target-field-name` is the Solr document field name, and is optional. If not specified, it is automatically derived from the input JSON.The default target field name is the fully qualified name of the field. Wildcards can be used here, see the section <<UploadingDatawithIndexHandlers-Wildcards,Wildcards>> below for more information.
+* **split**: Defines the path at which to split the input JSON into multiple Solr documents and is required if you have multiple documents in a single JSON file. If the entire JSON makes a single solr document, the path must be “`/`”. It is possible to pass multiple split paths by separating them with a pipe `(|)` example : `split=/|/foo|/foo/bar` . If one path is a child of another, they automatically become a child document +
+**f**: This is a multivalued mapping parameter. The format of the parameter is` target-field-name:json-path`. The `json-path` is required. The `target-field-name` is the Solr document field name, and is optional. If not specified, it is automatically derived from the input JSON.The default target field name is the fully qualified name of the field. Wildcards can be used here, see the section <<UploadingDatawithIndexHandlers-Wildcards,Wildcards>> below for more information.
 * *mapUniqueKeyOnly* (boolean): This parameter is particularly convenient when the fields in the input JSON are not available in the schema and <<schemaless-mode.adoc#,schemaless mode>> is not enabled. This will index all the fields into the default search field (using the `df` parameter, below) and only the `uniqueKey` field is mapped to the corresponding field in the schema. If the input JSON does not have a value for the `uniqueKey` field then a UUID is generated for the same.
 * **df**: If the `mapUniqueKeyOnly` flag is used, the update handler needs a field where the data should be indexed to. This is the same field that other handlers use as a default search field.
 * **srcField**: This is the name of the field to which the JSON source will be stored into. This can only be used if `split=/` (i.e., you want your JSON input file to be indexed as a single Solr document). Note that atomic updates will cause the field to be out-of-sync with the document.
 * **echo**: This is for debugging purpose only. Set it to true if you want the docs to be returned as a response. Nothing will be indexed.
 
+ +
 For example, if we have a JSON file that includes two documents, we could define an update request like this:
 
 [source,bash]
@@ -705,7 +707,8 @@ The table below describes the parameters for the update handler.
 |===
 |Parameter |Usage |Global (g) or Per Field (f) |Example
 |separator |Character used as field separator; default is "," |g,(f: see split) |separator=%09
-|trim |If true, remove leading and trailing whitespace from values. Default=false. |g,f |f.isbn.trim=true trim=false
+|trim |If true, remove leading and trailing whitespace from values. Default=false. |g,f |f.isbn.trim=true +
+trim=false
 |header |Set to true if first line of input contains field names. These will be used if the *fieldnames* parameter is absent. |g |
 |fieldnames |Comma separated list of field names to use when adding documents. |g |fieldnames=isbn,price,title
 |literal.<field_name> |A literal value for a specified field name. |g |literal.color=red
@@ -714,7 +717,8 @@ The table below describes the parameters for the update handler.
 |encapsulator |The character optionally used to surround values to preserve characters such as the CSV separator or whitespace. This standard CSV format handles the encapsulator itself appearing in an encapsulated value by doubling the encapsulator. |g,(f: see split) |encapsulator="
 |escape |The character used for escaping CSV separators or other reserved characters. If an escape is specified, the encapsulator is not used unless also explicitly specified since most formats use either encapsulation or escaping, not both |g |escape=\
 |keepEmpty |Keep and index zero length (empty) fields. Default=false. |g,f |f.price.keepEmpty=true
-|map |Map one value to another. Format is value:replacement (which can be empty.) |g,f |map=left:right f.subject.map=history:bunk
+|map |Map one value to another. Format is value:replacement (which can be empty.) |g,f |map=left:right +
+f.subject.map=history:bunk
 |split |If true, split a field into multiple values by a separate parser. |f |
 |overwrite |If true (the default), check for and overwrite duplicate documents, based on the uniqueKey field declared in the Solr schema. If you know the documents you are indexing do not contain any duplicates then you may see a considerable speed up setting this to false. |g |
 |commit |Issues a commit after the data has been ingested. |g |

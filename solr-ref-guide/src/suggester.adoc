@@ -223,7 +223,8 @@ If using a dictionary file, it should be a plain text file in UTF-8 encoding. Yo
 
 This dictionary implementation takes one parameter in addition to parameters described for the Suggester generally and for the lookup implementation:
 
-* fieldDelimiter: Specify the delimiter to be used separating the entries, weights and payloads. The default is tab ('\t').
+* fieldDelimiter: Specify the delimiter to be used separating the entries, weights and payloads. The default is tab ('\t'). +
+ +
 
 *Example*
 

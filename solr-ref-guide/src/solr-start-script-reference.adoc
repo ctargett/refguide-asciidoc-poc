@@ -571,6 +571,8 @@ An example of this command with the parameters is:
 bin/solr zk rm /configs/myconfigset/schema.xml
 ....
 
+ +
+
 // OLD_CONFLUENCE_ID: SolrStartScriptReference-MoveoneZookeeperznodetoanother(rename)
 
 [[SolrStartScriptReference-MoveoneZookeeperznodetoanother_rename_]]
@@ -620,3 +622,5 @@ An example of this command with the parameters is:
 ....
 bin/solr zk ls /collections
 ....
+
+ +

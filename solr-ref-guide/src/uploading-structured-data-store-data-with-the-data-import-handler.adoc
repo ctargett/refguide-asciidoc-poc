@@ -152,7 +152,9 @@ DIH commands are sent to Solr via an HTTP request. The following operations are 
 |Command |Description
 |`abort` |Aborts an ongoing operation. The URL is `http://<host>:<port>/` `solr/` `<collection_name>/` `dataimport?` `command=abort`.
 |`delta-import` |For incremental imports and change detection. The command is of the form `http://<host>:<port>/` `solr/` `<collection_name>/` `dataimport?` `command=delta-import`. It supports the same clean, commit, optimize and debug parameters as full-import command. Only the SqlEntityProcessor supports delta imports.
-|`full-import` |A Full Import operation can be started with a URL of the form `http://<host>:<port>/` `solr/` `<collection_name>/` `dataimport?` `command=full-import`. The command returns immediately. The operation will be started in a new thread and the _status_ attribute in the response should be shown as __busy__. The operation may take some time depending on the size of dataset. Queries to Solr are not blocked during full-imports. When a full-import command is executed, it stores the start time of the operation in a file located at `conf/dataimport.properties`. This stored timestamp is used when a delta-import operation is executed. For a list of parameters that can be passed to this command, see below.
+|`full-import` |A Full Import operation can be started with a URL of the form `http://<host>:<port>/` `solr/` `<collection_name>/` `dataimport?` `command=full-import`. The command returns immediately. The operation will be started in a new thread and the _status_ attribute in the response should be shown as __busy__. The operation may take some time depending on the size of dataset. Queries to Solr are not blocked during full-imports. +
+When a full-import command is executed, it stores the start time of the operation in a file located at `conf/dataimport.properties`. This stored timestamp is used when a delta-import operation is executed. +
+For a list of parameters that can be passed to this command, see below.
 |`reload-config` a|
 If the configuration file has been changed and you wish to reload it without restarting Solr, run the command
 
@@ -501,7 +503,9 @@ The parameters for this processor are described in the table below:
 |===
 |Attribute |Use
 |dataSource a|
-This parameter defines the data source and an optional name which can be referred to in later parts of the configuration if needed. This is the same dataSource explained in the description of general entity processor attributes above. The available data source types for this processor are:
+This parameter defines the data source and an optional name which can be referred to in later parts of the configuration if needed. This is the same dataSource explained in the description of general entity processor attributes above. +
+ +
+The available data source types for this processor are:
 
 * BinURLDataSource: used for HTTP resources, but can also be used for files.
 * BinContentStreamDataSource: used for uploading content as a stream.

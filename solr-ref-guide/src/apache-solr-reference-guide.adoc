@@ -5,7 +5,7 @@
 
 This reference guide describes Apache Solr, the open source solution for search. You can download Apache Solr from the Solr website at http://lucene.apache.org/solr/.
 
-This Guide contains the following sections:
+This Guide contains the following sections: +
 
 **<<getting-started.adoc#,Getting Started>>**: This section guides you through the installation and setup of Solr.
 
@@ -15,7 +15,7 @@ This Guide contains the following sections:
 
 **<<understanding-analyzers-tokenizers-and-filters.adoc#,Understanding Analyzers, Tokenizers, and Filters>>**: This section explains how Solr prepares text for indexing and searching. Analyzers parse text and produce a stream of tokens, lexical units used for indexing and searching. Tokenizers break field data down into tokens. Filters perform other transformational or selective work on token streams.
 
-**<<indexing-and-basic-data-operations.adoc#,Indexing and Basic Data Operations>>**: This section describes the indexing process and basic index operations, such as commit, optimize, and rollback.
+**<<indexing-and-basic-data-operations.adoc#,Indexing and Basic Data Operations>>**: This section describes the indexing process and basic index operations, such as commit, optimize, and rollback. +
 
 **<<searching.adoc#,Searching>>**: This section presents an overview of the search process in Solr. It describes the main components used in searches, including request handlers, query parsers, and response writers. It lists the query parameters that can be passed to Solr, and it describes features such as boosting and faceting, which can be used to fine-tune search results.
 
