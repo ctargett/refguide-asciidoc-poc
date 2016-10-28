@@ -23,10 +23,19 @@ This repo includes HTML pages already generated for casual review. A demo is als
 
 However, this project includes `ant` targets for building HTML and PDF versions of the Ref Guide. The idea is that these could eventually be integrated with Solr's build tasks to automatically generate the Solr Ref Guide.
 
-* `ant asciidoctor` builds the HTML files by finding all `.adoc` files from `asciidoc` directory and making an HTML file for each page. It downloads the https://github.com/asciidoctor/asciidoctor-ant[asciidoctor-ant] .jar file as a dependency.
-* `ant jbake-site` builds a full HTML site using JBake, a static site generator. This provides templatized HTML files. `ant jbake-clean` removes previously built files. This requires (at the moment) that http://www.jbake.org/[JBake] is installed where the build will occur.
-* `ant jekyll-site` builds a full HTML site using Jekyll, another static site generator. `ant jekyll-clean` removes previously built files. This requires (at the moment) that https://jekyllrb.com/[Jekyll] is installed where the build is happening.
-* `ant pdf2` builds a PDF from the files defined in `jekylltest/SolrRefGuide.adoc`. This uses the same `asciidoctor-ant` jar used with the `asciidoctor` target and will be downloaded to the build machine when necessary.
+* `ant build` builds the HTML and PDF versions of the site
+* `ant build-jekyll` builds the HTML version of the site
+* `ant build-pdf` builds the PDF version of the site
+
+The above assume that `jekyll` is already installed. If it is not installed, perform the following:
+
+* Make sure that Ruby is installed.
+* `gem install bundler`
+* `bundle install`
+
+Testing the site can be done with the following after building:
+
+* `jekyll serve --source build/jekyll --destination build/jekyll/_site --incremental --watch`
 
 == Conversion Tools
 
