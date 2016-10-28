@@ -51,6 +51,18 @@ layout: default
         {% endfor %}
         {% endif %}
     </div>
+    
+    {% assign scrollnav = site.data.scrollnav[page.shortname] %}
+    {% if scrollnav %}
+    <div class="scrollnav">
+      {% if scrollnav.prev %}
+      <a class="prev" href="{{ scrollnav.prev.url }}">{{ scrollnav.prev.title }}</a>
+      {% endif %}
+      {% if scrollnav.next %}
+      <a class="next" href="{{ scrollnav.next.url }}">{{ scrollnav.next.title }}</a>
+      {% endif %}
+    </div>
+    {% endif %}
 
 </div>
 
