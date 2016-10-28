@@ -31,11 +31,12 @@ then
 fi
 
 HTML_DIR="$WORK_DIR/cleaned-export"
-ASCII_DIR="$WORK_DIR/converted-asciidoc"
+ASCII_DIR="$WORK_DIR/../solr-ref-guide/src"
 
 rm $ASCII_DIR/*.adoc
 
 echo "Coping images..."
+rm -rf $ASCII_DIR/images
 cp -r $HTML_DIR/images $ASCII_DIR/images
 
 for x in `find $HTML_DIR -name "*.html"`

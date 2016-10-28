@@ -1,0 +1,179 @@
+<project xmlns:asciidoctor="antlib:org.asciidoctor.ant" xmlns:ivy="antlib:org.apache.ivy.ant" >
+  
+  <!-- TODO: once we're part of the lucene-solr git repo,
+       remove these lines and replace them with an import of common-build.xml -->
+  <property name="version.base" value="6.2.42" />
+  <tstamp>
+    <format property="current.year" pattern="yyyy"/>
+    <format property="DSTAMP" pattern="yyyy-MM-dd"/>
+  </tstamp>
+  <property name="ivy.sync" value="true"/>
+    <condition property="ivy.symlink">
+    <os family="unix"/>
+  </condition>
+  <!-- <import file="....../common-build.xml"/> -->
+
+
+  
+  
+  <!-- properties to use in our docs -->
+  <loadresource property="solr-docs-version">
+    <propertyresource name="version.base"/>
+    <filterchain>
+      <tokenfilter>
+        <filetokenizer/>
+        <replaceregex pattern="^(\d+\.\d+)(|\..*)$" replace="\1" flags="s"/>
+      </tokenfilter>
+    </filterchain>
+  </loadresource>
+  <loadresource property="solr-docs-version-path">
+    <propertyresource name="solr-docs-version"/>
+    <filterchain>
+      <tokenfilter>
+        <filetokenizer/>
+        <replaceregex pattern="^(\d+)\.(\d+)(|\..*)$" replace="\1_\2_0" flags="s"/>
+      </tokenfilter>
+    </filterchain>
+  </loadresource>
+  <property name="solr-javadocs" value="https://lucene.apache.org/solr/${solr-docs-version-path}/" />
+  <property name="lucene-javadocs" value="https://lucene.apache.org/core/${solr-docs-version-path}/" />
+
+  <target name="resolve">
+    <mkdir dir="build/lib"/>
+    <ivy:retrieve type="jar,bundle" sync="${ivy.sync}" log="download-only" symlink="${ivy.symlink}"
+                  pattern="build/lib/[artifact]-[revision].[ext]" />
+  </target>
+  
+  <property name="build.content.dir" location="build/content" />
+  <property name="main-page" value="apache-solr-reference-guide" />
+  <property name="pdf-filename" value="apache-solr-ref-guide-${solr-docs-version}.pdf" />
+
+  <!-- ====== TOOLS FOR GENERATING/VALIDATING BITS OF THE SITE / PDF ======= -->
+  <property name="tools-jar-name" value="solr-ref-guide-tools.jar" />
+  <path id="tools-compile-classpath">
+    <fileset dir="build/lib">
+      <include name="**/*.jar"/>
+      <exclude name="**/${tools-jar-name}" />
+    </fileset>
+  </path>
+  <path id="tools-run-classpath">
+    <fileset dir="build/lib">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
+
+  <target name="clean">
+    <delete dir="build"/>
+  </target>
+
+  <target name="build-tools-jar" depends="resolve" description="Builds the custom java tools use use for generating some data files from page metdata">
+    <mkdir dir="build/classes"/>
+    <javac debug="yes"
+           debuglevel="source,lines,vars"
+           destdir="build/classes"
+           includeantruntime="false">
+      <compilerarg value="-Xlint:all"/>
+      <classpath refid="tools-compile-classpath"/>
+      <src path="tools/"/>
+    </javac>
+    <jar destfile="build/lib/${tools-jar-name}">
+      <fileset dir="build/classes"
+               includes="**/*.class"/>
+    </jar>
+  </target>
+  
+  <target name="build-init" description="Prepares the build/content dir, copying over src files and transforming *.template files in the process">
+    <delete dir="${build.content.dir}" />
+    <mkdir dir="${build.content.dir}" />
+    <echo>Copying all non template files from src ...</echo>
+    <copy todir="${build.content.dir}">
+      <fileset dir="src">
+        <exclude name="**/*.template"/>
+      </fileset>
+    </copy>
+    <echo>Copy (w/prop replacement) any template files from src...</echo>
+    <copy todir="${build.content.dir}">
+      <fileset dir="src">
+        <include name="**/*.template"/>
+      </fileset>
+      <mapper type="glob" from="*.template" to="*"/>
+      <filterchain>
+        <expandproperties/>
+      </filterchain>
+    </copy>
+  </target>
+
+  <target name="build-nav-data-files" depends="build-init,build-tools-jar" description="creates nav based data files needed by both the html and pdf artifacts">
+    <mkdir dir="${build.content.dir}/_data"/>
+    <delete file="${build.content.dir}/_data/pdf-main-body.adoc" />
+    <delete file="${build.content.dir}/_data/sidebar.json" />
+    <java classname="BuildNavAndPDFBody"
+          failonerror="true"
+          fork="true">
+      <classpath refid="tools-run-classpath"/>
+      <arg value="${build.content.dir}"/>
+      <arg value="${main-page}"/>
+    </java>
+  </target>
+
+  <!-- ====== PDF Build ======= -->
+  <target name="build-pdf"
+          depends="build-nav-data-files,resolve"
+          description="Builds a PDF">
+    <taskdef uri="antlib:org.asciidoctor.ant" resource="org/asciidoctor/ant/antlib.xml"
+             classpathref="tools-run-classpath"/>
+    <asciidoctor:convert
+                 sourceDirectory="${build.content.dir}/pdf"
+                 sourceDocumentName="SolrRefGuide-all.adoc"
+                 baseDir="${build.content.dir}"
+                 outputDirectory="build"
+                 backend="pdf"
+                 extensions="adoc"
+                 sourceHighlighter="coderay"
+                 embedAssets="true"
+                 imagesDir="${build.content.dir}"
+                 doctype="book"
+                 safemode="unsafe">
+      <attribute key="icons" value="font" />
+      <attribute key="icon-set" value="fa" />
+      <attribute key="docinfo!" value='' />
+      <attribute key="pdf-stylesDir" value="./pdf/themes"/>
+      <attribute key="pdf-style" value="refguide"/>
+      <attribute key="pdf-fontsDir" value="./pdf/fonts"/>
+      <attribute key="pagenums" value='' />
+      <attribute key="figure-caption!" value='' />
+      <!-- attributes used in adoc files -->
+      <!-- NOTE: If you add any attributes here for use in adoc files, you almost certainly need to also add
+           them to the _config.yml.template file for building the jekyll site as well
+      -->
+      <attribute key="solr-docs-version" value="${solr-docs-version}" />
+      <attribute key="solr-javadocs" value="${solr-javadocs}" />
+      <attribute key="lucene-javadocs" value="${lucene-javadocs}" />
+      <attribute key="build-date" value="${DSTAMP}" />
+      <attribute key="build-year" value="${current.year}" />
+    </asciidoctor:convert>
+    <move file="build/SolrRefGuide-all.pdf" tofile="build/${pdf-filename}" />
+    <echo>Finished Building ${basedir}/build/${pdf-filename}</echo>
+  </target>
+
+  <!-- ======= HTML Site Build =======
+       Builds site with Jekyll.
+       This (for now) assumes that Jekyll (http://jekyllrb.com) is installed locally. -->
+  <target name="build-site"
+          depends="build-init,build-nav-data-files"
+          description="Builds an HTML Site w/Jekyll">
+    <echo>Running Jekyll...</echo>
+    <exec executable="jekyll" dir="${build.content.dir}">
+      <arg value="build"/>
+    </exec>
+    <echo>Ready to browse site: ${basedir}/build/html-site/${main-page}.html</echo>
+  </target>
+
+  <target name="build"
+          description="Builds both a PDF and HTML versions of the ref guide"
+          depends="build-pdf,build-site">
+    <echo>PDF: ${basedir}/build/${pdf-filename}</echo>
+    <echo>SITE: ${basedir}/build/html-site/${main-page}.html</echo>
+  </target>
+
+</project>

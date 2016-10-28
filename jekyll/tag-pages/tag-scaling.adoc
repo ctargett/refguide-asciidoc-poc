@@ -1,6 +1,0 @@
-= Scaling Pages
-:page-search: exclude
-:page-tagName: scaling
-:page-permalink: tag-scaling.html
-
-{% include taglogic.html %}
