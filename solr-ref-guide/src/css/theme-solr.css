@@ -97,3 +97,27 @@ li.sidebarTitle {
   font-size     : 120%;
   font-weight   : normal;
 }
+.scrollnav {
+    font-size: larger;
+    /* why do we need both of these??? */
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+.scrollnav .prev {
+    text-align: left;
+    float: left;
+}
+.scrollnav .prev:before {
+    padding-right: 0.5em;
+    content: "\25C0 ";
+    display: inline-block; /* text-decoration: none doesn't work, but this does */
+}
+.scrollnav .next {
+    text-align: right;
+    float: right;
+}
+.scrollnav .next:after {
+    padding-left: 0.5em;
+    content: " \25B6";
+    display: inline-block; /* text-decoration: none doesn't work, but this does */
+}

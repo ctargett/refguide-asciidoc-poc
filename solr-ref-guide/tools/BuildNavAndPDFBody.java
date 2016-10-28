@@ -56,11 +56,14 @@ public class BuildNavAndPDFBody {
     // TODO: use depthFirstWalk to prune allPages to validate that we don't have any loops or orphan pages
 
 
-    // Build up the PDF file -- TODO: where should this live?
+    // Build up the PDF file,
+    // while doing this also build up some next/prev maps for use in building the scrollnav
     File pdfFile = new File(new File(adocDir, "_data"), "pdf-main-body.adoc");
     if (pdfFile.exists()) {
       throw new RuntimeException(pdfFile.toString() + " already exists");
     }
+    final Map<String,Page> nextPage = new HashMap<String,Page>();
+    final Map<String,Page> prevPage = new HashMap<String,Page>();
     System.out.println("Creating " + pdfFile.toString());
     try (Writer w = new OutputStreamWriter(new FileOutputStream(pdfFile), "UTF-8")) {
       // Note: not worrying about headers or anything like that ...
@@ -70,10 +73,21 @@ public class BuildNavAndPDFBody {
       // start with a "negative" depth to treat all "top level" pages as same depth as main-page using Math.max
       // (see below)
       final AtomicInteger depth = new AtomicInteger(-1);
+
+      // the previous page seen in our walk
+      AtomicReference<Page> previous = new AtomicReference<Page>();
       
       mainPage.depthFirstWalk(new Page.RecursiveAction() {
         public boolean act(Page page) {
           try {
+            if (null != previous.get()) {
+              // add previous as our 'prev' page, and ourselves as the 'next' of previous
+              prevPage.put(page.shortname, previous.get());
+              nextPage.put(previous.get().shortname, page);
+            }
+            previous.set(page);
+
+            
             // HACK: where this file actually lives will determine what we need here...
             w.write("include::../");
             w.write(page.file.getName());
@@ -88,6 +102,35 @@ public class BuildNavAndPDFBody {
           depth.decrementAndGet();
         }
       });
+    }
+    
+    // Build up the scrollnav file for jekyll's footer
+    File scrollnavFile = new File(new File(adocDir, "_data"), "scrollnav.json");
+    if (scrollnavFile.exists()) {
+      throw new RuntimeException(scrollnavFile.toString() + " already exists");
+    }
+    System.out.println("Creating " + scrollnavFile.toString());
+    try (Writer w = new OutputStreamWriter(new FileOutputStream(scrollnavFile), "UTF-8")) {
+      JSONObject scrollnav = new JSONObject();
+      for (Page p : allPages.values()) {
+        JSONObject current = new JSONObject();
+        Page prev = prevPage.get(p.shortname);
+        Page next = nextPage.get(p.shortname);
+        if (null != prev) {
+          current.put("prev",
+                      new JSONObject()
+                      .put("url", prev.permalink)
+                      .put("title", prev.title));
+        }
+        if (null != next) {
+          current.put("next",
+                      new JSONObject()
+                      .put("url", next.permalink)
+                      .put("title", next.title));
+        }
+        scrollnav.put(p.shortname, current);
+      }
+      scrollnav.write(w);
     }
     
     // Build up the sidebar file for jekyll
