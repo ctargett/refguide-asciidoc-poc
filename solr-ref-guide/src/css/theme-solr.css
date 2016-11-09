@@ -54,7 +54,7 @@ a[data-toggle="tooltip"] {
 
 .btn-primary {
     color: #ffffff;
-    background-color: #D9411E;
+    background-color: #FF833D;
     border-color: #D9411E;
 }
 
@@ -67,8 +67,8 @@ a[data-toggle="tooltip"] {
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
-    background-color: #248ec2;
-    border-color: #D9411E;
+    background-color: #305CB3;
+    border-color: #FF833D;
 }
 
 .printTitle {
@@ -101,11 +101,12 @@ li.sidebarTitle {
     font-size: larger;
     /* why do we need both of these??? */
     padding-bottom: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 .scrollnav .prev {
     text-align: left;
     float: left;
+    font-size: inherit;
 }
 .scrollnav .prev:before {
     padding-right: 0.5em;
@@ -115,6 +116,7 @@ li.sidebarTitle {
 .scrollnav .next {
     text-align: right;
     float: right;
+    font-size: inherit;
 }
 .scrollnav .next:after {
     padding-left: 0.5em;
