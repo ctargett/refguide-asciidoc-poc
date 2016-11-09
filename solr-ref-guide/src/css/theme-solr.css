@@ -58,8 +58,21 @@ a[data-toggle="tooltip"] {
 .navbar-inverse .navbar-nav > .active > a:focus,
 .navbar-inverse .navbar-nav > .active > a:hover {
   background-color : #D9411E;
-}
 
+
+.btn-primary {
+    color: #ffffff;
+    background-color: #FF833D;
+    border-color: #D9411E;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+    background-color: #305CB3;
+    border-color: #FF833D;
+}
 .printTitle {
   color : #015CAE !important;
 }
@@ -67,7 +80,7 @@ a[data-toggle="tooltip"] {
 body.print h1 {
   color     : #015CAE !important;
   font-size : 28px !important;
-}
+
 
 body.print h2 {
   color     : #595959 !important;
@@ -101,11 +114,12 @@ li.sidebarTitle {
     font-size: larger;
     /* why do we need both of these??? */
     padding-bottom: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 .scrollnav .prev {
     text-align: left;
     float: left;
+    font-size: inherit;
 }
 .scrollnav .prev:before {
     padding-right: 0.5em;
@@ -115,6 +129,7 @@ li.sidebarTitle {
 .scrollnav .next {
     text-align: right;
     float: right;
+    font-size: inherit;
 }
 .scrollnav .next:after {
     padding-left: 0.5em;
