@@ -13,15 +13,15 @@ See the wiki page in this repo https://github.com/ctargett/refguide-asciidoc-poc
 This repo is a proof-of-concept for converting the Ref Guide to Asciidoc format. It includes:
 
 * `solr-ref-guide` directory
-** This showcases what the "final" ref-guide files would look like in our Git repo for maintaining & building the ref-guide
-** Only this directory, and files in it, would be copied/migrated into the official lucene-solr Git repo.
+** This showcases what the "final" ref-guide files would look like in our Git repo for maintaining & building the Ref Guide.
+** Only this directory, and the files in it, would be copied/migrated into the official lucene-solr Git repo.
 * `confluence-export` directory
-** This contains tools for converting the raw confluence XML+HTML exports into adoc files (with images) which will be written into `solr-ref-guide/src`
+** This contains tools for converting the raw confluence XML+HTML exports into `.adoc` files (with images) which will be written into `solr-ref-guide/src`.
 ** This directory is also where the raw exports should be placed by folks interested in updating the converted docs:
-*** `confluence-export/raw-export` - put an unziped confluence HTML export here
-*** `confluence-export/raw-xml-export` - put an unziped confluence XML export here
+*** `confluence-export/raw-export` - put an unzipped confluence HTML export here
+*** `confluence-export/raw-xml-export` - put an unzipped confluence XML export here
 * `build.xml`
-** this top level `build.xml` has a single `convert-raw-confluence-exports` which handles converting the raw convluence exports into `confluence-export/cleaned-export` and then doing the final conversion to `solr-ref-guide/src/*.adoc` files
+** this top level `build.xml` has a single `convert-raw-confluence-exports` which handles converting the raw Confluence exports into `confluence-export/cleaned-export` and then doing the final conversion to `solr-ref-guide/src/*.adoc` files
 
 == Site Generation Process
 
@@ -32,14 +32,15 @@ Confluence provides a full end-to-end solution, from editing content to publishi
 This project proposes the following:
 
 * Raw content files will be stored in Asciidoc (`.adoc`) format.
-** These files will contain metadata attributes indicating the "hierarchical" structure of the documents
-* Custom java tooling will be used to processe the ADOC file metadata to build up navication data files
+** These files will contain metadata attributes indicating the "hierarchical" structure of the documents.
+* Custom Java tooling will be used to process the `.adoc` file metadata to build up navigation data files
 * Jekyll will be used for creation of a full HTML site.
-** the jekyll sidebar will be generated fro ma `sidebar.json` file produced by our custom java tooling
+** Sidebar-based navigation between pages is built into the Jekyll templates used for each page.
+** The  sidebar will be generated from a `sidebar.json` file produced by our custom Java tooling during site build.
 * Asciidoctor-pdf will be used for conversion to PDF.
-** the PDF will be generated from a programatically generated ADOC file built by our custom java tooling which includes all "real" ADOC files in the correct order.
+** The PDF will be generated from a programatically generated `.adoc` file built by our custom java tooling which includes all "real" `.adoc` files in the correct order.
 
-More on these options below - for specifics, see `solr-ref-guide/README.adoc`
+More on these options below - for specifics, see `solr-ref-guide/README.adoc`.
 
 === Asciidoctor
 
@@ -82,7 +83,7 @@ The borrowed theme implements "search", but it is not a full-text search engine.
 
 We'll use the `asciidoctor-ant` plugin which includes https://github.com/asciidoctor/asciidoctorj[`asciidoctorj`] which itself includes `asciidoctorj-pdf`, an implementation of https://github.com/asciidoctor/asciidoctor-pdf[`asciidoctor-pdf`] an Asciidoctor project to generate PDFs.
 
-This means that even w/o jekyll (or ruby) installed, anyone will be able to build the ref guide PDF using jar's that can be obtained from maven ventral via ivy.
+This means that even without Jekyll (or Ruby) installed, anyone will be able to build the Ref Guide PDF using jars that can be obtained from maven central via ivy.
 
 There are some interesting issues that still need to be overcome:
 
@@ -91,7 +92,7 @@ There are some interesting issues that still need to be overcome:
 
 As for styling, a YAML-based theme file is required to define colors, fonts, sizes, etc. This implements many of the features of CSS.
 
-Overall, this plugin is the easiest to use of the various options (another option requires converting the content to DocBook format first, then to PDF), but is still in an alpha stage (as of 10 Aug 2016), so many features are still pending for future releases.
+Overall, this plugin is the easiest to use of the various options (another option requires converting the content to DocBook format first, then to PDF), but is still in an alpha stage (as of 10 Nov 2016), so many features are still pending for future releases.
 
 *TO DO*
 
@@ -111,7 +112,6 @@ For more on how these decisions were made, see this repo's wiki page,  https://g
 
 *TO DO*
 
-* Settle on a shortname format for all pages.
 * Style the comments sections (custom style in progress in https://github.com/ctargett/refguide-asciidoc-poc/blob/master/jekylltest/css/comments.css[comments.css]).
 
 == Open Questions
