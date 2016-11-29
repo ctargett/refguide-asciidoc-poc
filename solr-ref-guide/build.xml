@@ -1,5 +1,5 @@
 <project xmlns:asciidoctor="antlib:org.asciidoctor.ant" xmlns:ivy="antlib:org.apache.ivy.ant" >
-  
+
   <!-- TODO: once we're part of the lucene-solr git repo,
        remove these lines and replace them with an import of common-build.xml -->
   <property name="version.base" value="6.2.42" />
@@ -14,8 +14,8 @@
   <!-- <import file="....../common-build.xml"/> -->
 
 
-  
-  
+
+
   <!-- properties to use in our docs -->
   <loadresource property="solr-docs-version">
     <propertyresource name="version.base"/>
@@ -43,7 +43,7 @@
     <ivy:retrieve type="jar,bundle" sync="${ivy.sync}" log="download-only" symlink="${ivy.symlink}"
                   pattern="build/lib/[artifact]-[revision].[ext]" />
   </target>
-  
+
   <property name="build.content.dir" location="build/content" />
   <property name="main-page" value="apache-solr-reference-guide" />
   <property name="pdf-filename" value="apache-solr-ref-guide-${solr-docs-version}.pdf" />
@@ -81,7 +81,7 @@
                includes="**/*.class"/>
     </jar>
   </target>
-  
+
   <target name="build-init" description="Prepares the build/content dir, copying over src files and transforming *.template files in the process">
     <delete dir="${build.content.dir}" />
     <mkdir dir="${build.content.dir}" />
@@ -140,6 +140,8 @@
       <attribute key="pdf-fontsDir" value="./pdf/fonts"/>
       <attribute key="pagenums" value='' />
       <attribute key="figure-caption!" value='' />
+      <attribute key="idprefix" value='' />
+      <attribute key="idseparator" value='-' />
       <!-- attributes used in adoc files -->
       <!-- NOTE: If you add any attributes here for use in adoc files, you almost certainly need to also add
            them to the _config.yml.template file for building the jekyll site as well
