@@ -52,23 +52,25 @@ a[data-toggle="tooltip"] {
     border-color: #248ec2 !important;
 }
 
+/* Used for nav buttons */
 .btn-primary {
     color: #ffffff;
-    background-color: #FF833D;
-    border-color: #D9411E;
+    background-color: #0A7C38;
+    border-color: #E6E7E8;
 }
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
     background-color: #D9411E;
 }
 
+/* Used for nav buttons */
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
     background-color: #305CB3;
-    border-color: #FF833D;
+    border-color: #E6E7E8;
 }
 
 .printTitle {
