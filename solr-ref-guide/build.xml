@@ -114,6 +114,15 @@
     </java>
   </target>
 
+  <target name="check-links-and-anchors" depends="build-init,build-tools-jar" description="Parse the HTML site files to check for problematic links or anchors">
+    <java classname="CheckLinksAndAnchors"
+          failonerror="true"
+          fork="true">
+      <classpath refid="tools-run-classpath"/>
+      <arg value="${basedir}/build/html-site"/>
+    </java>
+  </target>
+  
   <!-- ====== PDF Build ======= -->
   <target name="build-pdf"
           depends="build-nav-data-files,resolve"
