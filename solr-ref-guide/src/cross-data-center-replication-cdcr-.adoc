@@ -2,7 +2,7 @@
 :page-shortname: cross-data-center-replication-cdcr-
 :page-permalink: cross-data-center-replication-cdcr-.html
 
-The <<solrcloud.adoc#,SolrCloud>> architecture is not particularly well suited for situations where a single SolrCloud cluster consists of nodes in separated data clusters connected by an expensive pipe. The root problem is that SolrCloud is designed to support <<near-real-time-searching.adoc#,Near Real Time Searching>> by immediately forwarding updates between nodes in the cluster on a per-shard basis. "CDCR" features exist to help mitigate the risk of an entire Data Center outage.
+The <<solrcloud.adoc#solrcloud,SolrCloud>> architecture is not particularly well suited for situations where a single SolrCloud cluster consists of nodes in separated data clusters connected by an expensive pipe. The root problem is that SolrCloud is designed to support <<near-real-time-searching.adoc#near-real-time-searching,Near Real Time Searching>> by immediately forwarding updates between nodes in the cluster on a per-shard basis. "CDCR" features exist to help mitigate the risk of an entire Data Center outage.
 
 // OLD_CONFLUENCE_ID: CrossDataCenterReplication(CDCR)-WhatisCDCR?
 

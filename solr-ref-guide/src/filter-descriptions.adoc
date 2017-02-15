@@ -74,7 +74,7 @@ This filter converts alphabetic, numeric, and symbolic Unicode characters which 
 [[FilterDescriptions-Beider-MorseFilter]]
 == Beider-Morse Filter
 
-Implements the Beider-Morse Phonetic Matching (BMPM) algorithm, which allows identification of similar names, even if they are spelled differently or in different languages. More information about how this works is available in the section on <<phonetic-matching.adoc#,Phonetic Matching>>.
+Implements the Beider-Morse Phonetic Matching (BMPM) algorithm, which allows identification of similar names, even if they are spelled differently or in different languages. More information about how this works is available in the section on <<phonetic-matching.adoc#phonetic-matching,Phonetic Matching>>.
 
 [IMPORTANT]
 ====
@@ -171,7 +171,7 @@ Collation allows sorting of text in a language-sensitive way. It is usually used
 [[FilterDescriptions-Daitch-MokotoffSoundexFilter]]
 == Daitch-Mokotoff Soundex Filter
 
-Implements the Daitch-Mokotoff Soundex algorithm, which allows identification of similar names, even if they are spelled differently. More information about how this works is available in the section on <<phonetic-matching.adoc#,Phonetic Matching>>.
+Implements the Daitch-Mokotoff Soundex algorithm, which allows identification of similar names, even if they are spelled differently. More information about how this works is available in the section on <<phonetic-matching.adoc#phonetic-matching,Phonetic Matching>>.
 
 *Factory class:* `solr.DaitchMokotoffSoundexFilterFactory`
 
@@ -192,7 +192,7 @@ Implements the Daitch-Mokotoff Soundex algorithm, which allows identification of
 [[FilterDescriptions-DoubleMetaphoneFilter]]
 == Double Metaphone Filter
 
-This filter creates tokens using the http://commons.apache.org/codec/apidocs/org/apache/commons/codec/language/DoubleMetaphone.html[`DoubleMetaphone`] encoding algorithm from commons-codec. For more information, see the <<phonetic-matching.adoc#,Phonetic Matching>> section.
+This filter creates tokens using the http://commons.apache.org/codec/apidocs/org/apache/commons/codec/language/DoubleMetaphone.html[`DoubleMetaphone`] encoding algorithm from commons-codec. For more information, see the <<phonetic-matching.adoc#phonetic-matching,Phonetic Matching>> section.
 
 *Factory class:* `solr.DoubleMetaphoneFilterFactory`
 
@@ -664,7 +664,7 @@ Converts any uppercase letters in a token to the equivalent lowercase token. All
 [[FilterDescriptions-ManagedStopFilter]]
 == Managed Stop Filter
 
-This is specialized version of the <<FilterDescriptions-StopFilter,Stop Words Filter Factory>> that uses a set of stop words that are <<managed-resources.adoc#,managed from a REST API.>>
+This is specialized version of the <<FilterDescriptions-StopFilter,Stop Words Filter Factory>> that uses a set of stop words that are <<managed-resources.adoc#managed-resources,managed from a REST API.>>
 
 *Arguments:*
 
@@ -687,7 +687,7 @@ See <<FilterDescriptions-StopFilter,Stop Filter>> for example input/output.
 [[FilterDescriptions-ManagedSynonymFilter]]
 == Managed Synonym Filter
 
-This is specialized version of the <<FilterDescriptions-SynonymFilter,Synonym Filter Factory>> that uses a mapping on synonyms that is <<managed-resources.adoc#,managed from a REST API.>>
+This is specialized version of the <<FilterDescriptions-SynonymFilter,Synonym Filter Factory>> that uses a mapping on synonyms that is <<managed-resources.adoc#managed-resources,managed from a REST API.>>
 
 *Arguments:*
 

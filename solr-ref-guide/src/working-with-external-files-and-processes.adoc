@@ -10,7 +10,7 @@ The `ExternalFileField` type makes it possible to specify the values for a field
 [IMPORTANT]
 ====
 
-External fields are not searchable. They can be used only for function queries or display. For more information on function queries, see the section on <<function-queries.adoc#,Function Queries>>.
+External fields are not searchable. They can be used only for function queries or display. For more information on function queries, see the section on <<function-queries.adoc#function-queries,Function Queries>>.
 
 ====
 

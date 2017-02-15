@@ -314,7 +314,7 @@ Each processor has its own set of attributes, described in its own section below
 |cacheKey |The name of a property of this entity to use as a cache key if `cacheImpl` is specified.
 |cacheLookup |An entity + property name that will be used to lookup cached instances of this entity if `cacheImpl` is specified.
 |where |an alternative way to specify `cacheKey` and `cacheLookup` concatenated with '='. eg `where="CODE=People.COUNTRY_CODE"` is equal to `cacheKey="CODE" cacheLookup="People.COUNTRY_CODE"`
-|child="true" |Enables indexing document blocks aka <<uploading-data-with-index-handlers.adoc#,Nested Child Documents>> for searching with <<other-parsers.adoc#,Block Join Query Parsers>>. It can be only specified on `<entity>` under another root entity. It switches from default behavior (merging field values) to nesting documents as children documents. Note: parent `<entity>` should add a field which is used as a parent filter in query time.
+|child="true" |Enables indexing document blocks aka <<uploading-data-with-index-handlers.adoc#uploading-data-with-index-handlers,Nested Child Documents>> for searching with <<other-parsers.adoc#other-parsers,Block Join Query Parsers>>. It can be only specified on `<entity>` under another root entity. It switches from default behavior (merging field values) to nesting documents as children documents. Note: parent `<entity>` should add a field which is used as a parent filter in query time.
 |join="zipper" |Enables merge join aka "zipper" algorithm for joining parent and child entities without cache. It should be specified at child (nested) `<entity>`. It implies that parent and child queries return results ordered by keys, otherwise it throws an exception. Keys should be specified either with `where` attribute or with `cacheKey` and `cacheLookup`.
 |===
 
@@ -474,7 +474,7 @@ When connecting to a GMail account, you can improve the efficiency of the MailEn
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-TheTikaEntityProcessor]]
 === The TikaEntityProcessor
 
-The TikaEntityProcessor uses Apache Tika to process incoming documents. This is similar to <<uploading-data-with-solr-cell-using-apache-tika.adoc#,Uploading Data with Solr Cell using Apache Tika>>, but using the DataImportHandler options instead.
+The TikaEntityProcessor uses Apache Tika to process incoming documents. This is similar to <<uploading-data-with-solr-cell-using-apache-tika.adoc#uploading-data-with-solr-cell-using-apache-tika,Uploading Data with Solr Cell using Apache Tika>>, but using the DataImportHandler options instead.
 
 Here is an example from the "```tika```" collection of the `dih` example (`example/example-DIH/tika/conf/tika-data-config.xml`):
 

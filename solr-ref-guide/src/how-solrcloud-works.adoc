@@ -15,7 +15,7 @@ The following sections cover provide general information about how various SolrC
 +
 <</confluence/display/solr/Read+and+Write+Side+Fault+Tolerance,Read and Write Side Fault Tolerance>>
 
-If you are already familiar with SolrCloud concepts and basic functionality, you can skip to the section covering <<solrcloud-configuration-and-parameters.adoc#,SolrCloud Configuration and Parameters>>.
+If you are already familiar with SolrCloud concepts and basic functionality, you can skip to the section covering <<solrcloud-configuration-and-parameters.adoc#solrcloud-configuration-and-parameters,SolrCloud Configuration and Parameters>>.
 
 [[HowSolrCloudWorks-KeySolrCloudConcepts]]
 == Key SolrCloud Concepts

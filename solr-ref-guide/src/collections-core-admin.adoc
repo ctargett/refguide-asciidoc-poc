@@ -2,14 +2,14 @@
 :page-shortname: collections-core-admin
 :page-permalink: collections-core-admin.html
 
-The Collections screen provides some basic functionality for managing your Collections, powered by the <<collections-api.adoc#,Collections API>>.
+The Collections screen provides some basic functionality for managing your Collections, powered by the <<collections-api.adoc#collections-api,Collections API>>.
 
 [NOTE]
 ====
 
 If you are running a single node Solr instance, you will not see a Collections option in the left nav menu of the Admin UI.
 
-You will instead see a "Core Admin" screen that supports some comparable Core level information & manipulation via the <<coreadmin-api.adoc#,CoreAdmin API>> instead.
+You will instead see a "Core Admin" screen that supports some comparable Core level information & manipulation via the <<coreadmin-api.adoc#coreadmin-api,CoreAdmin API>> instead.
 
 ====
 

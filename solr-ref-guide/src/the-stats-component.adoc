@@ -25,7 +25,7 @@ The Stats Component accepts the following parameters:
 |stats.field a|
 Specifies a field for which statistics should be generated. This parameter may be invoked multiple times in a query in order to request statistics on multiple fields.
 
-<<local-parameters-in-queries.adoc#,Local Parameters>> may be used to indicate which subset of the supported statistics should be computed, and/or that statistics should be computed over the results of an arbitrary numeric function (or query) instead of a simple field name. See the examples below.
+<<local-parameters-in-queries.adoc#local-parameters-in-queries,Local Parameters>> may be used to indicate which subset of the supported statistics should be computed, and/or that statistics should be computed over the results of an arbitrary numeric function (or query) instead of a simple field name. See the examples below.
 
 |stats.facet a|
 Returns sub-results for values within the specified facet.
@@ -123,7 +123,7 @@ by Default
 [[TheStatsComponent-LocalParameters]]
 == Local Parameters
 
-Similar to the <<faceting.adoc#,Facet Component>>, the `stats.field` parameter supports local parameters for:
+Similar to the <<faceting.adoc#faceting,Facet Component>>, the `stats.field` parameter supports local parameters for:
 
 * Tagging & Excluding Filters: `stats.field={!ex=filterA}price`
 * Changing the Output Key: `stats.field={!key=my_price_stats}price`

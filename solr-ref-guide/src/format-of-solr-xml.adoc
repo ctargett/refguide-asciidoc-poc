@@ -2,7 +2,7 @@
 :page-shortname: format-of-solr-xml
 :page-permalink: format-of-solr-xml.html
 
-This section will describe the default `solr.xml` file included with Solr and how to modify it for your needs. For details on how to configure `core.properties`, see the section <<defining-core-properties.adoc#,Defining core.properties>>.
+This section will describe the default `solr.xml` file included with Solr and how to modify it for your needs. For details on how to configure `core.properties`, see the section <<defining-core-properties.adoc#defining-core-properties,Defining core.properties>>.
 
 [[Formatofsolr.xml-Definingsolr.xml]]
 == Defining solr.xml
@@ -94,7 +94,7 @@ This element defines several parameters that relate so SolrCloud. This section i
 |`zkClientTimeout` |A timeout for connection to a ZooKeeper server. It is used with SolrCloud.
 |`zkHost` |In SolrCloud mode, the URL of the ZooKeeper host that Solr should use for cluster state information.
 |`genericCoreNodeNames` |If `TRUE`, node names are not based on the address of the node, but on a generic name that identifies the core. When a different machine takes over serving that core things will be much easier to understand.
-|`zkCredentialsProvider` & ` zkACLProvider` |Optional parameters that can be specified if you are using <<zookeeper-access-control.adoc#,ZooKeeper Access Control>>.
+|`zkCredentialsProvider` & ` zkACLProvider` |Optional parameters that can be specified if you are using <<zookeeper-access-control.adoc#zookeeper-access-control,ZooKeeper Access Control>>.
 |===
 
 // OLD_CONFLUENCE_ID: Formatofsolr.xml-The<logging>element

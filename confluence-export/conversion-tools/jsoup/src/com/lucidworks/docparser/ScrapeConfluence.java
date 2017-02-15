@@ -204,12 +204,13 @@ public class ScrapeConfluence {
       if ("".equals(path)) { // fragment only URL (ie: same page)
         return PRE + fixAnchorId(href);
       } else if (null != linkedPage) {
-        path = pageTree.getPageShortName(linkedPage) + ".adoc";
+        final String linkShortName = pageTree.getPageShortName(linkedPage);
+        path = linkShortName + ".adoc";
 
         String frag = uri.getFragment();
-        if (null == frag) {
+        if (null == frag || "".equals(frag)) {
           // we have to have a fragment for intra-page links to work correctly in asciidoc
-          frag = "";
+          frag = linkShortName;
         }
         frag = fixAnchorId(frag);
         

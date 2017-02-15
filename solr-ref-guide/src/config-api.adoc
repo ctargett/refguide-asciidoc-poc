@@ -11,7 +11,7 @@ When using this API, `solrconfig.xml` is is not changed. Instead, all edited con
 
 * `/config`: retrieve or modify the config. GET to retrieve and POST for executing commands
 * `/config/overlay`: retrieve the details in the `configoverlay.json` alone
-* `/config/params` : allows creating parameter sets that can override or take the place of parameters defined in `solrconfig.xml`. See the <<request-parameters-api.adoc#,Request Parameters API>> section for more details.
+* `/config/params` : allows creating parameter sets that can override or take the place of parameters defined in `solrconfig.xml`. See the <<request-parameters-api.adoc#request-parameters-api,Request Parameters API>> section for more details.
 
 [[ConfigAPI-Commands]]
 == Commands
@@ -467,7 +467,7 @@ curl http://localhost:8983/solr/techproducts/config -H'Content-type:application/
 
 Every core watches the ZooKeeper directory for the configset being used with that core. In standalone mode, however, there is no watch (because ZooKeeper is not running). If there are multiple cores in the same node using the same configset, only one ZooKeeper watch is used. For instance, if the configset 'myconf' is used by a core, the node would watch `/configs/myconf`. Every write operation performed through the API would 'touch' the directory (sets an empty byte[] to trigger watches) and all watchers are notified. Every core would check if the Schema file, `solrconfig.xml` or `configoverlay.json` is modified by comparing the `znode` versions and if modified, the core is reloaded.
 
-If `params.json` is modified, the params object is just updated without a core reload (see the section <<request-parameters-api.adoc#,Request Parameters API>> for more information about `params.json`).
+If `params.json` is modified, the params object is just updated without a core reload (see the section <<request-parameters-api.adoc#request-parameters-api,Request Parameters API>> for more information about `params.json`).
 
 [[ConfigAPI-EmptyCommand]]
 === Empty Command

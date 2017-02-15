@@ -7,7 +7,7 @@ Every update request received by Solr is run through a chain of plugins known as
 [[UpdateRequestProcessors-Anatomyandlifecycle]]
 == Anatomy and life cycle
 
-An Update Request Processor is created as part of a {solr-javadocs}/solr-core/org/apache/solr/update/processor/UpdateRequestProcessorChain.html[chain] of one or more update processors. Solr creates a default update request processor chain comprising of a few update request processors which enable essential Solr features. This default chain is used to process every update request unless a user chooses to configure and specify a different <<update-request-processors.adoc#,custom update request processor chain>>.
+An Update Request Processor is created as part of a {solr-javadocs}/solr-core/org/apache/solr/update/processor/UpdateRequestProcessorChain.html[chain] of one or more update processors. Solr creates a default update request processor chain comprising of a few update request processors which enable essential Solr features. This default chain is used to process every update request unless a user chooses to configure and specify a different <<update-request-processors.adoc#update-request-processors,custom update request processor chain>>.
 
 The easiest way to describe an Update Request Processor is to look at the Javadocs of the abstract class {solr-javadocs}//solr-core/org/apache/solr/update/processor/UpdateRequestProcessor.html[UpdateRequestProcessor]. Every UpdateRequestProcessor must have a corresponding factory class which extends {solr-javadocs}/solr-core/org/apache/solr/update/processor/UpdateRequestProcessorFactory.html[UpdateRequestProcessorFactory]. This factory class is used by Solr to create a new instance of this plugin. Such a design provides two benefits:
 
@@ -112,7 +112,7 @@ In a single node, stand alone Solr, each update is run through all the update pr
 
 A critical SolrCloud functionality is the routing and distributing of requests – for update requests this routing is implemented by the DistributedUpdateRequestProcessor, and this processor is given a special status by Solr due to its important function.
 
-In a distributed SolrCloud situation setup, All processors in the chain _before_ the DistributedUpdateProcessor are run on the first node that receives an update from the client, regardless of this nodes status as a leader or replica. The DistributedUpdateProcessor then forwards the update to the appropriate shard leader for the update (or to multiple leaders in the event of an update that affects multiple documents, such as a delete by query, or commit). The shard leader uses a transaction log to apply <<updating-parts-of-documents.adoc#,Atomic Updates & Optimistic Concurrency>> and then forwards the update to all of the shard replicas. The leader and each replica run all of the processors in the chain that are listed _after_ the DistributedUpdateProcessor.
+In a distributed SolrCloud situation setup, All processors in the chain _before_ the DistributedUpdateProcessor are run on the first node that receives an update from the client, regardless of this nodes status as a leader or replica. The DistributedUpdateProcessor then forwards the update to the appropriate shard leader for the update (or to multiple leaders in the event of an update that affects multiple documents, such as a delete by query, or commit). The shard leader uses a transaction log to apply <<updating-parts-of-documents.adoc#updating-parts-of-documents,Atomic Updates & Optimistic Concurrency>> and then forwards the update to all of the shard replicas. The leader and each replica run all of the processors in the chain that are listed _after_ the DistributedUpdateProcessor.
 
 For example, consider the "dedupe" chain which we saw in a section above. Assume that a 3 node SolrCloud cluster exists where node A hosts the leader of shard1, node B hosts the leader of shard2 and node C hosts the replica of shard2. Assume that an update request is sent to node A which forwards the update to node B (because the update belongs to shard2) which then distributes the update to its replica node C. Let's see what happens at each node:
 
@@ -142,7 +142,7 @@ However executing a processor only on the forwarding nodes is a great way of dis
 [WARNING]
 ====
 
-Because DistributedUpdateProcessor is responsible for processing <<updating-parts-of-documents.adoc#,Atomic Updates>> into full documents on the leader node, this means that pre-processors which are executed only on the forwarding nodes can only operate on the partial document. If you have a processor which must process a full document then the only choice is to specify it as a post-processor.
+Because DistributedUpdateProcessor is responsible for processing <<updating-parts-of-documents.adoc#updating-parts-of-documents,Atomic Updates>> into full documents on the leader node, this means that pre-processors which are executed only on the forwarding nodes can only operate on the partial document. If you have a processor which must process a full document then the only choice is to specify it as a post-processor.
 
 ====
 
@@ -225,7 +225,7 @@ In the first example, Solr will dynamically create a chain which has "signature"
 
 We can also specify a custom chain to be used by default for all requests sent to specific update handlers instead of specifying the names in request parameters for each request.
 
-This can be done by adding either "update.chain" or "processor" and "post-processor" as default parameter for a given path which can be done either via <<initparams-in-solrconfig.adoc#,InitParams in SolrConfig>> or by adding them in a <<requesthandlers-and-searchcomponents-in-solrconfig.adoc#,"defaults" section>> which is supported by all request handlers.
+This can be done by adding either "update.chain" or "processor" and "post-processor" as default parameter for a given path which can be done either via <<initparams-in-solrconfig.adoc#initparams-in-solrconfig,InitParams in SolrConfig>> or by adding them in a <<requesthandlers-and-searchcomponents-in-solrconfig.adoc#requesthandlers-and-searchcomponents-in-solrconfig,"defaults" section>> which is supported by all request handlers.
 
 The following is an actual InitParam defined in the schemaless configuration which applies a custom update chain to all request handlers starting with "/update/".
 

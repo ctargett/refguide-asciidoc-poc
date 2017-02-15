@@ -4,14 +4,14 @@
 
 Schemaless Mode is a set of Solr features that, when used together, allow users to rapidly construct an effective schema by simply indexing sample data, without having to manually edit the schema. These Solr features, all controlled via `solrconfig.xml`, are:
 
-1.  Managed schema: Schema modifications are made at runtime through Solr APIs, which requires the use of `schemaFactory` that supports these changes - see <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory Definition in SolrConfig>> for more details.
+1.  Managed schema: Schema modifications are made at runtime through Solr APIs, which requires the use of `schemaFactory` that supports these changes - see <<schema-factory-definition-in-solrconfig.adoc#schema-factory-definition-in-solrconfig,Schema Factory Definition in SolrConfig>> for more details.
 2.  Field value class guessing: Previously unseen fields are run through a cascading set of value-based parsers, which guess the Java class of field values - parsers for Boolean, Integer, Long, Float, Double, and Date are currently available.
-3.  Automatic schema field addition, based on field value class(es): Previously unseen fields are added to the schema, based on field value Java classes, which are mapped to schema field types - see <<solr-field-types.adoc#,Solr Field Types>>.
+3.  Automatic schema field addition, based on field value class(es): Previously unseen fields are added to the schema, based on field value Java classes, which are mapped to schema field types - see <<solr-field-types.adoc#solr-field-types,Solr Field Types>>.
 
 [[SchemalessMode-UsingtheSchemalessExample]]
 == Using the Schemaless Example
 
-The three features of schemaless mode are pre-configured in the `data_driven_schema_configs` <<config-sets.adoc#,config set>> in the Solr distribution. To start an example instance of Solr using these configs, run the following command:
+The three features of schemaless mode are pre-configured in the `data_driven_schema_configs` <<config-sets.adoc#config-sets,config set>> in the Solr distribution. To start an example instance of Solr using these configs, run the following command:
 
 [source,plain]
 ----
@@ -20,7 +20,7 @@ bin/solr start -e schemaless
 
 This will launch a Solr server, and automatically create a collection (named "```gettingstarted```") that contains only three fields in the initial schema: `id`, `_version_`, and `_text_`.
 
-You can use the `/schema/fields` <<schema-api.adoc#,Schema API>> to confirm this: `curl http://localhost:8983/solr/gettingstarted/schema/fields` will output:
+You can use the `/schema/fields` <<schema-api.adoc#schema-api,Schema API>> to confirm this: `curl http://localhost:8983/solr/gettingstarted/schema/fields` will output:
 
 [source,javascript]
 ----
@@ -64,9 +64,9 @@ As described above, there are three configuration elements that need to be in pl
 [[SchemalessMode-EnableManagedSchema]]
 === Enable Managed Schema
 
-As described in the section <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory Definition in SolrConfig>>, Managed Schema support is enabled by default, unless your configuration specifies that `ClassicIndexSchemaFactory` should be used.
+As described in the section <<schema-factory-definition-in-solrconfig.adoc#schema-factory-definition-in-solrconfig,Schema Factory Definition in SolrConfig>>, Managed Schema support is enabled by default, unless your configuration specifies that `ClassicIndexSchemaFactory` should be used.
 
-You can configure the `ManagedIndexSchemaFactory` (and control the resource file used, or disable future modifications) by adding an explicit `<schemaFactory/>` like the one below, please see <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory Definition in SolrConfig>> for more details on the options available.
+You can configure the `ManagedIndexSchemaFactory` (and control the resource file used, or disable future modifications) by adding an explicit `<schemaFactory/>` like the one below, please see <<schema-factory-definition-in-solrconfig.adoc#schema-factory-definition-in-solrconfig,Schema Factory Definition in SolrConfig>> for more details on the options available.
 
 [source,xml]
 ----
@@ -155,7 +155,7 @@ Javadocs for update processor factories mentioned above:
 [[SchemalessMode-MaketheUpdateRequestProcessorChaintheDefaultfortheUpdateRequestHandler]]
 === Make the UpdateRequestProcessorChain the Default for the UpdateRequestHandler
 
-Once the UpdateRequestProcessorChain has been defined, you must instruct your UpdateRequestHandlers to use it when working with index updates (i.e., adding, removing, replacing documents). Here is an example using <<initparams-in-solrconfig.adoc#,InitParams>> to set the defaults on all `/update` request handlers:
+Once the UpdateRequestProcessorChain has been defined, you must instruct your UpdateRequestHandlers to use it when working with index updates (i.e., adding, removing, replacing documents). Here is an example using <<initparams-in-solrconfig.adoc#initparams-in-solrconfig,InitParams>> to set the defaults on all `/update` request handlers:
 
 [source,xml]
 ----
@@ -240,9 +240,9 @@ The fields now in the schema (output from `curl http://localhost:8983/solr/getti
 [TIP]
 ====
 
-Even if you want to use schemaless mode for most fields, you can still use the <<schema-api.adoc#,Schema API>> to pre-emptively create some fields, with explicit types, before you index documents that use them.
+Even if you want to use schemaless mode for most fields, you can still use the <<schema-api.adoc#schema-api,Schema API>> to pre-emptively create some fields, with explicit types, before you index documents that use them.
 
-Internally, the Schema API and the Schemaless Update Processors both use the same <<schema-factory-definition-in-solrconfig.adoc#,Managed Schema>> functionality.
+Internally, the Schema API and the Schemaless Update Processors both use the same <<schema-factory-definition-in-solrconfig.adoc#schema-factory-definition-in-solrconfig,Managed Schema>> functionality.
 
 ====
 

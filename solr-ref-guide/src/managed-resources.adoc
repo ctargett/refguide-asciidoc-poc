@@ -75,7 +75,7 @@ Assuming you sent this request to Solr, the response body is a JSON document:
 }
 ----
 
-The `sample_techproducts_configs` <<config-sets.adoc#,config set>> ships with a pre-built set of managed stop words, however you should only interact with this file using the API and not edit it directly.
+The `sample_techproducts_configs` <<config-sets.adoc#config-sets,config set>> ships with a pre-built set of managed stop words, however you should only interact with this file using the API and not edit it directly.
 
 One thing that should stand out to you in this response is that it contains a *`managedList`* of words as well as `**initArgs**` . This is an important concept in this framework—managed resources typically have configuration and data. For stop words, the only configuration parameter is a boolean that determines whether to ignore the case of tokens during stop word filtering (ignoreCase=true|false). The data is a list of words, which is represented as a JSON array named *`managedList`* in the response.
 
@@ -109,7 +109,7 @@ Note: PUT/POST is used to add terms to an existing list instead of replacing the
 [[ManagedResources-Synonyms]]
 === Synonyms
 
-For the most part, the API for managing synonyms behaves similar to the API for stop words, except instead of working with a list of words, it uses a map, where the value for each entry in the map is a set of synonyms for a term. As with stop words, the `sample_techproducts_configs` <<config-sets.adoc#,config set>> includes a pre-built set of synonym mappings suitable for the sample data that is activated by the following field type definition in schema.xml:
+For the most part, the API for managing synonyms behaves similar to the API for stop words, except instead of working with a list of words, it uses a map, where the value for each entry in the map is a set of synonyms for a term. As with stop words, the `sample_techproducts_configs` <<config-sets.adoc#config-sets,config set>> includes a pre-built set of synonym mappings suitable for the sample data that is activated by the following field type definition in schema.xml:
 
 [source,xml]
 ----

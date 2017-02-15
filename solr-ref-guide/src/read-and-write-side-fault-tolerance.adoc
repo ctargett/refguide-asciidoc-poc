@@ -42,7 +42,7 @@ A `zkConnected` header is included in every search response indicating if the no
 [[ReadandWriteSideFaultTolerance-shards.tolerant]]
 === `shards.tolerant`
 
-In the event that one or more shards queried are completely unavailable, then Solr's default behavior is to fail the request. However, there are many use-cases where partial results are acceptable and so Solr provides a boolean `shards.tolerant` parameter (default '`false`'). If `shards.tolerant=true` then partial results may be returned. If the returned response does not contain results from all the appropriate shards then the response header contains a special flag called '`partialResults`'. The client can specify '<<distributed-search-with-index-sharding.adoc#,`shards.info`>>' along with the '`shards.tolerant`' parameter to retrieve more fine-grained details.
+In the event that one or more shards queried are completely unavailable, then Solr's default behavior is to fail the request. However, there are many use-cases where partial results are acceptable and so Solr provides a boolean `shards.tolerant` parameter (default '`false`'). If `shards.tolerant=true` then partial results may be returned. If the returned response does not contain results from all the appropriate shards then the response header contains a special flag called '`partialResults`'. The client can specify '<<distributed-search-with-index-sharding.adoc#distributed-search-with-index-sharding,`shards.info`>>' along with the '`shards.tolerant`' parameter to retrieve more fine-grained details.
 
 Example response with `partialResults` flag set to 'true':
 
@@ -71,7 +71,7 @@ Example response with `partialResults` flag set to 'true':
 [[ReadandWriteSideFaultTolerance-WriteSideFaultTolerance]]
 == Write Side Fault Tolerance
 
-SolrCloud is designed to replicate documents to ensure redundancy for your data, and enable you to send update requests to any node in the cluster. That node will determine if it hosts the leader for the appropriate shard, and if not it will forward the request to the the leader, which will then forwards it to all existing replicas, using versioning to make sure every replica has the most up-to-date version. If the leader goes down, and other replica can take it's place. This architecture enables you to be certain that your data can be recovered in the event of a disaster, even if you are using <<near-real-time-searching.adoc#,Near Real Time Searching>>.
+SolrCloud is designed to replicate documents to ensure redundancy for your data, and enable you to send update requests to any node in the cluster. That node will determine if it hosts the leader for the appropriate shard, and if not it will forward the request to the the leader, which will then forwards it to all existing replicas, using versioning to make sure every replica has the most up-to-date version. If the leader goes down, and other replica can take it's place. This architecture enables you to be certain that your data can be recovered in the event of a disaster, even if you are using <<near-real-time-searching.adoc#near-real-time-searching,Near Real Time Searching>>.
 
 [[ReadandWriteSideFaultTolerance-Recovery]]
 === Recovery

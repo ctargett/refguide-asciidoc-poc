@@ -11,7 +11,7 @@ In this section you will learn how to start a SolrCloud cluster using startup sc
 [TIP]
 ====
 
-This tutorial assumes that you're already familiar with the basics of using Solr. If you need a refresher, please see the <<getting-started.adoc#,Getting Started section>> to get a grounding in Solr concepts. If you load documents as part of that exercise, you should start over with a fresh Solr installation for these SolrCloud tutorials.
+This tutorial assumes that you're already familiar with the basics of using Solr. If you need a refresher, please see the <<getting-started.adoc#getting-started,Getting Started section>> to get a grounding in Solr concepts. If you load documents as part of that exercise, you should start over with a fresh Solr installation for these SolrCloud tutorials.
 
 ====
 
@@ -89,7 +89,7 @@ You can see how your collection is deployed across the cluster by visiting the c
 
 The healthcheck command gathers basic information about each replica in a collection, such as number of docs, current status (active, down, etc), and address (where the replica lives in the cluster).
 
-Documents can now be added to SolrCloud using the <<post-tool.adoc#,Post Tool>>.
+Documents can now be added to SolrCloud using the <<post-tool.adoc#post-tool,Post Tool>>.
 
 To stop Solr in SolrCloud mode, you would use the `bin/solr` script and issue the `stop` command, as in:
 
@@ -152,4 +152,4 @@ Example (with directory structure) that adds a node to an example started with "
 
 The previous command will start another Solr node on port 8987 with Solr home set to `example/cloud/node3/solr`. The new node will write its log files to `example/cloud/node3/logs`.
 
-Once you're comfortable with how the SolrCloud example works, we recommend using the process described in <<taking-solr-to-production.adoc#,Taking Solr to Production>> for setting up SolrCloud nodes in production.
+Once you're comfortable with how the SolrCloud example works, we recommend using the process described in <<taking-solr-to-production.adoc#taking-solr-to-production,Taking Solr to Production>> for setting up SolrCloud nodes in production.

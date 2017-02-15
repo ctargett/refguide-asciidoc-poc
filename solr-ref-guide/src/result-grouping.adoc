@@ -4,7 +4,7 @@
 
 Result Grouping groups documents with a common field value into groups and returns the top documents for each group. For example, if you searched for "DVD" on an electronic retailer's e-commerce site, you might be returned three categories such as "TV and Video," "Movies," and "Computers," with three results per category. In this case, the query term "DVD" appeared in all three categories, so Solr groups them together in order to increase relevancy for the user.
 
-Result Grouping is separate from <<faceting.adoc#,Faceting>>. Though it is conceptually similar, faceting returns all relevant results and allows the user to refine the results based on the facet category. For example, if you search for "shoes" on a footwear retailer's e-commerce site, Solr would return all results for that query term, along with selectable facets such as "size," "color," "brand," and so on.
+Result Grouping is separate from <<faceting.adoc#faceting,Faceting>>. Though it is conceptually similar, faceting returns all relevant results and allows the user to refine the results based on the facet category. For example, if you search for "shoes" on a footwear retailer's e-commerce site, Solr would return all results for that query term, along with selectable facets such as "size," "color," "brand," and so on.
 
 You can however combine grouping with faceting. Grouped faceting supports `facet.field` and `facet.range` but currently doesn't support date and pivot faceting. The facet counts are computed based on the first `group.field` parameter, and other `group.field` parameters are ignored.
 
@@ -226,7 +226,7 @@ In this case, Solr found five matches for "memory," but only returns four result
 [[ResultGrouping-DistributedResultGroupingCaveats]]
 == Distributed Result Grouping Caveats
 
-Grouping is supported for <<solrcloud.adoc#,distributed searches>>, with some caveats:
+Grouping is supported for <<solrcloud.adoc#solrcloud,distributed searches>>, with some caveats:
 
 * Currently `group.func` is is not supported in any distributed searches
-* `group.ngroups` and `group.facet` require that all documents in each group must be co-located on the same shard in order for accurate counts to be returned. <<shards-and-indexing-data-in-solrcloud.adoc#,Document routing via composite keys>> can be a useful solution in many situations.
+* `group.ngroups` and `group.facet` require that all documents in each group must be co-located on the same shard in order for accurate counts to be returned. <<shards-and-indexing-data-in-solrcloud.adoc#shards-and-indexing-data-in-solrcloud,Document routing via composite keys>> can be a useful solution in many situations.

@@ -14,7 +14,7 @@ Modifying your schema will never modify any documents that are already indexed. 
 
 ====
 
-To enable schema modification with this API, the schema will need to be managed and mutable. See the section <<schema-factory-definition-in-solrconfig.adoc#,Schema Factory Definition in SolrConfig>> for more information.
+To enable schema modification with this API, the schema will need to be managed and mutable. See the section <<schema-factory-definition-in-solrconfig.adoc#schema-factory-definition-in-solrconfig,Schema Factory Definition in SolrConfig>> for more information.
 
 The API allows two output modes for all calls: JSON or XML. When requesting the complete schema, there is another output mode which is XML modeled after the schema.xml file itself.
 
@@ -65,7 +65,7 @@ When modifying the schema with the API, a core reload will automatically occur i
 
 The `add-field` command adds a new field definition to your schema. If a field with the same name exists an error is thrown.
 
-All of the properties available when defining a field with manual `schema.xml` edits can be passed via the API. These request attributes are described in detail in the section <<defining-fields.adoc#,Defining Fields>>.
+All of the properties available when defining a field with manual `schema.xml` edits can be passed via the API. These request attributes are described in detail in the section <<defining-fields.adoc#defining-fields,Defining Fields>>.
 
 For example, to define a new stored field named "sell-by", of type "tdate", you would POST the following request:
 
@@ -98,7 +98,7 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
 
 The `replace-field` command replaces a field's definition. Note that you must supply the full definition for a field - this command will *not* partially modify a field's definition. If the field does not exist in the schema an error is thrown.
 
-All of the properties available when defining a field with manual `schema.xml` edits can be passed via the API. These request attributes are described in detail in the section <<defining-fields.adoc#,Defining Fields>>.
+All of the properties available when defining a field with manual `schema.xml` edits can be passed via the API. These request attributes are described in detail in the section <<defining-fields.adoc#defining-fields,Defining Fields>>.
 
 For example, to replace the definition of an existing field "sell-by", to make it be of type "date" and to not be stored, you would POST the following request:
 
@@ -117,7 +117,7 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
 
 The `add-dynamic-field` command adds a new dynamic field rule to your schema.
 
-All of the properties available when editing `schema.xml` can be passed with the POST request. The section <<dynamic-fields.adoc#,Dynamic Fields>> has details on all of the attributes that can be defined for a dynamic field rule.
+All of the properties available when editing `schema.xml` can be passed with the POST request. The section <<dynamic-fields.adoc#dynamic-fields,Dynamic Fields>> has details on all of the attributes that can be defined for a dynamic field rule.
 
 For example, to create a new dynamic field rule where all incoming fields ending with "_s" would be stored and have field type "string", you can POST a request like this:
 
@@ -150,7 +150,7 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
 
 The `replace-dynamic-field` command replaces a dynamic field rule in your schema. Note that you must supply the full definition for a dynamic field rule - this command will *not* partially modify a dynamic field rule's definition. If the dynamic field rule does not exist in the schema an error is thrown.
 
-All of the properties available when editing `schema.xml` can be passed with the POST request. The section <<dynamic-fields.adoc#,Dynamic Fields>> has details on all of the attributes that can be defined for a dynamic field rule.
+All of the properties available when editing `schema.xml` can be passed with the POST request. The section <<dynamic-fields.adoc#dynamic-fields,Dynamic Fields>> has details on all of the attributes that can be defined for a dynamic field rule.
 
 For example, to replace the definition of the "*_s" dynamic field rule with one where the field type is "text_general" and it's not stored, you can POST a request like this:
 
@@ -169,7 +169,7 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
 
 The `add-field-type` command adds a new field type to your schema.
 
-All of the field type properties available when editing `schema.xml` by hand are available for use in a POST request. The structure of the command is a json mapping of the standard field type definition, including the name, class, index and query analyzer definitions, etc. Details of all of the available options are described in the section <<solr-field-types.adoc#,Solr Field Types>>.
+All of the field type properties available when editing `schema.xml` by hand are available for use in a POST request. The structure of the command is a json mapping of the standard field type definition, including the name, class, index and query analyzer definitions, etc. Details of all of the available options are described in the section <<solr-field-types.adoc#solr-field-types,Solr Field Types>>.
 
 For example, to create a new field type named "myNewTxtField", you can POST a request as follows:
 
@@ -230,7 +230,7 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{
 
 The `replace-field-type` command replaces a field type in your schema. Note that you must supply the full definition for a field type - this command will *not* partially modify a field type's definition. If the field type does not exist in the schema an error is thrown.
 
-All of the field type properties available when editing `schema.xml` by hand are available for use in a POST request. The structure of the command is a json mapping of the standard field type definition, including the name, class, index and query analyzer definitions, etc. Details of all of the available options are described in the section <<solr-field-types.adoc#,Solr Field Types>>.
+All of the field type properties available when editing `schema.xml` by hand are available for use in a POST request. The structure of the command is a json mapping of the standard field type definition, including the name, class, index and query analyzer definitions, etc. Details of all of the available options are described in the section <<solr-field-types.adoc#solr-field-types,Solr Field Types>>.
 
 For example, to replace the definition of a field type named "myNewTxtField", you can make a POST request as follows:
 
@@ -259,7 +259,7 @@ The attributes supported by the command are the same as when creating copy field
 |Name |Required |Description
 |source |Yes |The source field.
 |dest |Yes |A field or an array of fields to which the source field will be copied.
-|maxChars |No |The upper limit for the number of characters to be copied. The section <<copying-fields.adoc#,Copying Fields>> has more details.
+|maxChars |No |The upper limit for the number of characters to be copied. The section <<copying-fields.adoc#copying-fields,Copying Fields>> has more details.
 |===
 
 For example, to define a rule to copy the field "shelf" to the "location" and "catchall" fields, you would POST the following request:
@@ -593,7 +593,7 @@ The query parameters can be added to the API request after a '?'.
 
 *Output Content*
 
-The output will include each field and any defined configuration for each field. The defined configuration can vary for each field, but will minimally include the field `name`, the `type`, if it is `indexed` and if it is `stored`. If `multiValued` is defined as either true or false (most likely true), that will also be shown. See the section <<defining-fields.adoc#,Defining Fields>> for more information about each parameter.
+The output will include each field and any defined configuration for each field. The defined configuration can vary for each field, but will minimally include the field `name`, the `type`, if it is `indexed` and if it is `stored`. If `multiValued` is defined as either true or false (most likely true), that will also be shown. See the section <<defining-fields.adoc#defining-fields,Defining Fields>> for more information about each parameter.
 
 [[SchemaAPI-EXAMPLES.1]]
 ==== EXAMPLES
@@ -676,7 +676,7 @@ The query parameters can be added to the API request after a '?'.
 
 *Output Content*
 
-The output will include each dynamic field rule and the defined configuration for each rule. The defined configuration can vary for each rule, but will minimally include the dynamic field `name`, the `type`, if it is `indexed` and if it is `stored`. See the section <<dynamic-fields.adoc#,Dynamic Fields>> for more information about each parameter.
+The output will include each dynamic field rule and the defined configuration for each rule. The defined configuration can vary for each rule, but will minimally include the dynamic field `name`, the `type`, if it is `indexed` and if it is `stored`. See the section <<dynamic-fields.adoc#dynamic-fields,Dynamic Fields>> for more information about each parameter.
 
 [[SchemaAPI-EXAMPLES.2]]
 ==== EXAMPLES
@@ -769,7 +769,7 @@ The query parameters can be added to the API request after a '?'.
 
 *Output Content*
 
-The output will include each field type and any defined configuration for the type. The defined configuration can vary for each type, but will minimally include the field type `name` and the `class`. If query or index analyzers, tokenizers, or filters are defined, those will also be shown with other defined parameters. See the section <<solr-field-types.adoc#,Solr Field Types>> for more information about how to configure various types of fields.
+The output will include each field type and any defined configuration for the type. The defined configuration can vary for each type, but will minimally include the field type `name` and the `class`. If query or index analyzers, tokenizers, or filters are defined, those will also be shown with other defined parameters. See the section <<solr-field-types.adoc#solr-field-types,Solr Field Types>> for more information about how to configure various types of fields.
 
 [[SchemaAPI-EXAMPLES.3]]
 ==== EXAMPLES
@@ -869,7 +869,7 @@ The query parameters can be added to the API request after a '?'.
 
 *Output Content*
 
-The output will include the `source` and `dest`ination of each copy field rule defined in `schema.xml`. For more information about copying fields, see the section <<copying-fields.adoc#,Copying Fields>>.
+The output will include the `source` and `dest`ination of each copy field rule defined in `schema.xml`. For more information about copying fields, see the section <<copying-fields.adoc#copying-fields,Copying Fields>>.
 
 [[SchemaAPI-EXAMPLES.4]]
 ==== EXAMPLES
@@ -1186,4 +1186,4 @@ curl http://localhost:8983/solr/gettingstarted/schema/solrqueryparser/defaultope
 [[SchemaAPI-ManageResourceData]]
 == Manage Resource Data
 
-The <<managed-resources.adoc#,Managed Resources>> REST API provides a mechanism for any Solr plugin to expose resources that should support CRUD (Create, Read, Update, Delete) operations. Depending on what Field Types and Analyzers are configured in your Schema, additional `/schema/` REST API paths may exist. See the <<managed-resources.adoc#,Managed Resources>> section for more information and examples.
+The <<managed-resources.adoc#managed-resources,Managed Resources>> REST API provides a mechanism for any Solr plugin to expose resources that should support CRUD (Create, Read, Update, Delete) operations. Depending on what Field Types and Analyzers are configured in your Schema, additional `/schema/` REST API paths may exist. See the <<managed-resources.adoc#managed-resources,Managed Resources>> section for more information and examples.

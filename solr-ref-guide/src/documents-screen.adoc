@@ -66,5 +66,5 @@ This option will only add or overwrite documents to the index; for other update 
 [[DocumentsScreen-RelatedTopics]]
 == Related Topics
 
-* <<uploading-data-with-index-handlers.adoc#,Uploading Data with Index Handlers>>
-* <<uploading-data-with-solr-cell-using-apache-tika.adoc#,Uploading Data with Solr Cell using Apache Tika>>
+* <<uploading-data-with-index-handlers.adoc#uploading-data-with-index-handlers,Uploading Data with Index Handlers>>
+* <<uploading-data-with-solr-cell-using-apache-tika.adoc#uploading-data-with-solr-cell-using-apache-tika,Uploading Data with Solr Cell using Apache Tika>>

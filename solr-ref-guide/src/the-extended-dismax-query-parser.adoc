@@ -2,7 +2,7 @@
 :page-shortname: the-extended-dismax-query-parser
 :page-permalink: the-extended-dismax-query-parser.html
 
-The Extended DisMax (eDisMax) query parser is an improved version of the <<the-dismax-query-parser.adoc#,DisMax query parser>>. In addition to supporting all the DisMax query parser parameters, Extended Dismax:
+The Extended DisMax (eDisMax) query parser is an improved version of the <<the-dismax-query-parser.adoc#the-dismax-query-parser,DisMax query parser>>. In addition to supporting all the DisMax query parser parameters, Extended Dismax:
 
 * supports the full Lucene query parser syntax.
 * supports queries such as AND, OR, NOT, -, and +.

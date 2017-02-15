@@ -2,9 +2,9 @@
 :page-shortname: configsets-api
 :page-permalink: configsets-api.html
 
-The ConfigSets API enables you to create, delete, and otherwise manage ConfigSets. To use a ConfigSet created with this API as the configuration for a collection, use the <<collections-api.adoc#,Collections API>>.
+The ConfigSets API enables you to create, delete, and otherwise manage ConfigSets. To use a ConfigSet created with this API as the configuration for a collection, use the <<collections-api.adoc#collections-api,Collections API>>.
 
-This API can only be used with Solr running in SolrCloud mode. If you are not running Solr in SolrCloud mode but would still like to use shared configurations, please see the section <<config-sets.adoc#,Config Sets>>.
+This API can only be used with Solr running in SolrCloud mode. If you are not running Solr in SolrCloud mode but would still like to use shared configurations, please see the section <<config-sets.adoc#config-sets,Config Sets>>.
 
 [[ConfigSetsAPI-APIEntryPoints]]
 == API Entry Points

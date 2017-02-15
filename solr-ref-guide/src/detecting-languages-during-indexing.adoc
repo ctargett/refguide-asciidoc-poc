@@ -9,7 +9,7 @@ Solr can identify languages and map text to language-specific fields during inde
 
 You can see a comparison between the two implementations here: http://blog.mikemccandless.com/2011/10/accuracy-and-performance-of-googles.html. In general, the LangDetect implementation supports more languages with higher performance.
 
-For specific information on each of these language identification implementations, including a list of supported languages for each, see the relevant project websites. For more information about the `langid` UpdateRequestProcessor, see the Solr wiki: http://wiki.apache.org/solr/LanguageDetection. For more information about language analysis in Solr, see <<language-analysis.adoc#,Language Analysis>>.
+For specific information on each of these language identification implementations, including a list of supported languages for each, see the relevant project websites. For more information about the `langid` UpdateRequestProcessor, see the Solr wiki: http://wiki.apache.org/solr/LanguageDetection. For more information about language analysis in Solr, see <<language-analysis.adoc#language-analysis,Language Analysis>>.
 
 [[DetectingLanguagesDuringIndexing-ConfiguringLanguageDetection]]
 == Configuring Language Detection

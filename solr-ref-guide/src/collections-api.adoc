@@ -40,12 +40,12 @@ Controls wether or not the shard-replicas created for this collection will be as
 Ignored if createNodeSet is not also specified.
 
 |collection.configName |string |No |empty |Defines the name of the configurations (which must already be stored in ZooKeeper) to use for this collection. If not provided, Solr will default to the collection name as the configuration name.
-|router.field |string |No |empty |If this field is specified, the router will look at the value of the field in an input document to compute the hash and identify a shard instead of looking at the `uniqueKey` field. If the field specified is null in the document, the document will be rejected. Please note that <<realtime-get.adoc#,RealTime Get>> or retrieval by id would also require the parameter `_route_` (or `shard.keys`) to avoid a distributed search.
-|property.__name__=__value__ |string |No | |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#,Defining core.properties>> for details on supported properties and values.
+|router.field |string |No |empty |If this field is specified, the router will look at the value of the field in an input document to compute the hash and identify a shard instead of looking at the `uniqueKey` field. If the field specified is null in the document, the document will be rejected. Please note that <<realtime-get.adoc#realtime-get,RealTime Get>> or retrieval by id would also require the parameter `_route_` (or `shard.keys`) to avoid a distributed search.
+|property.__name__=__value__ |string |No | |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#defining-core-properties,Defining core.properties>> for details on supported properties and values.
 |autoAddReplicas |boolean |No |false |When set to true, enables auto addition of replicas on shared file systems. See the section <<running-solr-on-hdfs.adoc#RunningSolronHDFS-autoAddReplicasSettings,autoAddReplicas Settings>> for more details on settings and overrides.
 |async |string |No | |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>>.
-|rule |string |No | |Replica placement rules. See the section <<rule-based-replica-placement.adoc#,Rule-based Replica Placement>> for details.
-|snitch |string |No | |Details of the snitch provider. See the section <<rule-based-replica-placement.adoc#,Rule-based Replica Placement>> for details.
+|rule |string |No | |Replica placement rules. See the section <<rule-based-replica-placement.adoc#rule-based-replica-placement,Rule-based Replica Placement>> for details.
+|snitch |string |No | |Details of the snitch provider. See the section <<rule-based-replica-placement.adoc#rule-based-replica-placement,Rule-based Replica Placement>> for details.
 |===
 
 *Output*
@@ -214,7 +214,7 @@ Shard splitting can be a long running process. In order to avoid timeouts, you s
 |shard |string |Yes |The name of the shard to be split.
 |ranges |string |No |A comma-separated list of hash ranges in hexadecimal e.g. ranges=0-1f4,1f5-3e8,3e9-5dc
 |split.key |string |No |The key to use for splitting the index
-|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#,Defining core.properties>> for details on supported properties and values.
+|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#defining-core-properties,Defining core.properties>> for details on supported properties and values.
 |async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>>
 |===
 
@@ -314,7 +314,7 @@ Shards can only created with this API for collections that use the 'implicit' ro
 |collection |string |Yes |The name of the collection that includes the shard that will be splitted.
 |shard |string |Yes |The name of the shard to be created.
 |createNodeSet |string |No |Allows defining the nodes to spread the new collection across. If not provided, the CREATE operation will create shard-replica spread across all live Solr nodes. The format is a comma-separated list of node_names, such as `localhost:8983_solr,` `localhost:8984_solr,` `localhost:8985_solr`.
-|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#,Defining core.properties>> for details on supported properties and values.
+|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#defining-core-properties,Defining core.properties>> for details on supported properties and values.
 |async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>> .
 |===
 
@@ -634,7 +634,7 @@ Ignored if the shard param is also specified.
 |node |string |No |The name of the node where the replica should be created
 |instanceDir |string |No |The instanceDir for the core that will be created
 |dataDir |string |No |The directory in which the core should be created
-|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See <<defining-core-properties.adoc#,Defining core.properties>>.
+|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See <<defining-core-properties.adoc#defining-core-properties,Defining core.properties>>.
 |async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>>
 |===
 
@@ -745,7 +745,7 @@ Please note that the migrate API does not perform any de-duplication on the docu
 |target.collection |string |Yes |The name of the target collection to which documents will be migrated.
 |split.key |string |Yes |The routing key prefix. For example, if uniqueKey is a!123, then you would use `split.key=a!`.
 |forward.timeout |int |No |The timeout, in seconds, until which write requests made to the source collection for the given `split.key` will be forwarded to the target shard. The default is 60 seconds.
-|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#,Defining core.properties>> for details on supported properties and values.
+|property.__name__=__value__ |string |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#defining-core-properties,Defining core.properties>> for details on supported properties and values.
 |async |string |No |Request ID to track this action which will be <<CollectionsAPI-AsynchronousCalls,processed asynchronously>>.
 |===
 
@@ -1756,7 +1756,7 @@ Additionally, there are several parameters that can be overridden:
 |replicationFactor |Integer |No |The number of replicas to be created for each shard.
 |maxShardsPerNode |Integer |No |When creating collections, the shards and/or replicas are spread across all available (i.e., live) nodes, and two replicas of the same shard will never be on the same node. If a node is not live when the CREATE operation is called, it will not get any parts of the new collection, which could lead to too many replicas being created on a single live node. Defining `maxShardsPerNode` sets a limit on the number of replicas CREATE will spread to each node. If the entire collection can not be fit into the live nodes, no collection will be created at all.
 |autoAddReplicas |Boolean |No |When set to true, enables auto addition of replicas on shared file systems. See the section <<running-solr-on-hdfs.adoc#RunningSolronHDFS-AutomaticallyAddReplicasinSolrCloud,Automatically Add Replicas in SolrCloud>> for more details on settings and overrides.
-|property.__name__=__value__ |String |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#,Defining core.properties>> for details on supported properties and values.
+|property.__name__=__value__ |String |No |Set core property _name_ to __value__. See the section <<defining-core-properties.adoc#defining-core-properties,Defining core.properties>> for details on supported properties and values.
 |===
 
 [[CollectionsAPI-AsynchronousCalls]]

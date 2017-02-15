@@ -2,7 +2,7 @@
 :page-shortname: performance-statistics-reference
 :page-permalink: performance-statistics-reference.html
 
-This page will explain all the <<using-jmx-with-solr.adoc#,JMX>> statistics that Solr exposes. The same stats are also exposed via the<<mbean-request-handler.adoc#,MBean Request Handler>> when stats are requested.
+This page will explain all the <<using-jmx-with-solr.adoc#using-jmx-with-solr,JMX>> statistics that Solr exposes. The same stats are also exposed via the<<mbean-request-handler.adoc#mbean-request-handler,MBean Request Handler>> when stats are requested.
 
 [[PerformanceStatisticsReference-RequestHandlers]]
 == Request Handlers
@@ -115,6 +115,6 @@ This cache is used for filters for unordered sets of all documents that match a 
 |warmupTime |Warm-up time for the registered index searcher. This time is taken in account for the “auto-warming” of caches.
 |===
 
-More on <<query-settings-in-solrconfig.adoc#,Solr caches>>
+More on <<query-settings-in-solrconfig.adoc#query-settings-in-solrconfig,Solr caches>>
 
 These statistics are per core. When you are running SolrCloud these statistics would co-relate to each performance of an individual replica
