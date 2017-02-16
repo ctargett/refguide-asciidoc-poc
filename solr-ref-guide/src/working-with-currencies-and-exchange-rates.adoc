@@ -24,6 +24,15 @@ The `currency` field type is defined in `schema.xml`. This is the default config
 
 In this example, we have defined the name and class of the field type, and defined the `defaultCurrency` as "USD", for U.S. Dollars. We have also defined a `currencyConfig` to use a file called "currency.xml". This is a file of exchange rates between our default currency to other currencies. There is an alternate implementation that would allow regular downloading of currency data. See <<WorkingwithCurrenciesandExchangeRates-ExchangeRates,Exchange Rates>> below for more.
 
+Many of the example schemas that ship with Solr include a <<dynamic-fields.adoc#dynamic-fields,dynamic field>> that uses this type, such as this example:
+
+[source,xml]
+----
+    <dynamicField name="*_c"   type="currency" indexed="true"  stored="true"/>
+----
+
+This dynamic field would match any field that ends in `_c` and make it a currency typed field.
+
 At indexing time, money fields can be indexed in a native currency. For example, if a product on an e-commerce site is listed in Euros, indexing the price field as "1000,EUR" will index it appropriately. The price should be separated from the currency by a comma, and the price must be encoded with a floating point value (a decimal point).
 
 During query processing, range and point queries are both supported.

@@ -1,7 +1,7 @@
 = Getting Started
 :page-shortname: getting-started
 :page-permalink: getting-started.html
-:page-children: installing-solr, running-solr, a-quick-overview, a-step-closer, solr-start-script-reference
+:page-children: installing-solr, running-solr, a-quick-overview, a-step-closer, solr-control-script-reference
 
 Solr makes it easy for programmers to develop sophisticated, high-performance search applications with advanced features such as faceting (arranging search results in columns with numerical counts of key terms). Solr builds on another open source search technology: Lucene, a Java library that provides indexing and search technology, as well as spellchecking, hit highlighting and advanced analysis/tokenization capabilities. Both Solr and Lucene are managed by the Apache Software Foundation (http://www.apache.org/[www.apache.org)].
 
@@ -17,4 +17,11 @@ This section helps you get Solr up and running quickly, and introduces you to th
 
 <<a-step-closer.adoc#a-step-closer,A Step Closer>>: An introduction to Solr's home directory and configuration options.
 
-<<solr-start-script-reference.adoc#solr-start-script-reference,Solr Start Script Reference>>: a complete reference of all of the commands and options available with the bin/solr script.
+<<solr-control-script-reference.adoc#solr-control-script-reference,Solr Control Script Reference>>: a complete reference of all of the commands and options available with the bin/solr script.
+
+[TIP]
+====
+
+Solr includes a Quick Start tutorial which will be helpful if you are just starting out with Solr. You can find it online at http://lucene.apache.org/solr/quickstart.html, or in your Solr installation at `$SOLR_INSTALL_DIR/docs/quickstart.html`.
+
+====

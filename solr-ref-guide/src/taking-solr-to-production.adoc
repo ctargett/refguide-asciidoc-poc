@@ -7,7 +7,7 @@ This section provides guidance on how to setup Solr to run in production on *nix
 [[TakingSolrtoProduction-ServiceInstallationScript]]
 == Service Installation Script
 
-Solr includes a service installation script (`bin/install_solr_service.sh`) to help you install Solr as a service on Linux. Currently, the script only supports Red Hat, Ubuntu, Debian, and SUSE Linux distributions. Before running the script, you need to determine a few parameters about your setup. Specifically, you need to decide where to install Solr and which system user should be the owner of the Solr files and process.
+Solr includes a service installation script (`bin/install_solr_service.sh`) to help you install Solr as a service on Linux. Currently, the script only supports CentOS, Debian, Red Hat, SUSE and Ubuntu Linux distributions. Before running the script, you need to determine a few parameters about your setup. Specifically, you need to decide where to install Solr and which system user should be the owner of the Solr files and process.
 
 [[TakingSolrtoProduction-Planningyourdirectorystructure]]
 === Planning your directory structure
@@ -35,7 +35,7 @@ You should also separate writable Solr files into a different directory; by defa
 [[TakingSolrtoProduction-CreatetheSolruser]]
 === Create the Solr user
 
-Running Solr as `root` is not recommended for security reasons. Consequently, you should determine the username of a system user that will own all of the Solr files and the running Solr process. By default, the installation script will create the *solr* user, but you can override this setting using the -u option. If your organization has specific requirements for creating new user accounts, then you should create the user before running the script. The installation script will make the Solr user the owner of the `/opt/solr` and `/var/solr` directories.
+Running Solr as `root` is not recommended for security reasons, and the <<solr-control-script-reference.adoc#solr-control-script-reference,control script>> start command will refuse to do so. Consequently, you should determine the username of a system user that will own all of the Solr files and the running Solr process. By default, the installation script will create the *solr* user, but you can override this setting using the -u option. If your organization has specific requirements for creating new user accounts, then you should create the user before running the script. The installation script will make the Solr user the owner of the `/opt/solr` and `/var/solr` directories.
 
 You are now ready to run the installation script.
 
@@ -77,12 +77,14 @@ Once the script completes, Solr will be installed as a service and running in th
 $ sudo service solr status
 ----
 
+If you do not want to start the service immediately, pass the `-n` option. You can then start the service manually later, e.g., after completing the configuration setup.
+
 We'll cover some additional configuration settings you can make to fine-tune your Solr setup in a moment. Before moving on, let's take a closer look at the steps performed by the installation script. This gives you a better overview and will help you understand important details about your Solr installation when reading other pages in this guide; such as when a page refers to Solr home, you'll know exactly where that is on your system.
 
 [[TakingSolrtoProduction-SolrHomeDirectory]]
 ==== Solr Home Directory
 
-The Solr home directory (not to be confused with the Solr installation directory) is where Solr manages core directories with index files. By default, the installation script uses `/var/solr/data`. If the `-d` option is used on the install script, then this will change to the `data` subdirectory in the location given to the -d option. Take a moment to inspect the contents of the Solr home directory on your system. If you do not<<using-zookeeper-to-manage-configuration-files.adoc#using-zookeeper-to-manage-configuration-files,store `solr.xml` in ZooKeeper>>, the home directory must contain a `solr.xml` file. When Solr starts up, the Solr start script passes the location of the home directory using the `-Dsolr.solr.home `system property.
+The Solr home directory (not to be confused with the Solr installation directory) is where Solr manages core directories with index files. By default, the installation script uses `/var/solr/data`. If the `-d` option is used on the install script, then this will change to the `data` subdirectory in the location given to the -d option. Take a moment to inspect the contents of the Solr home directory on your system. If you do not<<using-zookeeper-to-manage-configuration-files.adoc#using-zookeeper-to-manage-configuration-files,store `solr.xml` in ZooKeeper>>, the home directory must contain a `solr.xml` file. When Solr starts up, the Solr Control Script passes the location of the home directory using the `-Dsolr.solr.home `system property.
 
 [[TakingSolrtoProduction-Environmentoverridesincludefile]]
 ==== Environment overrides include file
@@ -95,12 +97,12 @@ SOLR_PID_DIR=/var/solr
 SOLR_HOME=/var/solr/data
 ----
 
-The `SOLR_PID_DIR` variable sets the directory where the start script will write out a file containing the Solr server’s process ID.
+The `SOLR_PID_DIR` variable sets the directory where the <<solr-control-script-reference.adoc#solr-control-script-reference,control script>> will write out a file containing the Solr server’s process ID.
 
 [[TakingSolrtoProduction-Logsettings]]
 ==== Log settings
 
-Solr uses Apache Log4J for logging. The installation script copies `/opt/solr/server/resources/log4j.properties` to `/var/solr/log4j.properties` and customizes it for your environment. Specifically it updates the Log4J settings to create logs in the `/var/solr/logs` directory. Take a moment to verify that the Solr include file is configured to send logs to the correct location by checking the following settings in `/etc/default/solr.in.sh` :
+Solr uses Apache Log4J for logging. The installation script copies `/opt/solr/server/resources/log4j.properties` to `/var/solr/log4j.properties`. Take a moment to verify that the Solr include file is configured to send logs to the correct location by checking the following settings in `/etc/default/solr.in.sh`:
 
 [source,plain]
 ----
@@ -169,7 +171,7 @@ By default, the `bin/solr` script sets the maximum Java heap size to 512M (-Xmx5
 SOLR_JAVA_MEM="-Xms10g -Xmx10g"
 ----
 
-Also, the include file comes with a set of pre-configured Java Garbage Collection settings that have shown to work well with Solr for a number of different workloads. However, these settings may not work well for your specific use of Solr. Consequently, you may need to change the GC settings, which should also be done with the `GC_TUNE` variable in the `/etc/default/solr.in.sh` include file. For more information about tuning your memory and garbage collection settings, see: <<jvm-settings.adoc#jvm-settings,JVM Settings>>.
+Also, the <<solr-control-script-reference.adoc#solr-control-script-reference,Solr Control Script>> comes with a set of pre-configured Java Garbage Collection settings that have shown to work well with Solr for a number of different workloads. However, these settings may not work well for your specific use of Solr. Consequently, you may need to change the GC settings, which should also be done with the `GC_TUNE` variable in the `/etc/default/solr.in.sh` include file. For more information about tuning your memory and garbage collection settings, see: <<jvm-settings.adoc#jvm-settings,JVM Settings>>.
 
 [[TakingSolrtoProduction-Out-of-MemoryShutdownHook]]
 ==== Out-of-Memory Shutdown Hook
@@ -198,11 +200,11 @@ If you're using a ZooKeeper instance that is shared by other systems, it's recom
 ZK_HOST=zk1,zk2,zk3/solr
 ----
 
-Before using a chroot for the first time, you need to create the root path (znode) in ZooKeeper by using the `zkcli.sh` script. We can use the makepath command for that:
+Before using a chroot for the first time, you need to create the root path (znode) in ZooKeeper by using the <<solr-control-script-reference.adoc#solr-control-script-reference,Solr Control Script>>. We can use the mkroot command for that:
 
 [source,plain]
 ----
-$ server/scripts/cloud-scripts/zkcli.sh -zkhost zk1,zk2,zk3 -cmd makepath /solr
+$ bin/solr zk mkroot /solr -z <ZK_node>:<ZK_PORT>
 ----
 
 [NOTE]
@@ -249,31 +251,6 @@ The `bin/solr` script simply passes options starting with `-D` on to the JVM dur
 ----
 SOLR_OPTS="$SOLR_OPTS -Dsolr.autoSoftCommit.maxTime=10000"
 ----
-
-[[TakingSolrtoProduction-EnableRemoteJMXAccess]]
-=== Enable Remote JMX Access
-
-If you need to attach a JMX-enabled Java profiling tool, such as JConsole or VisualVM, to a remote Solr server, then you need to enable remote JMX access when starting the Solr server. Simply change the `ENABLE_REMOTE_JMX_OPTS` property in the include file to true. You’ll also need to choose a port for the JMX RMI connector to bind to, such as 18983. For example, if your Solr include script sets:
-
-[source,plain]
-----
-ENABLE_REMOTE_JMX_OPTS=true
-RMI_PORT=18983
-----
-
-The JMX RMI connector will allow Java profiling tools to attach to port 18983. When enabled, the following properties are passed to the JVM when starting Solr:
-
-[source,plain]
-----
--Dcom.sun.management.jmxremote \
--Dcom.sun.management.jmxremote.local.only=false \
--Dcom.sun.management.jmxremote.ssl=false \
--Dcom.sun.management.jmxremote.authenticate=false \
--Dcom.sun.management.jmxremote.port=18983 \
--Dcom.sun.management.jmxremote.rmi.port=18983
-----
-
-We don’t recommend enabling remote JMX access in production, but it can sometimes be useful when doing performance and user-acceptance testing prior to going into production.
 
 [[TakingSolrtoProduction-RunningmultipleSolrnodesperhost]]
 == Running multiple Solr nodes per host

@@ -47,7 +47,7 @@ Next, the script will prompt you for the port to bind each of the Solr nodes to,
  Please enter the port for node1 [8983]  
 ----
 
-Choose any available port for each node; the default for the first node is 8983 and 7574 for the second node. The script will start each node in order and shows you the command it uses to start the server, such as:
+Choose any available port for each node; the default for the first node is 8983 and 7574 for the second node. The script will start each node in order and show you the command it uses to start the server, such as:
 
 [source,plain]
 ----
@@ -65,11 +65,11 @@ After starting up all nodes in the cluster, the script prompts you for the name 
 
 The suggested default is "gettingstarted" but you might want to choose a name more appropriate for your specific search application.
 
-Next, the script prompts you for the number of shards to distribute the collection across. https://cwiki.apache.org/confluence/display/solr/Shards+and+Indexing+Data+in+SolrCloud[Sharding] is covered in more detail later on, so if you're unsure, we suggest using the default of 2 so that you can see how a collection is distributed across multiple nodes in a SolrCloud cluster.
+Next, the script prompts you for the number of shards to distribute the collection across. <<shards-and-indexing-data-in-solrcloud.adoc#shards-and-indexing-data-in-solrcloud,Sharding>> is covered in more detail later on, so if you're unsure, we suggest using the default of 2 so that you can see how a collection is distributed across multiple nodes in a SolrCloud cluster.
 
 Next, the script will prompt you for the number of replicas to create for each shard. https://cwiki.apache.org/confluence/display/solr/NRT%2C+Replication%2C+and+Disaster+Recovery+with+SolrCloud[Replication] is covered in more detail later in the guide, so if you're unsure, then use the default of 2 so that you can see how replication is handled in SolrCloud.
 
-Lastly, the script will prompt you for the name of a configuration directory for your collection. You can choose **basic_configs**, **data_driven_schema_configs**, or **sample_techproducts_configs**. The configuration directories are pulled from `server/solr/configsets/ `so you can review them beforehand if you wish. The *data_driven_schema_configs* configuration (the default) is useful when you're still designing a schema for your documents and need some flexiblity as you experiment with Solr.
+Lastly, the script will prompt you for the name of a configuration directory for your collection. You can choose **basic_configs**, **data_driven_schema_configs**, or **sample_techproducts_configs**. The configuration directories are pulled from `server/solr/configsets/` so you can review them beforehand if you wish. The *data_driven_schema_configs* configuration (the default) is useful when you're still designing a schema for your documents and need some flexiblity as you experiment with Solr.
 
 At this point, you should have a new collection created in your local SolrCloud cluster. To verify this, you can run the status command:
 

@@ -2,12 +2,12 @@
 :page-shortname: initparams-in-solrconfig
 :page-permalink: initparams-in-solrconfig.html
 
-An `<initParams>` section of `solrconfig.xml` allows you to define request handler parameters outside of the handler configuration.
+The `<initParams>` section of `solrconfig.xml` allows you to define request handler parameters outside of the handler configuration.
 
 The use cases are
 
-* Some handlers are implicitly defined in code and there should be a way to add/append/override some of the implicitly defined properties
-* There are a few properties that are used across handlers . This helps you keep only a single definition of those properties and apply them over multiple handlers
+* Some handlers are implicitly defined in code - see <<implicit-requesthandlers.adoc#implicit-requesthandlers,Implicit RequestHandlers>> - and there should be a way to add/append/override some of the implicitly defined properties
+* There are a few properties that are used across handlers. This helps you keep only a single definition of those properties and apply them over multiple handlers.
 
 For example, if you want several of your search handlers to return the same list of fields, you can create an `<initParams>` section without having to define the same set of parameters in each request handler definition. If you have a single request handler that should return different fields, you can define the overriding parameters in individual `<requestHandler>` sections as usual.
 
@@ -35,7 +35,7 @@ The syntax and semantics are similar to that of a `<requestHandler>` . The follo
 |property |Description
 |path |A comma-separated list of paths which will use the parameters. Wildcards can be used in paths to define nested paths, as described below.
 |name a|
-The name of this set of parameters. The name can be directly in a requestHandler definition if a path is not explicitly named. If you give your `<initParams>` a name, you can refer to the params in a `<requestHandler>` that is not defined as a path.
+The name of this set of parameters. The name can be used directly in a requestHandler definition if a path is not explicitly named. If you give your `<initParams>` a name, you can refer to the params in a `<requestHandler>` that is not defined as a path.
 
 For example, if an `<initParams>` section has the name "myParams", you can call the name when defining your request handler:
 

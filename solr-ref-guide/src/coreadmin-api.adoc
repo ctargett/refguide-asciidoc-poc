@@ -20,7 +20,7 @@ The `STATUS` action returns the status of all running Solr cores, or status for 
 [[CoreAdminAPI-Input]]
 === *Input*
 
-***Query Parameters***
+*Query Parameters*
 
 [width="100%",cols="20%,20%,20%,20%,20%",options="header",]
 |===
@@ -36,7 +36,9 @@ The `CREATE` action creates a new core and registers it.
 
 If a Solr core with the given name already exists, it will continue to handle requests while the new core is initializing. When the new core is ready, it will take new requests and the old core will be unloaded.
 
-`http://localhost:8983/solr/admin/cores?action=CREATE&name=coreX&instanceDir=path/to/dir&config=config_file_name.xml&dataDir=data `
+`http://localhost:8983/solr/admin/cores?action=CREATE&name=coreX&instanceDir=path/to/dir&config=config_file_name.xml&dataDir=data`
+
+Note that this command is the only one of the Core Admin API commands that *does not* support the `core` parameter. Instead, the `name` parameter is required, as shown below.
 
 .CREATE must be able to find a configuration!
 [WARNING]
@@ -314,3 +316,28 @@ Request the status of an already submitted asynchronous CoreAdmin API call.
 The call below will return the status of an already submitted Asynchronous CoreAdmin call.
 
 `http://localhost:8983/solr/admin/cores?action=REQUESTSTATUS&requestid=1`
+
+[[CoreAdminAPI-REQUESTRECOVERY]]
+== `REQUESTRECOVERY`
+
+The `REQUESTRECOVERY` action manually asks a core to recover by synching with the leader. This should be considered an "expert" level command and should be used in situations where the node (SorlCloud replica) is unable to become active automatically.
+
+The `REQUESTRECOVERY` action supports one parameter, which is described in the table below.
+
+[[CoreAdminAPI-Input.9]]
+=== Input
+
+*Query Parameters*
+
+[width="100%",cols="20%,20%,20%,20%,20%",options="header",]
+|===
+|Parameter |Type |Required |Default |Description
+|core |string |Yes | |The name of the core to re-sync.
+|===
+
+[[CoreAdminAPI-Examples.1]]
+=== Examples
+
+`http://localhost:8981/solr/admin/cores?action=REQUESTRECOVERY&core=gettingstarted_shard1_replica1`
+
+The core to specify can be found by expanding the appropriate Zookeeper node via the admin UI.

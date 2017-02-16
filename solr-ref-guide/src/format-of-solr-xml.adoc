@@ -169,7 +169,3 @@ For example, in the `solr.xml` file shown below, the `socketTimeout` and `connTi
   </shardHandlerFactory>
 </solr>
 ----
-
-....
-Maximum connections allowed per host
-....

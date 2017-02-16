@@ -13,7 +13,7 @@ While `solrconfig.xml` defines the behaviour of Solr as it indexes content and r
 
 Configuration files cannot be edited with this screen, so a text editor of some kind must be used.
 
-This screen is related to the https://cwiki.apache.org/confluence/display/solr/Schema+Browser+Screen[Schema Browser Screen], in that they both can display information from the schema, but the Schema Browser provides a way to drill into the analysis chain and displays linkages between field types, fields, and dynamic field rules.
+This screen is related to the <<schema-browser-screen.adoc#schema-browser-screen,Schema Browser Screen>>, in that they both can display information from the schema, but the Schema Browser provides a way to drill into the analysis chain and displays linkages between field types, fields, and dynamic field rules.
 
 Many of the options defined in these configuration files are described throughout the rest of this Guide. In particular, you will want to review these sections:
 

@@ -26,29 +26,16 @@ This makes the component available for use, but by itself will not be useable un
 [[TheTermsComponent-UsingtheTermsComponentinaRequestHandler]]
 === Using the Terms Component in a Request Handler
 
-The `/terms` request handler is also defined in `solrConfig.xml` by default.
+The terms component is included with the `/terms` request handler, which is among Solr's out-of-the-box request handlers - see <<implicit-requesthandlers.adoc#implicit-requesthandlers,Implicit RequestHandlers>>.
 
-[source,xml]
-----
-<requestHandler name="/terms" class="solr.SearchHandler" startup="lazy">
-  <lst name="defaults">
-    <bool name="terms">true</bool>
-    <bool name="distrib">false</bool>
-  </lst>
-  <arr name="components">
-    <str>terms</str>
-  </arr>
-</requestHandler>
-----
-
-Note that the defaults for the this request handler set the parameter "terms" to true, which allows terms to be returned on request. The parameter "distrib" is set to false, which allows this handler to be used only on a single Solr core. To finish out the configuration, he Terms Component is included as an available component to this request handler.
+Note that the defaults for this request handler set the parameter "terms" to true, which allows terms to be returned on request. The parameter "distrib" is set to false, which allows this handler to be used only on a single Solr core.
 
 You could add this component to another handler if you wanted to, and pass "terms=true" in the HTTP request in order to get terms back. If it is only defined in a separate handler, you must use that handler when querying in order to get terms and not regular documents as results.
 
 [[TheTermsComponent-TermsComponentParameters]]
 === Terms Component Parameters
 
-The parameters below allow you to control what terms are returned. You can also any of these to the request handler if you'd like to set them permanently. Or, you can add them to the query request. These parameters are:
+The parameters below allow you to control what terms are returned. You can also configure any of these with the request handler if you'd like to set them permanently. Or, you can add them to the query request. These parameters are:
 
 // TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
 
@@ -64,6 +51,11 @@ Example: `terms=true`
 Specifies the field from which to retrieve terms.
 
 Example: `terms.fl=title`
+
+|terms.list |No |null a|
+Fetches the document frequency for a comma delimited list of terms. Terms are always returned in index order.
+
+Example: terms.list=termA,termB,termC
 
 |terms.limit |No |10 a|
 Specifies the maximum number of terms to return. The default is 10. If the limit is set to a number less than 0, then no maximum limit is enforced. Although this is not required, either this parameter or `terms.upper` must be defined.
@@ -103,7 +95,7 @@ Example: `terms.raw=true`
 |terms.regex |No |null a|
 Restricts matches to terms that match the regular expression.
 
-Example: `terms.regex=*pedist`
+Example: `terms.regex=.*pedist`
 
 |terms.regex.flag |No |null a|
 Defines a Java regex flag to use when evaluating the regular expression defined with `terms.regex`. See http://docs.oracle.com/javase/tutorial/essential/regex/pattern.html for details of each flag. Valid options are:
@@ -119,6 +111,7 @@ Defines a Java regex flag to use when evaluating the regular expression defined 
 
 Example: `terms.regex.flag=case_insensitive`
 
+|terms.stats |No |null |Include index statistics in the results. Currently returns only the *numDocs* for a collection. When combined with terms.list it provides enough information to compute idf for a list of terms.
 |terms.sort |No |count a|
 Defines how to sort the terms returned. Valid options are **count**, which sorts by the term frequency, with the highest term frequency first, or **index**, which sorts in index order.
 
@@ -205,6 +198,24 @@ Results:
     </lst>
   </lst>
 </response>
+----
+
+[[TheTermsComponent-SolrJinvocation]]
+=== SolrJ invocation
+
+[source,java]
+----
+    SolrQuery query = new SolrQuery();
+    query.setRequestHandler("/terms");
+    query.setTerms(true);
+    query.setTermsLimit(5);
+    query.setTermsLower("s");
+    query.setTermsPrefix("s");
+    query.addTermsField("terms_s");
+    query.setTermsMinCount(1);
+    
+    QueryRequest request = new QueryRequest(query);
+    List<Term> terms = request.process(getSolrClient()).getTermsResponse().getTerms("terms_s");
 ----
 
 [[TheTermsComponent-UsingtheTermsComponentforanAuto-SuggestFeature]]

@@ -74,7 +74,29 @@ bin/solr -e techproducts -Dcom.sun.management.jmxremote
 [[UsingJMXwithSolr-ConfiguringaRemoteConnectiontoSolrJMX]]
 === Configuring a Remote Connection to Solr JMX
 
-If you want to connect to Solr remotely, you need to pass in some extra parameters, documented here:
+If you need to attach a JMX-enabled Java profiling tool, such as JConsole or VisualVM, to a remote Solr server, then you need to enable remote JMX access when starting the Solr server. Simply change the `ENABLE_REMOTE_JMX_OPTS` property in the include file to true. You’ll also need to choose a port for the JMX RMI connector to bind to, such as 18983. For example, if your Solr include script sets:
+
+[source,plain]
+----
+ENABLE_REMOTE_JMX_OPTS=true
+RMI_PORT=18983
+----
+
+The JMX RMI connector will allow Java profiling tools to attach to port 18983. When enabled, the following properties are passed to the JVM when starting Solr:
+
+[source,plain]
+----
+-Dcom.sun.management.jmxremote \
+-Dcom.sun.management.jmxremote.local.only=false \
+-Dcom.sun.management.jmxremote.ssl=false \
+-Dcom.sun.management.jmxremote.authenticate=false \
+-Dcom.sun.management.jmxremote.port=18983 \
+-Dcom.sun.management.jmxremote.rmi.port=18983
+----
+
+We don’t recommend enabling remote JMX access in production, but it can sometimes be useful when doing performance and user-acceptance testing prior to going into production.
+
+For more information about these settings, see:
 
 http://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html
 

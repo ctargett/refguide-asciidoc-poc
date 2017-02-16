@@ -91,14 +91,10 @@ In this guide, we've covered these handlers in detail in the section <<uploading
 
 It is possible to configure a request handler to search across shards of a cluster, used with distributed search. More information about distributed search and how to configure the shardHandler is in the section <<distributed-search-with-index-sharding.adoc#distributed-search-with-index-sharding,Distributed Search with Index Sharding>>.
 
-[[RequestHandlersandSearchComponentsinSolrConfig-OtherRequestHandlers]]
-=== Other Request Handlers
+[[RequestHandlersandSearchComponentsinSolrConfig-ImplicitRequestHandlers]]
+=== Implicit Request Handlers
 
-There are other request handlers defined in `solrconfig.xml`, covered in other sections of this guide:
-
-* <<realtime-get.adoc#realtime-get,RealTime Get>>
-* <<index-replication.adoc#index-replication,Index Replication>>
-* <<ping.adoc#ping,Ping>>
+Solr includes many out-of-the-box request handlers that are not configured in `solrconfig.xml`, and so are referred to as "implicit" - see <<implicit-requesthandlers.adoc#implicit-requesthandlers,Implicit RequestHandlers>>.
 
 [[RequestHandlersandSearchComponentsinSolrConfig-SearchComponents]]
 == Search Components

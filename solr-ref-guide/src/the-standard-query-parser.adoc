@@ -384,6 +384,8 @@ This can even be used to cache individual clauses of complex filter queries. In 
 ** `q=features:songs & fq=+filter(inStock:true) +filter(price:[* TO 100])`
 ** `q=manu:Apple & fq=-filter(inStock:true) -filter(price:[* TO 100])`
 * Range queries ("[a TO z]"), prefix queries ("a*"), and wildcard queries ("a*b") are constant-scoring (all matching documents get an equal score). The scoring factors TF, IDF, index boost, and "coord" are not used. There is no limitation on the number of terms that match (as there was in past versions of Lucene).
+* Constant score queries are created with <query_clause>^=<score>, which sets the entire clause to the specified score for any documents matching that clause:
+** `q=(description:blue color:blue)^=1.0 title:blue^=5.0`
 
 [[TheStandardQueryParser-SpecifyingDatesandTimes]]
 === Specifying Dates and Times

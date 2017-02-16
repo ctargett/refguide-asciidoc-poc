@@ -14,7 +14,7 @@ ________________________________________________________________________________
 A query that generates the union of documents produced by its subqueries, and that scores each document with the maximum score for that document as produced by any subquery, plus a tie breaking increment for any additional matching subqueries.
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
-Whether or not you remember this explanation, do remember that the DisMax request handler was primarily designed to be easy to use and to accept almost any input without returning an error.
+Whether or not you remember this explanation, do remember that the DisMax Query Parser was primarily designed to be easy to use and to accept almost any input without returning an error.
 
 [[TheDisMaxQueryParser-DisMaxParameters]]
 == DisMax Parameters

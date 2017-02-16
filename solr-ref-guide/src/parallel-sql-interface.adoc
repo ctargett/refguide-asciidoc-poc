@@ -1,7 +1,7 @@
 = Parallel SQL Interface
 :page-shortname: parallel-sql-interface
 :page-permalink: parallel-sql-interface.html
-:page-children: solr-jdbc-dbvisualizer, solr-jdbc-squirrel-sql, solr-jdbc-apache-zeppelin
+:page-children: solr-jdbc-dbvisualizer, solr-jdbc-squirrel-sql, solr-jdbc-apache-zeppelin, solr-jdbc-python-jython, solr-jdbc-r
 
 Solr's Parallel SQL Interface brings the power of SQL to SolrCloud. The SQL interface seamlessly combines SQL with Solr's full-text search capabilities. Two implementations for aggregations allow using either MapReduce-like shuffling or the JSON Facet API, depending on performance needs. These features allow Solr's SQL interface to be used for a wide variety of use cases.
 
@@ -54,7 +54,7 @@ The request handlers used for the SQL interface are configured to load implicitl
 [[ParallelSQLInterface-_sqlRequestHandler]]
 === /sql Request Handler
 
-The `/sql` handler is the front end of the Parallel SQL interface. All SQL queries are sent to the `/sql` handler to be processed. The handler also coordinates the distributed MapReduce jobs when running `GROUP BY` and `SELECT DISTINCT` queries in `map_reduce` mode. By default the `/sql` handler will choose worker nodes from it's own collection to handle the distributed operations. In this default scenario the collection where the `/sql` handler resides acts as the default worker collection for MapReduce queries.
+The `/sql` handler is the front end of the Parallel SQL interface. All SQL queries are sent to the `/sql` handler to be processed. The handler also coordinates the distributed MapReduce jobs when running `GROUP BY` and `SELECT DISTINCT` queries in `map_reduce` mode. By default the `/sql` handler will choose worker nodes from its own collection to handle the distributed operations. In this default scenario the collection where the `/sql` handler resides acts as the default worker collection for MapReduce queries.
 
 By default, the `/sql` request handler is configured as an implicit handler, meaning that it is always enabled in every Solr installation and no further configuration is required.
 
@@ -175,7 +175,14 @@ SELECT fieldA as fa, fieldB as fb, fieldC as fc FROM tableA WHERE fieldC = 'term
 We've covered many syntax options with this example, so let's walk through what's possible below.
 
 [[ParallelSQLInterface-WHEREClauseandBooleanPredicates]]
-==== *WHERE Clause and Boolean Predicates*
+==== *WHERE* Clause *and Boolean Predicates*
+
+[IMPORTANT]
+====
+
+The WHERE clause must have a field on one side of the predicate. Two constants (5 < 10) or two fields (fielda > fieldb) is not supported. Subqueries are also not supported.
+
+====
 
 The `WHERE` clause allows Solr's search syntax to be injected into the SQL query. In the example:
 
@@ -216,8 +223,48 @@ To specify NOT queries, you use the `AND NOT` syntax as follows:
 WHERE (fieldA = 'term1') AND NOT (fieldB = 'term2')
 ----
 
+[[ParallelSQLInterface-SupportedWHEREOperators]]
+==== Supported WHERE *Operators*
+
+The parallel SQL interface supports and pushes down most common SQL operators, specifically:
+
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Operator |Description |Example |Solr Query
+|= |Equals |`fielda = 10` |`fielda:10`
+|<> |Does not equal |`fielda <> 10` |`-fielda:10`
+|!= |Does not equal |`fielda != 10` |`-fielda:10`
+|> |Greater than |`fielda > 10` a|
+....
+fielda:{10 TO *]
+....
+
+|>= |Greater than or equals |`fielda >= 10` a|
+....
+fielda:[10 TO *]
+....
+
+|< |Less than |`fielda < 10` a|
+....
+fielda:[* TO 10}
+....
+
+|<= |Less than or equals |`fielda <= 10` a|
+....
+fielda:[* TO 10]
+....
+
+|===
+
+Some operators that are not supported are BETWEEN, LIKE and IN. However, there are workarounds for BETWEEN and LIKE.
+
+* BETWEEN can be supported with a range query, such as `field = [50 TO 100]`.
+* A simplistic LIKE can be used with a wildcard, such as `field = 'sam*'`.
+
 [[ParallelSQLInterface-ORDERBYClause]]
-==== *ORDER BY Clause*
+==== *ORDER* BY *Clause*
 
 The `ORDER BY` clause maps directly to Solr fields. Multiple `ORDER BY` fields and directions are supported.
 
@@ -360,7 +407,7 @@ The workers in the worker tier receive the query plan from the `/sql` handler an
 [[ParallelSQLInterface-DataTableTier]]
 ==== Data Table Tier
 
-The Data Table tier is where the tables reside. Each table is it's own SolrCloud collection. The Data Table layer receives queries from the worker nodes and emits tuples (search results). The Data Table tier also handles the initial sorting and partitioning of tuples sent to the workers. This means the tuples are always sorted and partitioned before they hit the network. The partitioned tuples are sent directly to the correct worker nodes in the proper sort order, ready to be reduced.
+The Data Table tier is where the tables reside. Each table is its own SolrCloud collection. The Data Table layer receives queries from the worker nodes and emits tuples (search results). The Data Table tier also handles the initial sorting and partitioning of tuples sent to the workers. This means the tuples are always sorted and partitioned before they hit the network. The partitioned tuples are sent directly to the correct worker nodes in the proper sort order, ready to be reduced.
 
 image::images/parallel-sql-interface/cluster.png[image,width=492,height=250]
 
@@ -421,3 +468,15 @@ A step-by-step guide for setting up http://squirrel-sql.sourceforge.net[SQuirreL
 === Apache Zeppelin (incubating)
 
 A step-by-step guide for setting up http://zeppelin.apache.org/[Apache Zeppelin] is in the section <<solr-jdbc-apache-zeppelin.adoc#solr-jdbc-apache-zeppelin,Solr JDBC - Apache Zeppelin>>.
+
+// OLD_CONFLUENCE_ID: ParallelSQLInterface-Python/Jython
+
+[[ParallelSQLInterface-Python_Jython]]
+=== Python/Jython
+
+Examples of using Python and Jython for connecting to Solr with the Solr JDBC driver are available in the section <<solr-jdbc-python-jython.adoc#solr-jdbc-python-jython,Solr JDBC - Python/Jython>>.
+
+[[ParallelSQLInterface-R]]
+=== R
+
+Examples of using R for connecting to Solr with the Solr JDBC driver are available in the section <<solr-jdbc-r.adoc#solr-jdbc-r,Solr JDBC - R>> .

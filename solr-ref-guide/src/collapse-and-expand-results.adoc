@@ -2,7 +2,7 @@
 :page-shortname: collapse-and-expand-results
 :page-permalink: collapse-and-expand-results.html
 
-The Collapsing query parser and the Expand component combine to form an approach to grouping documents for field collapsing in search results. The Collapsing query parser groups documents (collapsing the result set) according to your parameters, while the Expand component provides access to documents in the collapsed group for use in results display or other processing by a client application.
+The Collapsing query parser and the Expand component combine to form an approach to grouping documents for field collapsing in search results. The Collapsing query parser groups documents (collapsing the result set) according to your parameters, while the Expand component provides access to documents in the collapsed group for use in results display or other processing by a client application. Collapse & Expand can together do what the older <<result-grouping.adoc#result-grouping,Result Grouping>> (`group=true`) does for _most_ use-cases but not all. Generally, you should prefer Collapse & Expand.
 
 [IMPORTANT]
 ====
@@ -48,7 +48,7 @@ There are three null policies:
 * **collapse**: collapses all documents with a null value into a single group using either highest score, or minimum/maximum.
 
  |ignore
-|hint |Currently there is only one hint available "```top_fc```", which stands for top level FieldCache. The top_fc hint is only available when collapsing on String fields. top_fc usually provides the best query time speed but takes the longest to warm on startup or following a commit. top_fc will also result in having the collapsed field cached in memory twice if the it's used for faceting or sorting. For very high cardinality (high distinct count) fields, top_fc may not fare so well. |none
+|hint |Currently there is only one hint available "```top_fc```", which stands for top level FieldCache. The top_fc hint is only available when collapsing on String fields. top_fc usually provides the best query time speed but takes the longest to warm on startup or following a commit. top_fc will also result in having the collapsed field cached in memory twice if it's used for faceting or sorting. For very high cardinality (high distinct count) fields, top_fc may not fare so well. |none
 |size |Sets the initial size of the collapse data structures when collapsing on a **numeric field only**. The data structures used for collapsing grow dynamically when collapsing on numeric fields. Setting the size above the number of results expected in the result set will eliminate the resizing cost. |100,000
 |===
 

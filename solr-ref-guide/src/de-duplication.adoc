@@ -34,15 +34,15 @@ The `SignatureUpdateProcessorFactory` has to be registered in `solrconfig.xml` a
 [source,xml]
 ----
 <updateRequestProcessorChain name="dedupe">
-   <processor class="solr.processor.SignatureUpdateProcessorFactory">
-      <bool name="enabled">true</bool>
-      <str name="signatureField">id</str>
-      <bool name="overwriteDupes">false</bool>
-      <str name="fields">name,features,cat</str>
-      <str name="signatureClass">solr.processor.Lookup3Signature</str>
-   </processor>
-   <processor class="solr.LogUpdateProcessorFactory" />
-   <processor class="solr.RunUpdateProcessorFactory" />
+  <processor class="solr.processor.SignatureUpdateProcessorFactory">
+    <bool name="enabled">true</bool>
+    <str name="signatureField">id</str>
+    <bool name="overwriteDupes">false</bool>
+    <str name="fields">name,features,cat</str>
+    <str name="signatureClass">solr.processor.Lookup3Signature</str>
+  </processor>
+  <processor class="solr.LogUpdateProcessorFactory" />
+  <processor class="solr.RunUpdateProcessorFactory" />
 </updateRequestProcessorChain>
 ----
 

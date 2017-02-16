@@ -4,6 +4,14 @@
 
 Result Grouping groups documents with a common field value into groups and returns the top documents for each group. For example, if you searched for "DVD" on an electronic retailer's e-commerce site, you might be returned three categories such as "TV and Video," "Movies," and "Computers," with three results per category. In this case, the query term "DVD" appeared in all three categories, so Solr groups them together in order to increase relevancy for the user.
 
+.Prefer Collapse & Expand instead
+[NOTE]
+====
+
+Solr's <<collapse-and-expand-results.adoc#collapse-and-expand-results,Collapse and Expand>> feature is newer and mostly overlaps with Result Grouping. There are features unique to both, and they have different performance characteristics. Prefer C&E to Result Grouping.
+
+====
+
 Result Grouping is separate from <<faceting.adoc#faceting,Faceting>>. Though it is conceptually similar, faceting returns all relevant results and allows the user to refine the results based on the facet category. For example, if you search for "shoes" on a footwear retailer's e-commerce site, Solr would return all results for that query term, along with selectable facets such as "size," "color," "brand," and so on.
 
 You can however combine grouping with faceting. Grouped faceting supports `facet.field` and `facet.range` but currently doesn't support date and pivot faceting. The facet counts are computed based on the first `group.field` parameter, and other `group.field` parameters are ignored.
@@ -64,6 +72,8 @@ See below for <<ResultGrouping-DistributedResultGroupingCaveats,Distributed Resu
 |group.truncate |Boolean |If true, facet counts are based on the most relevant document of each group matching the query. The default value is false.
 |group.facet |Boolean a|
 Determines whether to compute grouped facets for the field facets specified in facet.field parameters. Grouped facets are computed based on the first specified group. As with normal field faceting, fields shouldn't be tokenized (otherwise counts are computed for each token). Grouped faceting supports single and multivalued fields. Default is false.
+
+**Warning**: There can be a heavy performance cost to this option.
 
 See below for <<ResultGrouping-DistributedResultGroupingCaveats,Distributed Result Grouping Caveats>> when using sharded indexes
 

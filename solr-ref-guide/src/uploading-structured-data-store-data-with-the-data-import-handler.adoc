@@ -185,7 +185,7 @@ The `propertyWriter` element defines the date format and locale for use with del
 
 [source,xml]
 ----
-<propertyWriter dateFormat="yyyy-MM-dd HH:mm:ss" type="SimplePropertiesWriter" directory="data" filename="my_dih.properties" locale="en_US" />
+<propertyWriter dateFormat="yyyy-MM-dd HH:mm:ss" type="SimplePropertiesWriter" directory="data" filename="my_dih.properties" locale="en-US" />
 ----
 
 The parameters available are:
@@ -197,7 +197,7 @@ The parameters available are:
 |type |The implementation class. Use `SimplePropertiesWriter` for non-SolrCloud installations. If using SolrCloud, use `ZKPropertiesWriter`. If this is not specified, it will default to the appropriate class depending on if SolrCloud mode is enabled.
 |directory |Used with the `SimplePropertiesWriter` only). The directory for the properties file. If not specified, the default is "conf".
 |filename |Used with the `SimplePropertiesWriter` only). The name of the properties file. If not specified, the default is the requestHandler name (as defined in `solrconfig.xml`, appended by ".properties" (i.e., "dataimport.properties").
-|locale |The locale. If not defined, the ROOT locale is used. It must be specified as language-country. For example, `en-US`.
+|locale |The locale. If not defined, the ROOT locale is used. It must be specified as language-country (https://tools.ietf.org/html/bcp47[BCP 47 language tag]). For example, `en-US`.
 |===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-DataSources]]
@@ -263,7 +263,7 @@ This data source accepts these optional attributes.
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-JdbcDataSource]]
 === JdbcDataSource
 
-This is the default datasource. It's used with the <<UploadingStructuredDataStoreDatawiththeDataImportHandler-TheSQLEntityProcessor,SqlEntityProcessor>>. See the example in the <<UploadingStructuredDataStoreDatawiththeDataImportHandler-FieldReaderDataSource,FieldReaderDataSource>> section for details on configuration.
+This is the default datasource. It's used with the <<UploadingStructuredDataStoreDatawiththeDataImportHandler-TheSQLEntityProcessor,SqlEntityProcessor>>. See the example in the <<UploadingStructuredDataStoreDatawiththeDataImportHandler-FieldReaderDataSource,FieldReaderDataSource>> section for details on configuration. `JdbcDatasource` supports at least the following attributes: `driver, url, user, password, encryptKeyFile`. All of them substitute properties via $\{placeholders}.
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-URLDataSource]]
 === URLDataSource
@@ -362,16 +362,23 @@ The entity attributes unique to this processor are shown below.
 |forEach |Required unless you define `useSolrAddSchema`. The Xpath expression which demarcates each record. This will be used to set up the processing loop.
 |xsl |Optional: Its value (a URL or filesystem path) is the name of a resource used as a preprocessor for applying the XSL transformation.
 |useSolrAddSchema |Set this to true if the content is in the form of the standard Solr update XML schema.
-|flatten |Optional: If set true, then text from under all the tags is extracted into one field.
 |===
 
 Each field element in the entity can have the following attributes as well as the default ones.
+
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
 
 [width="100%",cols="50%,50%",options="header",]
 |===
 |Attribute |Use
 |xpath |Required. The XPath expression which will extract the content from the record for this field. Only a subset of Xpath syntax is supported.
 |commonField |Optional. If true, then when this field is encountered in a record it will be copied to future records when creating a Solr document.
+|flatten a|
+Optional: If set to true, then any children text nodes are collected to form the value of a field. image::images/icons/emoticons/warning.png[(warning)]
+ The default value is false, meaning that
+
+if there are any sub-elements of the node pointed to by the XPath expression, they will be quietly omitted.
+
 |===
 
 Here is an example from the "```rss```" collection in the `dih` example (`example/example-DIH/solr/rss/conf/rss-data-config.xml`):
@@ -617,7 +624,13 @@ Ensure that the dataSource is of type `DataSource<Reader>` (`FileDataSource`, `U
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-SolrEntityProcessor]]
 === SolrEntityProcessor
 
-Uses Solr instance as a datasource, see https://wiki.apache.org/solr/DataImportHandler#SolrEntityProcessor
+Uses Solr instance as a datasource, see https://wiki.apache.org/solr/DataImportHandler#SolrEntityProcessor. In addition to that, SolrEntityProcessor also supports the following parameters:
+
+[cols=",",]
+|===
+|cursorMark="true" |specify it to enable cursor for efficient result set scrolling
+|sort="id asc" |in this case it usually needs to specify sort param referencing uniqueKey field. see <<pagination-of-results.adoc#pagination-of-results,Pagination of Results>> for details.
+|===
 
 [[UploadingStructuredDataStoreDatawiththeDataImportHandler-Transformers]]
 == Transformers
@@ -686,7 +699,7 @@ This transformer recognizes the following attributes:
 |Attribute |Description
 |dateTimeFormat |The format used for parsing this field. This must comply with the syntax of the http://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html[Java SimpleDateFormat] class.
 |sourceColName |The column on which the dateFormat is to be applied. If this is absent source and target are same.
-|locale |The locale to use for date transformations. If not specified, the ROOT locale will be used. It must be specified as language-country. For example, `en-US`.
+|locale |The locale to use for date transformations. If not defined, the ROOT locale is used. It must be specified as language-country (https://tools.ietf.org/html/bcp47[BCP 47 language tag]). For example, `en-US`.
 |===
 
 Here is example code that returns the date rounded up to the month "2007-JUL":
@@ -744,7 +757,7 @@ This transformer recognizes the following attributes:
 |Attribute |Description
 |formatStyle |The format used for parsing this field. The value of the attribute must be one of (`number|percent|integer|currency`). This uses the semantics of the Java NumberFormat class.
 |sourceColName |The column on which the NumberFormat is to be applied. This is attribute is absent. The source column and the target column are the same.
-|locale |The locale to be used for parsing the strings. If this is absent, the ROOT locale is used. It must be specified as language-country. For example, `en-US`.
+|locale |The locale to be used for parsing the strings. The locale. If not defined, the ROOT locale is used. It must be specified as language-country (https://tools.ietf.org/html/bcp47[BCP 47 language tag]). For example, `en-US`.
 |===
 
 For example:

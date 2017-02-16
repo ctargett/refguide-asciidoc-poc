@@ -73,7 +73,7 @@ Before running a replication, you should set the following parameters on initial
 |commitReserveDuration |If your commits are very frequent and your network is slow, you can tweak this parameter to increase the amount of time taken to download 5Mb from the master to a slave. The default is 10 seconds.
 |===
 
-The example below shows a possible 'master' configuration for the `ReplicationHandler`, including a fixed number of backups and an invariant setting for the `maxWriteMBPerSec` request parameter to prevent slaves from saturating it's network interface
+The example below shows a possible 'master' configuration for the `ReplicationHandler`, including a fixed number of backups and an invariant setting for the `maxWriteMBPerSec` request parameter to prevent slaves from saturating its network interface
 
 [source,java]
 ----
@@ -256,9 +256,9 @@ supported request parameters:
 
 * `numberToKeep:` request parameter can be used with the backup command unless the `maxNumberOfBackups` initialization parameter has been specified on the handler – in which case `maxNumberOfBackups` is always used and attempts to use the `numberToKeep` request parameter will cause an error.
 * `name` : (optional) Backup name . The snapshot will be created in a directory called snapshot.<name> within the data directory of the core . By default the name is generated using date in `yyyyMMddHHmmssSSS` format. If `location` parameter is passed , that would be used instead of the data directory
-* `location` : Backup location
+* `location`: Backup location
 
-|http://__master_host:port__ /solr/__core_name__/replication?command=deletebackup a|
+|http:// _master_host:port_ /solr/__core_name__/replication?command=deletebackup a|
 Delete any backup created using the `backup` command .
 
 request parameters:

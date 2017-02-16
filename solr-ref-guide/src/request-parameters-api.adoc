@@ -2,7 +2,7 @@
 :page-shortname: request-parameters-api
 :page-permalink: request-parameters-api.html
 
-The Request Parameters API allows creating parameter sets that can override or take the place of parameters defined in `solrconfig.xml`. The parameter sets defined with this API can be used in requests to Solr, or referenced directly in `solrconfig.xml` request handler definitions.
+The Request Parameters API allows creating parameter sets, a.k.a. paramsets, that can override or take the place of parameters defined in `solrconfig.xml`. The parameter sets defined with this API can be used in requests to Solr, or referenced directly in `solrconfig.xml` request handler definitions.
 
 It is really another endpoint of the <<config-api.adoc#config-api,Config API>> instead of a separate API, and has distinct commands. It does not replace or modify any sections of `solrconfig.xml`, but instead provides another approach to handling parameters used in requests. It behaves in the same way as the Config API, by storing parameters in another file that will be used at runtime. In this case, the parameters are stored in a file named `params.json`. This file is kept in ZooKeeper or in the `conf` directory of a standalone Solr instance.
 
@@ -52,7 +52,7 @@ curl http://localhost:8983/solr/techproducts/config/params -H 'Content-type:appl
 }'
 ----
 
-In the above example all the parameters are equivalent to the "defaults" in solrconfig.xml. It is possible to add invariants and appends as follows
+In the above example all the parameters are equivalent to the "defaults" in `solrconfig.xml`. It is possible to add invariants and appends as follows:
 
 [source,bash]
 ----
@@ -70,63 +70,71 @@ curl http://localhost:8983/solr/techproducts/config/params -H 'Content-type:appl
 }'
 ----
 
-now it is possible to define a request handler as follows
+[[RequestParametersAPI-UsingRequestParameterswithRequestHandlers]]
+== Using Request Parameters with RequestHandlers
+
+After creating the `my_handler_params` paramset in the above section, it is possible to define a request handler as follows:
 
 [source,xml]
 ----
 <requestHandler name="/my_handler" class="solr.SearchHandler" useParams="my_handler_params"/>
 ----
 
-It will be equivalent to a requesthandler definition as follows,
+It will be equivalent to a standard request handler definition such as this one:
 
 [source,xml]
 ----
 <requestHandler name="/my_handler" class="solr.SearchHandler">
-<lst name="defaults">
- <int name="facet.limit">5</int>
-</lst>
-<lst name="invariants>
-  <str name="wt">json</>
-  <bool name="facet">true<bool>
-</lst>
-<lst name="appends">
- <arr name="facet.field">
-  <str>field1</str>
-  <str>field2</str>
-</arr>
-</lst>
+  <lst name="defaults">
+    <int name="facet.limit">5</int>
+  </lst>
+  <lst name="invariants>
+    <str name="wt">json</>
+    <bool name="facet">true<bool>
+  </lst>
+  <lst name="appends">
+    <arr name="facet.field">
+      <str>field1</str>
+      <str>field2</str>
+    </arr>
+  </lst>
 </requestHandler>
 ----
 
-Update example,
+[[RequestParametersAPI-ImplicitRequestHandlers]]
+=== Implicit RequestHandlers
+
+Solr ships with many out-of-the-box request handlers that may only be configured via the Request Parameters API, because their configuration is not present in `solrconfig.xml`. See <<implicit-requesthandlers.adoc#implicit-requesthandlers,Implicit RequestHandlers>> for the paramset to use when configuring an implicit request handler.
+
+[[RequestParametersAPI-ViewingExpandedParamsetsandEffectiveParameterswithRequestHandlers]]
+=== Viewing Expanded Paramsets and Effective Parameters with RequestHandlers
+
+To see the expanded paramset and the resulting effective parameters for a RequestHandler defined with `useParams`, use the `expandParams` request param. E.g. for the `/export` request handler:
 
 [source,bash]
 ----
-curl http://localhost:8983/solr/techproducts/config/params -H 'Content-type:application/json'  -d '{
-  "update":{
-    "myFacets":{
-      "facet.limit":10}}, 
-}'
+curl "http://localhost:8983/solr/techproducts/config/requestHandler?componentName=/export&expandParams=true"
 ----
 
-This command will add (or replace) the `facet.limit` param to the `myFacets` map, keeping all other existing `myFacets` params.
+[[RequestParametersAPI-ViewingRequestParameters]]
+== Viewing Request Parameters
 
-To see the parameters that have been set, you can use the `/config/params` endpoint to read the contents of `params.json`, or use the name in the request:
+To see the paramsets that have been created, you can use the `/config/params` endpoint to read the contents of `params.json`, or use the name in the request:
 
 [source,bash]
 ----
 curl http://localhost:8983/solr/techproducts/config/params
  
-#Or use the params name
+#Or use the paramset name
 curl http://localhost:8983/solr/techproducts/config/params/myQueries
 ----
 
 [[RequestParametersAPI-TheuseParamsParameter]]
-=== The `useParams` Parameter
+== The `useParams` Parameter
 
-When making a request, the `useParams` parameter applies the request parameters set to the request. This is translated at request time to the actual params.
+When making a request, the `useParams` parameter applies the request parameters sent to the request. This is translated at request time to the actual parameters.
 
-For example (using the names we set up in the earlier example, please replace with your own name):
+For example (using the names we set up in the earlier examples, please replace with your own name):
 
 [source,bash]
 ----
@@ -140,7 +148,7 @@ It is possible to pass more than one parameter set in the same request. For exam
 http://localhost/solr/techproducts/select?useParams=myFacets,myQueries
 ----
 
-In the above example the param set 'myQueries' is applied on top of 'myFacets'. So, values in 'myQueries' take precedence over values in 'myFacets'. Additionally, any values passed in the request take precedence over 'useParams' params. This acts like the "defaults" specified in the '`<requestHandler>`' definition in `solrconfig.xml`.
+In the above example the param set 'myQueries' is applied on top of 'myFacets'. So, values in 'myQueries' take precedence over values in 'myFacets'. Additionally, any values passed in the request take precedence over 'useParams'parameters. This acts like the "defaults" specified in the '`<requestHandler>`' definition in `solrconfig.xml`.
 
 The parameter sets can be used directly in a request handler definition as follows. Please note that the 'useParams' specified is always applied even if the request contains `useParams`.
 
@@ -167,6 +175,11 @@ To summarize, parameters are applied in this order:
 * parameters defined in `<defaults>` in `solrconfig.xml`.
 
 [[RequestParametersAPI-PublicAPIs]]
-=== Public APIs
+== Public APIs
 
 The RequestParams Object can be accessed using the method `SolrConfig#getRequestParams()`. Each paramset can be accessed by their name using the method `RequestParams#getRequestParams(String name)`.
+
+[[RequestParametersAPI-Examples]]
+== Examples
+
+The Solr "films" example demonstrates the use of the parameters API. See https://github.com/apache/lucene-solr/tree/master/solr/example/films for details.

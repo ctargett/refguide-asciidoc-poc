@@ -13,7 +13,7 @@ You will instead see a "Core Admin" screen that supports some comparable Core le
 
 ====
 
-The main display of this page provides a list of collections that exist in your cluster. Clicking on a collection name provides some basic metadata about how the collection is defined, and it's current shards & replicas, with options for adding and deleting individual replicas.
+The main display of this page provides a list of collections that exist in your cluster. Clicking on a collection name provides some basic metadata about how the collection is defined, and its current shards & replicas, with options for adding and deleting individual replicas.
 
 The buttons at the top of the screen let you make various collection level changes to your cluster, from add new collections or aliases to reloading or deleting a single collection.
 

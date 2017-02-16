@@ -10,7 +10,7 @@ The solution to this problem is to set up an external ZooKeeper ensemble. Fortun
 [NOTE]
 ====
 
-"For a ZooKeeper service to be active, there must be a majority of non-failing machines that can communicate with each other. **_To create a deployment that can tolerate the failure of F machines, you should count on deploying 2xF+1 machines_**. Thus, a deployment that consists of three machines can handle one failure, and a deployment of five machines can handle two failures. Note that a deployment of six machines can only handle two failures since three machines is not a majority.
+"For a ZooKeeper service to be active, there must be a majority of non-failing machines that can communicate with each other. *_To create a deployment that can tolerate the failure of F machines, you should count on deploying 2xF+1 machines_* . Thus, a deployment that consists of three machines can handle one failure, and a deployment of five machines can handle two failures. Note that a deployment of six machines can only handle two failures since three machines is not a majority.
 
 For this reason, ZooKeeper deployments are usually made up of an odd number of machines."
 
@@ -18,7 +18,7 @@ _-- http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html[ZooKeeper Adminis
 
 ====
 
-When planning how many ZooKeeper nodes to configure, keep in mind that the main principle for a ZooKeeper ensemble is maintaining a majority of servers to serve requests. This majority is also called a __quorum__. It is generally recommended to have an odd number of ZooKeeper servers in your ensemble, so a majority is maintained. For example, if you only have two ZooKeeper nodes and one goes down, 50% of available servers is not a majority, so ZooKeeper will no longer serve requests. However, if you have three ZooKeeper nodes and one goes down, you have 66% of available servers available, and ZooKeeper will continue normally while you repair the one down node. If you have 5 nodes, you could continue operating with two down nodes if necessary. More information on ZooKeeper clusters is available from the ZooKeeper documentation at http://zookeeper.apache.org/doc/r3.4.5/zookeeperAdmin.html#sc_zkMulitServerSetup.
+When planning how many ZooKeeper nodes to configure, keep in mind that the main principle for a ZooKeeper ensemble is maintaining a majority of servers to serve requests. This majority is also called a __quorum__. It is generally recommended to have an odd number of ZooKeeper servers in your ensemble, so a majority is maintained. For example, if you only have two ZooKeeper nodes and one goes down, 50% of available servers is not a majority, so ZooKeeper will no longer serve requests. However, if you have three ZooKeeper nodes and one goes down, you have 66% of available servers available, and ZooKeeper will continue normally while you repair the one down node. If you have 5 nodes, you could continue operating with two down nodes if necessary. More information on ZooKeeper clusters is available from the ZooKeeper documentation at http://zookeeper.apache.org/doc/r3.4.6/zookeeperAdmin.html#sc_zkMulitServerSetup.
 
 [[SettingUpanExternalZooKeeperEnsemble-DownloadApacheZooKeeper]]
 == Download Apache ZooKeeper
@@ -172,11 +172,11 @@ Once these servers are running, you can reference them from Solr just as you did
  bin/solr start -e cloud -z localhost:2181,localhost:2182,localhost:2183 -noprompt
 ----
 
-For more information on getting the most power from your ZooKeeper installation, check out the http://zookeeper.apache.org/doc/r3.4.5/zookeeperAdmin.html[ZooKeeper Administrator's Guide].
-
 [[SettingUpanExternalZooKeeperEnsemble-SecuringtheZooKeeperconnection]]
 == Securing the ZooKeeper connection
 
 You may also want to secure the communication between ZooKeeper and Solr.
 
 To setup ACL protection of znodes, see <<zookeeper-access-control.adoc#zookeeper-access-control,ZooKeeper Access Control>>.
+
+For more information on getting the most power from your ZooKeeper installation, check out the http://zookeeper.apache.org/doc/r3.4.5/zookeeperAdmin.html[ZooKeeper Administrator's Guide].

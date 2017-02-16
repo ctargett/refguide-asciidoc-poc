@@ -7,14 +7,14 @@ Streaming Expressions provide a simple yet powerful stream processing language f
 
 There are several available functions, including those that implement:
 
-* continuous push streaming
-* continuous pull streaming
-* request/response streaming
-* MapReduce shuffling aggregation
-* pushdown faceted aggregation
-* parallel relational algebra (distributed joins, intersections, unions, complements)
-* publish/subscribe messaging
-* distributed graph traversal (Solr 6.1)
+* Request/response stream processing
+* Batch stream processing
+* Fast interactive MapReduce
+* Aggregations (Both pushed down faceted and shuffling MapReduce)
+* Parallel relational algebra (distributed joins, intersections, unions, complements)
+* Publish/subscribe messaging
+* Distributed graph traversal
+* Machine Learning and parallel iterative model training
 
 Streams from outside systems can be joined with streams originating from Solr and users can add their own stream functions by following Solr's {solr-javadocs}/solr-solrj/org/apache/solr/client/solrj/io/stream/package-summary.html[Java streaming API].
 
@@ -37,7 +37,7 @@ Some streaming functions act as stream sources to originate the stream flow. Oth
 [[StreamingExpressions-StreamingRequestsandResponses]]
 === Streaming Requests and Responses
 
-Solr has a `/stream` request handler that takes streaming expression requests and returns the tuples as a JSON stream. This request handler is implicitly defined, meaning there is nothing that has to be defined in `solrconfig.xml`.
+Solr has a `/stream` request handler that takes streaming expression requests and returns the tuples as a JSON stream. This request handler is implicitly defined, meaning there is nothing that has to be defined in `solrconfig.xml` - see <<implicit-requesthandlers.adoc#implicit-requesthandlers,Implicit RequestHandlers>>.
 
 The `/stream` request handler takes one parameter, `expr`, which is used to specify the streaming expression. For example, this curl command encodes and POSTs a simple `search()` expression to the `/stream` handler:
 
@@ -99,7 +99,7 @@ Because streaming expressions relies on the `/export` handler, many of the field
 [[StreamingExpressions-StreamSources]]
 == Stream Sources
 
-Stream sources originate streams. There are several stream sources available: **search**, **jdbc**, **facet**, **gatherNodes**, **random**, **stats**, **topic**, and **shortestPath**.
+Stream sources originate streams.
 
 [[StreamingExpressions-search]]
 === search
@@ -118,6 +118,7 @@ This expression allows you to specify a request hander using the `qt` parameter.
 * `zkHost`: Only needs to be defined if the collection being searched is found in a different zkHost than the local stream handler.
 * `qt`: Specifies the query type, or request handler, to use. Set this to `/export` to work with large result sets. The default is `/select`.
 * `rows`: (Mandatory with the `/select` handler) The rows parameter specifies how many rows to return. This parameter is only needed with the `/select` handler (which is the default) since the `/export` handler always returns all rows.
+* `partitionKeys`: Comma delimited list of keys to partition the search results by. To be used with the parallel function for parallelizing operations across worker nodes. See the <<StreamingExpressions-parallel,parallel>> function for details.
 
 [[StreamingExpressions-Syntax]]
 ==== Syntax
@@ -261,26 +262,99 @@ facet(collection1,
 
 The example above shows a facet function with rollups over three buckets, where the buckets are returned in descending order by bucket value.
 
+[[StreamingExpressions-features]]
+=== features
+
+The `features` function extracts the key terms from a text field in a classification training set stored in a SolrCloud collection. It uses an algorithm known as **Information Gain**, to select the important terms from the training set. The `features` function was designed to work specifically with the <<StreamingExpressions-train,train>> function, which uses the extracted features to train a text classifier.
+
+The `features` function is designed to work with a training set that provides both positive and negative examples of a class. It emits a tuple for each feature term that is extracted along with the inverse document frequency (IDF) for the term in the training set.
+
+The `features` function uses a query to select the training set from a collection. The IDF for each selected feature is calculated relative to the training set matching the query. This allows multiple training sets to be stored in the same SolrCloud collection without polluting the IDF across training sets.
+
+[[StreamingExpressions-Parameters.3]]
+==== Parameters
+
+* `collection`: (Mandatory) The collection that holds the training set
+* `q`: (Mandatory) The query that defines the training set. The IDF for the features will be generated specific to the result set matching the query.
+* `featureSet`: (Mandatory) The name of the feature set. This can be used to retrieve the features if they are stored in a SolrCloud collection.
+* `field`: (Mandatory) The text field to extract the features from.
+* `outcome`: (Mandatory) The field that defines the class, positive or negative
+* `numTerms`: (Mandatory) How many feature terms to extract.
+* `positiveLabel`: (defaults to 1) The value in the outcome field that defines a postive outcome.
+
+[[StreamingExpressions-Syntax.3]]
+==== Syntax
+
+[source,java]
+----
+features(collection1, 
+         q="*:*", 
+         featureSet="features1", 
+         field="body", 
+         outcome="out_i", 
+         numTerms=250)
+----
+
 [[StreamingExpressions-gatherNodes]]
 === gatherNodes
 
 The `gatherNodes` function provides breadth-first graph traversal. For details, see the section <<graph-traversal.adoc#graph-traversal,Graph Traversal>>.
+
+[[StreamingExpressions-model]]
+=== model
+
+The `model` function retrieves and caches logistic regression text classification models that are stored in a SolrCloud collection. The `model` function is designed to work with models that are created by the <<StreamingExpressions-train,train function>>, but can also be used to retrieve text classification models trained outside of Solr, as long as they conform to the specified format. After the model is retrieved it can be used by the <<StreamingExpressions-classify,classify function>> to classify documents.
+
+A single model tuple is fetched and returned based on the *id* parameter. The model is retrieved by matching the *id* parameter with a model name in the index. If more then one iteration of the named model is stored in the index, the highest iteration is selected.
+
+[[StreamingExpressions-Caching]]
+==== Caching
+
+The `model` function has an internal LRU (least-recently-used) cache so models do not have to be retrieved with each invocation of the `model` function. The time to cache for each model ID can be passed as a parameter to the function call. Retrieving a cached model does not reset the time for expiring the model ID in the cache.
+
+[[StreamingExpressions-ModelStorage]]
+==== Model Storage
+
+The storage format of the models in Solr is below. The `train` function outputs the format below so you only need to know schema details if you plan to use the `model` function with logistic regression models trained outside of Solr.
+
+* `name_s` (Single value, String, Stored): The name of the model.
+* `iteration_i` (Single value, Integer, Stored): The iteration number of the model. Solr can store all iterations of the models generated by the train function.
+* `terms_ss` (Multi value, String, Stored: The array of terms/features of the model.
+* `weights_ds` (Multi value, double, Stored): The array of term weights. Each weight corresponds by array index to a term.
+* `idfs_ds` (Multi value, double, Stored): The array of term IDFs (Inverse document frequency). Each IDF corresponds by array index to a term.
+
+[[StreamingExpressions-Parameters.4]]
+==== Parameters
+
+* `collection`: (Mandatory) The collection where the model is stored.
+* `id`: (Mandatory) The id/name of the model. The model function always returns one model. If there are multiple iterations of the name, the highest iteration is returned.
+* `cacheMillis`: (Optional) The amount of time to cache the model in the LRU cache.
+
+[[StreamingExpressions-Syntax.4]]
+==== Syntax
+
+[source,java]
+----
+model(modelCollection, 
+      id="myModel"
+      cacheMillis="200000") 
+----
 
 [[StreamingExpressions-random]]
 === random
 
 The `random` function searches a SolrCloud collection and emits a pseudo-random set of results that match the query. Each invocation of random will return a different pseudo-random result set.
 
-[[StreamingExpressions-Parameters.3]]
+[[StreamingExpressions-Parameters.5]]
 ==== Parameters
 
-* `collection`: (Mandatory) Collection the stats will be aggregated from.
+* `collection`: (Mandatory) The collection the stats will be aggregated from.
 * `q`: (Mandatory) The query to build the aggregations from.
 * `rows`: (Mandatory) The number of pseudo-random results to return.
 * fl: (Mandatory) The field list to return.
 * `fq`: (Optional) Filter query
 
-[[StreamingExpressions-Syntax.3]]
+[[StreamingExpressions-Syntax.5]]
 ==== Syntax
 
 [source,java]
@@ -298,7 +372,7 @@ In the example above the `random` function is searching the baskets collections 
 
 The `shortestPath` function is an implementation of a shortest path graph traversal. The `shortestPath` function performs an iterative breadth-first search through an unweighted graph to find the shortest paths between two nodes in a graph. The `shortestPath` function emits a tuple for each path found. Each tuple emitted will contain a `path` key which points to a `List` of nodeIDs comprising the path.
 
-[[StreamingExpressions-Parameters.4]]
+[[StreamingExpressions-Parameters.6]]
 ==== Parameters
 
 * `collection`: (Mandatory) The collection that the topic query will be run on.
@@ -310,7 +384,8 @@ The `shortestPath` function is an implementation of a shortest path graph traver
 * `fq`: (Optional) Filter query
 * `maxDepth`: (Mandatory) Limits to the search to a maximum depth in the graph.
 
-*Syntax*
+[[StreamingExpressions-Syntax.6]]
+==== Syntax
 
 [source,java]
 ----
@@ -333,14 +408,14 @@ The search starts from the nodeID "john@company.com" in the `from_address` field
 
 The `stats` function gathers simple aggregations for a search result set. The stats function does not support rollups over buckets, so the stats stream always returns a single tuple with the rolled up stats. Under the covers the stats function pushes down the generation of the stats into the search engine using the StatsComponent. The stats function currently supports the following metrics: `count(*)`, `sum()`, `avg()`, `min()`, and `max()`.
 
-[[StreamingExpressions-Parameters.5]]
+[[StreamingExpressions-Parameters.7]]
 ==== Parameters
 
 * `collection`: (Mandatory) Collection the stats will be aggregated from.
 * `q`: (Mandatory) The query to build the aggregations from.
 * `metrics`: (Mandatory) The metrics to include in the result tuple. Current supported metrics are `sum(col)`, `avg(col)`, `min(col)`, `max(col)` and `count(*)`
 
-[[StreamingExpressions-Syntax.4]]
+[[StreamingExpressions-Syntax.7]]
 ==== Syntax
 
 [source,java]
@@ -358,10 +433,44 @@ stats(collection1,
       count(*))
 ----
 
+[[StreamingExpressions-train]]
+=== train
+
+The `train` function trains a Logistic Regression text classifier on a training set stored in a SolrCloud collection. It uses a parallel iterative, batch Gradient Descent approach to train the model. The training algorithm is embedded inside Solr so with each iteration only the model is streamed across the network.
+
+The `train` function wraps a <<StreamingExpressions-features,features>> function which provides the terms and inverse document frequency (IDF) used to train the model. The `train` function operates over the same training set as the `features` function, which includes both positive and negative examples of the class.
+
+With each iteration the `train` function emits a tuple with the model. The model contains the feature terms, weights, and the confusion matrix for the model. The optimized model can then be used to classify documents based on their feature terms.
+
+[[StreamingExpressions-Parameters.8]]
+==== Parameters
+
+* `collection`: (Mandatory) Collection that holds the training set
+* `q`: (Mandatory) The query that defines the training set. The IDF for the features will be generated on the
+* `name`: (Mandatory) The name of model. This can be used to retrieve the model if they stored in a Solr Cloud collection.
+* `field`: (Mandatory) The text field to extract the features from.
+* `outcome`: (Mandatory) The field that defines the class, positive or negative
+* `maxIterations`: (Mandatory) How many training iterations to perform.
+* `positiveLabel`: (defaults to 1) The value in the outcome field that defines a positive outcome.
+
+[[StreamingExpressions-Syntax.8]]
+==== Syntax
+
+[source,java]
+----
+train(collection1,
+      features(collection1, q="*:*", featureSet="first", field="body", outcome="out_i", numTerms=250),
+      q="*:*",
+      name="model1",
+      field="body",
+      outcome="out_i",
+      maxIterations=100)
+----
+
 [[StreamingExpressions-topic]]
 === topic
 
-The `topic` function provides publish/subscribe messaging capabilities built on top of SolrCloud. The topic function allows users to subscribe to a query. The function then provides one-time delivery of new or updated documents that match the topic query. The initial call to the topic function establishes the checkpoints for the specific topic ID. Subsequent calls to the same topic ID will return new or updated documents that match the topic query.
+The `topic` function provides publish/subscribe messaging capabilities built on top of SolrCloud. The topic function allows users to subscribe to a query. The function then provides one-time delivery of new or updated documents that match the topic query. The initial call to the topic function establishes the checkpoints for the specific topic ID. Subsequent calls to the same topic ID will return documents added or updated after the initial checkpoint. Each run of the topic query updates the checkpoints for the topic ID. Setting the initialCheckpoint parameter to 0 will cause the topic to process all documents in the index that match the topic query.
 
 [WARNING]
 ====
@@ -370,7 +479,7 @@ The topic function should be considered in beta until https://issues.apache.org/
 
 ====
 
-[[StreamingExpressions-Parameters.6]]
+[[StreamingExpressions-Parameters.9]]
 ==== Parameters
 
 * `checkpointCollection`: (Mandatory) The collection where the topic checkpoints are stored.
@@ -378,8 +487,9 @@ The topic function should be considered in beta until https://issues.apache.org/
 * `id`: (Mandatory) The unique ID for the topic. The checkpoints will be saved under this id.
 * `q`: (Mandatory) The topic query.
 * `fl`: (Mandatory) The field list returned by the topic function.
+* `initialCheckpoint`: (Optional) Sets the initial Solr `_version_` number to start reading from the queue. If not set, it defaults to the highest version in the index. Setting to 0 will process all records that match query in the index.
 
-[[StreamingExpressions-Syntax.5]]
+[[StreamingExpressions-Syntax.9]]
 ==== Syntax
 
 [source,java]
@@ -394,21 +504,87 @@ topic(checkpointCollection,
 [[StreamingExpressions-StreamDecorators]]
 == Stream Decorators
 
-Stream decorators wrap other stream functions or perform operations on the stream. The are currently many stream decorators available: **complement**, **daemon**, **innerJoin**, **intersect**, **hashJoin**, **merge**, **leftOuterJoin**, **outerHashJoin**, **parallel**, **reduce**, **rollup**, **select**, **top**, **unique**, and *update.*
+Stream decorators wrap other stream functions or perform operations on the stream.
+
+[[StreamingExpressions-classify]]
+=== classify
+
+The `classify` function classifies tuples using a logistic regression text classification model. It was designed specifically to work with models trained using the <<StreamingExpressions-tr,train function>>. The `classify` function uses the <<StreamingExpressions-m,model function>> to retrieve a stored model and then scores a stream of tuples using the model. The tuples read by the classifier must contain a text field that can be used for classification. The classify function uses a Lucene analyzer to extract the features from the text so the model can be applied. By default the `classify` function looks for the analyzer using the name of text field in the tuple. If the Solr schema on the worker node does not contain this field, the analyzer can be looked up in another field by specifying the `analyzerField` parameter.
+
+Each tuple that is classified is assigned two scores:
+
+**probability_d**: A float between 0 and 1 which describes the probability that the tuple belongs to the class. This is useful in the classification use case.
+
+**score_d**: The score of the document that has not be squashed between 0 and 1. The score may be positive or negative. The higher the score the better the document fits the class. This un-squashed score will be useful in query re-ranking and recommendation use cases. This score is particularly useful when multiple high ranking documents have a probability_d score of 1, which won't provide a meaningful ranking between documents.
+
+[[StreamingExpressions-Parameters.10]]
+==== Parameters
+
+* `model expression`: (Mandatory) Retrieves the stored logistic regression model.
+* `field`: (Mandatory) The field in the tuples to apply the classifier to. By default the analyzer for this field in the schema will be used extract the features.
+* `analyzerField`: (Optional) Specifies a different field to find the analyzer from in the schema.
+
+[[StreamingExpressions-Syntax.10]]
+==== *Syntax*
+
+[source,java]
+----
+classify(model(modelCollection, 
+             id="model1", 
+             cacheMillis=5000), 
+         search(contentCollection, 
+             q="id:(a b c)", 
+             fl="text_t, id", 
+             sort="id asc"),
+             field="text_t")
+----
+
+In the example above the `classify expression` is retrieving the model using the `model` function. It is then classifying tuples returned by the `search` function. The `text_t` field is used for the text classification and the analyzer for the `text_t` field in the Solr schema is used to analyze the text and extract the features.
+
+[[StreamingExpressions-commit]]
+=== commit
+
+The `commit` function wraps a single stream (A) and given a collection and batch size will send commit messages to the collection when the batch size is fulfilled or the end of stream is reached. A commit stream is used most frequently with an update stream and as such the commit will take into account possible summary tuples coming from the update stream. All tuples coming into the commit stream will be returned out of the commit stream - no tuples will be dropped and no tuples will be added.
+
+[[StreamingExpressions-Parameters.11]]
+==== Parameters
+
+* `collection`: The collection to send commit messages to (required)
+* `batchSize`: The commit batch size, sends commit message when batch size is hit. If not provided (or provided as value 0) then a commit is only sent at the end of the incoming stream.
+* `waitFlush`: The value passed directly to the commit handler (true/false, default: false)
+* `waitSearcher`: The value passed directly to the commit handler (true/false, default: false)
+* `softCommit`: The value passed directly to the commit handler (true/false, default: false)
+* `StreamExpression for StreamA` (required)
+
+[[StreamingExpressions-Syntax.11]]
+==== Syntax
+
+[source,java]
+----
+commit(
+    destinationCollection, 
+    batchSize=2, 
+    update(
+        destinationCollection, 
+        batchSize=5, 
+        search(collection1, q=*:*, fl="id,a_s,a_i,a_f,s_multi,i_multi", sort="a_f asc, a_i asc")
+    )
+)
+----
 
 [[StreamingExpressions-complement]]
 === complement
 
 The `complement` function wraps two streams (A and B) and emits tuples from A which do not exist in B. The tuples are emitted in the order in which they appear in stream A. Both streams must be sorted by the fields being used to determine equality (using the `on` parameter).
 
-[[StreamingExpressions-Parameters.7]]
+[[StreamingExpressions-Parameters.12]]
 ==== Parameters
 
 * `StreamExpression for StreamA`
 * `StreamExpression for StreamB`
 * `on`: Fields to be used for checking equality of tuples between A and B. Can be of the format `on="fieldName"`, `on="fieldNameInLeft=fieldNameInRight"`, or `on="fieldName, otherFieldName=rightOtherFieldName"`.
 
-[[StreamingExpressions-Syntax.6]]
+[[StreamingExpressions-Syntax.12]]
 ==== Syntax
 
 [source,java]
@@ -429,37 +605,40 @@ complement(
 [[StreamingExpressions-daemon]]
 === daemon
 
-The `daemon` function wraps another function and runs it at intervals using an internal thread. The daemon function can be used to provide both continuous push and pull streaming.
+The `daemon` function wraps another function and runs it at intervals using an internal thread. The `daemon` function can be used to provide both continuous push and pull streaming.
 
 [[StreamingExpressions-Continuouspushstreaming]]
-==== *Continuous push streaming*
+==== Continuous push streaming
 
-With continuous push streaming the daemon function wraps another function and is then sent to the `/stream` handler for execution. The `/stream` handler recognizes the daemon function and keeps it resident in memory, so it can run it's internal function at intervals.
+With continuous push streaming the `daemon` function wraps another function and is then sent to the `/stream` handler for execution. The `/stream` handler recognizes the `daemon` function and keeps it resident in memory, so it can run its internal function at intervals.
 
-In order to facilitate the pushing of tuples, the daemon function must wrap another stream decorator that pushes the tuples somewhere. One example of this is the `update` function, which wraps a stream and sends the tuples to another SolrCloud collection for indexing.
+In order to facilitate the pushing of tuples, the `daemon` function must wrap another stream decorator that pushes the tuples somewhere. One example of this is the `update` function, which wraps a stream and sends the tuples to another SolrCloud collection for indexing.
 
-*Example:*
+[[StreamingExpressions-Syntax.13]]
+==== Syntax
 
 [source,java]
 ----
 daemon(id="uniqueId", 
        runInterval="1000",
+       terminate="true",
        update(destinationCollection, 
               batchSize=100, 
               topic(checkpointCollection, 
                     topicCollection, 
                     q="topic query", 
                     fl="id, title, abstract, text", 
-                    id="topicId")
+                    id="topicId",
+                    initialCheckpoint=0)
                )
         )
 ----
 
-The sample code above shows a `daemon` function wrapping an `update `function, which is wrapping a `topic` function. When this expression is sent to the `/stream` handler, the `/stream` hander sees the daemon function and keeps it in memory where it will run at intervals. In this particular example, the daemon function will run the `update` function every second. The `update` function is wrapping a `topic` function, which returns all new documents for a specific query. The update function will send the new documents to another collection to be indexed.
+The sample code above shows a `daemon` function wrapping an `update` function, which is wrapping a `topic` function. When this expression is sent to the `/stream` handler, the `/stream` hander sees the `daemon` function and keeps it in memory where it will run at intervals. In this particular example, the `daemon` function will run the `update` function every second. The `update` function is wrapping a <<StreamingExpressions-topic,`topic` function>>, which will stream tuples that match the `topic` function query in batches. Each subsequent call to the topic will return the next batch of tuples for the topic. The `update` function will send all the tuples matching the topic to another collection to be indexed. The `terminate` parameter tells the daemon to terminate when the `topic` function stops sending tuples.
 
-The effect of this is to continuously push new documents that match a specific query into another collection. Custom push functions can be plugged in that push documents out of Solr and into other systems, such as Kafka or an email system.
+The effect of this is to push documents that match a specific query into another collection. Custom push functions can be plugged in that push documents out of Solr and into other systems, such as Kafka or an email system.
 
-Push streaming can also be used for continuous background aggregation scenarios where aggregates are rolled up in the background at intervals and pushed to other Solr collections. Another use case is continuous background machine learning model optimization, where the optimized model is pushed to another Solr collection where they can be integrated into queries.
+Push streaming can also be used for continuous background aggregation scenarios where aggregates are rolled up in the background at intervals and pushed to other Solr collections. Another use case is continuous background machine learning model optimization, where the optimized model is pushed to another Solr collection where it can be integrated into queries.
 
 The `/stream` handler supports a small set commands for listing and controlling daemon functions:
 
@@ -475,7 +654,7 @@ This command will provide a listing of the current daemon's running on the speci
 http://localhost:8983/collection/stream?action=stop&id=daemonId
 ----
 
-This command will stop a specific daemon function but leave it resident in memory
+This command will stop a specific daemon function but leave it resident in memory.
 
 [source,java]
 ----
@@ -492,9 +671,9 @@ http://localhost:8983/collection/stream?action=kill&id=daemonId
 This command will stop a specific daemon function and remove it from memory.
 
 [[StreamingExpressions-ContinousPullStreaming]]
-==== *Continous Pull Streaming*
+==== Continous Pull Streaming
 
-The DaemonStream java class (part of the Solrj libraries) can also be embedded in a java application to provide continuous pull streaming. Sample code:
+The {solr-javadocs}/solr-solrj/org/apache/solr/client/solrj/io/stream/DaemonStream.html[DaemonStream] java class (part of the SolrJ libraries) can also be embedded in a java application to provide continuous pull streaming. Sample code:
 
 [source,java]
 ----
@@ -550,6 +729,98 @@ while(true) {
 daemonStream.close();
 ----
 
+[[StreamingExpressions-executor]]
+=== executor
+
+The `executor` function wraps a stream source that contains streaming expressions, and executes the expressions in parallel. The `executor` function looks for the expression in the `expr_s` field in each tuple. The `executor` function has an internal thread pool that runs tasks that compile and run expressions in parallel on the same worker node. This function can also be parallelized across worker nodes by wrapping it in the <<StreamingExpressions-parallel,`parallel`>> function to provide parallel execution of expressions across a cluster.
+
+The `executor` function does not do anything specific with the output of the expressions that it runs. Therefore the expressions that are executed must contain the logic for pushing tuples to their destination. The <<StreamingExpressions-update,update function>> can be included in the expression being executed to send the tuples to a SolrCloud collection for storage.
+
+This model allows for asynchronous execution of jobs where the output is stored in a SolrCloud collection where it can be accessed as the job progresses.
+
+[[StreamingExpressions-Parameters.13]]
+==== Parameters
+
+* `threads`: (Optional) The number of threads in the executors thread pool for executing expressions.
+* `StreamExpression`: (Mandatory) The stream source which contains the Streaming Expressions to execute.
+
+[[StreamingExpressions-Syntax.14]]
+==== Syntax
+
+[source,java]
+----
+daemon(id="myDaemon",
+       terminate="true",
+       executor(threads=10, 
+                topic(checkpointCollection
+                      storedExpressions,
+                      q="*:*", 
+                      fl="id, expr_s", 
+                      initialCheckPoint=0,
+                      id="myTopic")))
+----
+
+In the example above a <<StreamingExpressions-daemon,daemon>> wraps an executor**,** which wraps a <<StreamingExpressions-topic,topic>> that is returning tuples with expressions to execute. When sent to the stream handler, the daemon will call the executor at intervals which will cause the executor to read from the topic and execute the expressions found in the `expr_s` field. The daemon will repeatedly call the executor until all the tuples that match the topic have been iterated, then it will terminate. This is the approach for executing batches of streaming expressions from a `topic` queue.
+
+[[StreamingExpressions-fetch]]
+=== fetch
+
+The `fetch` function iterates a stream and fetches additional fields and adds them to the tuples. The `fetch` function fetches in batches to limit the number of calls back to Solr. Tuples streamed from the `fetch` function will contain the original fields and the additional fields that were fetched. The `fetch` function supports one-to-one fetches. Many-to-one fetches, where the stream source contains duplicate keys, will also work, but one-to-many fetches are currently not supported by this function.
+
+[[StreamingExpressions-Parameters.14]]
+==== Parameters
+
+* `Collection`: (Mandatory) The collection to fetch the fields from.
+* `StreamExpression`: (Mandatory) The stream source for the fetch function.
+* `fl`: (Mandatory) The fields to be fetched.
+* `on`: Fields to be used for checking equality of tuples between stream source and fetched records. Formatted as `on="fieldNameInTuple=fieldNameInCollection"`.
+* `batchSize`: (Optional) The batch fetch size.
+
+[[StreamingExpressions-Syntax.15]]
+==== Syntax
+
+[source,java]
+----
+fetch(addresses,
+      search(people, q="*:*", fl="username, firstName, lastName", sort="username asc"),
+      fl="streetAddress, city, state, country, zip",
+      on="username=userId") 
+----
+
+The example above fetches addresses for users by matching the username in the tuple with the userId field in the addresses collection.
+
+[[StreamingExpressions-having]]
+=== having
+
+The `having` expression wraps a stream and applies a boolean operation to each tuple. It emits only tuples for which the boolean operation returns **true**.
+
+[[StreamingExpressions-Parameters.15]]
+==== Parameters
+
+* `StreamExpression`: (Mandatory) The stream source for the having function.
+* `booleanOperation`: (Madatory) The following boolean operations are supported: *eq* (numeric equals), *gt* (numeric greater than), *lt* (numeric less than), *gteq* (numeric greater than or equal to), *lteq* (numeric less than or equal to), **and**, **or**, and **not**. Boolean operations can be nested to form complex boolean logic.
+
+The numeric comparison operations compare the value in a specific field with a numeric value. For example: **eq**(field1, 10), returns true if *field1* is equal to 10.
+
+The parameter order for numeric comparison operations matters. The first parameter of comparison operations is the field name, the second parameter is the numeric to compare to.
+
+[[StreamingExpressions-Syntax.16]]
+==== Syntax
+
+[source,java]
+----
+having(rollup(over=a_s,
+              sum(a_i), 
+              search(collection1, 
+                     q=*:*, 
+                     fl="id,a_s,a_i,a_f", 
+                     sort="a_s asc")), 
+       and(gt(sum(a_i), 100), lt(sum(a_i), 110)))
+ 
+----
+
+In this example, the `having` expression iterates the aggregated tuples from the `rollup` expression and emits all tuples where the field 'sum(a_i)' is greater then 100 and less then 110.
+
 [[StreamingExpressions-leftOuterJoin]]
 === leftOuterJoin
 
@@ -557,14 +828,14 @@ The `leftOuterJoin` function wraps two streams, Left and Right, and emits tuples
 
 You can wrap the incoming streams with a `select` function to be specific about which field values are included in the emitted tuple.
 
-[[StreamingExpressions-Parameters.8]]
+[[StreamingExpressions-Parameters.16]]
 ==== Parameters
 
 * `StreamExpression for StreamLeft`
 * `StreamExpression for StreamRight`
 * `on`: Fields to be used for checking equality of tuples between Left and Right. Can be of the format `on="fieldName"`, `on="fieldNameInLeft=fieldNameInRight"`, or `on="fieldName, otherFieldName=rightOtherFieldName"`.
 
-[[StreamingExpressions-Syntax.7]]
+[[StreamingExpressions-Syntax.17]]
 ==== Syntax
 
 [source,java]
@@ -601,14 +872,14 @@ You can wrap the incoming streams with a `select` function to be specific about 
 
 The hashJoin function can be used when the tuples of Left and Right cannot be put in the same order. Because the tuples are out of order this stream functions by reading all values from the Right stream during the open operation and will store all tuples in memory. The result of this is a memory footprint equal to the size of the Right stream.
 
-[[StreamingExpressions-Parameters.9]]
+[[StreamingExpressions-Parameters.17]]
 ==== Parameters
 
 * `StreamExpression for StreamLeft`
 * `hashed=StreamExpression for StreamRight`
 * `on`: Fields to be used for checking equality of tuples between Left and Right. Can be of the format `on="fieldName"`, `on="fieldNameInLeft=fieldNameInRight"`, or `on="fieldName, otherFieldName=rightOtherFieldName"`.
 
-[[StreamingExpressions-Syntax.8]]
+[[StreamingExpressions-Syntax.18]]
 ==== Syntax
 
 [source,java]
@@ -641,14 +912,14 @@ hashJoin(
 
 Wraps two streams Left and Right and for every tuple in Left which exists in Right will emit a tuple containing the fields of both tuples. This supports one-one, one-many, many-one, and many-many inner join scenarios. The tuples are emitted in the order in which they appear in the Left stream. Both streams must be sorted by the fields being used to determine equality (the 'on' parameter). If both tuples contain a field of the same name then the value from the Right stream will be used in the emitted tuple. You can wrap the incoming streams with a select(...) to be specific about which field values are included in the emitted tuple.
 
-[[StreamingExpressions-Parameters.10]]
+[[StreamingExpressions-Parameters.18]]
 ==== Parameters
 
 * `StreamExpression for StreamLeft`
 * `StreamExpression for StreamRight`
 * `on`: Fields to be used for checking equality of tuples between Left and Right. Can be of the format `on="fieldName"`, `on="fieldNameInLeft=fieldNameInRight"`, or `on="fieldName, otherFieldName=rightOtherFieldName"`.
 
-[[StreamingExpressions-Syntax.9]]
+[[StreamingExpressions-Syntax.19]]
 ==== Syntax
 
 [source,java]
@@ -681,14 +952,14 @@ innerJoin(
 
 The `intersect` function wraps two streams, A and B, and emits tuples from A which *DO* exist in B. The tuples are emitted in the order in which they appear in stream A. Both streams must be sorted by the fields being used to determine equality (the `on` parameter). Only tuples from A are emitted.
 
-[[StreamingExpressions-Parameters.11]]
+[[StreamingExpressions-Parameters.19]]
 ==== Parameters
 
 * `StreamExpression for StreamA`
 * `StreamExpression for StreamB`
 * `on`: Fields to be used for checking equality of tuples between A and B. Can be of the format `on="fieldName"`, `on="fieldNameInLeft=fieldNameInRight"`, or `on="fieldName, otherFieldName=rightOtherFieldName"`.
 
-[[StreamingExpressions-Syntax.10]]
+[[StreamingExpressions-Syntax.20]]
 ==== Syntax
 
 [source,java]
@@ -711,7 +982,7 @@ intersect(
 
 The `merge` function merges two or more streaming expressions and maintains the ordering of the underlying streams. Because the order is maintained, the sorts of the underlying streams must line up with the on parameter provided to the merge function.
 
-[[StreamingExpressions-Parameters.12]]
+[[StreamingExpressions-Parameters.20]]
 ==== Parameters
 
 * `StreamExpression A`
@@ -719,7 +990,7 @@ The `merge` function merges two or more streaming expressions and maintains the 
 * `Optional StreamExpression C,D,....Z`
 * `on`: Sort criteria for performing the merge. Of the form `fieldName order` where order is `asc` or `desc`. Multiple fields can be provided in the form `fieldA order, fieldB order`.
 
-[[StreamingExpressions-Syntax.11]]
+[[StreamingExpressions-Syntax.21]]
 ==== Syntax
 
 [source,java]
@@ -761,6 +1032,36 @@ merge(
       on="fieldA asc") 
 ----
 
+[[StreamingExpressions-null]]
+=== null
+
+The null expression is a useful utility function for understanding bottlenecks when performing parallel relational algebra (joins, intersections, rollups etc.). The null function reads all the tuples from an underlying stream and returns a single tuple with the count and processing time. Because the null stream adds minimal overhead of it's own, it can be used to isolate the performance of Solr's /export handler. If the /export handlers performance is not the bottleneck, then the bottleneck is likely occurring in the workers where the stream decorators are running.
+
+The null expression can be wrapped by the parallel function and sent to worker nodes. In this scenario each worker will return one tuple with the count of tuples processed on the worker and the timing information for that worker. This gives valuable information such as:
+
+1.  As more workers are added does the performance of the /export handler improve or not.
+2.  Are tuples being evenly distributed across the workers, or is the hash partitioning sending more documents to a single worker.
+3.  Are all workers processing data at the same speed, or is one of the workers the source of the bottleneck.
+
+[[StreamingExpressions-Parameters.21]]
+==== Parameters
+
+* `StreamExpression`: (Mandatory) The expression read by the null function.
+
+[[StreamingExpressions-Syntax.22]]
+==== Syntax
+
+[source,java]
+----
+ parallel(workerCollection, 
+          null(search(collection1, q=*:*, fl="id,a_s,a_i,a_f", sort="a_s desc", qt="/export", partitionKeys="a_s")),
+          workers="20", 
+          zkHost="localhost:9983", 
+          sort="a_s desc")
+----
+
+The expression above shows a parallel function wrapping a null function. This will cause the null function to be run in parallel across 20 worker nodes. Each worker will return a single tuple with number of tuples processed and time it took to iterate the tuples.
+
 [[StreamingExpressions-outerHashJoin]]
 === outerHashJoin
 
@@ -770,14 +1071,14 @@ You can wrap the incoming streams with a `select` function to be specific about 
 
 The outerHashJoin stream can be used when the tuples of Left and Right cannot be put in the same order. Because the tuples are out of order, this stream functions by reading all values from the Right stream during the open operation and will store all tuples in memory. The result of this is a memory footprint equal to the size of the Right stream.
 
-[[StreamingExpressions-Parameters.13]]
+[[StreamingExpressions-Parameters.22]]
 ==== Parameters
 
 * `StreamExpression for StreamLeft`
 * `hashed=StreamExpression for StreamRight`
 * `on`: Fields to be used for checking equality of tuples between Left and Right. Can be of the format `on="fieldName"`, `on="fieldNameInLeft=fieldNameInRight"`, or `on="fieldName, otherFieldName=rightOtherFieldName"`.
 
-[[StreamingExpressions-Syntax.12]]
+[[StreamingExpressions-Syntax.23]]
 ==== Syntax
 
 [source,java]
@@ -822,7 +1123,7 @@ The worker nodes can be from the same collection as the data, or they can be a d
 
 ====
 
-[[StreamingExpressions-Parameters.14]]
+[[StreamingExpressions-Parameters.23]]
 ==== Parameters
 
 * `collection`: Name of the worker collection to send the StreamExpression to.
@@ -831,22 +1132,51 @@ The worker nodes can be from the same collection as the data, or they can be a d
 * `zkHost`: (Optional) The ZooKeeper connect string where the worker collection resides.
 * `sort`: The sort criteria for ordering tuples returned by the worker nodes.
 
-[[StreamingExpressions-Syntax.13]]
+[[StreamingExpressions-Syntax.24]]
 ==== Syntax
 
 [source,java]
 ----
  parallel(workerCollection, 
-          reduce(
-                 search(collection1, q=*:*, fl="id,a_s,a_i,a_f", sort="a_s desc", partitionKeys="a_s"),
+          reduce(search(collection1, q=*:*, fl="id,a_s,a_i,a_f", sort="a_s desc", partitionKeys="a_s"),
                  by="a_s",
-                 group(sort="a_f desc", n="4"))
+                 group(sort="a_f desc", n="4")),
           workers="20", 
           zkHost="localhost:9983", 
           sort="a_s desc")
 ----
 
-The expression above shows a parallel function wrapping a reduce function. This will cause the reduce function to be run in parallel across 20 worker nodes.
+The expression above shows a `parallel` function wrapping a `reduce` function. This will cause the `reduce` function to be run in parallel across 20 worker nodes.
+
+[[StreamingExpressions-priority]]
+=== priority
+
+The `priority` function is a simple priority scheduler for the <<StreamingExpressions-executor,executor>> function. It doesn't directly have a concept of task prioritization; instead it simply executes tasks in the order that they are read from it's underlying stream. The `priority` function provides the ability to schedule a higher priority task ahead of lower priority tasks that were submitted earlier.
+
+The `priority` function wraps two <<StreamingExpressions-topic,topics>> that are both emitting tuples that contain streaming expressions to execute. The first topic is considered the higher priority task queue.
+
+Each time the `priority` function is called, it checks the higher priority task queue to see if there are any tasks to execute. If tasks are waiting in the higher priority queue then the priority function will emit the higher priority tasks. If there are no high priority tasks to run, the lower priority queue tasks are emitted.
+
+The `priority` function will only emit a batch of tasks from one of the queues each time it is called. This ensures that no lower priority tasks are executed until the higher priority queue has no tasks to run.
+
+[[StreamingExpressions-Parameters.24]]
+==== Parameters
+
+* `topic expression`: (Mandatory) the high priority task queue
+* `topic expression`: (Mandatory) the lower priority task queue
+
+[[StreamingExpressions-Syntax.25]]
+==== Syntax
+
+[source,java]
+----
+daemon(id="myDaemon",
+       executor(threads=10, 
+                priority(topic(checkpointCollection, storedExpressions, q="priority:high", fl="id, expr_s", initialCheckPoint=0,id="highPriorityTasks"),
+                         topic(checkpointCollection, storedExpressions, q="priority:low", fl="id, expr_s", initialCheckPoint=0,id="lowPriorityTasks"))))
+----
+
+In the example above the `daemon` function is calling the executor iteratively. Each time it's called, the `executor` function will execute the tasks emitted by the `priority` function. The `priority` function wraps two topics. The first topic is the higher priority task queue, the second topics is the lower priority topic.
 
 [[StreamingExpressions-reduce]]
 === reduce
@@ -862,22 +1192,21 @@ The reduce function relies on the sort order of the underlying stream. According
 
 ====
 
-[[StreamingExpressions-Parameters.15]]
+[[StreamingExpressions-Parameters.25]]
 ==== Parameters
 
 * `StreamExpression`: (Mandatory)
 * `by`: (Mandatory) A comma separated list of fields to group by.
 * `Reduce Operation`: (Mandatory)
 
-[[StreamingExpressions-Syntax.14]]
+[[StreamingExpressions-Syntax.26]]
 ==== Syntax
 
 [source,java]
 ----
-reduce(
-   search(collection1, q=*:*, fl="id,a_s,a_i,a_f", sort="a_s asc, a_f asc"),
-   by="a_s",
-   group(sort="a_f desc", n="4")
+reduce(search(collection1, q=*:*, fl="id,a_s,a_i,a_f", sort="a_s asc, a_f asc"),
+       by="a_s",
+       group(sort="a_f desc", n="4")
 )
 ----
 
@@ -886,23 +1215,22 @@ reduce(
 
 The `rollup` function wraps another stream function and rolls up aggregates over bucket fields. The rollup function relies on the sort order of the underlying stream to rollup aggregates one grouping at a time. Accordingly, the sort order of the underlying stream must match the fields in the `over` parameter of the rollup function.
 
-The rollup function also needs to process entire result sets in order to perform it's aggregations. When the underlying stream is the `search` function, the `/export` handler can be used to provide full sorted result sets to the rollup function. This sorted approach allows the rollup function to perform aggregations over very high cardinality fields. The disadvantage of this approach is that the tuples must be sorted and streamed across the network to a worker node to be aggregated. For faster aggregation over low to moderate cardinality fields, the `facet` function can be used.
+The rollup function also needs to process entire result sets in order to perform its aggregations. When the underlying stream is the `search` function, the `/export` handler can be used to provide full sorted result sets to the rollup function. This sorted approach allows the rollup function to perform aggregations over very high cardinality fields. The disadvantage of this approach is that the tuples must be sorted and streamed across the network to a worker node to be aggregated. For faster aggregation over low to moderate cardinality fields, the `facet` function can be used.
 
-[[StreamingExpressions-Parameters.16]]
+[[StreamingExpressions-Parameters.26]]
 ==== Parameters
 
 * `StreamExpression` (Mandatory)
 * `over`: (Mandatory) A list of fields to group by.
 * `metrics`: (Mandatory) The list of metrics to compute. Currently supported metrics are `sum(col)`, `avg(col)`, `min(col)`, `max(col)`, `count(*)`.
 
-[[StreamingExpressions-Syntax.15]]
+[[StreamingExpressions-Syntax.27]]
 ==== Syntax
 
 [source,java]
 ----
 rollup(
-   search(
-      collection1, q=*:*, fl="a_s,a_i,a_f", qt="/export", sort="a_s asc"),
+   search(collection1, q=*:*, fl="a_s,a_i,a_f", qt="/export", sort="a_s asc"),
    over="a_s",
    sum(a_i),
    sum(a_f),
@@ -918,21 +1246,26 @@ rollup(
 
 The example about shows the rollup function wrapping the search function. Notice that search function is using the `/export` handler to provide the entire result set to the rollup stream. Also notice that the search function's *sort param* matches up with the rollup's `over` parameter. This allows the rollup function to rollup the over the `a_s` field, one group at a time.
 
+[[StreamingExpressions-scoreNodes]]
+=== scoreNodes
+
+See section in <<graph-traversal.adoc#GraphTraversal-UsingthescoreNodesFunctiontoMakeaRecommendation,graph traversal>>.
+
 [[StreamingExpressions-select]]
 === select
 
 The `select` function wraps a streaming expression and outputs tuples containing a subset or modified set of fields from the incoming tuples. The list of fields included in the output tuple can contain aliases to effectively rename fields. One can provide a list of operations to perform on any fields, such as `replace` to replace the value of a field with some other value or the value of another field in the tuple.
 
-[[StreamingExpressions-Parameters.17]]
+[[StreamingExpressions-Parameters.27]]
 ==== Parameters
 
 * `StreamExpression`
-* `fieldName`: name of field to include in the output tuple (can include multiple of these) outputTuple[fieldName] = inputTuple[fieldName]
-* `fieldName as aliasFieldName`: aliased field name to include in the output tuple (can include multiple of these) outputTuple[aliasFieldName] = incomingTuple[fieldName]
-* `replace(fieldName, value, withValue=replacementValue)`: if incomingTuple[fieldName] == value then outgoingTuple[fieldName] will be set to replacementValue. value can be the string "null" to replace a null value with some other value
-* `replace(fieldName, value, withField=otherFieldName)`: if incomingTuple[fieldName] == value then outgoingTuple[fieldName] will be set to the value of incomingTuple[otherFieldName]. value can be the string "null" to replace a null value with some other value
+* `fieldName`: name of field to include in the output tuple (can include multiple of these), such as `outputTuple[fieldName] = inputTuple[fieldName]`
+* `fieldName as aliasFieldName`: aliased field name to include in the output tuple (can include multiple of these), such as `outputTuple[aliasFieldName] = incomingTuple[fieldName]`
+* `replace(fieldName, value, withValue=replacementValue)`: if `incomingTuple[fieldName] == value` then `outgoingTuple[fieldName]` will be set to `replacementValue`. `value` can be the string "null" to replace a null value with some other value.
+* `replace(fieldName, value, withField=otherFieldName)`: if `incomingTuple[fieldName] == value` then `outgoingTuple[fieldName]` will be set to the value of `incomingTuple[otherFieldName]`. `value` can be the string "null" to replace a null value with some other value.
 
-[[StreamingExpressions-Syntax.16]]
+[[StreamingExpressions-Syntax.28]]
 ==== Syntax
 
 [source,java]
@@ -953,13 +1286,13 @@ select(
 
 The `sort` function wraps a streaming expression and re-orders the tuples. The sort function emits all incoming tuples in the new sort order. The sort function reads all tuples from the incoming stream, re-orders them using an algorithm with `O(nlog(n))` performance characteristics, where n is the total number of tuples in the incoming stream, and then outputs the tuples in the new sort order. Because all tuples are read into memory, the memory consumption of this function grows linearly with the number of tuples in the incoming stream.
 
-[[StreamingExpressions-Parameters.18]]
+[[StreamingExpressions-Parameters.28]]
 ==== Parameters
 
 * `StreamExpression`
 * `by`: Sort criteria for re-ordering the tuples
 
-[[StreamingExpressions-Syntax.17]]
+[[StreamingExpressions-Syntax.29]]
 ==== Syntax
 
 The expression below finds dog owners and orders the results by owner and pet name. Notice that it uses an efficient innerJoin by first ordering by the person/owner id and then re-orders the final output by the owner and pet names.
@@ -981,14 +1314,14 @@ sort(
 
 The `top` function wraps a streaming expression and re-orders the tuples. The top function emits only the top N tuples in the new sort order. The top function re-orders the underlying stream so the sort criteria *does not* have to match up with the underlying stream.
 
-[[StreamingExpressions-Parameters.19]]
+[[StreamingExpressions-Parameters.29]]
 ==== Parameters
 
 * `n`: Number of top tuples to return.
 * `StreamExpression`
 * `sort`: Sort criteria for selecting the top N tuples.
 
-[[StreamingExpressions-Syntax.18]]
+[[StreamingExpressions-Syntax.30]]
 ==== Syntax
 
 The expression below finds the top 3 results of the underlying search. Notice that it reverses the sort order. The top function re-orders the results of the underlying stream.
@@ -1011,13 +1344,13 @@ The `unique` function wraps a streaming expression and emits a unique stream of 
 
 The unique function implements a non-co-located unique algorithm. This means that records with the same unique `over` field do not need to be co-located on the same shard. When executed in the parallel, the `partitionKeys` parameter must be the same as the unique `over` field so that records with the same keys will be shuffled to the same worker.
 
-[[StreamingExpressions-Parameters.20]]
+[[StreamingExpressions-Parameters.30]]
 ==== Parameters
 
 * `StreamExpression`
 * `over`: The unique criteria.
 
-[[StreamingExpressions-Syntax.19]]
+[[StreamingExpressions-Syntax.31]]
 ==== Syntax
 
 [source,java]
@@ -1036,14 +1369,14 @@ unique(
 
 The `update` function wraps another functions and sends the tuples to a SolrCloud collection for indexing.
 
-[[StreamingExpressions-Parameters.21]]
+[[StreamingExpressions-Parameters.31]]
 ==== Parameters
 
 * `destinationCollection`: (Mandatory) The collection where the tuples will indexed.
 * `batchSize`: (Mandatory) The indexing batch size.
 * `StreamExpression`: (Mandatory)
 
-[[StreamingExpressions-Syntax.20]]
+[[StreamingExpressions-Syntax.32]]
 ==== Syntax
 
 [source,java]

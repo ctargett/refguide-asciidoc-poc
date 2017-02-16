@@ -2,9 +2,9 @@
 :page-shortname: graph-traversal
 :page-permalink: graph-traversal.html
 
-Graph traversal with streaming expressions uses the `gatherNodes` function for breadth-first graph traversal.
+Graph traversal with streaming expressions uses the `gatherNodes` function to perform a breadth-first graph traversal. The `gatherNodes` function can be combined with the `scoreNodes` function to provide recommendations. `gatherNodes` can also be combined with the wider streaming expression library to perform complex operations on gathered node sets.
 
-`gatherNodes` traversals are distributed within a SolrCloud collection and can span collections. The `gatherNodes` function can be combined with other streaming expressions to perform complex operations on the gathered node sets.
+`gatherNodes` traversals are distributed within a SolrCloud collection and can span collections.
 
 `gatherNodes` is designed for use cases that involve zooming into a neighborhood in the graph and performing precise traversals to gather node sets and aggregations. In these types of use cases `gatherNodes` will often provide sub-second performance. Some sample use cases are provided later in the document.
 
@@ -31,7 +31,7 @@ Let's break down this simple expression.
 
 The first parameter, `emails`, is the collection being traversed. The second parameter, `walk`, maps a hard-coded node ID ("johndoe@apache.org") to a field in the index (`from`). This will return all the *edges* in the index that have `johndoe@apache.org` in the `from` field.
 
-The `gather` parameter tells the function to gather the values in the `to`field. The values that are gathered are the node IDs emitted by the function.
+The `gather` parameter tells the function to gather the values in the `to `field. The values that are gathered are the node IDs emitted by the function.
 
 In the example above the nodes emitted will be all of the people that "johndoe@apache.org" has emailed.
 
@@ -335,10 +335,10 @@ The example above gathers two separate friend networks, one rooted with "johndoe
 [[GraphTraversal-SampleUseCases]]
 == Sample Use Cases
 
-[[GraphTraversal-CalculateMarketBasketCo-occurance]]
-=== Calculate Market Basket Co-occurance
+[[GraphTraversal-CalculateMarketBasketCo-occurrence]]
+=== Calculate Market Basket Co-occurrence
 
-It is often useful to know which products are most frequently purchased with a particular product. This example uses a simple market basket table (indexed in Solr) to store past shopping baskets. The schema for the table is very simple with each row containing a `basketID` and a `productID`. This can be seen as a graph with each row in the table representing an edge. And it can be traversed very quickly to calculate basket co-occurance, even when the graph contains billions of edges.
+It is often useful to know which products are most frequently purchased with a particular product. This example uses a simple market basket table (indexed in Solr) to store past shopping baskets. The schema for the table is very simple with each row containing a `basketID` and a `productID`. This can be seen as a graph with each row in the table representing an edge. And it can be traversed very quickly to calculate basket co-occurrence, even when the graph contains billions of edges.
 
 Here is the sample syntax:
 
@@ -347,7 +347,7 @@ Here is the sample syntax:
 top(n="5", 
     sort="count(*) desc",
     gatherNodes(baskets, 
-                random(baskets, q="productID:ABC", fl="basketID", rows="500")
+                random(baskets, q="productID:ABC", fl="basketID", rows="500"),
                 walk="basketID->basketID",
                 fq="-productID:ABC", 
                 gather="productID",
@@ -356,38 +356,50 @@ top(n="5",
 
 Let's break down exactly what this traversal is doing.
 
-1.  The first expression evaluated is the inner `random` expression**,** which returns 500 random basketIDs, from the `baskets` collection, that have the `productID` "ABC". The `random` expression is very useful for recommendations because it limits the traversal to a fixed set of baskets, and because it adds the element of surprise into the recommendation. Using the `random` function you can provide fast sample sets from very large graphs.
+1.  The first expression evaluated is the inner `random` expression, which returns 500 random basketIDs, from the `baskets` collection, that have the `productID` "ABC". The `random` expression is very useful for recommendations because it limits the traversal to a fixed set of baskets, and because it adds the element of surprise into the recommendation. Using the `random` function you can provide fast sample sets from very large graphs.
 2.  The outer `gatherNodes` expression finds all the records in the `baskets` collection for the basketIDs generated in step 1. It also filters out `productID` "ABC" so it doesn't show up in the results. It then gathers and counts the productID's across these baskets.
 3.  The outer `top` expression ranks the productIDs emitted in step 2 by the count and selects the top 5.
 
 In a nutshell this expression finds the products that most frequently co-occur with product "ABC" in past shopping baskets.
 
-[[GraphTraversal-CalculateSessionCo-occurrance]]
-=== Calculate Session Co-occurrance
+[[GraphTraversal-UsingthescoreNodesFunctiontoMakeaRecommendation]]
+=== Using the scoreNodes Function to Make a Recommendation
 
-It is often useful to know what articles are most frequently viewed with a particular article. This use case requires logs (loaded into Solr) that include a sessionID. In these logs, each time a `contentID` is viewed a log record is created that includes the sessionID. Each of these log records can be seen as edges in a graph that can be traversed in real time to calculate session co-occurance.
+This use case builds on the market basket example <<GraphTraversal-CalculateMarketBasketCo-occurance,above>> that calculates which products co-occur most frequently with productID:ABC. The ranked co-occurrence counts provide candidates for a recommendation. The `scoreNodes` function can be used to score the candidates to find the best recommendation.
 
-Here is the sample syntax:
+Before diving into the syntax of the `scoreNodes` function it's useful to understand why the raw co-occurrence counts may not produce the best recommendation. The reason is that raw co-occurrence counts favor items that occur frequently across all baskets. A better recommendation would find the product that has the most significant relationship with productID ABC. The `scoreNodes` function uses a term frequency-inverse document frequency (TF-IDF) algorithm to find the most significant relationship.
+
+[[GraphTraversal-HowItWorks]]
+==== *How It Works*
+
+The `scoreNodes` function assigns a score to each node emitted by the gatherNodes expression. By default the `scoreNodes` function uses the `count(*)` aggregation, which is the co-occurrence count, as the TF value. The IDF value for each node is fetched from the collection where the node was gathered. Each node is then scored using the TF*IDF formula, which provides a boost to nodes with a lower frequency across all market baskets.
+
+Combining the co-occurrence count with the IDF provides a score that shows how important the relationship is between productID ABC and the recommendation candidates.
+
+The `scoreNodes` function adds the score to each node in the `nodeScore` field.
+
+[[GraphTraversal-ExampleSyntax]]
+==== *Example Syntax*
 
 [source,java]
 ----
-top(n="5", 
-    sort="count(*) desc",
-    gatherNodes(logs, 
-                random(logs, q="contentID:ABC", fl="sessionID", rows="500")
-                walk="sessionID->sessionID",
-                fq="-contentID:ABC", 
-                gather="contentID",
-                count(*))) 
+top(n="1",
+    sort="nodeScore desc",
+    scoreNodes(top(n="50", 
+                   sort="count(*) desc",
+                   gatherNodes(baskets, 
+                               random(baskets, q="productID:ABC", fl="basketID", rows="500"),
+                               walk="basketID->basketID",
+                               fq="-productID:ABC", 
+                               gather="productID",
+                               count(*))))) 
 ----
 
-This is very similar to the previous example, so let's break down exactly what this traversal is doing.
+This example builds on the earlier example "Calculate market basket co-occurrence".
 
-1.  The first expression evaluated is the inner `random` expression**,** which returns 500 random sessionIDs, from the `logs` collection, that have the `contentID` "ABC".
-2.  The outer `gatherNodes` expression finds all records in the `logs` collection for the sessionIDs generated in step 1. It also filters out `contentID` "ABC" so it doesn't show up in the result. It then gathers and counts the contentIDs across these sessions.
-3.  The outer `top` expression ranks the contentIDs emitted in step 2 by the count and selects the top 5.
-
-In a nutshell, this expression finds the contentIDs that most frequently co-occur with contentID "ABC" in past sessions.
+1.  Notice that the inner-most `top` function is taking the top 50 products that co-occur most frequently with productID ABC. This provides 50 candidate recommendations.
+2.  The `scoreNodes` function then assigns a score to the candidates based on the TF*IDF of each node.
+3.  The outer `top` expression selects the highest scoring node. This is the recommendation.
 
 [[GraphTraversal-RecommendContentBasedonCollaborativeFilter]]
 === Recommend Content Based on Collaborative Filter
@@ -421,7 +433,7 @@ Let's break down the expression above step-by-step.
 1.  The first expression evaluated is the inner `search` expression. This expression searches the `logs` collection for all records matching "user1". This is the user we are making the recommendation for. There is a filter applied to pull back only records where the "action:read". It returns the `articleID` for each record found. In other words, this expression returns all the articles "user1" has read.
 2.  The inner `gatherNodes` expression operates over the articleIDs returned from step 1. It takes each `articleID` found and searches them against the `articleID` field. Note that it skips high frequency nodes using the `maxDocFreq` param to filter out articles that appear over 10,000 times in the logs. It gathers userIDs and aggregates the counts for each user. This step finds the users that have read the same articles that "user1" has read and counts how many of the same articles they have read.
 3.  The inner `top` expression ranks the users emitted from step 2. It will emit the top 30 users who have the most overlap with user1's reading list.
-4.  The outer `gatherNodes` expression gathers the reading list for the users emitted from step 3. It counts the articleIDs that are gathered. Any article selected in step 1 (user1 reading list), will not appear in this step due to cycle detection. So this step returns the articles read by the users with the most similar readings habits to "user1" that "user1" has not read yet**.** It also counts the number of times each article has been read across this user group.
+4.  The outer `gatherNodes` expression gathers the reading list for the users emitted from step 3. It counts the articleIDs that are gathered. Any article selected in step 1 (user1 reading list), will not appear in this step due to cycle detection. So this step returns the articles read by the users with the most similar readings habits to "user1" that "user1" has not read yet. It also counts the number of times each article has been read across this user group.
 5.  The outer `top` expression takes the top articles emitted from step 4. This is the recommendation.
 
 [[GraphTraversal-ProteinPathwayTraversal]]

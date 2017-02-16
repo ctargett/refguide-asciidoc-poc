@@ -47,38 +47,53 @@ Log levels settings are as follows:
 
 Multiple settings at one time are allowed.
 
+[[ConfiguringLogging-LoglevelAPI]]
+=== Log level API
+
+There is also a way of sending REST commands to the logging endpoint to do the same. Example:
+
+[source,plain]
+----
+# Set the root logger to level WARN
+curl -s http://localhost:8983/solr/admin/info/logging --data-binary "set=root:WARN&wt=json"
+----
+
+[[ConfiguringLogging-Choosingloglevelatstartup]]
+== Choosing log level at startup
+
+You can temporarily choose a different logging level as you start Solr. There are two ways:
+
+The first way is to set the `SOLR_LOG_LEVEL` environment variable before you start Solr, or place the same variable in `solr.in.sh` / `solr.in.cmd`. The variable must contain an uppercase string with a supported log level (see above).
+
+The second way is to start Solr with the -v or -q options, see <<solr-control-script-reference.adoc#solr-control-script-reference,Solr Control Script Reference>> for details. Examples:
+
+[source,plain]
+----
+# Start with verbose (DEBUG) looging
+bin/solr start -f -v
+# Start with quiet (WARN) logging
+bin/solr start -f -q
+----
+
 [[ConfiguringLogging-PermanentLoggingSettings]]
 == Permanent Logging Settings
 
-Solr uses http://logging.apache.org/log4j/1.2/[Log4J version 1.2] for logging and is configured using `server/resources/log4j.properties`. Take a moment to inspect the contents of the `log4j.properties` file so that you are familiar with its structure. By default, Solr log messages will be written to `server/logs/solr.log` and to stdout (console), which is fine when you're just getting started with Solr.
+Solr uses http://logging.apache.org/log4j/1.2/[Log4J version 1.2] for logging and is configured using `server/resources/log4j.properties`. Take a moment to inspect the contents of the `log4j.properties` file so that you are familiar with its structure. By default, Solr log messages will be written to `SOLR_LOGS_DIR/solr.log`.
 
-When you're ready to deploy Solr in production, we recommend making a few minor changes to the log settings. Edit `log4j.properties` and set the `solr.log` property to the location where you want Solr to write log files, such as `/var/solr/logs`. Note that if you installed Solr as a service using the instructions provided at <<taking-solr-to-production.adoc#taking-solr-to-production,Taking Solr to Production>>, then see `/var/solr/log4j.properties` instead of the default `server/resources` version.
+When you're ready to deploy Solr in production, set the variable `SOLR_LOGS_DIR` to the location where you want Solr to write log files, such as `/var/solr/logs`. You may also want to tweak `log4j.properties`. Note that if you installed Solr as a service using the instructions provided at <<taking-solr-to-production.adoc#taking-solr-to-production,Taking Solr to Production>>, then see `/var/solr/log4j.properties` instead of the default `server/resources` version.
 
-[source,plain]
-----
-solr.log=/var/solr/logs
-----
+When starting Solr in the foreground (`-f` option), all logs will be sent to the console, in addition to `solr.log`. When starting Solr in the background, it will write all `stdout` and `stderr` output to a log file in `solr-<port>-console.log`, and automatically disable the CONSOLE logger configured in `log4j.properties`, having the same effect as if you removed the CONSOLE appender from the rootLogger manually.
 
-Alternatively, you can use the `solr.solr.home` system property to set the location of the log files, such as:
-
-[source,plain]
-----
-solr.log=${solr.solr.home}/../logs
-----
-
-During initialization, Log4J will resolve this to a path based on the `solr.solr.home` system property. While you’re customizing the `log4j.properties` file, we also recommend removing the CONSOLE appender from the rootLogger by changing the `log4j.rootLogger` property to:
-
-[source,plain]
-----
-log4j.rootLogger=INFO, file
-----
-
-Also, the default log rotation size threshold of 4MB is too small for production servers and should be increased to a larger value (such as 100MB or more).
+Also, in `log4j.properties` the default log rotation size threshold of 4MB is most likely too small for production servers and should be increased to a larger value (such as 100MB or more).
 
 [source,plain]
 ----
 log4j.appender.file.MaxFileSize=100MB
 ----
+
+Java Garabage Collection logs are rotated by the JVM when size hits 20M, for a max of 9 generations. Old GC logs are moved to `SOLR_LOGS_DIR/archived`. These settings can only be changed by editing the start scripts.
+
+On every startup of Solr, the start script will clean up old logs and rotate the main `solr.log` file. If you changed the `log4j.appender.file.MaxBackupIndex` setting in `log4j.properties`, you also need to change the corresponding setting `-rotate_solr_logs 9` in the start script.
 
 [[ConfiguringLogging-LoggingSlowQueries]]
 == Logging Slow Queries

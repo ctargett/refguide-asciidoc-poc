@@ -409,6 +409,7 @@ These factories are each designed to work with specific languages. The languages
 * <<LanguageAnalysis-Swedish,Swedish>>
 * <<LanguageAnalysis-Thai,Thai>>
 * <<LanguageAnalysis-Turkish,Turkish>>
+* <<LanguageAnalysis-Ukrainian,Ukrainian>>
 
 [[LanguageAnalysis-Arabic]]
 === Arabic
@@ -578,7 +579,7 @@ Or to configure your own analysis setup, use the `solr.HMMChineseTokenizerFactor
 ----
 <analyzer>
   <tokenizer class="solr.HMMChineseTokenizerFactory"/>
-  <filter class="solr.StopFilterFactory
+  <filter class="solr.StopFilterFactory"
           words="org/apache/lucene/analysis/cn/smart/stopwords.txt"/>
   <filter class="solr.PorterStemFilterFactory"/>
 </analyzer>
@@ -1409,13 +1410,6 @@ Solr includes two stemmers for Russian: one in the `solr.SnowballPorterFilterFac
 
 *Arguments:* None
 
-[IMPORTANT]
-====
-
-Use of custom charsets is no longer supported as of Solr 3.4. If you need to index text in these encodings, please use Java's character set conversion facilities (InputStreamReader, and so on.) during I/O, so that Lucene can analyze this text as Unicode instead.
-
-====
-
 *Example:*
 
 [source,xml]
@@ -1475,7 +1469,7 @@ It's a semantically less destructive solution than `ScandinavianFoldingFilter`, 
 
 This filter folds Scandinavian characters åÅäæÄÆ->a and öÖøØ->o. It also discriminate against use of double vowels aa, ae, ao, oe and oo, leaving just the first one.
 
-It's is a semantically more destructive solution than `ScandinavianNormalizationFilter`, but can in addition help with matching raksmorgas as räksmörgås.
+It's a semantically more destructive solution than `ScandinavianNormalizationFilter`, but can in addition help with matching raksmorgas as räksmörgås.
 
 *Factory class:* `solr.ScandinavianFoldingFilterFactory`
 
@@ -1615,7 +1609,7 @@ This filter converts sequences of Thai characters into individual Thai words. Un
 [[LanguageAnalysis-Turkish]]
 === Turkish
 
-Solr includes support for stemming Turkish through the `solr.SnowballPorterFilterFactory`; support for case-insensitive search through the `solr.TurkishLowerCaseFilterFactory`; support for stripping apostrophes and following suffixes through `solr.ApostropheFilterFactory` (see http://www.ipcsit.com/vol57/015-ICNI2012-M021.pdf[Role of Apostrophes in Turkish Information Retrieval]); support for a form of stemming that truncating tokens at a configurable maximum length through the solr.TruncateTokenFilterFactory (see http://www.users.muohio.edu/canf/papers/JASIST2008offPrint.pdf[Information Retrieval on Turkish Texts]); and Lucene includes an example stopword list.
+Solr includes support for stemming Turkish with the `solr.SnowballPorterFilterFactory`; support for case-insensitive search with the `solr.TurkishLowerCaseFilterFactory`; support for stripping apostrophes and following suffixes with `solr.ApostropheFilterFactory` (see http://www.ipcsit.com/vol57/015-ICNI2012-M021.pdf[Role of Apostrophes in Turkish Information Retrieval]); support for a form of stemming that truncating tokens at a configurable maximum length through the `solr.TruncateTokenFilterFactory` (see http://www.users.muohio.edu/canf/papers/JASIST2008offPrint.pdf[Information Retrieval on Turkish Texts]); and Lucene includes an example stopword list.
 
 *Factory class:* `solr.TurkishLowerCaseFilterFactory`
 
@@ -1648,9 +1642,34 @@ Solr includes support for stemming Turkish through the `solr.SnowballPorterFilte
 </analyzer>
 ----
 
+[[LanguageAnalysis-BacktoTop#main]]
+===
+
 <<main,Back to Top>>
 
-[[LanguageAnalysis-RelatedTopics]]
-== Related Topics
+[[LanguageAnalysis-Ukrainian]]
+=== Ukrainian
 
-* http://wiki.apache.org/solr/LanguageAnalysis[LanguageAnalysis]
+Solr provides support for Ukrainian lemmatization with the `solr.MorphologikFilterFactory`, in the `contrib/analysis-extras` module. To use this filter, see `solr/contrib/analysis-extras/README.txt` for instructions on which jars you need to add to your `solr_home/lib`.
+
+Lucene also includes an example Ukrainian stopword list, in the `lucene-analyzers-morfologik` jar.
+
+*Factory class:* `solr.MorfologikFilterFactory`
+
+*Arguments:*
+
+`dictionary`: (required) lemmatizer dictionary - the `lucene-analyzers-morfologik` jar contains a Ukrainian dictionary at `org/apache/lucene/analysis/uk/ukrainian.dict`.
+
+*Example:*
+
+[source,xml]
+----
+<analyzer> 
+  <tokenizer class="solr.StandardTokenizerFactory"/>
+  <filter class="solr.LowerCaseFilterFactory"/>
+  <filter class="solr.StopFilterFactory" words="org/apache/lucene/analysis/uk/stopwords.txt"/>
+  <filter class="solr.MorfologikFilterFactory" dictionary="org/apache/lucene/analysis/uk/ukrainian.dict"/>
+</analyzer>
+----
+
+The Morfologik `dictionary` param value is a constant specifying which dictionary to choose. The dictionary resource must be named `morfologik/stemming/__language__/__language__.dict` and have an associated `.info` metadata file. See http://morfologik.blogspot.com/[the Morfologik project] for details. If the dictionary attribute is not provided, the Polish dictionary is loaded and used by default.

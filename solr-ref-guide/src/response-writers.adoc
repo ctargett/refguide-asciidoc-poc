@@ -12,6 +12,7 @@ The `wt` parameter selects the Response Writer to be used. The table below lists
 |`wt` Parameter Setting |Response Writer Selected
 |csv |<<ResponseWriters-CSVResponseWriter,CSVResponseWriter>>
 |geojson |<<ResponseWriters-GeoJSONResponseWriter,GeoJSONResponseWriter>>
+|javabin |<<ResponseWriters-BinaryResponseWriter,BinaryResponseWriter>>
 |json |<<ResponseWriters-JSONResponseWriter,JSONResponseWriter>>
 |php |<<ResponseWriters-PHPResponseWriterandPHPSerializedResponseWriter,PHPResponseWriter>>
 |phps |<<ResponseWriters-PHPResponseWriterandPHPSerializedResponseWriter,PHPSerializedResponseWriter>>
@@ -19,6 +20,7 @@ The `wt` parameter selects the Response Writer to be used. The table below lists
 |ruby |<<ResponseWriters-RubyResponseWriter,RubyResponseWriter>>
 |smile |<<ResponseWriters-SmileResponseWriter,SmileResponseWriter>>
 |velocity |<<ResponseWriters-VelocityResponseWriter,VelocityResponseWriter>>
+|xlsx |<<ResponseWriters-XLSXResponseWriter,XLSXResponseWriter>>
 |xml |<<ResponseWriters-TheStandardXMLResponseWriter,XMLResponseWriter>>
 |xslt |<<ResponseWriters-TheXSLTResponseWriter,XSLTResponseWriter>>
 |===
@@ -104,6 +106,37 @@ A value of 5 for `xsltCacheLifetimeSeconds` is good for development, to see XSLT
 
 A very commonly used Response Writer is the `JsonResponseWriter`, which formats output in JavaScript Object Notation (JSON), a lightweight data interchange format specified in specified in RFC 4627. Setting the `wt` parameter to `json` invokes this Response Writer.
 
+Here is a sample response for a simple query like `q=id:VS1GB400C3&wt=json`:
+
+[source,xml]
+----
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":7,
+    "params":{
+      "q":"id:VS1GB400C3",
+      "indent":"on",
+      "wt":"json"}},
+  "response":{"numFound":1,"start":0,"maxScore":2.3025851,"docs":[
+      {
+        "id":"VS1GB400C3",
+        "name":["CORSAIR ValueSelect 1GB 184-Pin DDR SDRAM Unbuffered DDR 400 (PC 3200) System Memory - Retail"],
+        "manu":["Corsair Microsystems Inc."],
+        "manu_id_s":"corsair",
+        "cat":["electronics",
+          "memory"],
+        "price":[74.99],
+        "popularity":[7],
+        "inStock":[true],
+        "store":["37.7752,-100.0232"],
+        "manufacturedate_dt":"2006-02-13T15:26:37Z",
+        "payloads":["electronics|4.0 memory|2.0"],
+        "_version_":1549728120626479104}]
+  }}
+----
+
 The default mime type for the JSON writer is `application/json`, however this can be overridden in the `solrconfig.xml` - such as in this example from the "```techproducts```" configuration:
 
 [source,xml]
@@ -117,6 +150,37 @@ The default mime type for the JSON writer is `application/json`, however this ca
   <str name="content-type">text/plain</str>
 </queryResponseWriter>
 ----
+
+[[ResponseWriters-JSON-SpecificParameters]]
+=== JSON-Specific Parameters
+
+[[ResponseWriters-json.nl]]
+==== json.nl
+
+This parameter controls the output format of NamedLists, where order is more important than access by name. NamedList is currently used for field faceting data.
+
+[cols=",,",options="header",]
+|===
+|json.nl Parameter setting |Example output forNamedList("a"=1, "bar"="foo", null=3, null=null) |Description
+|flat _(the default)_ |["a",1, "bar","foo", null,3, null,null] |NamedList is represented as a flat array, alternating names and values.
+|map |\{"a":1, "bar":"foo", "":3, "":null} |NamedList is represented as a JSON object. Although this is the simplest mapping, a NamedList can have optional keys, repeated keys, and preserves order. Using a JSON object (essentially a map or hash) for a NamedList results in the loss of some information.
+|arrarr |[["a",1], ["bar","foo"], [null,3], [null,null]] |NamedList is represented as an array of two element arrays.
+|arrmap |[\{"a":1}, \{"b":2}, 3, null] |NamedList is represented as an array of JSON objects.
+|arrntv |[\{"name":"a","type":"int","value":1}, \{"name":"bar","type":"str","value":"foo"}, \{"name":null,"type":"int","value":3}, \{"name":null,"type":"null","value":null}] |NamedList is represented as an array of Name Type Value JSON objects.
+|===
+
+[[ResponseWriters-json.wrf]]
+==== json.wrf
+
+`json.wrf=function` adds a wrapper-function around the JSON response, useful in AJAX with dynamic script tags for specifying a JavaScript callback function.
+
+* http://www.xml.com/pub/a/2005/12/21/json-dynamic-script-tag.html
+* http://www.theurer.cc/blog/2005/12/15/web-services-json-dump-your-proxy/
+
+[[ResponseWriters-BinaryResponseWriter]]
+== Binary Response Writer
+
+This is a custom binary format used by Solr for inter-node communication as well as client-server communication. SolrJ uses this as the default for indexing as well as querying. See <<client-apis.adoc#client-apis,Client APIs>> for more details.
 
 [[ResponseWriters-GeoJSONResponseWriter]]
 == GeoJSON Response Writer
@@ -239,12 +303,22 @@ The `VelocityResponseWriter` processes the Solr response and request context thr
 
 See <<velocity-response-writer.adoc#velocity-response-writer,Velocity Response Writer>> section for details.
 
-[[ResponseWriters-BinaryResponseWriter]]
-== Binary Response Writer
-
-Solr also includes a Response Writer that outputs binary format for use with a Java client. See <<client-apis.adoc#client-apis,Client APIs>> for more details.
-
 [[ResponseWriters-SmileResponseWriter]]
 == Smile Response Writer
 
 The Smile format is a JSON-compatible binary format, described in detail here: http://wiki.fasterxml.com/SmileFormat.
+
+[[ResponseWriters-XLSXResponseWriter]]
+== XLSX Response Writer
+
+Use this to get the response as a spreadsheet in the .xlsx (Microsoft Excel) format. It accepts parameters in the form `colwidth.<field-name>` and `colname.<field-name>` which helps you customize the column widths and column names.
+
+This response writer has been added as part of the extraction library, and will only work if the extraction contrib is present in the server classpath. Defining the classpath with the `lib` directive is not sufficient. Instead, you will need to copy the necessary .jars to the Solr webapp's `lib` directory manually. You can run these commands from your `$SOLR_INSTALL` directory:
+
+[source,java]
+----
+cp contrib/extraction/lib/*.jar server/solr-webapp/webapp/WEB-INF/lib/
+cp dist/solr-cell-6.3.0.jar server/solr-webapp/webapp/WEB-INF/lib/
+----
+
+Once the libraries are in place, you can add `wt=xlsx` to your request, and results will be returned as an XLSX sheet.

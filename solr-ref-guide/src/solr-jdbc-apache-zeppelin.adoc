@@ -9,7 +9,7 @@ This requires Apache Zeppelin 0.6.0 or greater which contains the JDBC interpret
 
 ====
 
-For http://zeppelin.apache.org[Apache Zeppelin], you will need to create a JDBC interpreter for Solr. This will add SolrJ to the interpreter classpath. Once the interpreter has been created, you can create a notebook to issue queries.
+For http://zeppelin.apache.org[Apache Zeppelin], you will need to create a JDBC interpreter for Solr. This will add SolrJ to the interpreter classpath. Once the interpreter has been created, you can create a notebook to issue queries. The http://zeppelin.apache.org/docs/latest/interpreter/jdbc.html[Apache Zeppelin JDBC interpreter documentation] provides additional information about JDBC prefixes and other features.
 
 [[SolrJDBC-ApacheZeppelin-CreatetheApacheSolrJDBCInterpreter]]
 == Create the Apache Solr JDBC Interpreter
@@ -23,6 +23,13 @@ image::images/solr-jdbc-apache-zeppelin/zeppelin_solrjdbc_2.png[image,height=400
 image::images/solr-jdbc-apache-zeppelin/zeppelin_solrjdbc_3.png[image,height=400]
 
 
+[NOTE]
+====
+
+For most installations, Apache Zeppelin configures PostgreSQL as the JDBC interpreter default driver. The default driver can either be replaced by the Solr driver as outlined above or you can add a separate JDBC interpreter prefix as outlined in the http://zeppelin.apache.org/docs/latest/interpreter/jdbc.html[Apache Zeppelin JDBC interpreter documentation].
+
+====
+
 [[SolrJDBC-ApacheZeppelin-CreateaNotebook]]
 == Create a Notebook
 
@@ -35,5 +42,20 @@ image::images/solr-jdbc-apache-zeppelin/zeppelin_solrjdbc_5.png[image,width=839,
 [[SolrJDBC-ApacheZeppelin-QuerywiththeNotebook]]
 == Query with the Notebook
 
+[IMPORTANT]
+====
+
+For some notebooks, the JDBC interpreter will not be bound to the notebook by default. Instructions on how to bind the JDBC interpreter to a notebook are available https://zeppelin.apache.org/docs/latest/interpreter/jdbc.html#bind-to-notebook[here].
+
+====
+
 image::images/solr-jdbc-apache-zeppelin/zeppelin_solrjdbc_6.png[image,width=481,height=400]
 
+
+The below code block assumes that the Apache Solr driver is setup as the default JDBC interpreter driver. If that is not the case, instructions for using a different prefix is available https://zeppelin.apache.org/docs/latest/interpreter/jdbc.html#how-to-use[here].
+
+[source,java]
+----
+%jdbc
+select fielda, fieldb, from test limit 10
+----

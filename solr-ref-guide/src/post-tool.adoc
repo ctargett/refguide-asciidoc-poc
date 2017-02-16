@@ -2,7 +2,7 @@
 :page-shortname: post-tool
 :page-permalink: post-tool.html
 
-Solr includes a simple command line tool for POSTing various types of content to a Solr server. The tool is `bin/post`. The bin/post tool is a Unix shell script; for Windows (non-Cygwin) usage, see the <<PostTool-Windows,Windows section>> below.
+Solr includes a simple command line tool for POSTing various types of content to a Solr server. The tool is `bin/post`. The bin/post tool is a Unix shell script; for Windows (non-Cygwin) usage, see the <<PostTool-WindowsSupport,Windows section>> below.
 
 To run it, open a window and enter:
 
@@ -37,6 +37,7 @@ OPTIONS
     -host <host> (default: localhost)
     -p or -port <port> (default: 8983)
     -commit yes|no (default: yes)
+    -u or -user <user:pass> (sets BasicAuth credentials)
 
   Web crawl options:
     -recursive <depth> (default: 1)
@@ -115,10 +116,10 @@ Index all JSON files into `gettingstarted`.
   bin/post -c gettingstarted *.json
 ----
 
-// OLD_CONFLUENCE_ID: PostTool-Indexingrichdocuments(PDF,Word,HTML,etc)
+// OLD_CONFLUENCE_ID: PostTool-IndexingRichDocuments(PDF,Word,HTML,etc)
 
-[[PostTool-Indexingrichdocuments_PDF_Word_HTML_etc_]]
-=== Indexing rich documents (PDF, Word, HTML, etc)
+[[PostTool-IndexingRichDocuments_PDF_Word_HTML_etc_]]
+=== Indexing Rich Documents (PDF, Word, HTML, etc)
 
 Index a PDF file into `gettingstarted`.
 
@@ -141,14 +142,22 @@ Automatically detect content types in a folder, but limit it to PPT and HTML fil
   bin/post -c gettingstarted -filetypes ppt,html afolder/
 ----
 
-[[PostTool-WindowsWindowssupport]]
+// OLD_CONFLUENCE_ID: PostTool-IndexingtoapasswordprotectedSolr(basicauth)
 
-[[PostTool-Windows]]
-== Windows support
+[[PostTool-IndexingtoapasswordprotectedSolr_basicauth_]]
+=== Indexing to a password protected Solr (basic auth)
+
+Index a pdf as the user solr with password `SolrRocks`:
+
+[source,plain]
+----
+  bin/post -u solr:SolrRocks -c gettingstarted a.pdf
+----
+
+[[PostTool-WindowsSupport]]
+== Windows Support
 
 `bin/post` exists currently only as a Unix shell script, however it delegates its work to a cross-platform capable Java program. The <<PostTool-SimplePostTool,`SimplePostTool`>> can be run directly in supported environments, including Windows.
-
-[[PostTool-SimplePostToolSimplePostTool]]
 
 [[PostTool-SimplePostTool]]
 == SimplePostTool

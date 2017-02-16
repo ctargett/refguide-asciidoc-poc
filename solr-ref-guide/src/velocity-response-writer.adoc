@@ -27,12 +27,21 @@ The above example shows the optional initialization and custom tool parameters u
 [[VelocityResponseWriter-VelocityResponseWriterinitializationparameters]]
 === VelocityResponseWriter initialization parameters
 
+// TODO: This table has cells that won't work with PDF: https://github.com/ctargett/refguide-asciidoc-poc/issues/13
+
 [width="100%",cols="34%,33%,33%",options="header",]
 |===
 |Parameter |Description |Default value
 |template.base.dir |If specified and exists as a file system directory, a file resource loader will be added for this directory. Templates in this directory will override "solr" resource loader templates. |
-|init.properties.file |Specifies a properties file name which must exist in the Solr conf/ directory (**not** under a velocity/ subdirectory) or root of a JAR file in a <lib>. |
-|params.resource.loader.enabled |The "params" resource loader allows templates to be specified in Solr request parameters. For example: `http://localhost:8983/` `solr/` `gettingstarted/` `select?` `q=*:*&` `wt=velocity&` `v.template=custom&` `v.template.custom=CUSTOM%3A%20%23core_name` where v.template=custom says to render a template called "custom" and v.template.custom's value is the actual custom template. This is disabled by default; it'd be a niche, unusual use case to need this enabled. |false
+|init.properties.file |Specifies a properties file name which must exist in the Solr `conf/` directory (**not** under a `velocity/` subdirectory) or root of a JAR file in a <lib>. |
+|params.resource.loader.enabled a|
+The "params" resource loader allows templates to be specified in Solr request parameters. For example:
+
+`http://localhost:8983``/solr``/gettingstarted``/select``?q=*:*``&wt=velocity``&v.template=custom``&v.template.custom=CUSTOM%3A%20%23core_name`
+
+where `v.template=custom` says to render a template called "custom" and `v.template.custom`'s value is the actual custom template. This is disabled by default; it'd be a niche, unusual, use case to need this enabled.
+
+ |false
 |solr.resource.loader.enabled |The "solr" resource loader is the only template loader registered by default. Templates are served from resources visible to the SolrResourceLoader under a `velocity/` subdirectory. The VelocityResponseWriter itself has some built-in templates (in its JAR file, under velocity/) that are available automatically through this loader. These built-in templates can be overridden when the same template name is in conf/velocity/ or by using the `template.base.dir` option. |true
 |tools |External "tools" can be specified as list of string name/value (tool name / class name) pairs. Tools, in the Velocity context, are simply Java objects. Tool classes are constructed using a no-arg constructor (or a single-SolrCore-arg constructor if it exists) and added to the Velocity context with the specified name. A custom registered tool can override the built-in context objects with the same name, except for $request, $response, $page, and $debug (these tools are designed to not be overridden). |
 |===
@@ -66,7 +75,7 @@ Output will be in this format (with v.json=wrf):
 `wrf("result":"<Velocity generated response string, with quotes and backslashes escaped>")`
 
  |
-|v.locale |Locale to use with the `$resource` tool and other LocaleConfig implementing tools. The default locale is Locale.ROOT. Localized resources are loaded from standard Java resource bundles named `resources[_locale-code].properties`. Resource bundles can be added by providing a JAR file visible by the SolrResourceLoader with resource bundles under a velocity sub-directory. Resource bundles are not loadable under conf/, as only the class loader aspect of SolrResourceLoader can be used here. |
+|v.locale |Locale to use with the `$resource` tool and other LocaleConfig implementing tools. The default locale is `Locale.ROOT`. Localized resources are loaded from standard Java resource bundles named `resources[_locale-code].properties`. Resource bundles can be added by providing a JAR file visible by the SolrResourceLoader with resource bundles under a velocity sub-directory. Resource bundles are not loadable under conf/, as only the class loader aspect of SolrResourceLoader can be used here. |
 |v.template.<template_name> |When the "params" resource loader is enabled, templates can be specified as part of the Solr request. |
 |===
 

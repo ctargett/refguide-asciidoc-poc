@@ -16,7 +16,7 @@ You can define the unique key field by naming it:
 <uniqueKey>id</uniqueKey>
 ----
 
-Schema defaults and `copyFields` cannot be used to populate the `uniqueKey` field. You also can't use `UUIDUpdateProcessorFactory` to have `uniqueKey` values generated automatically.
+Schema defaults and `copyFields` cannot be used to populate the `uniqueKey` field. The `fieldType` of `uniqueKey` must not be analyzed. You can use `UUIDUpdateProcessorFactory` to have `uniqueKey` values generated automatically.
 
 Further, the operation will fail if the `uniqueKey` field is used, but is multivalued (or inherits the multivalueness from the `fieldtype`). However, `uniqueKey` will continue to work, as long as the field is properly used.
 
@@ -40,7 +40,7 @@ This default behavior can be overridden by declaring a top level `<similarity/>`
 
 [source,xml]
 ----
-<similarity class="solr.BM25Similarity"/>
+<similarity class="solr.BM25SimilarityFactory"/>
 ----
 
 or by referencing a `SimilarityFactory` implementation, which may take optional initialization parameters:
@@ -61,7 +61,7 @@ In most cases, specifying global level similarity like this will cause an error 
 ----
 <similarity class="solr.SchemaSimilarityFactory">
   <str name="defaultSimFromFieldType">text_dfr</str>
-<similarity>
+</similarity>
 <fieldType name="text_dfr" class="solr.TextField">
   <analyzer ... />
   <similarity class="solr.DFRSimilarityFactory">
@@ -71,7 +71,7 @@ In most cases, specifying global level similarity like this will cause an error 
     <float name="mu">900</float>
   </similarity>
 </fieldType>
-<fieldType name="text_ib">
+<fieldType name="text_ib" class="solr.TextField">
   <analyzer ... />
   <similarity class="solr.IBSimilarityFactory">
     <str name="distribution">SPL</str>
@@ -79,7 +79,7 @@ In most cases, specifying global level similarity like this will cause an error 
     <str name="normalization">H2</str>
   </similarity>
 </fieldType>
-<fieldType name="text_other">
+<fieldType name="text_other" class="solr.TextField">
   <analyzer ... />
 </fieldType>
 ----

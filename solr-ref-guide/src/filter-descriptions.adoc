@@ -74,7 +74,7 @@ This filter converts alphabetic, numeric, and symbolic Unicode characters which 
 [[FilterDescriptions-Beider-MorseFilter]]
 == Beider-Morse Filter
 
-Implements the Beider-Morse Phonetic Matching (BMPM) algorithm, which allows identification of similar names, even if they are spelled differently or in different languages. More information about how this works is available in the section on <<phonetic-matching.adoc#phonetic-matching,Phonetic Matching>>.
+Implements the Beider-Morse Phonetic Matching (BMPM) algorithm, which allows identification of similar names, even if they are spelled differently or in different languages. More information about how this works is available in the section on <<phonetic-matching.adoc#PhoneticMatching-Beider-MorsePhoneticMatching_BMPM_,Phonetic Matching>>.
 
 [IMPORTANT]
 ====
@@ -343,9 +343,9 @@ This filter outputs a single token which is a concatenation of the sorted and de
 
 *Arguments:*
 
-`separator` : The character used to separate tokens combined into the single output token. Defaults to " " (a space character).
+`separator`: The character used to separate tokens combined into the single output token. Defaults to " " (a space character).
 
- `maxOutputTokenSize` : The maximum length of the summarized output token. If exceeded, no output token is emitted. Defaults to 1024.
+`maxOutputTokenSize`: The maximum length of the summarized output token. If exceeded, no output token is emitted. Defaults to 1024.
 
 *Example:*
 
@@ -875,7 +875,7 @@ More complex pattern with capture group reference in the replacement. Tokens tha
 [[FilterDescriptions-PhoneticFilter]]
 == Phonetic Filter
 
-This filter creates tokens using one of the phonetic encoding algorithms in the `org.apache.commons.codec.language` package. For more information, see the section on https://cwiki.apache.org/confluence/display/solr/Phonetic+Matching[Phonetic Matching].
+This filter creates tokens using one of the phonetic encoding algorithms in the `org.apache.commons.codec.language` package. For more information, see the section on <<phonetic-matching.adoc#phonetic-matching,Phonetic Matching>>.
 
 *Factory class:* `solr.PhoneticFilterFactory`
 

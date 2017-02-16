@@ -2,7 +2,7 @@
 :page-shortname: distributed-requests
 :page-permalink: distributed-requests.html
 
-When a Solr node receives a search request, that request is routed behinds the scenes to a replica of some shard that is part of the collection being searched. The chosen replica will act as an aggregator: creating internal requests to randomly chosen replicas of every shard in the collection, coordinating the responses, issuing any subsequent internal requests as needed (For example, to refine facets values, or request additional stored fields) and constructing the final response for the client.
+When a Solr node receives a search request, that request is routed behind the scenes to a replica of a shard that is part of the collection being searched. The chosen replica acts as an aggregator: it creates internal requests to randomly chosen replicas of every shard in the collection, coordinates the responses, issues any subsequent internal requests as needed (for example, to refine facets values, or request additional stored fields), and constructs the final response for the client.
 
 [[DistributedRequests-LimitingWhichShardsareQueried]]
 == Limiting Which Shards are Queried
@@ -16,7 +16,7 @@ Querying all shards for a collection should look familiar; it's as though SolrCl
 http://localhost:8983/solr/gettingstarted/select?q=*:*
 ----
 
-If, on the other hand, you wanted to search just one shard, you can specify that shard by it's logical ID, as in:
+If, on the other hand, you wanted to search just one shard, you can specify that shard by its logical ID, as in:
 
 [source,java]
 ----
@@ -103,7 +103,7 @@ Document and term statistics are needed in order to calculate relevancy. Solr pr
 
 * `LocalStatsCache`: This only uses local term and document statistics to compute relevance. In cases with uniform term distribution across shards, this works reasonably well.This option is the default if no `<statsCache>` is configured.
 * `ExactStatsCache`: This implementation uses global values (across the collection) for document frequency.
-* `ExactSharedStatsCache`: This is exactly like the exact stats cache in it's functionality but the global stats are reused for subsequent requests with the same terms.
+* `ExactSharedStatsCache`: This is exactly like the exact stats cache in its functionality but the global stats are reused for subsequent requests with the same terms.
 * `LRUStatsCache`: This implementation uses an LRU cache to hold global stats, which are shared between requests.
 
 The implementation can be selected by setting `<statsCache>` in `solrconfig.xml`. For example, the following line makes Solr use the `ExactStatsCache` implementation:

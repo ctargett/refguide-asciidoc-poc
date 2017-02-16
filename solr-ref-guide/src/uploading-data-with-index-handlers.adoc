@@ -1,6 +1,7 @@
 = Uploading Data with Index Handlers
 :page-shortname: uploading-data-with-index-handlers
 :page-permalink: uploading-data-with-index-handlers.html
+:page-children: transforming-and-indexing-custom-json
 
 Index Handlers are Request Handlers designed to add, delete and update documents to the index. In addition to having plugins for importing rich documents <<uploading-data-with-solr-cell-using-apache-tika.adoc#uploading-data-with-solr-cell-using-apache-tika,using Tika>> or from structured data sources using the <<uploading-structured-data-store-data-with-the-data-import-handler.adoc#uploading-structured-data-store-data-with-the-data-import-handler,Data Import Handler>>, Solr natively supports indexing structured documents in XML, CSV and JSON.
 
@@ -239,14 +240,12 @@ You can also use the stylesheet in `XsltUpdateRequestHandler` to transform an in
 curl "http://localhost:8983/solr/my_collection/update?commit=true&tr=updateXml.xsl" -H "Content-Type: text/xml" --data-binary @myexporteddata.xml
 ----
 
-For more information about the XML Update Request Handler, see https://wiki.apache.org/solr/UpdateXmlMessages.
-
 <<main,Back to Top>>
 
 [[UploadingDatawithIndexHandlers-JSONFormattedIndexUpdates]]
 == JSON Formatted Index Updates
 
-Solr can accept JSON that conforms to a defined structure, or can accept arbitrary JSON-formatted documents. If sending arbitrarily formatted JSON, there are some additional parameters that need to be sent with the update request, described below in the section <<UploadingDatawithIndexHandlers-TransformingandIndexingCustomJSON,Transforming and Indexing Custom JSON>>.
+Solr can accept JSON that conforms to a defined structure, or can accept arbitrary JSON-formatted documents. If sending arbitrarily formatted JSON, there are some additional parameters that need to be sent with the update request, described below in the section <<transforming-and-indexing-custom-json.adoc#transforming-and-indexing-custom-json,Transforming and Indexing Custom JSON>>.
 
 [[UploadingDatawithIndexHandlers-Solr-StyleJSON]]
 === Solr-Style JSON
@@ -392,293 +391,14 @@ In addition to the `/update` handler, there are a few additional JSON specific r
 
 |===
 
-The `/update/json` path may be useful for clients sending in JSON formatted update commands from applications where setting the Content-Type proves difficult, while the `/update/json/docs` path can be particularly convenient for clients that always want to send in documents – either individually or as a list – with out needing to worry about the full JSON command syntax.
+The `/update/json` path may be useful for clients sending in JSON formatted update commands from applications where setting the Content-Type proves difficult, while the `/update/json/docs` path can be particularly convenient for clients that always want to send in documents – either individually or as a list – without needing to worry about the full JSON command syntax.
 
 <<main,Back to Top>>
 
-[[UploadingDatawithIndexHandlers-TransformingandIndexingCustomJSON]]
-=== Transforming and Indexing Custom JSON
+[[UploadingDatawithIndexHandlers-CustomJSONDocuments]]
+=== Custom JSON Documents
 
-If you have JSON documents that you would like to index without transforming them into Solr's structure, you can add them to Solr by including some parameters with the update request. These parameters provide information on how to split a single JSON file into multiple Solr documents and how to map fields to Solr's schema. One or more valid JSON documents can be sent to the `/update/json/docs` path with the configuration params.
-
-[[UploadingDatawithIndexHandlers-MappingParameters]]
-==== Mapping Parameters
-
-These parameters allow you to define how a JSON file should be read for multiple Solr documents.
-
-* **split**: Defines the path at which to split the input JSON into multiple Solr documents and is required if you have multiple documents in a single JSON file. If the entire JSON makes a single solr document, the path must be “`/`”. It is possible to pass multiple split paths by separating them with a pipe `(|)` example : `split=/|/foo|/foo/bar` . If one path is a child of another, they automatically become a child document**f**: This is a multivalued mapping parameter. The format of the parameter is` target-field-name:json-path`. The `json-path` is required. The `target-field-name` is the Solr document field name, and is optional. If not specified, it is automatically derived from the input JSON.The default target field name is the fully qualified name of the field. Wildcards can be used here, see the section <<UploadingDatawithIndexHandlers-Wildcards,Wildcards>> below for more information.
-* *mapUniqueKeyOnly* (boolean): This parameter is particularly convenient when the fields in the input JSON are not available in the schema and <<schemaless-mode.adoc#schemaless-mode,schemaless mode>> is not enabled. This will index all the fields into the default search field (using the `df` parameter, below) and only the `uniqueKey` field is mapped to the corresponding field in the schema. If the input JSON does not have a value for the `uniqueKey` field then a UUID is generated for the same.
-* **df**: If the `mapUniqueKeyOnly` flag is used, the update handler needs a field where the data should be indexed to. This is the same field that other handlers use as a default search field.
-* **srcField**: This is the name of the field to which the JSON source will be stored into. This can only be used if `split=/` (i.e., you want your JSON input file to be indexed as a single Solr document). Note that atomic updates will cause the field to be out-of-sync with the document.
-* **echo**: This is for debugging purpose only. Set it to true if you want the docs to be returned as a response. Nothing will be indexed.
-
-For example, if we have a JSON file that includes two documents, we could define an update request like this:
-
-[source,bash]
-----
-curl 'http://localhost:8983/solr/my_collection/update/json/docs'\
-'?split=/exams'\
-'&f=first:/first'\
-'&f=last:/last'\
-'&f=grade:/grade'\
-'&f=subject:/exams/subject'\
-'&f=test:/exams/test'\
-'&f=marks:/exams/marks'\
- -H 'Content-type:application/json' -d '
-{
-  "first": "John",
-  "last": "Doe",
-  "grade": 8,
-  "exams": [
-    {
-      "subject": "Maths",
-      "test"   : "term1",
-      "marks"  : 90},
-    {
-      "subject": "Biology",
-      "test"   : "term1",
-      "marks"  : 86}
-  ]
-}'
-----
-
-With this request, we have defined that "exams" contains multiple documents. In addition, we have mapped several fields from the input document to Solr fields.
-
-When the update request is complete, the following two documents will be added to the index:
-
-[source,json]
-----
-{
-  "first":"John",
-  "last":"Doe",
-  "marks":90,
-  "test":"term1",
-  "subject":"Maths",
-  "grade":8
-}
-{
-  "first":"John",
-  "last":"Doe",
-  "marks":86,
-  "test":"term1",
-  "subject":"Biology",
-  "grade":8
-}
-----
-
-In the prior example, all of the fields we wanted to use in Solr had the same names as they did in the input JSON. When that is the case, we can simplify the request as follows:
-
-[source,bash]
-----
-curl 'http://localhost:8983/solr/my_collection/update/json/docs'\
-'?split=/exams'\
-'&f=/first'\
-'&f=/last'\
-'&f=/grade'\
-'&f=/exams/subject'\
-'&f=/exams/test'\
-'&f=/exams/marks'\
- -H 'Content-type:application/json' -d '
-{
-  "first": "John",
-  "last": "Doe",
-  "grade": 8,
-  "exams": [
-    {
-      "subject": "Maths",
-      "test"   : "term1",
-      "marks"  : 90},
-    {
-      "subject": "Biology",
-      "test"   : "term1",
-      "marks"  : 86}
-  ]
-}'
-----
-
-In this example, we simply named the field paths (such as `/exams/test`). Solr will automatically attempt to add the content of the field from the JSON input to the index in a field with the same name.
-
-[TIP]
-====
-
-Note that if you are not working in <<schemaless-mode.adoc#schemaless-mode,Schemaless Mode>>, where fields that don't exist will be created on the fly with Solr's best guess for the field type, documents may get rejected if the fields do not exist in the schema before indexing.
-
-====
-
-[[UploadingDatawithIndexHandlers-Wildcards]]
-==== Wildcards
-
-Instead of specifying all the field names explicitly, it is possible to specify wildcards to map fields automatically. There are two restrictions: wildcards can only be used at the end of the `json-path`, and the split path cannot use wildcards. A single asterisk "*" maps only to direct children, and a double asterisk "**" maps recursively to all descendants. The following are example wildcard path mappings:
-
-* `f=$FQN:/**`: maps all fields to the fully qualified name (`$FQN`) of the JSON field. The fully qualified name is obtained by concatenating all the keys in the hierarchy with a period (`.`) as a delimiter. This is the default behavior if no `f` path mappings are specified.
-* `f=/docs/*`: maps all the fields under docs and in the name as given in json
-* `f=/docs/**`: maps all the fields under docs and its children in the name as given in json
-* `f=searchField:/docs/*`: maps all fields under /docs to a single field called ‘searchField’
-* `f=searchField:/docs/**`: maps all fields under /docs and its children to searchField
-
-With wildcards we can further simplify our previous example as follows:
-
-[source,bash]
-----
-curl 'http://localhost:8983/solr/my_collection/update/json/docs'\
-'?split=/exams'\
-'&f=/**'\
- -H 'Content-type:application/json' -d '
-{
-  "first": "John",
-  "last": "Doe",
-  "grade": 8,
-  "exams": [
-    {
-      "subject": "Maths",
-      "test"   : "term1",
-      "marks"  : 90},
-    {
-      "subject": "Biology",
-      "test"   : "term1",
-      "marks"  : 86}
-  ]
-}'
-----
-
-Because we want the fields to be indexed with the field names as they are found in the JSON input, the double wildcard in `f=/**` will map all fields and their descendants to the same fields in Solr.
-
-It is also possible to send all the values to a single field and do a full text search on that. This is a good option to blindly index and query JSON documents without worrying about fields and schema.
-
-[source,bash]
-----
-curl 'http://localhost:8983/solr/my_collection/update/json/docs'\
-'?split=/'\
-'&f=txt:/**'\
- -H 'Content-type:application/json' -d '
-{
-  "first": "John",
-  "last": "Doe",
-  "grade": 8,
-  "exams": [
-    {
-      "subject": "Maths",
-      "test"   : "term1",
-      "marks"  : 90},
-    {
-      "subject": "Biology",
-      "test"   : "term1",
-      "marks"  : 86}
-  ]
-}' 
-----
-
-In the above example, we've said all of the fields should be added to a field in Solr named 'txt'. This will add multiple fields to a single field, so whatever field you choose should be multi-valued.
-
-The default behavior is to use the fully qualified name (FQN) of the node. So, if we don't define any field mappings, like this:
-
-[source,bash]
-----
-curl 'http://localhost:8983/solr/my_collection/update/json/docs?split=/exams'\
-    -H 'Content-type:application/json' -d '
-{
-  "first": "John",
-  "last": "Doe",
-  "grade": 8,
-  "exams": [
-    {
-      "subject": "Maths",
-      "test"   : "term1",
-      "marks"  : 90},
-    {
-      "subject": "Biology",
-      "test"   : "term1",
-      "marks"  : 86}
-  ]
-}'
-----
-
-The indexed documents would be added to the index with fields that look like this:
-
-[source,bash]
-----
-{
-  "first":"John",
-  "last":"Doe",
-  "grade":8,
-  "exams.subject":"Maths",
-  "exams.test":"term1",
-  "exams.marks":90},
-{
-  "first":"John",
-  "last":"Doe",
-  "grade":8,
-  "exams.subject":"Biology",
-  "exams.test":"term1",
-  "exams.marks":86}
-----
-
-[[UploadingDatawithIndexHandlers-Indexingnesteddocs]]
-==== Indexing nested docs
-
-The following is an example of indexing nested docs,
-
-[source,bash]
-----
-curl 'http://localhost:8983/solr/my_collection/update/json/docs?split=/|/orgs'\
-    -H 'Content-type:application/json' -d '{
-  "name": "Joe Smith",
-  "phone": 876876687,
-  "orgs": [
-    {
-      "name": "Microsoft",
-      "city": "Seattle",
-      "zip": 98052
-    },
-    {
-      "name": "Apple",
-      "city": "Cupertino",
-      "zip": 95014
-    }
-  ]
-}'
-----
-
-the docs indexed would be,
-
-[source,bash]
-----
-{
-  "name":"Joe Smith",
-  "phone":876876687,
-  "_childDocuments_":[
-    {
-      "name":"Microsoft",
-      "city":"Seattle",
-      "zip":98052},
-    {
-      "name":"Apple",
-      "city":"Cupertino",
-      "zip":95014}]}
-----
-
-[[UploadingDatawithIndexHandlers-SettingJSONDefaults]]
-==== Setting JSON Defaults
-
-It is possible to send any json to the `/update/json/docs` endpoint and the default configuration of the component is as follows:
-
-[source,xml]
-----
-<initParams path="/update/json/docs">
-  <lst name="defaults">
-    <!-- this ensures that the entire json doc will be stored verbatim into one field -->
-    <str name="srcField">_src_</str>
-    <!-- This means a the uniqueKeyField will be extracted from the fields and
-         all fields go into the 'df' field. In this config df is already configured to be 'text'
-     -->
-    <str name="mapUniqueKeyOnly">true</str>
-    <!-- The default search field where all the values are indexed to -->
-    <str name="df">text</str>
-  </lst>
-</initParams>
-----
-
-So, if no params are passed, the entire json file would get indexed to the `_src_` field and all the values in the input JSON would go to a field named `text`. If there is a value for the uniqueKey it is stored and if no value could be obtained from the input JSON, a UUID is created and used as the uniqueKey field value.
+Solr can support custom JSON. This is covered in the section <<transforming-and-indexing-custom-json.adoc#transforming-and-indexing-custom-json,Transforming and Indexing Custom JSON>>.
 
 <<main,Back to Top>>
 
@@ -755,14 +475,14 @@ In addition to the `/update` handler, there is an additional CSV specific reques
 
 The `/update/csv` path may be useful for clients sending in CSV formatted update commands from applications where setting the Content-Type proves difficult.
 
-For more information on the CSV Update Request Handler, see https://wiki.apache.org/solr/UpdateCSV.
-
 [[UploadingDatawithIndexHandlers-NestedChildDocuments]]
 == Nested Child Documents
 
 Solr indexes nested documents in blocks as a way to model documents containing other documents, such as a blog post parent document and comments as child documents -- or products as parent documents and sizes, colors, or other variations as child documents. At query time, the <<other-parsers.adoc#OtherParsers-BlockJoinQueryParsers,Block Join Query Parsers>> can search these relationships. In terms of performance, indexing the relationships between documents may be more efficient than attempting to do joins only at query time, since the relationships are already stored in the index and do not need to be computed.
 
 Nested documents may be indexed via either the XML or JSON data syntax (or using <<using-solrj.adoc#using-solrj,SolrJ)>> - but regardless of syntax, you must include a field that identifies the parent document as a parent; it can be any field that suits this purpose, and it will be used as input for the <<other-parsers.adoc#OtherParsers-BlockJoinQueryParsers,block join query parsers>>.
+
+To support nested documents, the schema must include an indexed/non-stored field ___root__ _ . The value of that field is populated automatically and is the same for all documents in the block, regardless of the inheritance depth.
 
 [[UploadingDatawithIndexHandlers-XMLExamples]]
 ==== XML Examples
@@ -837,3 +557,5 @@ One limitation of indexing nested documents is that the whole block of parent-ch
 ====
 
 <<main,Back to Top>>
+
+Save

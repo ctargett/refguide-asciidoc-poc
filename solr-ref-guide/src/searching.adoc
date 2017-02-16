@@ -1,7 +1,7 @@
 = Searching
 :page-shortname: searching
 :page-permalink: searching.html
-:page-children: overview-of-searching-in-solr, velocity-search-ui, relevance, query-syntax-and-parsing, faceting, highlighting, spell-checking, query-re-ranking, transforming-result-documents, suggester, morelikethis, pagination-of-results, result-grouping, collapse-and-expand-results, result-clustering, spatial-search, the-terms-component, the-term-vector-component, the-stats-component, the-query-elevation-component, response-writers, near-real-time-searching, realtime-get, exporting-result-sets, streaming-expressions, parallel-sql-interface
+:page-children: overview-of-searching-in-solr, velocity-search-ui, relevance, query-syntax-and-parsing, faceting, highlighting, spell-checking, query-re-ranking, transforming-result-documents, suggester, morelikethis, pagination-of-results, collapse-and-expand-results, result-grouping, result-clustering, spatial-search, the-terms-component, the-term-vector-component, the-stats-component, the-query-elevation-component, response-writers, near-real-time-searching, realtime-get, exporting-result-sets, streaming-expressions, parallel-sql-interface
 
 This section describes how Solr works with search requests. It covers the following topics:
 
@@ -17,12 +17,10 @@ This section describes how Solr works with search requests. It covers the follow
 ** <<local-parameters-in-queries.adoc#local-parameters-in-queries,Local Parameters in Queries>>: How to add local arguments to queries.
 ** <<other-parsers.adoc#other-parsers,Other Parsers>>: More parsers designed for use in specific situations.
 * <<faceting.adoc#faceting,Faceting>>: Detailed information about categorizing search results based on indexed terms.
-* <<highlighting.adoc#highlighting,Highlighting>>: Detailed information about Solr's highlighting utilities. Sub-sections cover the different types of highlighters:
-** <<standard-highlighter.adoc#standard-highlighter,Standard Highlighter>>: Uses the most sophisticated and fine-grained query representation of the three highlighters.
-** <<fastvector-highlighter.adoc#fastvector-highlighter,FastVector Highlighter>>: Optimized for term vector options on fields, and good for large documents and multiple languages.
-** <<postings-highlighter.adoc#postings-highlighter,Postings Highlighter>>: Uses similar options as the FastVector highlighter, but is more compact and efficient.
+* <<highlighting.adoc#highlighting,Highlighting>>: Detailed information about Solr's highlighting capabilities, including multiple underlying highlighter implementations.
 * <<spell-checking.adoc#spell-checking,Spell Checking>>: Detailed information about Solr's spelling checker.
 * <<query-re-ranking.adoc#query-re-ranking,Query Re-Ranking>>: Detailed information about re-ranking top scoring documents from simple queries using more complex scores.
+** <<learning-to-rank.adoc#learning-to-rank,Learning To Rank>>: How to use LTR to run machine learned ranking models in Solr.
 
 * <<transforming-result-documents.adoc#transforming-result-documents,Transforming Result Documents>>: Detailed information about using `DocTransformers` to add computed information to individual documents
 * <<suggester.adoc#suggester,Suggester>>: Detailed information about Solr's powerful autosuggest component.

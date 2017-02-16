@@ -56,7 +56,7 @@ openssl pkcs12 -nokeys -in solr-ssl.keystore.p12 -out solr-ssl.cacert.pem
 [[EnablingSSL-SetcommonSSLrelatedsystemproperties]]
 === Set common SSL related system properties
 
-The Solr start script is already setup to pass SSL-related Java system properties to the JVM. To activate the SSL settings, uncomment and update the set of properties beginning with SOLR_SSL_* in `bin/solr.in.sh`. (or `bin\solr.in.cmd` on Windows). Note, if you setup Solr as a service on Linux using the steps outlined in <<taking-solr-to-production.adoc#taking-solr-to-production,Taking Solr to Production>>, then make these changes in `/var/solr/solr.in.sh` instead.
+The Solr Control Script is already setup to pass SSL-related Java system properties to the JVM. To activate the SSL settings, uncomment and update the set of properties beginning with SOLR_SSL_* in `bin/solr.in.sh`. (or `bin\solr.in.cmd` on Windows). Note, if you setup Solr as a service on Linux using the steps outlined in <<taking-solr-to-production.adoc#taking-solr-to-production,Taking Solr to Production>>, then make these changes in `/var/solr/solr.in.sh` instead.
 
 *bin/solr.in.sh example SOLR_SSL_* configuration*
 
@@ -70,6 +70,9 @@ SOLR_SSL_TRUST_STORE_PASSWORD=secret
 SOLR_SSL_NEED_CLIENT_AUTH=false
 # Enable clients to authenticate (but not require)
 SOLR_SSL_WANT_CLIENT_AUTH=false
+# Define Key Store type if necessary
+SOLR_SSL_KEY_STORE_TYPE=JKS
+SOLR_SSL_TRUST_STORE_TYPE=JKS
 ----
 
 When you start Solr, the `bin/solr` script includes the settings in `bin/solr.in.sh` and will pass these SSL-related system properties to the JVM.
@@ -128,7 +131,7 @@ This section describes how to run a two-node SolrCloud cluster with no initial c
 [NOTE]
 ====
 
-ZooKeeper does not support encrypted communication with clients like Solr. There are several related JIRA tickets where SSL support is being planned/worked on: https://issues.apache.org/jira/browse/ZOOKEEPER-235[ZOOKEEPER-235]; https://issues.apache.org/jira/browse/ZOOKEEPER-236[ZOOKEEPER-236]; https://issues.apache.org/jira/browse/ZOOKEEPER-733[ZOOKEEPER-733]; and https://issues.apache.org/jira/browse/ZOOKEEPER-1000[ZOOKEEPER-1000].
+ZooKeeper does not support encrypted communication with clients like Solr. There are several related JIRA tickets where SSL support is being planned/worked on: https://issues.apache.org/jira/browse/ZOOKEEPER-235[ZOOKEEPER-235]; https://issues.apache.org/jira/browse/ZOOKEEPER-236[ZOOKEEPER-236]; https://issues.apache.org/jira/browse/ZOOKEEPER-1000[ZOOKEEPER-1000]; and https://issues.apache.org/jira/browse/ZOOKEEPER-2120[ZOOKEEPER-2120].
 
 ====
 

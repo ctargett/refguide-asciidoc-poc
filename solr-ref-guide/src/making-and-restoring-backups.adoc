@@ -13,8 +13,8 @@ Support for backups when running SolrCloud is provided with the <<collections-ap
 
 Two commands are available:
 
-* `action=BACKUP`: This command backs up Solr indexes and configurations. More information is available in the section <<collections-api.adoc#CollectionsAPI-BackupCollection,Backup Collection>>.
-* `action=RESTORE`: This command restores Solr indexes and configurations. More information is available in the section <<collections-api.adoc#CollectionsAPI-RestoreCollection,Restore Collection>>.
+* `action=BACKUP`: This command backs up Solr indexes and configurations. More information is available in the section <<collections-api.adoc#CollectionsAPI-backup,Backup Collection>>.
+* `action=RESTORE`: This command restores Solr indexes and configurations. More information is available in the section <<collections-api.adoc#CollectionsAPI-restore,Restore Collection>>.
 
 [[MakingandRestoringBackups-StandaloneMode]]
 == Standalone Mode
@@ -32,7 +32,7 @@ You can trigger a back-up with an HTTP command like this (replace "gettingstarte
 
 [source,bash]
 ----
-curl http://localhost:8983/solr/gettingstarted/replication?command=backup
+http://localhost:8983/solr/gettingstarted/replication?command=backup
 ----
 
 The backup command is an asynchronous call, and it will represent data from the latest index commit point. All indexing and search operations will continue to be executed against the index as usual.
@@ -47,6 +47,8 @@ The backup request can also take the following additional parameters:
 |location |The path where the backup will be created. If the path is not absolute then the backup path will be relative to Solr's instance directory.
 |name |The snapshot will be created in a directory called `snapshot.<name>`. If a name is not specified then the directory name would have the following format: `snapshot.<yyyyMMddHHmmssSSS>`
 |numberToKeep |The number of backups to keep. If `maxNumberOfBackups` has been specified on the replication handler in `solrconfig.xml`, `maxNumberOfBackups` is always used and attempts to use `numberToKeep` will cause an error. Also, this parameter is not taken into consideration if the backup name is specified. More information about `maxNumberOfBackups` can be found in the section <<index-replication.adoc#IndexReplication-ConfiguringtheReplicationHandler,Configuring the ReplicationHandler>>.
+|repository |The name of the repository to be used for the backup. If no repository is specified then the local filesystem repository will be used automatically.
+|commitName |The name of the commit which was used while taking a snapshot using the CREATESNAPSHOT command.
 |===
 
 [[MakingandRestoringBackups-BackupStatus]]
@@ -58,7 +60,7 @@ The backup operation can be monitored to see if it has completed by sending the 
 
 [source,bash]
 ----
-http://localhost:8983/solr/gettingstarted/replication?command=details"
+http://localhost:8983/solr/gettingstarted/replication?command=details
 ----
 
 *Output Snippet*
@@ -87,7 +89,7 @@ You can restore from a backup with a command like this:
 
 [source,bash]
 ----
-http://localhost:8983/solr/gettingstarted/replication?command=restore&name=backup_name"
+http://localhost:8983/solr/gettingstarted/replication?command=restore&name=backup_name
 ----
 
 This will restore the named index snapshot into the current core. Searches will start reflecting the snapshot data once the restore is complete.
@@ -99,6 +101,7 @@ The restore request can also take these additional parameters:
 |Name |Description
 |location |The location of the backup snapshot file. If not specified, it looks for backups in Solr's data directory.
 |name |The name of the backed up index snapshot to be restored. If the name is not provided it looks for backups with `snapshot.<timestamp>` format in the location directory. It picks the latest timestamp backup in that case.
+|repository |The name of the repository to be used for the backup. If no repository is specified then the local filesystem repository will be used automatically.
 |===
 
 The restore command is an asynchronous call. Once the restore is complete the data reflected will be of the backed up index which was restored.
@@ -114,7 +117,7 @@ You can also check the status of a restore operation by sending the `restorestat
 
 [source,bash]
 ----
-curl -XGET http://localhost:8983/solr/gettingstarted/replication?command=restorestatus
+http://localhost:8983/solr/gettingstarted/replication?command=restorestatus
 ----
 
 *Output*
@@ -134,3 +137,100 @@ curl -XGET http://localhost:8983/solr/gettingstarted/replication?command=restore
 ----
 
 The status value can be "In Progress" , "success" or "failed". If it failed then an "exception" will also be sent in the response.
+
+[[MakingandRestoringBackups-CreateSnapshotAPI]]
+=== Create Snapshot API
+
+The snapshot functionality is different from the backup functionality as the index files aren't copied anywhere. The index files are snapshotted in the same index directory and can be referenced while taking backups.
+
+You can trigger a snapshot command with an HTTP command like this (replace "techproducts" with the name of the core you are working with):
+
+*Create Snapshot API*
+
+[source,bash]
+----
+http://localhost:8983/solr/admin/cores?action=CREATESNAPSHOT&core=techproducts&commitName=commit1
+----
+
+The list snapshot request parameters are:
+
+[width="100%",cols="50%,50%",options="header",]
+|===
+|Parameter |Description
+|commitName |Specify the commit name to store the snapshot as
+|core |name of the core to perform the snapshot on
+|async |Request ID to track this action which will be processed asynchronously
+|===
+
+[[MakingandRestoringBackups-ListSnapshotAPI]]
+=== List Snapshot API
+
+The list snapshot functionality lists all the taken snapshots for a particular core.
+
+You can trigger a list snapshot command with an HTTP command like this (replace "techproducts" with the name of the core you are working with):
+
+*List Snapshot API*
+
+[source,bash]
+----
+http://localhost:8983/solr/admin/cores?action=LISTSNAPSHOTS&core=techproducts&commitName=commit1
+----
+
+The list snapshot request parameters are:
+
+[width="100%",cols="50%,50%",options="header",]
+|===
+|Parameter |Description
+|core |name of the core to whose snapshots we want to list
+|async |Request ID to track this action which will be processed asynchronously
+|===
+
+[[MakingandRestoringBackups-DeleteSnapshotAPI]]
+=== Delete Snapshot API
+
+The delete snapshot functionality deletes a particular snapshot for a particular core.
+
+You can trigger a delete snapshot command with an HTTP command like this (replace "techproducts" with the name of the core you are working with):
+
+*Delete Snapshot API*
+
+[source,bash]
+----
+http://localhost:8983/solr/admin/cores?action=DELETESNAPSHOT&core=techproducts&commitName=commit1
+----
+
+The delete snapshot request parameters are:
+
+[width="100%",cols="50%,50%",options="header",]
+|===
+|Parameter |Description
+|commitName |Specify the commit name to be deleted
+|core |name of the core whose snapshot we want to delete
+|async |Request ID to track this action which will be processed asynchronously
+|===
+
+// OLD_CONFLUENCE_ID: MakingandRestoringBackups-Backup/RestoreStorageRepositories
+
+[[MakingandRestoringBackups-Backup_RestoreStorageRepositories]]
+== Backup/Restore Storage Repositories
+
+Solr provides interfaces to plug different storage systems for backing up and restoring. For example, you can have a Solr cluster running on a local filesystem like EXT3 but you can backup the indexes to a HDFS filesystem or vice versa.
+
+The repository interfaces needs to be configured in the solr.xml file . While running backup/restore commands we can specify the repository to be used.
+
+If no repository is configured then the local filesystem repository will be used automatically.
+
+Example solr.xml section to configure a repository like https://cwiki.apache.org/confluence/display/solr/Running+Solr+on+HDFS[HDFS] .
+
+*Output*
+
+[source,xml]
+----
+<backup>
+  <repository name="hdfs" class="org.apache.solr.core.backup.repository.HdfsBackupRepository" default="false">
+    <str name="location">${solr.hdfs.default.backup.path}</str>
+    <str name="solr.hdfs.home">${solr.hdfs.home:}</str>
+    <str name="solr.hdfs.confdir">${solr.hdfs.confdir:}</str>
+  </repository>
+</backup>
+----

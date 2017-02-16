@@ -83,7 +83,7 @@ The "```value```" option forces an explicit value to always be used, while the "
 [[TransformingResultDocuments-_explain_-ExplainAugmenterFactory]]
 === `[explain]` - ExplainAugmenterFactory
 
-Augments each document with an inline explanation of it's score exactly like the information available about each document in the debug section:
+Augments each document with an inline explanation of its score exactly like the information available about each document in the debug section:
 
 [source,java]
 ----
@@ -187,7 +187,7 @@ fl=id,[elevated],[excluded]&excludeIds=GB18030TEST&elevateIds=6H500F0&markExclud
 // OLD_CONFLUENCE_ID: TransformingResultDocuments-[json]/[xml]
 
 [[TransformingResultDocuments-_json_xml_]]
-=== [json] / [xml]
+=== `[json]` / `[xml]`
 
 These transformers replace field value containing a string representation of a valid XML or JSON structure with the actual raw XML or JSON structure rather than just the string value. Each applies only to the specific writer, such that `[json]` only applies to `wt=json` and `[xml]` only applies to `wt=xml`.
 
@@ -272,6 +272,8 @@ Here departmens are retrieved per every employee in search result. We can say th
 
 Note, when document field has multiple values they are concatenated with comma by default, it can be changed by local parameter `foo:[subquery separator=' ']` , this mimics *`{!terms}`* to work smoothly with it.
 
+To log substituted subquery request parameters add the corresponding parameter names in `depts.logParamsList=q,fl,rows,**row.dept_id**`
+
 [[TransformingResultDocuments-CoresandCollectionsinSolrCloud]]
 ==== Cores and Collections in SolrCloud
 
@@ -279,13 +281,41 @@ Use `foo:[subquery fromIndex=departments]` to invoke subquery on another core on
 
 `q=*:*&fl=*,foo:[subquery]&foo.q=cloud&**foo.collection**=departments`
 
+[IMPORTANT]
+====
+
+If subquery collection has a different unique key field name (let's say `foo_id` at contrast to `id` in primary collection), add the following parameters to accommodate this difference: `foo.fl=id:foo_id&foo.distrib.singlePass=true`. Otherwise you'll get `NullPoniterException` from `QueryComponent.mergeIds`.
+
+====
+
 // OLD_CONFLUENCE_ID: TransformingResultDocuments-[geo]-Geospatialformatter
 
 [[TransformingResultDocuments-_geo_-Geospatialformatter]]
 === [geo] - Geospatial formatter
 
-Formats spatial data from a spatial field using a designated format type name. Two inner parameters are required: `f` for the field name, and `w` for the format name. Example: `geojson:[geo f=mySpatialField w=GeoJSON]`
+Formats spatial data from a spatial field using a designated format type name. Two inner parameters are required: `f` for the field name, and `w` for the format name. Example: `geojson:[geo f=mySpatialField w=GeoJSON]`.
 
-Normally you'll simply be consistent in choosing the format type you want by setting the `format` attribute on the spatial field type to WKT or `GeoJSON` – see <<spatial-search.adoc#spatial-search,Spatial Search>>. If you are consistent, it'll come out the way you stored it. This transformer offers a convenience to transform the spatial format to something different on retrieval.
+Normally you'll simply be consistent in choosing the format type you want by setting the `format` attribute on the spatial field type to `WKT` or `GeoJSON` – see the section <<spatial-search.adoc#spatial-search,Spatial Search>> for more information. If you are consistent, it'll come out the way you stored it. This transformer offers a convenience to transform the spatial format to something different on retrieval.
 
-In addition, this feature is very useful with the RptWithGeometrySpatialField to avoid double-storage of the potentially large vector geometry. This transformer will detect that field type and fetch the geometry from an internal compact binary representation on disk (in docValues), and then format it as desired. As such, you needn't mark the field as stored, which would be redundant. In a sense this double-storage between docValues and stored-value storage isn't unique to spatial but with polygonal geometry it can be a lot of data, and furthermore you'd like to avoid storing it in a verbose format (like GeoJSON or WKT).
+In addition, this feature is very useful with the `RptWithGeometrySpatialField` to avoid double-storage of the potentially large vector geometry. This transformer will detect that field type and fetch the geometry from an internal compact binary representation on disk (in docValues), and then format it as desired. As such, you needn't mark the field as stored, which would be redundant. In a sense this double-storage between docValues and stored-value storage isn't unique to spatial but with polygonal geometry it can be a lot of data, and furthermore you'd like to avoid storing it in a verbose format (like GeoJSON or WKT).
+
+// OLD_CONFLUENCE_ID: TransformingResultDocuments-[features]-LTRFeatureLoggerTransformerFactory
+
+[[TransformingResultDocuments-_features_-LTRFeatureLoggerTransformerFactory]]
+=== [features] - LTRFeatureLoggerTransformerFactory
+
+The "LTR" prefix stands for <<learning-to-rank.adoc#learning-to-rank,Learning To Rank>>. This transformer returns the values of features and it can be used for feature extraction and feature logging.
+
+[source,java]
+----
+fl=id,[features store=yourFeatureStore]
+----
+
+This will return the values of the features in the `yourFeatureStore` store.
+
+[source,java]
+----
+fl=id,[features]&rq={!ltr model=yourModel}
+----
+
+If you use `[features]` together with an Learning-To-Rank reranking query then the values of the features in the reranking model (`yourModel`) will be returned.

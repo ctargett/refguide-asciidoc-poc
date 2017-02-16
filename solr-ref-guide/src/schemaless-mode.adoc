@@ -86,8 +86,6 @@ The UpdateRequestProcessorChain allows Solr to guess field types, and you can de
 <updateRequestProcessorChain name="add-unknown-fields-to-the-schema">
   <!-- UUIDUpdateProcessorFactory will generate an id if none is present in the incoming document -->
   <processor class="solr.UUIDUpdateProcessorFactory" />
-  <processor class="solr.LogUpdateProcessorFactory"/>
-  <processor class="solr.DistributedUpdateProcessorFactory"/>
   <processor class="solr.RemoveBlankFieldUpdateProcessorFactory"/>
   <processor class="solr.FieldNameMutatingUpdateProcessorFactory">
     <str name="pattern">[^\w-\.]</str>
@@ -137,6 +135,8 @@ The UpdateRequestProcessorChain allows Solr to guess field types, and you can de
       <str name="fieldType">tdoubles</str>
     </lst>
   </processor>
+  <processor class="solr.LogUpdateProcessorFactory"/>
+  <processor class="solr.DistributedUpdateProcessorFactory"/>
   <processor class="solr.RunUpdateProcessorFactory"/>
 </updateRequestProcessorChain>
 ----
@@ -159,11 +159,11 @@ Once the UpdateRequestProcessorChain has been defined, you must instruct your Up
 
 [source,xml]
 ----
-  <initParams path="/update/**">
-    <lst name="defaults">
-      <str name="update.chain">add-unknown-fields-to-the-schema</str>
-    </lst>
-  </initParams>
+<initParams path="/update/**">
+  <lst name="defaults">
+    <str name="update.chain">add-unknown-fields-to-the-schema</str>
+  </lst>
+</initParams>
 ----
 
 [IMPORTANT]

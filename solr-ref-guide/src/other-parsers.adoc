@@ -16,8 +16,9 @@ Query parsers discussed in this section:
 * <<OtherParsers-FunctionQueryParser,Function Query Parser>>
 * <<OtherParsers-FunctionRangeQueryParser,Function Range Query Parser>>
 * <<OtherParsers-GraphQueryParser,Graph Query Parser>>
-
 * <<OtherParsers-JoinQueryParser,Join Query Parser>>
+
+* <<OtherParsers-LearningToRankQueryParser,Learning To Rank Query Parser>>
 * <<OtherParsers-LuceneQueryParser,Lucene Query Parser>>
 * <<OtherParsers-MaxScoreQueryParser,Max Score Query Parser>>
 * <<OtherParsers-MoreLikeThisQueryParser,More Like This Query Parser>>
@@ -25,8 +26,8 @@ Query parsers discussed in this section:
 * <<OtherParsers-OldLuceneQueryParser,Old Lucene Query Parser>>
 * <<OtherParsers-PrefixQueryParser,Prefix Query Parser>>
 * <<OtherParsers-RawQueryParser,Raw Query Parser>>
-
 * <<OtherParsers-Re-RankingQueryParser,Re-Ranking Query Parser>>
+
 * <<OtherParsers-SimpleQueryParser,Simple Query Parser>>
 * <<OtherParsers-SpatialQueryParsers,Spatial Query Parsers>>
 * <<OtherParsers-SurroundQueryParser,Surround Query Parser>>
@@ -83,10 +84,12 @@ Using the example documents above, we can construct a query such as `q={!child o
 </result>
 ----
 
+Note that the query for `someParents` should match only parent documents passed by `allParents` or you may get an exception: _Parent query must not match any docs besides parent filter. Combine them as must (+) and must-not (-) clauses to find a problem doc._ or in older version it's: __Parent query yields document which is not matched by parents filter__. As it's said, you can search for `q=+(someParents) -(allParents)` to find a cause .
+
 [[OtherParsers-BlockJoinParentQueryParser]]
 === Block Join Parent Query Parser
 
-This parser takes a query that matches child documents and returns their parents. The syntax for this parser is similar: `q={!parent which=<allParents>}<someChildren>`. Again the parameter The parameter `allParents` is a filter that matches **only parent documents**; here you would define the field and value that you used to identify **all parent documents**. The parameter `someChildren` is a query that matches some or all of the child documents. Note that the query for `someChildren` should match only child documents or you may get an exception.
+This parser takes a query that matches child documents and returns their parents. The syntax for this parser is similar: `q={!parent which=<allParents>}<someChildren>`. The parameter `allParents` is a filter that matches **only parent documents**; here you would define the field and value that you used to identify **all parent documents**. The parameter `someChildren` is a query that matches some or all of the child documents. Note that the query for `someChildren` should match only child documents or you may get an exception: _Child query must not match same docs with parent filter. Combine them as must clauses (+) to find a problem doc._ or in older version it's: __child query must only match non-parent docs__. As it's said, you can search for `q=+(parentFilter) +(someChildren)` to find a cause .
 
 Again using the example documents above, we can construct a query such as `q={!parent which="content_type:parentDocument"}comments:SolrCloud`. We get this document in response:
 
@@ -184,6 +187,8 @@ A mix of ordered and unordered complex phrase queries:
 
 Performance is sensitive to the number of unique terms that are associated with a pattern. For instance, searching for "a*" will form a large OR clause (technically a SpanOr with many terms) for all of the terms in your index for the indicated field that start with the single letter 'a'. It may be prudent to restrict wildcards to at least two or preferably three letters as a prefix. Allowing very short prefixes may result in to many low-quality documents being returned.
 
+Notice that it also supports leading wildcards "*a" as well with consequent performance implications. Applying <</confluence/pages/createpage.action?spaceKey=solr&title=AnalyzersTokenizersTokenFilters&linkCreation=true&fromPageId=32604257,ReversedWildcardFilterFactory>> in index-time analysis is usually a good idea.
+
 [[OtherParsers-MaxBooleanClauses]]
 ==== MaxBooleanClauses
 
@@ -216,6 +221,11 @@ the document is returned. The next query that _does_ use the Complex Phrase Quer
 ----
 
 does _not_ return that document because SpanNearQuery has no good way to handle stopwords in a way analogous to PhraseQuery. If you must remove stopwords for your use case, use a custom filter factory or perhaps a customized synonyms filter that reduces given stopwords to some impossible token.
+
+[[OtherParsers-Escaping]]
+==== Escaping
+
+Special care has to be given when escaping: clauses between double quotes (usually whole query) is parsed twice, these parts have to be escaped as twice. eg `"foo\\: bar\\^"`.
 
 [[OtherParsers-FieldQueryParser]]
 == Field Query Parser
@@ -437,6 +447,14 @@ The join operation is done on a term basis, so the "from" and "to" fields must u
 
 You can optionally use the `score` parameter to return scores of the subordinate query. The values to use for this parameter define the type of aggregation, which are `avg` (average), `max` (maximum), `min` (minimum) `total`, or `none`.
 
+.Score parameter and single value numerics
+[WARNING]
+====
+
+Specifying `score` local parameter switches the join algorithm. This might have performance implication on large indices, but it's more important that this algorithm won't work for single value numeric field starting from 7.0. Users are encouraged to change field types to string and rebuild indexes during migration.
+
+====
+
 [[OtherParsers-JoiningAcrossCollections]]
 === Joining Across Collections
 
@@ -494,6 +512,20 @@ Example:
 ----
 
 For more information about the syntax for the Lucene Query Parser, see the {lucene-javadocs}/queryparser/org/apache/lucene/queryparser/classic/package-summary.html[Classic QueryParser javadocs].
+
+[[OtherParsers-LearningToRankQueryParser]]
+== Learning To Rank Query Parser
+
+The `LTRQParserPlugin` is a special purpose parser for reranking the top results of a simple query using a more complex ranking query which is based on a machine learnt model.
+
+Example:
+
+[source,java]
+----
+{!ltr model=myModel reRankDocs=100}
+----
+
+Details about using the `LTRQParserPlugin` can be found in the <<learning-to-rank.adoc#learning-to-rank,Learning To Rank>> section.
 
 [[OtherParsers-MaxScoreQueryParser]]
 == Max Score Query Parser
@@ -612,7 +644,7 @@ For easy filter construction to drill down in faceting, the <<OtherParsers-TermQ
 [[OtherParsers-Re-RankingQueryParser]]
 == Re-Ranking Query Parser
 
-The `ReRankQParserPlugin` is a special purpose parser for Re-Ranking the top result of a simple query using a more complex ranking query.
+The `ReRankQParserPlugin` is a special purpose parser for Re-Ranking the top results of a simple query using a more complex ranking query.
 
 Details about using the `ReRankQParserPlugin` can be found in the <<query-re-ranking.adoc#query-re-ranking,Query Re-Ranking>> section.
 
@@ -658,7 +690,7 @@ Any errors in syntax are ignored and the query parser will interpret queries as 
 
 There are two spatial QParsers in Solr: `geofilt` and `bbox`. But there are other ways to query spatially: using the `frange` parser with a distance function, using the standard (lucene) query parser with the range syntax to pick the corners of a rectangle, or with RPT and BBoxField you can use the standard query parser but use a special syntax within quotes that allows you to pick the spatial predicate.
 
-All these things are documented further in the section <<spatial-search.adoc#spatial-search,Spatial Search>> .
+All these things are documented further in the section <<spatial-search.adoc#spatial-search,Spatial Search>>.
 
 [[OtherParsers-SurroundQueryParser]]
 == Surround Query Parser
@@ -678,7 +710,7 @@ This example would find documents where the terms "foo" and "bar" were no more t
 
 This query parser will also accept boolean operators (`AND`, `OR`, and `NOT`, in either upper- or lowercase), wildcards, quoting for phrase searches, and boosting. The `w` and `n` operators can also be expressed in upper- or lowercase.
 
-The non-unary operators (everything but `NOT`) support both infix `(a AND b AND c)` and prefix `AND(a, b,`` c)` notation.
+The non-unary operators (everything but `NOT`) support both infix `(a AND b AND c)` and prefix `AND(a, b,` ` c)` notation.
 
 More information about Surround queries can be found at http://wiki.apache.org/solr/SurroundQueryParser.
 
@@ -774,7 +806,7 @@ Examples:
 
 [source,java]
 ----
-{!terms f=categoryId method=booleanQuery separator=" "}8  6 7 5309
+{!terms f=categoryId method=booleanQuery separator=" "}8 6 7 5309
 ----
 
 [[OtherParsers-XMLQueryParser]]
@@ -785,8 +817,8 @@ The {solr-javadocs}/solr-core/org/apache/solr/search/XmlQParserPlugin.html[XmlQP
 [width="100%",cols="50%,50%",options="header",]
 |===
 |Parameter |Value
-|defType |xmlparser
-|q |<BooleanQuery fieldName="description"> <Clause occurs="must"> <TermQuery>shirt</TermQuery> </Clause> <Clause occurs="mustnot"> <TermQuery>plain</TermQuery> </Clause> <Clause occurs="should"> <TermQuery>cotton</TermQuery> </Clause> <Clause occurs="must"> <BooleanQuery fieldName="size"> <Clause occurs="should"> <TermsQuery>S M L</TermsQuery> </Clause> </BooleanQuery> </Clause> </BooleanQuery>
+|defType |`xmlparser`
+|q |`<BooleanQuery fieldName="description"> <Clause occurs="must"> <TermQuery>shirt</TermQuery> </Clause> <Clause occurs="mustnot"> <TermQuery>plain</TermQuery> </Clause> <Clause occurs="should"> <TermQuery>cotton</TermQuery> </Clause> <Clause occurs="must"> <BooleanQuery fieldName="size"> <Clause occurs="should"> <TermsQuery>S M L</TermsQuery> </Clause> </BooleanQuery> </Clause> </BooleanQuery>`
 |===
 
 The XmlQParser implementation uses the {solr-javadocs}/solr-core/org/apache/solr/search/SolrCoreParser.html[SolrCoreParser] class which extends Lucene's {lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/CoreParser.html[CoreParser] class. XML elements are mapped to {lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/QueryBuilder.html[QueryBuilder] classes as follows:
@@ -811,3 +843,15 @@ The XmlQParser implementation uses the {solr-javadocs}/solr-core/org/apache/solr
 |<UserQuery> |{lucene-javadocs}/queryparser/org/apache/lucene/queryparser/xml/builders/UserInputQueryBuilder.html[UserInputQueryBuilder]
 |<LegacyNumericRangeQuery> |LegacyNumericRangeQuery(Builder) is deprecated
 |===
+
+[[OtherParsers-CustomizingXMLQueryParser]]
+=== Customizing XML Query Parser
+
+You can configure your own custom query builders for additional XML elements. The custom builders need to extend the {solr-javadocs}/solr-core/org/apache/solr/search/SolrQueryBuilder.html[SolrQueryBuilder] class. Example solrconfig.xml snippet:
+
+[source,xml]
+----
+<queryParser name="xmlparser" class="XmlQParserPlugin">
+  <str name="MyCustomQuery">com.mycompany.solr.search.MyCustomQueryBuilder</str>
+</queryParser>  
+----

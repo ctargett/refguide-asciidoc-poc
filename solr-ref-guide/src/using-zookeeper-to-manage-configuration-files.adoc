@@ -11,7 +11,7 @@ With SolrCloud your configuration files are kept in ZooKeeper. These files are u
 [[UsingZooKeepertoManageConfigurationFiles-StartupBootstrap]]
 == Startup Bootstrap
 
-When you try SolrCloud for the first time using the `bin/solr -e cloud`, the related configset gets uploaded to zookeeper automatically and is linked with the newly created collection.
+When you try SolrCloud for the first time using the `bin/solr -e cloud`, the related configset gets uploaded to ZooKeeper automatically and is linked with the newly created collection.
 
 The below command would start SolrCloud with the default collection name (gettingstarted) and default configset (data_driven_schema_configs) uploaded and linked to it.
 
@@ -27,9 +27,9 @@ You can also explicitly upload a configuration directory when creating a collect
 $ bin/solr create -c mycollection -d data_driven_schema_configs
 ----
 
-The create command will upload a copy of the `data_driven_schema_configs` configuration directory to ZooKeeper under `/configs/mycollection`. Refer to the <<solr-start-script-reference.adoc#solr-start-script-reference,Solr Start Script Reference>> page for more details about the create command for creating collections.
+The create command will upload a copy of the `data_driven_schema_configs` configuration directory to ZooKeeper under `/configs/mycollection`. Refer to the <<solr-control-script-reference.adoc#solr-control-script-reference,Solr Control Script Reference>> page for more details about the create command for creating collections.
 
-Once a configuration directory has been uploaded to ZooKeeper, you can update them using the <<command-line-utilities.adoc#command-line-utilities,ZooKeeper Command Line Interface (zkCLI)>>.
+Once a configuration directory has been uploaded to ZooKeeper, you can update them using the <<solr-control-script-reference.adoc#solr-control-script-reference,Solr Control Script>>
 
 [IMPORTANT]
 ====
@@ -38,19 +38,21 @@ It's a good idea to keep these files under version control.
 
 ====
 
-[[UsingZooKeepertoManageConfigurationFiles-UploadingconfigsusingzkcliorSolrJ]]
-== Uploading configs using zkcli or SolrJ
+// OLD_CONFLUENCE_ID: UsingZooKeepertoManageConfigurationFiles-UploadingConfigurationFilesusingbin/solrorSolrJ
 
-In production situations, <<config-sets.adoc#config-sets,Config Sets>> can also be uploaded to ZooKeeper independent of collection creation using either Solr's <<command-line-utilities.adoc#command-line-utilities,zkcli.sh script,>> or the {solr-javadocs}/solr-solrj/org/apache/solr/client/solrj/impl/CloudSolrClient.html[CloudSolrClient.uploadConfig] java method.
+[[UsingZooKeepertoManageConfigurationFiles-UploadingConfigurationFilesusingbin_solrorSolrJ]]
+== Uploading Configuration Files using bin/solr or SolrJ
 
-The below command can be used to upload a new configset using the zkcli script.
+In production situations, <<config-sets.adoc#config-sets,Config Sets>> can also be uploaded to ZooKeeper independent of collection creation using either Solr's <<solr-control-script-reference.adoc#solr-control-script-reference,Solr Control Script>> or the {solr-javadocs}/solr-solrj/org/apache/solr/client/solrj/impl/CloudSolrClient.html[CloudSolrClient.uploadConfig] java method.
+
+The below command can be used to upload a new configset using the bin/solr script.
 
 [source,java]
 ----
-$  sh zkcli.sh -cmd upconfig -zkhost  <host:port> -confname <name for configset> -solrhome <solrhome> -confdir <path to directory with configset>
+$  bin/solr zk upconfig -n <name for configset> -d <path to directory with configset>
 ----
 
-More information about the ZooKeeper Command Line Utility to help manage changes to configuration files, can be found in the section on <<command-line-utilities.adoc#command-line-utilities,Command Line Utilities>>.
+It is strongly recommended that the configurations be kept in a version control system, Git, SVN or similar.
 
 [[UsingZooKeepertoManageConfigurationFiles-ManagingYourSolrCloudConfigurationFiles]]
 == Managing Your SolrCloud Configuration Files
@@ -70,9 +72,9 @@ If you will share the same ZooKeeper instance with other applications you should
 
 There are certain configuration files containing cluster wide configuration. Since some of these are crucial for the cluster to function properly, you may need to upload such files to ZooKeeper before starting your Solr cluster for the first time. Examples of such configuration files (not exhaustive) are `solr.xml`, `security.json `and `clusterprops.json`.
 
-If you for example would like to keep your `solr.xml` in ZooKeeper to avoid having to copy it to every node's `solr_home` directory, you can push it to ZooKeeper with the `zkcli.sh` utility (Unix example):
+If you for example would like to keep your `solr.xml` in ZooKeeper to avoid having to copy it to every node's `solr_home` directory, you can push it to ZooKeeper with the bin/solr utility (Unix example):
 
 [source,text]
 ----
-zkcli.sh -zkhost localhost:2181 -cmd putfile /solr.xml /path/to/solr.xml
+bin/solr cp file:local/file/path/to/solr.xml zk:/solr.xml -z localhost:2181
 ----

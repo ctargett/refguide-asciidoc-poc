@@ -57,6 +57,7 @@ The table below summarizes Solr's field value faceting parameters.
 |<<Faceting-Thefacet.mincountParameter,facet.mincount>> |Specifies the minimum counts required for a facet field to be included in the response.
 |<<Faceting-Thefacet.missingParameter,facet.missing>> |Controls whether Solr should compute a count of all matching results which have no value for the field, in addition to the term-based constraints of a facet field.
 |<<Faceting-Thefacet.methodParameter,facet.method>> |Selects the algorithm or method Solr should use when faceting a field.
+|<<Faceting-Thefacet.existsParameter,facet.exists>> |Caps facet counts by one. Available only for facet.method=enum as performance optimization.
 |<<Faceting-Thefacet.enum.cache.minDfParameter,facet.enum.cache.minDF>> |(Advanced) Specifies the minimum document frequency (the number of documents matching a term) for which the `filterCache` should be used when determining the constraint count for that term.
 |<<Faceting-Over-RequestParameters,facet.overrequest.count>> |(Advanced) A number of documents, beyond the effective `facet.limit` to request from each shard in a distributed search
 |<<Faceting-Over-RequestParameters,facet.overrequest.ratio>> |(Advanced) A multiplier of the effective `facet.limit` to request from each shard in a distributed search
@@ -163,7 +164,7 @@ The facet.method parameter selects the type of algorithm or method Solr should u
 |fcs |Per-segment field faceting for single-valued string fields. Enable with `facet.method=fcs` and control the number of threads used with the `threads` local parameter. This parameter allows faceting to be faster in the presence of rapid index changes.
 |===
 
-The default value is `fc` (except for fields using the `BoolField` field type) since it tends to use less memory and is faster when a field has many unique terms in the index.
+The default value is `fc` (except for fields using the `BoolField` field type and when facet.exists=true is requsted) since it tends to use less memory and is faster when a field has many unique terms in the index.
 
 This parameter can be specified on a per-field basis with the syntax of `f.<fieldname>.facet.method`.
 
@@ -177,6 +178,13 @@ A value greater than zero decreases the filterCache's memory usage, but increase
 The default value is 0, causing the filterCache to be used for all terms in the field.
 
 This parameter can be specified on a per-field basis with the syntax of `f.<fieldname>.facet.enum.cache.minDF`.
+
+[[Faceting-Thefacet.existsParameter]]
+=== The `facet.exists `Parameter
+
+To cap facet counts by 1 specify facet.exists=true. It can be used with facet.method=enum or when it's omitted. It can be used only on non-trie fields i.e. strings. It may speed up facet counting on large indices and/or high-cardinality facet values..
+
+This parameter can be specified on a per-field basis with the syntax of `f.<fieldname>.facet.exists` or via local parameter` facet.field={!facet.method=enum facet.exists=true}size`
 
 [[Faceting-Over-RequestParameters]]
 === Over-Request Parameters
@@ -301,7 +309,7 @@ The `facet.range.method` parameter selects the type of algorithm or method Solr 
 |===
 |Method |Description
 |filter |This method generates the ranges based on other facet.range parameters, and for each of them executes a filter that later intersects with the main query resultset to get the count. It will make use of the filterCache, so it will benefit of a cache large enough to contain all ranges.
-|dv |This method iterates the documents that match the main query, and for each of them finds the correct range for the value. This method will make use of https://cwiki.apache.org/confluence/display/solr/DocValues[docValues] (if enabled for the field) or fieldCache. "dv" method is not supported for field type DateRangeField or when using https://cwiki.apache.org/confluence/display/solr/Result+Grouping[group.facets].
+|dv |This method iterates the documents that match the main query, and for each of them finds the correct range for the value. This method will make use of <<docvalues.adoc#docvalues,docValues>> (if enabled for the field) or fieldCache. "dv" method is not supported for field type DateRangeField or when using <<result-grouping.adoc#result-grouping,group.facets>>.
 |===
 
 Default value for this parameter is "filter".
@@ -340,7 +348,7 @@ The `facet.pivot` parameter defines the fields to use for the pivot. Multiple `f
 
 The `facet.pivot.mincount` parameter defines the minimum number of documents that need to match in order for the facet to be included in results. The default is 1.
 
-Using the "`bin/solr -e techproducts`" example, A query URL like this one will returns the data below, with the pivot faceting results found in the section "facet_pivot":
+Using the "`bin/solr -e techproducts`" example, A query URL like this one will return the data below, with the pivot faceting results found in the section "facet_pivot":
 
 [source,java]
 ----
@@ -473,7 +481,7 @@ Results:
 
 A `query` local parameter can be used with `facet.pivot` to refer to `facet.query` instances (by tag) that should be computed for each pivot constraint. Similarly, a `range` local parameter can be used with `facet.pivot` to refer to `facet.range` instances.
 
-In the example below, two query facets are computed for each of the `facet.pivot` result hierarchies:
+In the example below, two query facets are computed for h of the `facet.pivot` result hierarchies:
 
 [source,java]
 ----
@@ -600,18 +608,18 @@ facet.pivot={!range=r1}cat,inStock
 
 Although `facet.pivot.mincount` deviates in name from the `facet.mincount` parameter used by field faceting, many other Field faceting parameters described above can also be used with pivot faceting:
 
-* <<Faceting-Thefacet.limitParameter,`facet.limit`>>
-* <<Faceting-Thefacet.offsetParameter,`facet.offset`>>
-* <<Faceting-Thefacet.sortParameter,`facet.sort`>>
-* <<Faceting-Over-RequestParameters,`facet.overrequest.count`>>
-* <<Faceting-Over-RequestParameters,`facet.overrequest.ratio`>>
+* ` facet.limit `
+* ` facet.offset `
+* `facet.sort` <<Faceting-Thefacet.sortParameter,The facet.sort Parameter>>
+* ` facet.overrequest.count `
+* ` facet.overrequest.ratio `
 
 [[Faceting-IntervalFaceting]]
 == Interval Faceting
 
 Another supported form of faceting is interval faceting. This sounds similar to range faceting, but the functionality is really closer to doing facet queries with range queries. Interval faceting allows you to set variable intervals and count the number of documents that have values within those intervals in the specified field.
 
-Even though the same functionality can be achieved by using a facet query with range queries, the implementation of these two methods is very different and will provide different performance depending on the context. If you are concerned about the performance of your searches you should test with both options. Interval faceting tends to be better with multiple intervals for the same fields, while facet query tend to be better in environments where filter cache is more effective (static indexes for example). This method will use https://cwiki.apache.org/confluence/display/solr/DocValues[docValues] if they are enabled for the field, will use fieldCache otherwise.
+Even though the same functionality can be achieved by using a facet query with range queries, the implementation of these two methods is very different and will provide different performance depending on the context. If you are concerned about the performance of your searches you should test with both options. Interval faceting tends to be better with multiple intervals for the same fields, while facet query tend to be better in environments where filter cache is more effective (static indexes for example). This method will use <<docvalues.adoc#docvalues,docValues>> if they are enabled for the field, will use fieldCache otherwise.
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -673,7 +681,7 @@ You can tag specific filters and exclude those filters when faceting. This is us
 
 Consider the following example query with faceting:
 
-q=mainquery&fq=status:public&fq=doctype:pdf&facet=true&facet.field=doctype
+`q=mainquery&fq=status:public&fq=doctype:pdf&facet=true&facet.field=doctype`
 
 Because everything is already constrained by the filter `doctype:pdf`, the `facet.field=doctype` facet command is currently redundant and will return 0 counts for everything except `doctype:pdf`.
 
@@ -690,7 +698,7 @@ To implement a multi-select facet for doctype, a GUI may want to still display t
 
 To return counts for doctype values that are currently not selected, tag filters that directly constrain doctype, and exclude those filters when faceting on doctype.
 
-q=mainquery&fq=status:public&fq=\{!tag=dt}doctype:pdf&facet=true&facet.field=\{!ex=dt}doctype
+`q=mainquery&fq=status:public&fq={!tag=dt}doctype:pdf&facet=true&facet.field={!ex=dt}doctype`
 
 Filter exclusion is supported for all types of facets. Both the `tag` and `ex` local parameters may specify multiple values by separating them with commas.
 
@@ -699,12 +707,18 @@ Filter exclusion is supported for all types of facets. Both the `tag` and `ex` l
 
 To change the output key for a faceting command, specify a new name with the `key` local parameter. For example:
 
-facet.field=\{!ex=dt key=mylabel}doctype
+`facet.field={!ex=dt key=mylabel}doctype`
 
 The parameter setting above causes the field facet results for the "doctype" field to be returned using the key "mylabel" rather than "doctype" in the response. This can be helpful when faceting on the same field multiple times with different exclusions.
+
+[[Faceting-Limitingfacetwithcertainterms]]
+=== Limiting facet with certain terms
+
+To limit field facet with certain terms specify them comma separated with `terms` local parameter. Commas and quotes in terms can be escaped with backslash \,. In this case facet is calculated on a way similar to `facet.method=enum` , but ignores `facet.enum.cache.minDf`. For example:
+
+`  facet.field={!terms='alfa,betta,with\,with\',with space'}symbol  `
 
 [[Faceting-RelatedTopics]]
 == Related Topics
 
-* http://wiki.apache.org/solr/SimpleFacetParameters[SimpleFacetParameters] from the Solr Wiki.
 * <<spatial-search.adoc#spatial-search,Heatmap Faceting (Spatial)>>

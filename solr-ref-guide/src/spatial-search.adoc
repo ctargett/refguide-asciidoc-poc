@@ -26,7 +26,7 @@ Some details that are not in this guide can be found at http://wiki.apache.org/s
 
 For indexing geodetic points (latitude and longitude), supply the pair of numbers as a string with a comma separating them in latitude then longitude order. For non-geodetic points, the order is x,y for PointType, and for RPT you must use a space instead of a comma, or use WKT or GeoJSON.
 
-See the section <<SpatialSearch-SpatialRecursivePrefixTreeFieldType_abbreviatedasRPT_,SpatialRecursivePrefixTreeFieldType>> below for RPT configuration specifics.
+See the section <<SpatialSearch-RPT,RPT>> below for RPT configuration specifics.
 
 [[SpatialSearch-SpatialFilters]]
 == Spatial Filters
@@ -104,8 +104,10 @@ Most likely, the fastest spatial filters will be to simply use the RPT field typ
 
 `&q=...mykeywords...&fq=...someotherfilters...&fq={!geofilt cache=false cost=100}&sfield=store&pt=45.15,-93.85&d=5`
 
-[[SpatialSearch-DistanceFunctionQueries]]
-== Distance Function Queries
+// OLD_CONFLUENCE_ID: SpatialSearch-DistanceSortingorBoosting(FunctionQueries)
+
+[[SpatialSearch-DistanceSortingorBoosting_FunctionQueries_]]
+== Distance Sorting or Boosting (Function Queries)
 
 There are four distance function queries: `geodist`, see below, usually the most appropriate; http://wiki.apache.org/solr/FunctionQuery#dist[`dist`], to calculate the p-norm distance between multi-dimensional vectors; http://wiki.apache.org/solr/FunctionQuery#hsin.2C_ghhsin_-_Haversine_Formula[`hsin`], to calculate the distance between two points on a sphere; and https://wiki.apache.org/solr/FunctionQuery#sqedist_-_Squared_Euclidean_Distance[`sqedist`], to calculate the squared Euclidean distance between two points. For more information about these function queries, see the section on <<function-queries.adoc#function-queries,Function Queries>>.
 
@@ -173,13 +175,13 @@ To use RPT, the field type must be registered and configured in `schema.xml`. Th
 |Setting |Description
 |name |The name of the field type.
 |class |This should be `solr.SpatialRecursivePrefixTreeFieldType`. But be aware that the Lucene spatial module includes some other so-called "spatial strategies" other than RPT, notably TermQueryPT*, BBox, PointVector*, and SerializedDV. Solr requires a field type to parallel these in order to use them. The asterisked ones have them.
-|spatialContextFactory |Solr supports polygons via http://sourceforge.net/projects/jts-topo-suite/[JTS Topology Suite], which does not come with Solr. It's a JAR file that you need to put on Solr's classpath (but not via the standard solrconfig.xml mechanisms). If you intend to use those shapes, set this attribute to https://locationtech.github.io/spatial4j/apidocs/org/locationtech/spatial4j/context/jts/JtsSpatialContextFactory.html[`org.locationtech.spatial4j.context.jts.JtsSpatialContextFactory`] . __(note: prior to Solr 6, the "org.locationtech.spatial4j" part was "com.spatial4j.core")__. Furthermore, the context factory has its own options which are directly configurable on the Solr field type here; follow the link to the Javadocs, and remember to look at the superclass's options in https://locationtech.github.io/spatial4j/apidocs/org/locationtech/spatial4j/context/SpatialContextFactory.html[SpatialContextFactory] as well. One option in particular you should most likely enable is `autoIndex` (i.e. use PreparedGeometry) as it's been shown to be a major performance boost for non-trivial polygons. Further details about specifying polygons to index or query are at Solr's Wiki linked below.
+|spatialContextFactory |This is a Java class name to an internal extension point governing support for shape definitions & parsing. If you require polygon support, set this to `JTS` – an alias for `org.locationtech.spatial4j.context.jts.JtsSpatialContextFactory`; otherwise it can be omitted. See important info below about JTS. (note: prior to Solr 6, the "org.locationtech.spatial4j" part was "com.spatial4j.core" and there used to be no convenience JTS alias)
 |geo |If **true**, the default, latitude and longitude coordinates will be used and the mathematical model will generally be a sphere. If false, the coordinates will be generic X & Y on a 2D plane using Euclidean/Cartesian geometry.
 |format |Defines the shape syntax/format to be used. Defaults to `WKT` but `GeoJSON` is another popular format. Spatial4j governs this feature and supports https://locationtech.github.io/spatial4j/apidocs/org/locationtech/spatial4j/io/package-frame.html[other formats]. If a given shape is parseable as "lat,lon" or "x y" then that is always supported.
 |distanceUnits a|
 This is used to specify the units for distance measurements used throughout the use of this field. This can be `degrees`, `kilometers` or `miles`. It is applied to nearly all distance measurements involving the field: `maxDistErr`, `distErr`, `d`, `geodist` and the `score` when score is `distance`, `area`, or `area2d`. However, it doesn't affect distances embedded in WKT strings, (eg: "`BUFFER(POINT(200 10),0.2)`"), which are still in degrees.
 
-`distanceUnits` defaults to either "```kilometers```" if `geo` is "```true```", or "```degress```" if `geo` is "```false```".
+`distanceUnits` defaults to either "```kilometers```" if `geo` is "```true```", or "```degrees```" if `geo` is "```false```".
 
 `distanceUnits` replaces the `units` attribute; which is now deprecated and mutually exclusive with this attribute.
 
@@ -191,7 +193,12 @@ This is used to specify the units for distance measurements used throughout the 
 |maxLevels |Sets the maximum grid depth for indexed data. Instead, it's usually more intuitive to compute an appropriate maxLevels by specifying `maxDistErr` .
 |===
 
-*_And there are others:_* `normWrapLongitude` _,_ `datelineRule`, `validationRule`, `autoIndex`, `allowMultiOverlap`, `precisionModel`. For further info, see the note about spatialContextFactory implementations referenced above, especially the link to the JTS based one.
+*_And there are others:_* `normWrapLongitude` _,_ `datelineRule`, `validationRule`, `autoIndex`, `allowMultiOverlap`, `precisionModel`. For further info, see notes below about spatialContextFactory implementations referenced above, especially the link to the JTS based one.
+
+[[SpatialSearch-JTSandPolygons]]
+=== JTS and Polygons
+
+As indicated above, `spatialContextFactory` must be set to `JTS` for polygon support, including multi-polygon. All other shapes, including even line-strings, are supported without JTS. JTS stands for http://sourceforge.net/projects/jts-topo-suite/[JTS Topology Suite], which does not come with Solr due to its LGPL license. You must download it (a JAR file) and put that in a special location internal to Solr: `SOLR_INSTALL/server/solr-webapp/webapp/WEB-INF/lib/`. You can readily download it here: https://repo1.maven.org/maven2/com/vividsolutions/jts-core/ It will not work if placed in other more typical Solr lib directories, unfortunately. When activated, there are additional configuration attributes available; see https://locationtech.github.io/spatial4j/apidocs/org/locationtech/spatial4j/context/jts/JtsSpatialContextFactory.html[org.locationtech.spatial4j.context.jts.JtsSpatialContextFactory] for the Javadocs, and remember to look at the superclass's options in https://locationtech.github.io/spatial4j/apidocs/org/locationtech/spatial4j/context/SpatialContextFactory.html[SpatialContextFactory] as well. One option in particular you should most likely enable is `autoIndex` (i.e. use JTS's PreparedGeometry) as it's been shown to be a major performance boost for non-trivial polygons.
 
 [source,xml]
 ----
@@ -206,7 +213,7 @@ This is used to specify the units for distance measurements used throughout the 
 
 Once the field type has been defined, define a field that uses it.
 
-Here's an example polygon query for a field "geo" that is either solr.SpatialRecursivePrefixTreeFieldType or RptWithGeometrySpatialField:
+Here's an example polygon query for a field "geo" that can be either solr.SpatialRecursivePrefixTreeFieldType or RptWithGeometrySpatialField:
 
 ....
 &q=*:*&fq={!field f=geo}Intersects(POLYGON((-10 30, -40 40, -10 -20, 40 20, 0 0, -10 30)))
@@ -219,7 +226,7 @@ Inside the parenthesis following the search predicate is the shape definition. T
 [[SpatialSearch-RptWithGeometrySpatialField]]
 === RptWithGeometrySpatialField
 
-The `RptWithGeometrySpatialField` field type is a derivative of `SpatialRecursivePrefixTreeFieldType` that also stores the original geometry in Lucene DocValues, which it uses to achieve accurate search. It can also be used for indexed point fields. The Intersects predicate (the default) is particularly fast, since many search results can be returned as an accurate hit without requiring a geometry check. This field type is configured just like RPT except that the default `distErrPct` is 0.15 (higher than 0.025) because the grid squares are purely for performance and not to fundamentally represent the shape.
+The `RptWithGeometrySpatialField` field type is a derivative of `SpatialRecursivePrefixTreeFieldType` that also stores the original geometry internally in Lucene DocValues, which it uses to achieve accurate search. It can also be used for indexed point fields. The Intersects predicate (the default) is particularly fast, since many search results can be returned as an accurate hit without requiring a geometry check. This field type is configured just like RPT except that the default `distErrPct` is 0.15 (higher than 0.025) because the grid squares are purely for performance and not to fundamentally represent the shape.
 
 An optional in-memory cache can be defined in `solrconfig.xml`, which should be done when the data tends to have shapes with many vertices. Assuming you name your field "geom", you can configure an optional cache in solrconfig.xml by adding the following – notice the suffix of the cache name:
 

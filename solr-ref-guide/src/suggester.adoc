@@ -52,7 +52,7 @@ The Suggester search component takes several configuration parameters. The choic
 |searchComponent name |Arbitrary name for the search component.
 |name |A symbolic name for this suggester. You can refer to this name in the URL parameters and in the SearchHandler configuration. It is possible to have mutiples of these
 |lookupImpl |Lookup implementation. There are several possible implementations, described below in the section <<Suggester-LookupImplementations,Lookup Implementations>>. If not set, the default lookup is JaspellLookupFactory.
-|dictionaryImpl |The dictionary implementation to use. There are several possible implementations, described below in the section <<Suggester-DictionaryImplementations,Dictionary Implementations>>. If not set, the default dictionary implementation is HighFrequencyDictionaryFactory unless a `sourceLocation` is used, in which case, the dictionary implementation will be FileDictionaryFactory
+|dictionaryImpl |The dictionary implementation to use. There are several possible implementations, described below in the section <<Suggester-DictionaryImplementations,Dictionary Implementations>> . If not set, the default dictionary implementation is HighFrequencyDictionaryFactory unless a `sourceLocation` is used, in which case, the dictionary implementation will be FileDictionaryFactory
 |field a|
 A field from the index to use as the basis of suggestion terms. If `sourceLocation` is empty (meaning any dictionary implementation other than FileDictionaryFactory) then terms from this field in the index will be used.
 
@@ -136,12 +136,12 @@ This implementation uses the following additional properties:
 * blenderType: used to calculate weight coefficient using the position of the first matching word. Can be one of:
 ** position_linear: weightFieldValue*(1 - 0.10*position): Matches to the start will be given a higher score (Default)
 ** position_reciprocal: weightFieldValue/(1+position): Matches to the end will be given a higher score.
-*** exponent: an optional configuration variable for the position_reciprocal blenderType used to control how fast the score will increase or decrease. Default 2.0
+*** exponent: an optional configuration variable for the position_reciprocal blenderType used to control how fast the score will increase or decrease. Default 2.0.
 * numFactor: The factor to multiply the number of searched elements from which results will be pruned. Default is 10.
 * indexPath: When using BlendedInfixSuggester you can provide your own path where the index will get built. The default directory name is blendedInfixSuggesterIndexDir and will be created in your collections data directory.
 * minPrefixChars: Minimum number of leading characters before PrefixQuery is used (default 4). Prefixes shorter than this are indexed as character ngrams (increasing index size but making lookups faster).
 
-This implementation supports <<Suggester-ContextFiltering,Context Filtering>>.
+This implementation supports <<Suggester-ContextFiltering,Context Filtering>> .
 
 [[Suggester-FreeTextLookupFactory]]
 ===== FreeTextLookupFactory

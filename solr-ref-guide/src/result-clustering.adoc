@@ -2,7 +2,7 @@
 :page-shortname: result-clustering
 :page-permalink: result-clustering.html
 
-The *clustering* (or **cluster analysis**) plugin attempts to automatically discover groups of related search hits (documents) and assign human-readable labels to these groups. By default in Solr, the clustering algorithm is applied to the search result of each single query—this is called an _on-line_ clustering. While Solr contains an extension for for full-index clustering (__off-line__ clustering) this section will focus on discussing on-line clustering only.
+The *clustering* (or **cluster analysis**) plugin attempts to automatically discover groups of related search hits (documents) and assign human-readable labels to these groups. By default in Solr, the clustering algorithm is applied to the search result of each single query—this is called an _on-line_ clustering. While Solr contains an extension for full-index clustering (__off-line__ clustering) this section will focus on discussing on-line clustering only.
 
 Clusters discovered for a given query can be perceived as __dynamic facets__. This is beneficial when regular faceting is difficult (field values are not known in advance) or when the queries are exploratory in nature. Take a look at the http://search.carrot2.org/stable/search?query=solr&results=100&source=web&view=foamtree[Carrot2] project's demo page to see an example of search results clustering in action (the groups in the visualization have been discovered automatically in search results to the right, there is no external information involved).
 
@@ -31,7 +31,7 @@ A *clustering algorithm* is the actual logic (implementation) that discovers rel
 
 The "```techproducts```" example included with Solr is pre-configured with all the necessary components for result clustering - but they are disabled by default.
 
-To enable the clustering component contrib and a dedicated search handler configured to use it, specify the "`-a`" option to set a JVM System Property when running the example:
+To enable the clustering component contrib and a dedicated search handler configured to use it, specify a JVM System Property when running the example:
 
 [source,plain]
 ----
@@ -211,7 +211,7 @@ At the engine declaration level, the following parameters are supported.
 |Parameter |Description
 |`carrot.algorithm` |The algorithm class.
 |`carrot.resourcesDir` |Algorithm-specific resources and configuration files (stop words, other lexical resources, default settings). By default points to `conf/clustering/carrot2/`
-|`carrot.outputSubClusters` |If `true` and the algorithm supports hierarchical clustering, sub-clusters will also be emitted.
+|`carrot.outputSubClusters` |If `true` and the algorithm supports hierarchical clustering, sub-clusters will also be emitted. Default value: true.
 |`carrot.numDescriptions` |Maximum number of per-cluster labels to return (if the algorithm assigns more than one label to a cluster).
 |===
 
@@ -293,9 +293,9 @@ An example XML file changing the default language of documents to Polish is show
   <attribute-set id="attributes">
     <value-set>
       <label>attributes</label>
-        <attribute key="MultilingualClustering.defaultLanguage">
-          <value type="org.carrot2.core.LanguageCode" value="POLISH"/>
-        </attribute>
+      <attribute key="MultilingualClustering.defaultLanguage">
+        <value type="org.carrot2.core.LanguageCode" value="POLISH"/>
+      </attribute>
     </value-set>
   </attribute-set>
 </attribute-sets> 

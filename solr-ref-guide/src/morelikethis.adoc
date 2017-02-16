@@ -37,7 +37,7 @@ The table below summarizes the `MoreLikeThis` parameters supported by Lucene/Sol
 |mlt.maxqt |Sets the maximum number of query terms that will be included in any generated query.
 |mlt.maxntp |Sets the maximum number of tokens to parse in each example document field that is not stored with TermVector support.
 |mlt.boost |Specifies if the query will be boosted by the interesting term relevance. It can be either "true" or "false".
-|mlt.qf |Query fields and their boosts using the same format as that used by the DisMaxRequestHandler. These fields must also be specified in `mlt.fl`.
+|mlt.qf |Query fields and their boosts using the same format as that used by the https://cwiki.apache.org/confluence/display/solr/The+DisMax+Query+Parser#TheDisMaxQueryParser-Theqf(QueryFields)Parameter[DisMax Query Parser]. These fields must also be specified in `mlt.fl`.
 |===
 
 [[MoreLikeThis-ParametersfortheMoreLikeThisComponent]]

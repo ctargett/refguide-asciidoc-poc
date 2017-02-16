@@ -218,9 +218,9 @@ The main properties we are concerned with are the `keyTab` and `principal` prope
 [[KerberosAuthenticationPlugin-SolrStartupParameters]]
 === Solr Startup Parameters
 
-While starting up Solr, the following host-specific parameters need to be passed. These parameters can be passed at the command line with the `bin/solr` start script (see <<solr-start-script-reference.adoc#solr-start-script-reference,Solr Start Script Reference>> for details on how to pass system parameters) or defined in `bin/solr.in.sh` or `bin/solr.in.cmd` as appropriate for your operating system.
+While starting up Solr, the following host-specific parameters need to be passed. These parameters can be passed at the command line with the `bin/solr` start command (see <<solr-control-script-reference.adoc#solr-control-script-reference,Solr Control Script Reference>> for details on how to pass system parameters) or defined in `bin/solr.in.sh` or `bin/solr.in.cmd` as appropriate for your operating system.
 
-[cols=",,",options="header",]
+[width="100%",cols="34%,33%,33%",options="header",]
 |===
 |Parameter Name |Required |Description
 |solr.kerberos.name.rules |No |Used to map Kerberos principals to short names. Default value is `DEFAULT`. Example of a name rule: `RULE:[1:$1@$0](.*EXAMPLE.COM)s/@.*// `
@@ -250,9 +250,33 @@ You will know this when you see an error like this in your Solr logs : "KrbExcep
 
 For Java 1.8, this is available here: http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html.
 
-Replace the local_policy.jar present in JAVA_HOME/jre/lib/security/ with the new local_policy.jar from the downloaded package and restart the Solr node.
+Replace the `local_policy.jar` present in `JAVA_HOME/jre/lib/security/` with the new `local_policy.jar` from the downloaded package and restart the Solr node.
 
 ====
+
+[[KerberosAuthenticationPlugin-UsingDelegationTokens]]
+=== Using Delegation Tokens
+
+The Kerberos plugin can be configured to use delegation tokens, which allow an application to reuse the authentication of an end-user or another application.
+
+There are a few use cases for Solr where this might be helpful:
+
+* Using distributed clients (such as MapReduce) where each client may not have access to the user's credentials.
+* When load on the Kerberos server is high. Delegation tokens can reduce the load because they do not access the server after the first request.
+* If requests or permissions need to be delegated to another user.
+
+To enable delegation tokens, several parameters must be defined. These parameters can be passed at the command line with the `bin/solr` start command (see <<solr-control-script-reference.adoc#solr-control-script-reference,Solr Control Script Reference>> for details on how to pass system parameters) or defined in `bin/solr.in.sh` or `bin/solr.in.cmd` as appropriate for your operating system.
+
+[width="100%",cols="34%,33%,33%",options="header",]
+|===
+|Parameter Name |Required |Description
+|solr.kerberos.delegation.token.enabled |Yes, to enable tokens |False by default, set to true to enable delegation tokens.
+|solr.kerberos.delegation.token.kind |No |Type of delegation tokens. By default this is `solr-dt`. Likely this does not need to change. No other option is available at this time.
+|solr.kerberos.delegation.token.validity |No |Time, in seconds, for which delegation tokens are valid. The default is 36000 seconds.
+|solr.kerberos.delegation.token.signer.secret.provider |No |Where delegation token information is stored internally. The default is `zookeeper` which must be the location for delegation tokens to work across Solr servers (when running in SolrCloud mode). No other option is available at this time.
+|solr.kerberos.delegation.token.signer.secret.provider.zookeper.path |No |The ZooKeeper path where the secret provider information is stored. This is in the form of the path + /security/token. The path can include the chroot or the chroot can be omitted if you are not using it. This example includes the chroot: `server1:9983,``server2:9983,``server3:9983``/solr/security/token`.
+|solr.kerberos.delegation.token.secret.manager.znode.working.path |No |The ZooKeeper path where token information is stored. This is in the form of the path + /security/zkdtsm. The path can include the chroot or the chroot can be omitted if you are not using it. This example includes the chroot: `server1:9983,``server2:9983,``server3:9983``/solr/security/zkdtsm`.
+|===
 
 [[KerberosAuthenticationPlugin-StartSolr]]
 === Start Solr
@@ -267,7 +291,7 @@ bin/solr -c -z server1:2181,server2:2181,server3:2181/solr
 [[KerberosAuthenticationPlugin-TesttheConfiguration]]
 === Test the Configuration
 
-1.  Do a `kinit` with your username. For example, "kinit user@EXAMPLE.COM"
+1.  Do a `kinit` with your username. For example, "`kinit user@EXAMPLE.COM`".
 2.  Try to access Solr using `curl`. You should get a successful response.
 +
 [source,bash]
@@ -302,3 +326,58 @@ SolrJClient {
   principal="solrclient@EXAMPLE.COM";
 };
 ----
+
+[[KerberosAuthenticationPlugin-DelegationTokenswithSolrJ]]
+=== Delegation Tokens with SolrJ
+
+Delegation tokens are also supported with SolrJ, in the following ways:
+
+* `DelegationTokenRequest` and `DelegationTokenResponse` can be used to get, cancel, and renew delegation tokens.
+* `HttpSolrClient.Builder` includes a `withDelegationToken` function for creating an HttpSolrClient that uses a delegation token to authenticate.
+
+Sample code to get a delegation token:
+
+[source,java]
+----
+private String getDelegationToken(final String renewer, final String user, HttpSolrClient solrClient) throws Exception {
+    DelegationTokenRequest.Get get = new DelegationTokenRequest.Get(renewer) {
+      @Override
+      public SolrParams getParams() {
+        ModifiableSolrParams params = new ModifiableSolrParams(super.getParams());
+        params.set("user", user);
+        return params;
+      }
+    };
+    DelegationTokenResponse.Get getResponse = get.process(solrClient);
+    return getResponse.getDelegationToken();
+  }
+----
+
+To create a `HttpSolrClient` that uses delegation tokens:
+
+[source,java]
+----
+HttpSolrClient client = new HttpSolrClient.Builder("http://localhost:8983/solr").withDelegationToken(token).build();
+----
+
+To create a `CloudSolrClient` that uses delegation tokens:
+
+[source,java]
+----
+CloudSolrClient client = new CloudSolrClient.Builder()
+                .withZkHost("http://localhost:2181")
+                .withLBHttpSolrClientBuilder(new LBHttpSolrClient.Builder()
+                    .withResponseParser(client.getParser())
+                    .withHttpSolrClientBuilder(
+                        new HttpSolrClient.Builder()
+                            .withKerberosDelegationToken(token)
+                    ))
+                        .build();
+----
+
+[TIP]
+====
+
+Hadoop's delegation token responses are in JSON map format. A response parser for that is available in `DelegationTokenResponse`. Other response parsers may not work well with Hadoop responses.
+
+====

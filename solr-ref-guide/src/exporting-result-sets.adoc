@@ -11,37 +11,23 @@ The cases where this functionality may be useful include: session analysis, dist
 
 All the fields being sorted and exported must have docValues set to true. For more information, see the section on <<docvalues.adoc#docvalues,DocValues>>.
 
-// OLD_CONFLUENCE_ID: ExportingResultSets-Definingthe/exportRequestHandler
+// OLD_CONFLUENCE_ID: ExportingResultSets-The/exportRequestHandler
 
-[[ExportingResultSets-Definingthe_exportRequestHandler]]
-== Defining the /export Request Handler
+[[ExportingResultSets-The_exportRequestHandler]]
+== The `/export` RequestHandler
 
-To export the full sorted result set you'll want to use a request handler explicitly configured to only run the "query" component, using the the export "rq" and "wt" params.
-
-An "`/export`" request handler with the appropriate configuration is included in the `techproducts` example `solrconfig.xml`. If however, you would like to add it to an existing `solrconfig.xml`, you can add a section like this:
-
-[source,java]
-----
-<requestHandler name="/export" class="solr.SearchHandler">
-  <lst name="invariants">
-    <str name="rq">{!xport}</str>
-    <str name="wt">xsort</str>
-    <str name="distrib">false</str>
-  </lst>
-  <arr name="components">
-    <str>query</str>
-  </arr>
-</requestHandler>
-----
+The `/export` request handler with the appropriate configuration is one of Solr's out-of-the-box request handlers - see <<implicit-requesthandlers.adoc#implicit-requesthandlers,Implicit RequestHandlers>> for more information.
 
 Note that this request handler's properties are defined as "invariants", which means they cannot be overridden by other properties passed at another time (such as at query time).
 
 [[ExportingResultSets-RequestingResultsExport]]
 == Requesting Results Export
 
-Once the `/export` request handler is defined, you can use it to make requests to export the result set of a query.
+You can use `/export` to make requests to export the result set of a query.
 
-All queries must include `sort` and `fl` parameters, or the query will return an error. Filter queries are also supported. Results are always returned in JSON format.
+All queries must include `sort` and `fl` parameters, or the query will return an error. Filter queries are also supported.
+
+The supported response writers are '`json`' and '`javabin`'. For backward compatibility reasons '`wt=xsort`' is also supported as input, but '`wt=xsort`' behaves same as '`wt=json`'. The default output format is `json`.
 
 Here is an example of what an export request of some indexed log data might look like:
 
@@ -60,7 +46,7 @@ Up to four sort fields can be specified per request, with the 'asc' or 'desc' pr
 [[ExportingResultSets-SpecifyingtheFieldList]]
 === *Specifying the Field List*
 
-The `fl` property defines the fields that will be exported with the result set. Any of the field types that can be sorted (i.e., int, long, float, double, string) can be used in the field list. The fields can be single or multi-valued. However, returning scores and wildcards are not supported at this time.
+The `fl` property defines the fields that will be exported with the result set. Any of the field types that can be sorted (i.e., int, long, float, double, string, date, boolean) can be used in the field list. The fields can be single or multi-valued. However, returning scores and wildcards are not supported at this time.
 
 [[ExportingResultSets-DistributedSupport]]
 == *Distributed Support*

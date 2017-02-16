@@ -2,20 +2,19 @@
 :page-shortname: blockjoin-faceting
 :page-permalink: blockjoin-faceting.html
 
-It's a common requirement to aggregate children facet counts by their parents, i.e., if a parent document has several children documents, all of them need to increment facet value count only once. This functionality is provided by two search components with slightly different performance: the `BlockJoinFacetComponent`, and the `BlockJoinDocSetFacetComponent`.
+It's a common requirement to aggregate children facet counts by their parents, i.e., if a parent document has several children documents, all of them need to increment facet value count only once. This functionality is provided by `BlockJoinDocSetFacetComponent`, and `BlockJoinFacetComponent` just an alias for compatibility.
 
-These components are considered experimental, and must be explicitly enabled for a request handler in `solrconfig.xml`, in the same way as any other <<requesthandlers-and-searchcomponents-in-solrconfig.adoc#requesthandlers-and-searchcomponents-in-solrconfig,search component>>.
+This component is considered experimental, and must be explicitly enabled for a request handler in `solrconfig.xml`, in the same way as any other <<requesthandlers-and-searchcomponents-in-solrconfig.adoc#requesthandlers-and-searchcomponents-in-solrconfig,search component>>.
 
-This example shows how you could add both search components to `solrconfig.xml` and define them in two different request handlers:
+This example shows how you could add this search components to `solrconfig.xml` and define it in request handler:
 
 *solrconfig.xml*
 
 [source,xml]
 ----
-  <searchComponent name="bjqFacetComponent" class="org.apache.solr.search.join.BlockJoinFacetComponent"/>
-  <searchComponent name="bjqDocsetFacetComponent" class="org.apache.solr.search.join.BlockJoinDocSetFacetComponent"/>
+  <searchComponent name="bjqFacetComponent" class="org.apache.solr.search.join.BlockJoinDocSetFacetComponent"/>
 
-  <requestHandler name="/bjqfacet" class="org.apache.solr.handler.component.SearchHandler">
+   <requestHandler name="/bjqfacet" class="org.apache.solr.handler.component.SearchHandler">
     <lst name="defaults">
       <str name="shards.qt">/bjqfacet</str>
     </lst>
@@ -23,25 +22,9 @@ This example shows how you could add both search components to `solrconfig.xml` 
       <str>bjqFacetComponent</str>
     </arr>
   </requestHandler>
-  
-    <requestHandler name="/bjqdocsetfacet" class="org.apache.solr.handler.component.SearchHandler">
-    <lst name="defaults">
-      <str name="shards.qt">/bjqdocsetfacet</str>
-    </lst>
-    <arr name="last-components">
-      <str>bjqDocsetFacetComponent</str>
-    </arr>
-  </requestHandler>
 ----
 
-One of these components can be added into any search request handler.
-
-The difference between the `BlockJoinFacetComponent` and `BlockJoinDocSetFacetComponent` is in the way they deal with Solr's caches.
-
-* The `BlockJoinFacetComponent` disables queryResult cache for the request it takes part in.
-* The `BlockJoinDocSetFacetComponent` uses the filter cache, which might have worse performance if commits are frequent.
-
-In most cases, the differences are negligible. Both components work with distributed search in SolrCloud mode.
+This component can be added into any search request handler. This component work with distributed search in SolrCloud mode.
 
 Documents should be added in children-parent blocks as described in <<uploading-data-with-index-handlers.adoc#UploadingDatawithIndexHandlers-NestedChildDocuments,indexing nested child documents>>. Examples:
 

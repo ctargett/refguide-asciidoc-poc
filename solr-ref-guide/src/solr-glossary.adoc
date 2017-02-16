@@ -109,7 +109,7 @@ A way of creating a searchable index that lists every word and the documents tha
 [[SolrGlossary-Leader]]
 ====== Leader
 
-A single <<SolrGlossary-Replica,Replica>> for each <<SolrGlossary-Shard,Shard>> that takes charge of coordinating index updates (document additions or deletions) to other replicas in the same shard. This is a transient responsibility assigned to a node via an election, if the current Shard Leader goes down, a new node will automatically be elected to take it's place. See also <<SolrGlossary-SolrCloud,SolrCloud>>.
+A single <<SolrGlossary-Replica,Replica>> for each <<SolrGlossary-Shard,Shard>> that takes charge of coordinating index updates (document additions or deletions) to other replicas in the same shard. This is a transient responsibility assigned to a node via an election, if the current Shard Leader goes down, a new node will automatically be elected to take its place. See also <<SolrGlossary-SolrCloud,SolrCloud>>.
 
 [[SolrGlossary-M]]
 == M
@@ -117,7 +117,7 @@ A single <<SolrGlossary-Replica,Replica>> for each <<SolrGlossary-Shard,Shard>> 
 [[SolrGlossary-Metadata]]
 ====== Metadata
 
-Literally, __data about data__. Metadata is information about a document, such as it's title, author, or location.
+Literally, __data about data__. Metadata is information about a document, such as its title, author, or location.
 
 [[SolrGlossary-N]]
 == N
@@ -143,7 +143,7 @@ Also known as "optimistic locking", this is an approach that allows for updates 
 [[SolrGlossary-Overseer]]
 ====== Overseer
 
-A single node in <<SolrGlossary-SolrCloud,SolrCloud>> that is responsible for processing and coordinating actions involving the entire cluster. It keeps track of the state of existing nodes, collections, shards, and replicas, and assigns new replicas to nodes. This is a transient responsibility assigned to a node via an election, if the current Overseer goes down, a new node will be automatically elected to take it's place. See also <<SolrGlossary-SolrCloud,SolrCloud>>.
+A single node in <<SolrGlossary-SolrCloud,SolrCloud>> that is responsible for processing and coordinating actions involving the entire cluster. It keeps track of the state of existing nodes, collections, shards, and replicas, and assigns new replicas to nodes. This is a transient responsibility assigned to a node via an election, if the current Overseer goes down, a new node will be automatically elected to take its place. See also <<SolrGlossary-SolrCloud,SolrCloud>>.
 
 [[SolrGlossary-Q]]
 == Q

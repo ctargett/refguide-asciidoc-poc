@@ -2,12 +2,19 @@
 :page-shortname: schema-factory-definition-in-solrconfig
 :page-permalink: schema-factory-definition-in-solrconfig.html
 
-Solr's <<schema-api.adoc#schema-api,Schema API>> enables remote clients to access <<documents-fields-and-schema-design.adoc#documents-fields-and-schema-design,Schema>> information, and make Schema modifications, through a REST interface. Other features such as Solr's <<schemaless-mode.adoc#schemaless-mode,Schemaless Mode>> also work via Schema modifications made programatically at run time.
+Solr's <<schema-api.adoc#schema-api,Schema API>> enables remote clients to access <<documents-fields-and-schema-design.adoc#documents-fields-and-schema-design,schema>> information, and make schema modifications, through a REST interface. Other features such as Solr's <<schemaless-mode.adoc#schemaless-mode,Schemaless Mode>> also work via schema modifications made programatically at run time.
 
-While the "read" features of the Solr API are supported for all Schema types, support for making Schema modifications programatically depends on the` <schemaFactory/>` in use.
+[IMPORTANT]
+====
 
-[[SchemaFactoryDefinitioninSolrConfig-ManagedSchemaDefault]]
-== Managed Schema Default
+Using the Managed Schema is required to be able to use the Schema API to modify your schema. However, using Managed Schema does not by itself mean you are also using Solr in Schemaless Mode (or "schema guessing" mode). Schemaless mode requires enabling the Managed Schema if it is not already, but full schema guessing requires additional configuration as described in <<schemaless-mode.adoc#schemaless-mode,other sections of this Guide>>.
+
+====
+
+While the "read" features of the Schema API are supported for all schema types, support for making schema modifications programatically depends on the `<schemaFactory/>` in use.
+
+[[SchemaFactoryDefinitioninSolrConfig-SolrUsesManagedSchemabyDefault]]
+== Solr Uses Managed Schema by Default
 
 When a `<schemaFactory/>` is not explicitly declared in a `solrconfig.xml` file, Solr implicitly uses a `ManagedIndexSchemaFactory`, which is by default `"mutable"` and keeps schema information in a `managed-schema` file.
 
@@ -51,8 +58,8 @@ If you have an existing Solr collection that uses `ClassicIndexSchemaFactory`, a
 
 You are now free to use the <<schema-api.adoc#schema-api,Schema API>> as much as you want to make changes, and remove the `schema.xml.bak`.
 
-[[SchemaFactoryDefinitioninSolrConfig-ChangingtoManuallyEditedschema.xml]]
-=== Changing to Manually Edited `schema.xml`
+[[SchemaFactoryDefinitioninSolrConfig-SwitchingfromManagedSchematoManuallyEditedschema.xml]]
+=== Switching from Managed Schema to Manually Edited `schema.xml`
 
 If you have started Solr with managed schema enabled and you would like to switch to manually editing a `schema.xml` file, you should take the following steps:
 
@@ -64,4 +71,11 @@ If you have started Solr with managed schema enabled and you would like to switc
 2.  Add a `ClassicIndexSchemaFactory` definition as shown above
 3.  Reload the core(s).
 
-If you are using SolrCloud, you may need to modify the files via ZooKeeper.
+If you are using SolrCloud, you may need to modify the files via ZooKeeper. The `bin/solr` script provides an easy way to download the files from ZooKeeper and upload them back after edits. See the section <<solr-control-script-reference.adoc#SolrControlScriptReference-ZooKeeperOperations,ZooKeeper Operations>> for more information.
+
+[TIP]
+====
+
+To have full control over your `schema.xml` file, you may also want to disable schema guessing, which allows unknown fields to be added to the schema during indexing. The properties that enable this feature are discussed in the section <<schemaless-mode.adoc#schemaless-mode,Schemaless Mode>>.
+
+====

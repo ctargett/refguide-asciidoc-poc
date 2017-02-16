@@ -58,7 +58,7 @@ These commands can be issued in separate POST requests or in the same POST reque
 
 In each case, the response will include the status and the time to process the request, but will not include the entire schema.
 
-When modifying the schema with the API, a core reload will automatically occur in order for the changes to be available immediately for documents indexed thereafter. Previously indexed documents will **not** be automatically handled - they **must** be re-indexed if they used schema elements that you changed.
+When modifying the schema with the API, a core reload will automatically occur in order for the changes to be available immediately for documents indexed thereafter. Previously indexed documents will *not* be automatically handled - they *must* be re-indexed if they used schema elements that you changed.
 
 [[SchemaAPI-AddaNewField]]
 === Add a New Field
@@ -585,7 +585,7 @@ The query parameters can be added to the API request after a '?'.
 |wt |string |No |json |Defines the format of the response. The options are *json* or **xml**. If not specified, JSON will be returned by default.
 |fl |string |No |(all fields) |Comma- or space-separated list of one or more fields to return. If not specified, all fields will be returned by default.
 |includeDynamic |boolean |No |false |If **true**, and if the *fl* query parameter is specified or the *fieldname* path parameter is used, matching dynamic fields are included in the response and identified with the *dynamicBase* property. If neither the *fl* query parameter nor the *fieldname* path parameter is specified, the *includeDynamic* query parameter is ignored. If **false**, matching dynamic fields will not be returned.
-|showDefaults |boolean |No |false |If **true**, all default field properties from each field's field type will be included in the response (e.g. **tokenized** for **solr.TextField**). If **false**, only explicitly specified field properties will be included.
+|showDefaults |boolean |No |false |If **true**, all default field properties from each field's field type will be included in the response (e.g. *tokenized* for **solr.TextField**). If **false**, only explicitly specified field properties will be included.
 |===
 
 [[SchemaAPI-OUTPUT.1]]

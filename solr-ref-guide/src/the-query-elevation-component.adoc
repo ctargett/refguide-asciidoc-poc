@@ -16,7 +16,7 @@ bin/solr -e techproducts
 [[TheQueryElevationComponent-ConfiguringtheQueryElevationComponent]]
 == Configuring the Query Elevation Component
 
-You can configure the Query Elevation Component in the `solrconfig.xml` file.
+You can configure the Query Elevation Component in the `solrconfig.xml` file. Search components like `QueryElevationComponent` may be added to any request handler; a dedicated request handler is used here for brevity.
 
 [source,xml]
 ----

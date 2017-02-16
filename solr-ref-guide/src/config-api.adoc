@@ -13,8 +13,32 @@ When using this API, `solrconfig.xml` is is not changed. Instead, all edited con
 * `/config/overlay`: retrieve the details in the `configoverlay.json` alone
 * `/config/params` : allows creating parameter sets that can override or take the place of parameters defined in `solrconfig.xml`. See the <<request-parameters-api.adoc#request-parameters-api,Request Parameters API>> section for more details.
 
-[[ConfigAPI-Commands]]
-== Commands
+[[ConfigAPI-Retrievingtheconfig]]
+== Retrieving the config
+
+All configuration items, can be retrieved by sending a GET request to the `/config` endpoint - the results will be the effective configuration resulting from merging settings in `configoverlay.json` with those in `solrconfig.xml`:
+
+[source,bash]
+----
+curl http://localhost:8983/solr/techproducts/config
+----
+
+To restrict the returned results to a top level section, e.g. `query`, `requestHandler` or `updateHandler`, append the name of the section to the `/config` endpoint following a slash. E.g. to retrieve configuration for all request handlers:
+
+[source,bash]
+----
+curl http://localhost:8983/solr/techproducts/config/requestHandler
+----
+
+To further restrict returned results to a single component within a top level section, use the `componentName` request param, e.g. to return configuration for the `/select` request handler:
+
+[source,bash]
+----
+curl http://localhost:8983/solr/techproducts/config/requestHandler?componentName=/select 
+----
+
+[[ConfigAPI-Commandstomodifytheconfig]]
+== Commands to modify the config
 
 This API uses specific commands to tell Solr what property or type of property to add to `configoverlay.json`. The commands are passed as part of the data sent with the request.
 
@@ -267,32 +291,30 @@ The same highlighter with the Config API:
 ----
 {
     "add-searchcomponent": {
-        "highlight": {
-            "name": "myHighlight",
-            "class": "solr.HighlightComponent",
-            "": {
-                "gap": {
-                    "default": "true",
-                    "name": "gap",
-                    "class": "solr.highlight.GapFragmenter",
-                    "defaults": {
-                        "hl.fragsize": 100
-                    }
-                }
-            },
-            "html": [{
+        "name": "highlight",
+        "class": "solr.HighlightComponent",
+        "": {
+            "gap": {
                 "default": "true",
-                "name": "html",
-                "class": "solr.highlight.HtmlFormatter",
+                "name": "gap",
+                "class": "solr.highlight.GapFragmenter",
                 "defaults": {
-                    "hl.simple.pre": "<![CDATA[<em>]]>",
-                    "hl.simple.post": "<![CDATA[</em>]]>"
+                    "hl.fragsize": 100
                 }
-            }, {
-                "name": "html",
-                "class": "solr.highlight.HtmlEncoder"
-            }]
-        }
+            }
+        },
+        "html": [{
+            "default": "true",
+            "name": "html",
+            "class": "solr.highlight.HtmlFormatter",
+            "defaults": {
+                "hl.simple.pre": "before-",
+                "hl.simple.post": "-after"
+            }
+        }, {
+            "name": "html",
+            "class": "solr.highlight.HtmlEncoder"
+        }]
     }
 }
 ----
@@ -491,3 +513,8 @@ Any component can register a listener using:
 `SolrCore#addConfListener(Runnable listener)`
 
 to get notified for config changes. This is not very useful if the files modified result in core reloads (i.e., `configoverlay.xml` or Schema). Components can use this to reload the files they are interested in.
+
+[source,bash]
+----
+curl http://localhost:8983/solr/techproducts/config/requestHandler
+----

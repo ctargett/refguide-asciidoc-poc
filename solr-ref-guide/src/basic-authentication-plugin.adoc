@@ -9,7 +9,7 @@ An authorization plugin is also available to configure Solr with permissions to 
 [[BasicAuthenticationPlugin-EnableBasicAuthentication]]
 == Enable Basic Authentication
 
-To use Basic authentication, you must first create a `security.json` file and store it in ZooKeeper. This file and how to upload it to ZooKeeper is described in detail in the section <<authentication-and-authorization-plugins.adoc#AuthenticationandAuthorizationPlugins-EnabledPluginswithsecurity.json,Enable Plugins with security.json>>.
+To use Basic authentication, you must first create a `security.json` file and store it in ZooKeeper. This file and how to upload it to ZooKeeper is described in detail in the section <<authentication-and-authorization-plugins.adoc#AuthenticationandAuthorizationPlugins-EnablePluginswithsecurity.json,Enable Plugins with security.json>>.
 
 For Basic authentication, the `security.json` file must have an `authentication` part which defines the class being used for authentication. Usernames and passwords (as a sha256(password+salt) hash) could be added when the file is created, or can be added later with the Basic authentication API, described below.
 
@@ -33,11 +33,13 @@ An example `security.json` showing both sections is shown below to show how thes
 }}
 ----
 
-Save the above json to a file called security.json locally. Run the following command to upload it to Zookeeper. (ensure that the Zookeeper port is correct)
+Save the above JSON to a file called `security.json` locally.
+
+Run the following command to upload it to Zookeeper, ensuring that the ZooKeeper port is correct:
 
 [source,bash]
 ----
-server/scripts/cloud-scripts/zkcli.sh -zkhost localhost:9983 -cmd putfile /security.json security.json
+bin/solr zk cp file:path_to_local_security.json zk:/security.json -z localhost:9983
 ----
 
 There are several things defined in this file:
@@ -106,7 +108,7 @@ curl --user solr:SolrRocks http://localhost:8983/solr/admin/authentication -H 'C
 [[BasicAuthenticationPlugin-UsingBasicAuthwithSolrJ]]
 === Using BasicAuth with SolrJ
 
-In SolrJ the basic auth credentials need to be set for each request as in this example:
+In SolrJ the basic authentication credentials need to be set for each request as in this example:
 
 [source,java]
 ----
@@ -115,12 +117,21 @@ req.setBasicAuthCredentials(userName, password);
 solrClient.request(req);
 ----
 
-[[BasicAuthenticationPlugin-Securinginter-noderequests]]
-== Securing inter-node requests
+Query example:
 
-There are a lot of requests that originate from the Solr nodes itself. e.g: requests from overseer to nodes, recovery threads etc . These requests do not carry any basic auth credentials because no user initiated these requests. This means the user is Solr itself. Solr uses a special internode authentication mechanism where each Solr node is a super user and is fully trusted by other Solr nodes.
+[source,java]
+----
+QueryRequest req = new QueryRequest(new SolrQuery("*:*"));
+req.setBasicAuthCredentials(userName, password); 
+QueryResponse rsp = req.process(solrClient);
+----
 
-[[BasicAuthenticationPlugin-PKIAuthenticationPlugin]]
-=== PKIAuthenticationPlugin
+[[BasicAuthenticationPlugin-UsingcommandlinescriptswithBasicAuth]]
+=== Using command line scripts with BasicAuth
 
-This kicks in when there is any request going on between 2 Solr nodes. It is enabled only when the Authentication plugin does not wish to handle inter-node security (only BasicAuthPlugin as of now) .For each outgoing request `PKIAuthenticationPlugin` adds a special header `'SolrAuth' `which carries the timestamp and principal encrypted using the private key of that node. The public key is exposed through an API so that any node can read it whenever it needs it. Any node who gets the request with that header, would get the public key from the sender and decrypt the information. if it is able to decrypt the data, the request trusted. It is invalid if the timestamp is more than 5 secs old. This assumes that the clocks of different nodes in the cluster are synchronized. The timeout is configurable through a system property called 'pkiauth.ttl'. For example , if you wish to bump up the ttl to 10 seconds (10000 milliseconds) , start each node with a property `'-Dpkiauth.ttl=10000'` .
+Add the following line to the `solr.in.sh/solr.in.cmd` file. This example sets BasicAuth credentials for user-name "solr" and password "SolrRocks":
+
+[source,bash]
+----
+SOLR_AUTHENTICATION_OPTS="-Dbasicauth=solr:SolrRocks"
+----
