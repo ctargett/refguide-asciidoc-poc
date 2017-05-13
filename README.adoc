@@ -3,6 +3,11 @@
 
 This project is a proof of concept for reimplementing the https://cwiki.apache.org/confluence/display/solr[Apache Solr Reference Guide] as an Asciidoc-driven HTML site.
 
+== ** AS OF 10 MAY 2017 THIS PROJECT HAS BEEN MERGED WITH SOLR
+SEE https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git FOR LATEST CODE
+
+OLD README CONTENT FOLLOWS
+
 Instead of the current approach that uses Confluence, HTML pages and PDFs could be generated using a publishing toolchain that is integrated with existing Lucene/Solr build processes.
 
 Asciidoc has been chosen as the format for Ref Guide format. This is a plain-text light-weight markup language, similar to Markdown, but with more options for structured articles, manuals, books, etc.
